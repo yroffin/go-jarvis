@@ -22,19 +22,17 @@
 package main
 
 import (
-	// fmt has methods for formatted IO
-
-	// the "net/http" library has methods for HTTP
-
-	// Gorilla router
-
 	// Apis
+	"flag"
+
 	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
 	core_business "github.com/yroffin/go-boot-sqllite/core/business"
 	core_manager "github.com/yroffin/go-boot-sqllite/core/manager"
+	core_services "github.com/yroffin/go-boot-sqllite/core/services"
 	core_stores "github.com/yroffin/go-boot-sqllite/core/stores"
 	app_apis "github.com/yroffin/go-jarvis/apis"
+	app_services "github.com/yroffin/go-jarvis/services"
 )
 
 // Rest()
@@ -42,10 +40,23 @@ func main() {
 	// declare manager and boot it
 	var m = core_manager.Manager{}
 	m.Init()
+	// Command Line
+	flag.String("Djarvis.slack.api", "", "Slack API")
+	m.CommandLine()
 	// Core beans
 	m.Register("router", &core_apis.Router{Bean: &core_bean.Bean{}})
 	m.Register("crud-business", &core_business.CrudBusiness{Bean: &core_bean.Bean{}})
 	m.Register("store-manager", &core_stores.Store{Bean: &core_bean.Bean{}, Tables: []string{"Command", "Notification"}, DbPath: "./database.db"})
+	// helpers
+	m.Register("property-service", &app_services.PropertyService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}})
+	// PLUGINS beans
+	m.Register("plugin-slack-service", &app_services.PluginSlackService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}})
+	// SERVCE beans
+	m.Register("slack-service", &app_services.SlackService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}})
+	m.Register("lua-service", &app_services.LuaService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}})
+	m.Register("shell-service", &app_services.ShellService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}})
+	m.Register("zway-service", &app_services.ZwayService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}})
+	m.Register("chacon-service", &app_services.ChaconService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}})
 	// API beans
 	m.Register("command", &app_apis.Command{API: &core_apis.API{Bean: &core_bean.Bean{}}})
 	m.Register("notification", &app_apis.Notification{API: &core_apis.API{Bean: &core_bean.Bean{}}})

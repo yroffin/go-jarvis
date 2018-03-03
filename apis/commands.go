@@ -25,11 +25,14 @@ package apis
 import (
 	"encoding/json"
 	"log"
+	"reflect"
+	"strconv"
 
 	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 	app_models "github.com/yroffin/go-jarvis/models"
+	app_services "github.com/yroffin/go-jarvis/services"
 )
 
 // Bean internal members
@@ -40,6 +43,9 @@ type Command struct {
 	Name string
 	// mounts
 	crud string `path:"/api/commands"`
+	// Slide with injection mecanism
+	SetSlackService func(interface{}) `bean:"slack-service"`
+	SlackService    *app_services.SlackService
 }
 
 // ICommand implements IBean
@@ -49,6 +55,14 @@ type ICommand interface {
 
 // Init this API
 func (p *Command) Init() error {
+	// inject store
+	p.SetSlackService = func(value interface{}) {
+		if assertion, ok := value.(*app_services.SlackService); ok {
+			p.SlackService = assertion
+		} else {
+			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+		}
+	}
 	// Crud
 	p.HandlerGetAll = func() (string, error) {
 		return p.GenericGetAll(&app_models.CommandBean{}, core_models.IPersistents(&app_models.CommandBeans{Collection: make([]core_models.IPersistent, 0)}))
@@ -66,6 +80,11 @@ func (p *Command) Init() error {
 		if name == "execute" {
 			// task
 			return p.Execute(id, body)
+		}
+		if name == "test" {
+			// task
+			res, err := p.Test(id, body)
+			return strconv.FormatBool(res), err
 		}
 		return "", nil
 	}
@@ -94,10 +113,49 @@ func (p *Command) Validate(name string) error {
 }
 
 // Execute this command
-func (p *Command) Execute(id string, body string) (string, error) {
+func (p *Command) decode(id string, body string) (string, map[string]interface{}, map[string]interface{}, error) {
+	// retrieve command and serialize it
 	model := app_models.CommandBean{}
 	p.GetByID(id, &model)
-	json, _ := json.Marshal(&model)
-	log.Printf("COMMAND - INPUT - TYPE %v\nBODY: %v", model.Type, string(json))
-	return body, nil
+	raw, _ := json.Marshal(&model)
+	converted := make(map[string]interface{})
+	json.Unmarshal(raw, &converted)
+	// retrieve args and serialize it
+	args := make(map[string]interface{})
+	json.Unmarshal([]byte(body), &args)
+	// log some trace
+	log.Printf("COMMAND - INPUT - TYPE %v\nBODY: %v", model.Type, converted)
+	return model.Type, converted, args, nil
+}
+
+// Execute this command
+func (p *Command) Execute(id string, body string) (string, error) {
+	typ, command, args, _ := p.decode(id, body)
+	value := &app_models.ValueBean{}
+	switch typ {
+	case "SLACK":
+		result, _ := p.SlackService.AsObject(command, args)
+		value.SetValue(result)
+		break
+	default:
+		log.Printf("Warning type %v is not implemented", typ)
+	}
+	result, _ := json.Marshal(&value)
+	return string(result), nil
+}
+
+// Test this command
+func (p *Command) Test(id string, body string) (bool, error) {
+	typ, command, args, _ := p.decode(id, body)
+	value := &app_models.ValueBean{}
+	switch typ {
+	case "SLACK":
+		result, _ := p.SlackService.AsObject(command, args)
+		value.SetValue(result)
+		break
+	default:
+		log.Printf("Warning type %v is not implemented", typ)
+	}
+	result, _ := json.Marshal(&value)
+	return string(result) == "true", nil
 }

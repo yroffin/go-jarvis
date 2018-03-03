@@ -15,3 +15,8 @@
 **/*.db
 *.db
 gin-bin
+vendor
+**/vendor
+go-jarvis
+*.lock
+

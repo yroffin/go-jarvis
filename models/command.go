@@ -23,6 +23,9 @@
 package models
 
 import (
+	"encoding/json"
+	"log"
+
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 )
 
@@ -57,6 +60,26 @@ func (p *CommandBean) GetID() string {
 // SetID retrieve ID
 func (p *CommandBean) SetID(ID string) {
 	p.ID = ID
+}
+
+// ToString stringify this commnd
+func (p *CommandBean) ToString() string {
+	payload, err := json.Marshal(p)
+	if err != nil {
+		log.Println("Unable to marshal:", err)
+		return "{}"
+	}
+	return string(payload)
+}
+
+// ToJSON stringify this commnd
+func (p *CommandBean) ToJSON() string {
+	payload, err := json.Marshal(p)
+	if err != nil {
+		log.Println("Unable to marshal:", err)
+		return "{}"
+	}
+	return string(payload)
 }
 
 // SetTimestamp set timestamp

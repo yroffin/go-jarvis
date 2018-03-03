@@ -27,11 +27,17 @@ type ValueBean struct {
 	// Type
 	Type string `json:"type"`
 	// Value
-	Value map[string]interface{} `json:"value"`
+	Value AsString `json:"value"`
+}
+
+// AsString simple ToString interface
+type AsString interface {
+	ToString() string
+	ToJSON() string
 }
 
 // SetValue get set name
-func (p *ValueBean) SetValue(v map[string]interface{}) error {
+func (p *ValueBean) SetValue(v AsString) error {
 	p.Value = v
 	return nil
 }

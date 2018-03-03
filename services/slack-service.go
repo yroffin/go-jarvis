@@ -28,6 +28,7 @@ import (
 
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
 	core_apis "github.com/yroffin/go-boot-sqllite/core/services"
+	"github.com/yroffin/go-jarvis/models"
 )
 
 // SlackService internal members
@@ -68,13 +69,12 @@ func (p *SlackService) Validate(name string) error {
 }
 
 // AsObject execution
-func (p *SlackService) AsObject(body map[string]interface{}, args map[string]interface{}) (map[string]interface{}, error) {
+func (p *SlackService) AsObject(body models.AsString, args map[string]interface{}) (models.AsString, error) {
 	command := make(map[string]interface{})
-	result := make(map[string]interface{})
 	log.Println("Args:", args, "Body:", body)
-	command["text"] = body["body"]
+	command["text"] = body.ToString()
 	p.PluginSlackService.Call(command)
-	return result, nil
+	return body, nil
 }
 
 // AsBoolean execution

@@ -113,7 +113,7 @@ func (p *Command) Validate(name string) error {
 }
 
 // Execute this command
-func (p *Command) decode(id string, body string) (string, map[string]interface{}, map[string]interface{}, error) {
+func (p *Command) decode(id string, body string) (string, app_models.CommandBean, map[string]interface{}, error) {
 	// retrieve command and serialize it
 	model := app_models.CommandBean{}
 	p.GetByID(id, &model)
@@ -125,23 +125,21 @@ func (p *Command) decode(id string, body string) (string, map[string]interface{}
 	json.Unmarshal([]byte(body), &args)
 	// log some trace
 	log.Printf("COMMAND - INPUT - TYPE %v\nBODY: %v", model.Type, converted)
-	return model.Type, converted, args, nil
+	return model.Type, model, args, nil
 }
 
 // Execute this command
 func (p *Command) Execute(id string, body string) (string, error) {
 	typ, command, args, _ := p.decode(id, body)
-	value := &app_models.ValueBean{}
 	switch typ {
 	case "SLACK":
-		result, _ := p.SlackService.AsObject(command, args)
-		value.SetValue(result)
+		result, _ := p.SlackService.AsObject(&command, args)
+		return result.ToString(), nil
 		break
 	default:
 		log.Printf("Warning type %v is not implemented", typ)
 	}
-	result, _ := json.Marshal(&value)
-	return string(result), nil
+	return "", nil
 }
 
 // Test this command
@@ -150,7 +148,7 @@ func (p *Command) Test(id string, body string) (bool, error) {
 	value := &app_models.ValueBean{}
 	switch typ {
 	case "SLACK":
-		result, _ := p.SlackService.AsObject(command, args)
+		result, _ := p.SlackService.AsObject(&command, args)
 		value.SetValue(result)
 		break
 	default:

@@ -69,7 +69,7 @@ func (p *SlackService) Validate(name string) error {
 }
 
 // AsObject execution
-func (p *SlackService) AsObject(body models.AsString, args map[string]interface{}) (models.AsString, error) {
+func (p *SlackService) AsObject(body models.AsValue, args map[string]interface{}) (models.AsValue, error) {
 	command := make(map[string]interface{})
 	log.Println("Args:", args, "Body:", body)
 	command["text"] = body.ToString()
@@ -80,6 +80,6 @@ func (p *SlackService) AsObject(body models.AsString, args map[string]interface{
 // AsBoolean execution
 func (p *SlackService) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
 	result := false
-	log.Println("Args:", args, "Body:", body)
+	log.Println("Args:", args, "Body:", body, "Not implemented")
 	return result, nil
 }

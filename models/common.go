@@ -22,22 +22,77 @@
 // SOFTWARE.
 package models
 
+import (
+	"encoding/json"
+	"log"
+)
+
 // ValueBean simple command model
 type ValueBean struct {
-	// Type
-	Type string `json:"type"`
-	// Value
-	Value AsString `json:"value"`
+	// internal store
+	store map[string]interface{}
 }
 
-// AsString simple ToString interface
-type AsString interface {
+// AsValue simple ToString interface
+type AsValue interface {
+	Set(string, interface{})
+	SetString(string, string)
+	GetAsString(string) string
+	GetAsStringArray(string) []string
 	ToString() string
 	ToJSON() string
 }
 
-// SetValue get set name
-func (p *ValueBean) SetValue(v AsString) error {
-	p.Value = v
-	return nil
+// ToString stringify this commnd
+func (p *ValueBean) ToString() string {
+	payload, err := json.Marshal(p.store)
+	if err != nil {
+		log.Println("Unable to marshal:", err)
+		return "{}"
+	}
+	return string(payload)
+}
+
+// ToJSON return o json formated value (in pretty format)
+func (p *ValueBean) ToJSON() string {
+	payload, err := json.MarshalIndent(p.store, "\t", "\t")
+	if err != nil {
+		log.Println("Unable to marshal:", err)
+		return "{}"
+	}
+	return string(payload)
+}
+
+// Set a value for a key
+func (p *ValueBean) Set(key string, value interface{}) {
+	if p.store == nil {
+		p.store = make(map[string]interface{})
+	}
+	p.store[key] = value
+}
+
+// Set a value for a key
+func (p *ValueBean) SetString(key string, value string) {
+	if p.store == nil {
+		p.store = make(map[string]interface{})
+	}
+	p.store[key] = value
+}
+
+// Get field value
+func (p *ValueBean) GetAsString(key string) string {
+	if assertion, ok := p.store[key].(string); ok {
+		return assertion
+	}
+	log.Fatalf("Unable to render key %v for string type", key)
+	return ""
+}
+
+// Get field value
+func (p *ValueBean) GetAsStringArray(key string) []string {
+	if assertion, ok := p.store[key].([]string); ok {
+		return assertion
+	}
+	log.Fatalf("Unable to render key %v for string type", key)
+	return make([]string, 0)
 }

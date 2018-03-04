@@ -46,6 +46,9 @@ type Command struct {
 	// Slide with injection mecanism
 	SetSlackService func(interface{}) `bean:"slack-service"`
 	SlackService    *app_services.SlackService
+	// Slide with injection mecanism
+	SetShellService func(interface{}) `bean:"shell-service"`
+	ShellService    *app_services.ShellService
 }
 
 // ICommand implements IBean
@@ -59,6 +62,14 @@ func (p *Command) Init() error {
 	p.SetSlackService = func(value interface{}) {
 		if assertion, ok := value.(*app_services.SlackService); ok {
 			p.SlackService = assertion
+		} else {
+			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+		}
+	}
+	// inject store
+	p.SetShellService = func(value interface{}) {
+		if assertion, ok := value.(*app_services.ShellService); ok {
+			p.ShellService = assertion
 		} else {
 			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
 		}
@@ -135,7 +146,9 @@ func (p *Command) Execute(id string, body string) (string, error) {
 	case "SLACK":
 		result, _ := p.SlackService.AsObject(&command, args)
 		return result.ToString(), nil
-		break
+	case "SHELL":
+		result, _ := p.ShellService.AsObject(&command, args)
+		return result.ToString(), nil
 	default:
 		log.Printf("Warning type %v is not implemented", typ)
 	}
@@ -145,15 +158,17 @@ func (p *Command) Execute(id string, body string) (string, error) {
 // Test this command
 func (p *Command) Test(id string, body string) (bool, error) {
 	typ, command, args, _ := p.decode(id, body)
-	value := &app_models.ValueBean{}
 	switch typ {
 	case "SLACK":
 		result, _ := p.SlackService.AsObject(&command, args)
-		value.SetValue(result)
+		return result.ToString() == "true", nil
+		break
+	case "SHELL":
+		result, _ := p.ShellService.AsObject(&command, args)
+		return result.ToString() == "true", nil
 		break
 	default:
 		log.Printf("Warning type %v is not implemented", typ)
 	}
-	result, _ := json.Marshal(&value)
-	return string(result) == "true", nil
+	return false, nil
 }

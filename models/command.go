@@ -29,6 +29,11 @@ import (
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 )
 
+// CommandHandler simple command handler
+type CommandHandler interface {
+	AsObject(*CommandBean, map[string]interface{}) (AsValue, error)
+}
+
 // CommandBean simple command model
 type CommandBean struct {
 	// Id
@@ -60,6 +65,33 @@ func (p *CommandBean) GetID() string {
 // SetID retrieve ID
 func (p *CommandBean) SetID(ID string) {
 	p.ID = ID
+}
+
+// Set get set name
+func (p *CommandBean) Set(key string, value interface{}) {
+}
+
+// SetString get set name
+func (p *CommandBean) SetString(key string, value string) {
+	switch key {
+	case "body":
+		p.Body = value
+		break
+	}
+}
+
+// Get get set name
+func (p *CommandBean) GetAsString(key string) string {
+	switch key {
+	case "body":
+		return p.Body
+	}
+	return ""
+}
+
+// Get get set name
+func (p *CommandBean) GetAsStringArray(key string) []string {
+	return make([]string, 0)
 }
 
 // ToString stringify this commnd

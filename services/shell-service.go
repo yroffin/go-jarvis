@@ -24,15 +24,20 @@ package services
 
 import (
 	"log"
+	"reflect"
 
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
 	core_apis "github.com/yroffin/go-boot-sqllite/core/services"
+	"github.com/yroffin/go-jarvis/models"
 )
 
 // Script internal members
 type ShellService struct {
 	// members
 	*core_apis.SERVICE
+	// SetPluginShellService with injection mecanism
+	SetPluginShellService func(interface{}) `bean:"plugin-shell-service"`
+	PluginShellService    *PluginShellService
 }
 
 // IShellService implements IBean
@@ -42,6 +47,14 @@ type IShellService interface {
 
 // Init this API
 func (p *ShellService) Init() error {
+	// inject store
+	p.SetPluginShellService = func(value interface{}) {
+		if assertion, ok := value.(*PluginShellService); ok {
+			p.PluginShellService = assertion
+		} else {
+			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+		}
+	}
 	return nil
 }
 
@@ -55,8 +68,16 @@ func (p *ShellService) Validate(name string) error {
 	return nil
 }
 
-// Execute this command
-func (p *ShellService) Execute(id string, body string) (string, error) {
-	log.Println("ShellService:", body)
-	return body, nil
+// AsObject execution
+func (p *ShellService) AsObject(body models.AsValue, args map[string]interface{}) (models.AsValue, error) {
+	log.Println("Args:", args, "Body:", body)
+	result, _ := p.PluginShellService.Call(body.GetAsString("body"))
+	return &result, nil
+}
+
+// AsBoolean execution
+func (p *ShellService) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
+	result := false
+	log.Println("Args:", args, "Body:", body, "Not implemented")
+	return result, nil
 }

@@ -51,6 +51,7 @@ func main() {
 	m.Register("property-service", &app_services.PropertyService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}})
 	// PLUGINS beans
 	m.Register("plugin-slack-service", &app_services.PluginSlackService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}})
+	m.Register("plugin-shell-service", &app_services.PluginShellService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}})
 	// SERVCE beans
 	m.Register("slack-service", &app_services.SlackService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}})
 	m.Register("lua-service", &app_services.LuaService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}})

@@ -24,15 +24,20 @@ package services
 
 import (
 	"log"
+	"reflect"
 
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
 	core_services "github.com/yroffin/go-boot-sqllite/core/services"
+	app_models "github.com/yroffin/go-jarvis/models"
 )
 
 // ChaconService internal members
 type ChaconService struct {
 	// members
 	*core_services.SERVICE
+	// SetPluginSlackService with injection mecanism
+	SetPluginChaconService func(interface{}) `bean:"plugin-chacon-service"`
+	PluginChaconService    *PluginChaconService
 }
 
 // IChaconService implements IBean
@@ -48,6 +53,14 @@ func (p *ChaconService) New() IChaconService {
 
 // Init this API
 func (p *ChaconService) Init() error {
+	// inject store
+	p.SetPluginChaconService = func(value interface{}) {
+		if assertion, ok := value.(*PluginChaconService); ok {
+			p.PluginChaconService = assertion
+		} else {
+			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+		}
+	}
 	return nil
 }
 
@@ -61,8 +74,16 @@ func (p *ChaconService) Validate(name string) error {
 	return nil
 }
 
-// Execute this command
-func (p *ChaconService) Execute(id string, body string) (string, error) {
-	log.Println("ChaconService:", body)
-	return body, nil
+// AsObject execution
+func (p *ChaconService) AsObject(body app_models.IValueBean, args map[string]interface{}) (app_models.IValueBean, error) {
+	log.Println("Args:", args, "Body:", body)
+	result, _ := p.PluginChaconService.Call(body.GetAsString("body"))
+	return result, nil
+}
+
+// AsBoolean execution
+func (p *ChaconService) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
+	result := false
+	log.Println("Args:", args, "Body:", body, "Not implemented")
+	return result, nil
 }

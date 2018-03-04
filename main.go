@@ -32,6 +32,11 @@ import (
 	core_stores "github.com/yroffin/go-boot-sqllite/core/stores"
 	app_apis "github.com/yroffin/go-jarvis/apis"
 	app_services "github.com/yroffin/go-jarvis/services"
+	app_chacon "github.com/yroffin/go-jarvis/services/chacon"
+	app_lua "github.com/yroffin/go-jarvis/services/lua"
+	app_shell "github.com/yroffin/go-jarvis/services/shell"
+	app_slack "github.com/yroffin/go-jarvis/services/slack"
+	app_zway "github.com/yroffin/go-jarvis/services/zway"
 )
 
 // Rest()
@@ -49,15 +54,17 @@ func main() {
 	// helpers
 	m.Register("property-service", (&app_services.PropertyService{}).New())
 	// PLUGINS beans
-	m.Register("plugin-slack-service", (&app_services.PluginSlackService{}).New())
-	m.Register("plugin-shell-service", (&app_services.PluginShellService{}).New())
-	m.Register("plugin-lua-service", (&app_services.PluginLuaService{}).New())
+	m.Register("plugin-slack-service", (&app_slack.PluginSlackService{}).New())
+	m.Register("plugin-shell-service", (&app_shell.PluginShellService{}).New())
+	m.Register("plugin-lua-service", (&app_lua.PluginLuaService{}).New())
+	m.Register("plugin-chacon-service", (&app_chacon.PluginChaconService{}).New())
+	m.Register("plugin-zway-service", (&app_zway.PluginZwayService{}).New())
 	// SERVCE beans
-	m.Register("slack-service", (&app_services.SlackService{}).New())
-	m.Register("lua-service", (&app_services.LuaService{}).New())
-	m.Register("shell-service", (&app_services.ShellService{}).New())
-	m.Register("zway-service", (&app_services.ZwayService{}).New())
-	m.Register("chacon-service", (&app_services.ChaconService{}).New())
+	m.Register("slack-service", (&app_slack.SlackService{}).New())
+	m.Register("lua-service", (&app_lua.LuaService{}).New())
+	m.Register("shell-service", (&app_shell.ShellService{}).New())
+	m.Register("zway-service", (&app_zway.ZwayService{}).New())
+	m.Register("chacon-service", (&app_chacon.ChaconService{}).New())
 	// API beans
 	m.Register("command", (&app_apis.Command{}).New())
 	m.Register("notification", (&app_apis.Notification{}).New())

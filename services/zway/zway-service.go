@@ -24,15 +24,20 @@ package services
 
 import (
 	"log"
+	"reflect"
 
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
 	core_services "github.com/yroffin/go-boot-sqllite/core/services"
+	app_models "github.com/yroffin/go-jarvis/models"
 )
 
 // ZwayService internal members
 type ZwayService struct {
 	// members
 	*core_services.SERVICE
+	// SetPluginZwayService with injection mecanism
+	SetPluginZwayService func(interface{}) `bean:"plugin-zway-service"`
+	PluginZwayService    *PluginZwayService
 }
 
 // IZwayService implements IBean
@@ -48,6 +53,14 @@ func (p *ZwayService) New() IZwayService {
 
 // Init this API
 func (p *ZwayService) Init() error {
+	// inject store
+	p.SetPluginZwayService = func(value interface{}) {
+		if assertion, ok := value.(*PluginZwayService); ok {
+			p.PluginZwayService = assertion
+		} else {
+			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+		}
+	}
 	return nil
 }
 
@@ -61,8 +74,16 @@ func (p *ZwayService) Validate(name string) error {
 	return nil
 }
 
-// Execute this command
-func (p *ZwayService) Execute(id string, body string) (string, error) {
-	log.Println("Script:", body)
-	return body, nil
+// AsObject execution
+func (p *ZwayService) AsObject(body app_models.IValueBean, args map[string]interface{}) (app_models.IValueBean, error) {
+	log.Println("Args:", args, "Body:", body)
+	result, _ := p.PluginZwayService.Call(body.GetAsString("body"))
+	return result, nil
+}
+
+// AsBoolean execution
+func (p *ZwayService) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
+	result := false
+	log.Println("Args:", args, "Body:", body, "Not implemented")
+	return result, nil
 }

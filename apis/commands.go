@@ -31,7 +31,11 @@ import (
 	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
 	app_models "github.com/yroffin/go-jarvis/models"
-	app_services "github.com/yroffin/go-jarvis/services"
+	app_chacon "github.com/yroffin/go-jarvis/services/chacon"
+	app_lua "github.com/yroffin/go-jarvis/services/lua"
+	app_shell "github.com/yroffin/go-jarvis/services/shell"
+	app_slack "github.com/yroffin/go-jarvis/services/slack"
+	app_zway "github.com/yroffin/go-jarvis/services/zway"
 )
 
 // Command internal members
@@ -42,15 +46,21 @@ type Command struct {
 	Name string
 	// mounts
 	crud string `path:"/api/commands"`
-	// Slide with injection mecanism
+	// SlackService with injection mecanism
 	SetSlackService func(interface{}) `bean:"slack-service"`
-	SlackService    *app_services.SlackService
-	// Slide with injection mecanism
+	SlackService    *app_slack.SlackService
+	// ShellService with injection mecanism
 	SetShellService func(interface{}) `bean:"shell-service"`
-	ShellService    *app_services.ShellService
-	// Slide with injection mecanism
+	ShellService    *app_shell.ShellService
+	// LuaService with injection mecanism
 	SetLuaService func(interface{}) `bean:"lua-service"`
-	LuaService    *app_services.LuaService
+	LuaService    *app_lua.LuaService
+	// ChaconService with injection mecanism
+	SetChaconService func(interface{}) `bean:"chacon-service"`
+	ChaconService    *app_chacon.ChaconService
+	// ZwayService with injection mecanism
+	SetZwayService func(interface{}) `bean:"zway-service"`
+	ZwayService    *app_zway.ZwayService
 }
 
 // ICommand implements IBean
@@ -62,7 +72,7 @@ type ICommand interface {
 func (p *Command) Init() error {
 	// inject store
 	p.SetSlackService = func(value interface{}) {
-		if assertion, ok := value.(*app_services.SlackService); ok {
+		if assertion, ok := value.(*app_slack.SlackService); ok {
 			p.SlackService = assertion
 		} else {
 			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
@@ -70,7 +80,7 @@ func (p *Command) Init() error {
 	}
 	// inject store
 	p.SetShellService = func(value interface{}) {
-		if assertion, ok := value.(*app_services.ShellService); ok {
+		if assertion, ok := value.(*app_shell.ShellService); ok {
 			p.ShellService = assertion
 		} else {
 			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
@@ -78,8 +88,24 @@ func (p *Command) Init() error {
 	}
 	// inject store
 	p.SetLuaService = func(value interface{}) {
-		if assertion, ok := value.(*app_services.LuaService); ok {
+		if assertion, ok := value.(*app_lua.LuaService); ok {
 			p.LuaService = assertion
+		} else {
+			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+		}
+	}
+	// inject store
+	p.SetChaconService = func(value interface{}) {
+		if assertion, ok := value.(*app_chacon.ChaconService); ok {
+			p.ChaconService = assertion
+		} else {
+			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+		}
+	}
+	// inject store
+	p.SetZwayService = func(value interface{}) {
+		if assertion, ok := value.(*app_zway.ZwayService); ok {
+			p.ZwayService = assertion
 		} else {
 			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
 		}
@@ -168,6 +194,12 @@ func (p *Command) Execute(id string, body string) (string, error) {
 	case "LUA":
 		result, _ := p.LuaService.AsObject(command, args)
 		return result.ToString(), nil
+	case "CHACON":
+		result, _ := p.ChaconService.AsObject(command, args)
+		return result.ToString(), nil
+	case "ZWAY":
+		result, _ := p.ZwayService.AsObject(command, args)
+		return result.ToString(), nil
 	default:
 		log.Printf("Warning type %v is not implemented", typ)
 	}
@@ -187,6 +219,12 @@ func (p *Command) Test(id string, body string) (bool, error) {
 		return result.ToString() == "true", nil
 	case "LUA":
 		result, _ := p.LuaService.AsObject(command, args)
+		return result.ToString() == "true", nil
+	case "CHACON":
+		result, _ := p.ChaconService.AsObject(command, args)
+		return result.ToString() == "true", nil
+	case "ZWAY":
+		result, _ := p.ZwayService.AsObject(command, args)
 		return result.ToString() == "true", nil
 	default:
 		log.Printf("Warning type %v is not implemented", typ)

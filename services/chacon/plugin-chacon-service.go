@@ -26,24 +26,23 @@ import (
 	"log"
 	"reflect"
 
-	lua "github.com/Shopify/go-lua"
-
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
 	core_services "github.com/yroffin/go-boot-sqllite/core/services"
 	app_models "github.com/yroffin/go-jarvis/models"
+	app_services "github.com/yroffin/go-jarvis/services"
 )
 
-// PluginLuaService internal members
-type PluginLuaService struct {
+// PluginChaconService internal members
+type PluginChaconService struct {
 	// members
 	*core_services.SERVICE
 	// SetPropertyService with injection mecanism
 	SetPropertyService func(interface{}) `bean:"property-service"`
-	PropertyService    *PropertyService
+	PropertyService    *app_services.PropertyService
 }
 
-// IPluginLuaService implements IBean
-type IPluginLuaService interface {
+// IPluginChaconService implements IBean
+type IPluginChaconService interface {
 	// Extend bean
 	core_bean.IBean
 	// Local method
@@ -51,16 +50,16 @@ type IPluginLuaService interface {
 }
 
 // New constructor
-func (p *PluginLuaService) New() IPluginLuaService {
-	bean := PluginLuaService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
+func (p *PluginChaconService) New() IPluginChaconService {
+	bean := PluginChaconService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
 	return &bean
 }
 
 // Init this SERVICE
-func (p *PluginLuaService) Init() error {
+func (p *PluginChaconService) Init() error {
 	// inject store
 	p.SetPropertyService = func(value interface{}) {
-		if assertion, ok := value.(*PropertyService); ok {
+		if assertion, ok := value.(*app_services.PropertyService); ok {
 			p.PropertyService = assertion
 		} else {
 			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
@@ -70,24 +69,17 @@ func (p *PluginLuaService) Init() error {
 }
 
 // PostConstruct this SERVICE
-func (p *PluginLuaService) PostConstruct(name string) error {
+func (p *PluginChaconService) PostConstruct(name string) error {
 	return nil
 }
 
 // Validate this SERVICE
-func (p *PluginLuaService) Validate(name string) error {
+func (p *PluginChaconService) Validate(name string) error {
 	return nil
 }
 
 // Call execution
-func (p *PluginLuaService) Call(body string) (app_models.IValueBean, error) {
-	l := lua.NewState()
-	lua.OpenLibraries(l)
-
-	if err := lua.DoString(l, body); err != nil {
-		panic(err)
-	}
-
+func (p *PluginChaconService) Call(body string) (app_models.IValueBean, error) {
 	result := (&app_models.ValueBean{}).New()
 	return result, nil
 }

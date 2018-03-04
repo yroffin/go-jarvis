@@ -31,6 +31,7 @@ import (
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
 	core_services "github.com/yroffin/go-boot-sqllite/core/services"
 	app_models "github.com/yroffin/go-jarvis/models"
+	app_services "github.com/yroffin/go-jarvis/services"
 )
 
 // PluginShellService internal members
@@ -39,7 +40,7 @@ type PluginShellService struct {
 	*core_services.SERVICE
 	// SetPropertyService with injection mecanism
 	SetPropertyService func(interface{}) `bean:"property-service"`
-	PropertyService    *PropertyService
+	PropertyService    *app_services.PropertyService
 }
 
 // IPluginShellService implements IBean
@@ -57,7 +58,7 @@ func (p *PluginShellService) New() IPluginShellService {
 func (p *PluginShellService) Init() error {
 	// inject store
 	p.SetPropertyService = func(value interface{}) {
-		if assertion, ok := value.(*PropertyService); ok {
+		if assertion, ok := value.(*app_services.PropertyService); ok {
 			p.PropertyService = assertion
 		} else {
 			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))

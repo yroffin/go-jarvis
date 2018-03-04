@@ -37,7 +37,7 @@ import (
 // Rest()
 func main() {
 	// declare manager and boot it
-	var m = core_manager.Manager{}
+	m := core_manager.Manager{}
 	m.Init()
 	// Command Line
 	flag.String("Djarvis.slack.api", "", "Slack API")

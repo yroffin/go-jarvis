@@ -26,6 +26,8 @@ import (
 	"log"
 	"reflect"
 
+	lua "github.com/Shopify/go-lua"
+
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
 	core_services "github.com/yroffin/go-boot-sqllite/core/services"
 	app_models "github.com/yroffin/go-jarvis/models"
@@ -79,5 +81,13 @@ func (p *PluginLuaService) Validate(name string) error {
 
 // Call execution
 func (p *PluginLuaService) Call(body string) (app_models.IValueBean, error) {
-	return nil, nil
+	l := lua.NewState()
+	lua.OpenLibraries(l)
+
+	if err := lua.DoString(l, body); err != nil {
+		panic(err)
+	}
+
+	result := (&app_models.ValueBean{}).New()
+	return result, nil
 }

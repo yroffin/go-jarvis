@@ -24,15 +24,20 @@ package services
 
 import (
 	"log"
+	"reflect"
 
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
 	core_services "github.com/yroffin/go-boot-sqllite/core/services"
+	app_models "github.com/yroffin/go-jarvis/models"
 )
 
 // LuaService internal members
 type LuaService struct {
 	// members
 	*core_services.SERVICE
+	// SetPluginSlackService with injection mecanism
+	SetPluginLuaService func(interface{}) `bean:"plugin-lua-service"`
+	PluginLuaService    *PluginLuaService
 }
 
 // ILuaService implements IBean
@@ -48,6 +53,14 @@ func (p *LuaService) New() ILuaService {
 
 // Init this API
 func (p *LuaService) Init() error {
+	// inject store
+	p.SetPluginLuaService = func(value interface{}) {
+		if assertion, ok := value.(*PluginLuaService); ok {
+			p.PluginLuaService = assertion
+		} else {
+			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+		}
+	}
 	return nil
 }
 
@@ -61,8 +74,16 @@ func (p *LuaService) Validate(name string) error {
 	return nil
 }
 
-// Execute this command
-func (p *LuaService) Execute(id string, body string) (string, error) {
-	log.Println("LuaService:", body)
-	return body, nil
+// AsObject execution
+func (p *LuaService) AsObject(body app_models.IValueBean, args map[string]interface{}) (app_models.IValueBean, error) {
+	log.Println("Args:", args, "Body:", body)
+	result, _ := p.PluginLuaService.Call(body.GetAsString("body"))
+	return result, nil
+}
+
+// AsBoolean execution
+func (p *LuaService) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
+	result := false
+	log.Println("Args:", args, "Body:", body, "Not implemented")
+	return result, nil
 }

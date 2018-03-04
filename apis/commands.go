@@ -48,6 +48,9 @@ type Command struct {
 	// Slide with injection mecanism
 	SetShellService func(interface{}) `bean:"shell-service"`
 	ShellService    *app_services.ShellService
+	// Slide with injection mecanism
+	SetLuaService func(interface{}) `bean:"lua-service"`
+	LuaService    *app_services.LuaService
 }
 
 // ICommand implements IBean
@@ -69,6 +72,14 @@ func (p *Command) Init() error {
 	p.SetShellService = func(value interface{}) {
 		if assertion, ok := value.(*app_services.ShellService); ok {
 			p.ShellService = assertion
+		} else {
+			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+		}
+	}
+	// inject store
+	p.SetLuaService = func(value interface{}) {
+		if assertion, ok := value.(*app_services.LuaService); ok {
+			p.LuaService = assertion
 		} else {
 			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
 		}
@@ -154,6 +165,9 @@ func (p *Command) Execute(id string, body string) (string, error) {
 	case "SHELL":
 		result, _ := p.ShellService.AsObject(command, args)
 		return result.ToString(), nil
+	case "LUA":
+		result, _ := p.LuaService.AsObject(command, args)
+		return result.ToString(), nil
 	default:
 		log.Printf("Warning type %v is not implemented", typ)
 	}
@@ -171,7 +185,9 @@ func (p *Command) Test(id string, body string) (bool, error) {
 	case "SHELL":
 		result, _ := p.ShellService.AsObject(command, args)
 		return result.ToString() == "true", nil
-		break
+	case "LUA":
+		result, _ := p.LuaService.AsObject(command, args)
+		return result.ToString() == "true", nil
 	default:
 		log.Printf("Warning type %v is not implemented", typ)
 	}

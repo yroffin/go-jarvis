@@ -30,7 +30,6 @@ import (
 
 	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
-	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 	app_models "github.com/yroffin/go-jarvis/models"
 	app_services "github.com/yroffin/go-jarvis/services"
 )
@@ -76,13 +75,13 @@ func (p *Command) Init() error {
 	}
 	// Crud
 	p.HandlerGetAll = func() (string, error) {
-		return p.GenericGetAll(&app_models.CommandBean{}, core_models.IPersistents(&app_models.CommandBeans{Collection: make([]core_models.IPersistent, 0)}))
+		return p.GenericGetAll(app_models.NewCommandBean(), app_models.NewCommandBeans())
 	}
 	p.HandlerGetByID = func(id string) (string, error) {
-		return p.GenericGetByID(id, &app_models.CommandBean{})
+		return p.GenericGetByID(id, app_models.NewCommandBean())
 	}
 	p.HandlerPost = func(body string) (string, error) {
-		return p.GenericPost(body, &app_models.CommandBean{})
+		return p.GenericPost(body, app_models.NewCommandBean())
 	}
 	p.HandlerTasks = func(name string, body string) (string, error) {
 		return "", nil
@@ -100,13 +99,13 @@ func (p *Command) Init() error {
 		return "", nil
 	}
 	p.HandlerPutByID = func(id string, body string) (string, error) {
-		return p.GenericPutByID(id, body, &app_models.CommandBean{})
+		return p.GenericPutByID(id, body, app_models.NewCommandBean())
 	}
 	p.HandlerDeleteByID = func(id string) (string, error) {
-		return p.GenericDeleteByID(id, &app_models.CommandBean{})
+		return p.GenericDeleteByID(id, app_models.NewCommandBean())
 	}
 	p.HandlerPatchByID = func(id string, body string) (string, error) {
-		return p.GenericPatchByID(id, body, &app_models.CommandBean{})
+		return p.GenericPatchByID(id, body, app_models.NewCommandBean())
 	}
 	return p.API.Init()
 }
@@ -126,8 +125,8 @@ func (p *Command) Validate(name string) error {
 // Execute this command
 func (p *Command) decode(id string, body string) (string, app_models.CommandBean, map[string]interface{}, error) {
 	// retrieve command and serialize it
-	model := app_models.CommandBean{}
-	p.GetByID(id, &model)
+	model := app_models.NewCommandBean()
+	p.GetByID(id, model)
 	raw, _ := json.Marshal(&model)
 	converted := make(map[string]interface{})
 	json.Unmarshal(raw, &converted)
@@ -135,8 +134,8 @@ func (p *Command) decode(id string, body string) (string, app_models.CommandBean
 	args := make(map[string]interface{})
 	json.Unmarshal([]byte(body), &args)
 	// log some trace
-	log.Printf("COMMAND - INPUT - TYPE %v\nBODY: %v", model.Type, converted)
-	return model.Type, model, args, nil
+	log.Printf("COMMAND - INPUT - TYPE %v\nBODY: %v", model.GetType(), converted)
+	return model.GetType(), model, args, nil
 }
 
 // Execute this command
@@ -144,10 +143,10 @@ func (p *Command) Execute(id string, body string) (string, error) {
 	typ, command, args, _ := p.decode(id, body)
 	switch typ {
 	case "SLACK":
-		result, _ := p.SlackService.AsObject(&command, args)
+		result, _ := p.SlackService.AsObject(command, args)
 		return result.ToString(), nil
 	case "SHELL":
-		result, _ := p.ShellService.AsObject(&command, args)
+		result, _ := p.ShellService.AsObject(command, args)
 		return result.ToString(), nil
 	default:
 		log.Printf("Warning type %v is not implemented", typ)
@@ -160,11 +159,11 @@ func (p *Command) Test(id string, body string) (bool, error) {
 	typ, command, args, _ := p.decode(id, body)
 	switch typ {
 	case "SLACK":
-		result, _ := p.SlackService.AsObject(&command, args)
+		result, _ := p.SlackService.AsObject(command, args)
 		return result.ToString() == "true", nil
 		break
 	case "SHELL":
-		result, _ := p.ShellService.AsObject(&command, args)
+		result, _ := p.ShellService.AsObject(command, args)
 		return result.ToString() == "true", nil
 		break
 	default:

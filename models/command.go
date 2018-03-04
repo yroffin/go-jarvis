@@ -35,7 +35,7 @@ type CommandHandler interface {
 }
 
 // CommandBean simple command model
-type CommandBean struct {
+type commandBean struct {
 	// Id
 	ID string `json:"id"`
 	// Timestamp
@@ -52,27 +52,52 @@ type CommandBean struct {
 	Body string `json:"body"`
 }
 
+// CommandBean interface
+type CommandBean interface {
+	core_models.IPersistent
+	// Value
+	Set(string, interface{})
+	SetString(string, string)
+	GetAsString(string) string
+	GetAsStringArray(string) []string
+	ToString() string
+	ToJSON() string
+	// command
+	GetType() string
+}
+
+// New constructor
+func NewCommandBean() CommandBean {
+	bean := commandBean{}
+	return &bean
+}
+
 // SetName get set name
-func (p *CommandBean) SetName() string {
+func (p *commandBean) SetName() string {
 	return "Command"
 }
 
+// Type get set name
+func (p *commandBean) GetType() string {
+	return p.Type
+}
+
 // GetID retrieve ID
-func (p *CommandBean) GetID() string {
+func (p *commandBean) GetID() string {
 	return p.ID
 }
 
 // SetID retrieve ID
-func (p *CommandBean) SetID(ID string) {
+func (p *commandBean) SetID(ID string) {
 	p.ID = ID
 }
 
 // Set get set name
-func (p *CommandBean) Set(key string, value interface{}) {
+func (p *commandBean) Set(key string, value interface{}) {
 }
 
 // SetString get set name
-func (p *CommandBean) SetString(key string, value string) {
+func (p *commandBean) SetString(key string, value string) {
 	switch key {
 	case "body":
 		p.Body = value
@@ -81,7 +106,7 @@ func (p *CommandBean) SetString(key string, value string) {
 }
 
 // Get get set name
-func (p *CommandBean) GetAsString(key string) string {
+func (p *commandBean) GetAsString(key string) string {
 	switch key {
 	case "body":
 		return p.Body
@@ -90,12 +115,12 @@ func (p *CommandBean) GetAsString(key string) string {
 }
 
 // Get get set name
-func (p *CommandBean) GetAsStringArray(key string) []string {
+func (p *commandBean) GetAsStringArray(key string) []string {
 	return make([]string, 0)
 }
 
 // ToString stringify this commnd
-func (p *CommandBean) ToString() string {
+func (p *commandBean) ToString() string {
 	payload, err := json.Marshal(p)
 	if err != nil {
 		log.Println("Unable to marshal:", err)
@@ -105,7 +130,7 @@ func (p *CommandBean) ToString() string {
 }
 
 // ToJSON stringify this commnd
-func (p *CommandBean) ToJSON() string {
+func (p *commandBean) ToJSON() string {
 	payload, err := json.Marshal(p)
 	if err != nil {
 		log.Println("Unable to marshal:", err)
@@ -115,40 +140,46 @@ func (p *CommandBean) ToJSON() string {
 }
 
 // SetTimestamp set timestamp
-func (p *CommandBean) SetTimestamp(stamp core_models.JSONTime) {
+func (p *commandBean) SetTimestamp(stamp core_models.JSONTime) {
 	p.Timestamp = stamp
 }
 
 // GetTimestamp get timestamp
-func (p *CommandBean) GetTimestamp() core_models.JSONTime {
+func (p *commandBean) GetTimestamp() core_models.JSONTime {
 	return p.Timestamp
 }
 
 // Copy retrieve ID
-func (p *CommandBean) Copy() core_models.IPersistent {
+func (p *commandBean) Copy() core_models.IPersistent {
 	clone := *p
 	return &clone
 }
 
 // CommandBeans simple bean model
-type CommandBeans struct {
+type commandBeans struct {
 	// Collection
 	Collection []core_models.IPersistent
 }
 
+// NewCommandBeans constructor
+func NewCommandBeans() core_models.IPersistents {
+	bean := commandBeans{Collection: make([]core_models.IPersistent, 0)}
+	return &bean
+}
+
 // Add new bean
-func (p *CommandBeans) Add(bean core_models.IPersistent) {
+func (p *commandBeans) Add(bean core_models.IPersistent) {
 	p.Collection = append(p.Collection, bean)
 }
 
 // Get collection of bean
-func (p *CommandBeans) Get() []core_models.IPersistent {
+func (p *commandBeans) Get() []core_models.IPersistent {
 	return p.Collection
 }
 
 // Index read a single element
-func (p *CommandBeans) Index(index int) *CommandBean {
-	data, ok := p.Collection[index].(*CommandBean)
+func (p *commandBeans) Index(index int) CommandBean {
+	data, ok := p.Collection[index].(*commandBean)
 	if ok {
 		return data
 	}

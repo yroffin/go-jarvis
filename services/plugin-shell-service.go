@@ -79,7 +79,6 @@ func build(data []byte) []string {
 			break
 		}
 	}
-	log.Println("Lines count:", lines)
 
 	var accu = ""
 	console := make([]string, lines)
@@ -91,7 +90,6 @@ func build(data []byte) []string {
 			byt++
 			break
 		case 10:
-			log.Println("Flush:", index, accu)
 			console[index] = accu
 			index++
 			byt++

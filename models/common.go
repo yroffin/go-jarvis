@@ -64,22 +64,25 @@ func (p *ValueBean) ToJSON() string {
 }
 
 // Set a value for a key
-func (p *ValueBean) Set(key string, value interface{}) {
+func (p *ValueBean) check() {
 	if p.store == nil {
 		p.store = make(map[string]interface{})
 	}
-	p.store[key] = value
 }
 
 // Set a value for a key
-func (p *ValueBean) SetString(key string, value string) {
-	if p.store == nil {
-		p.store = make(map[string]interface{})
-	}
+func (p *ValueBean) Set(key string, value interface{}) {
+	p.check()
 	p.store[key] = value
 }
 
-// Get field value
+// SetString a value for a key
+func (p *ValueBean) SetString(key string, value string) {
+	p.check()
+	p.store[key] = value
+}
+
+// GetAsString field value
 func (p *ValueBean) GetAsString(key string) string {
 	if assertion, ok := p.store[key].(string); ok {
 		return assertion
@@ -88,7 +91,7 @@ func (p *ValueBean) GetAsString(key string) string {
 	return ""
 }
 
-// Get field value
+// GetAsStringArray field value
 func (p *ValueBean) GetAsStringArray(key string) []string {
 	if assertion, ok := p.store[key].([]string); ok {
 		return assertion

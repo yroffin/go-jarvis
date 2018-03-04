@@ -27,14 +27,14 @@ import (
 	"reflect"
 
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
-	core_apis "github.com/yroffin/go-boot-sqllite/core/services"
-	"github.com/yroffin/go-jarvis/models"
+	core_services "github.com/yroffin/go-boot-sqllite/core/services"
+	app_models "github.com/yroffin/go-jarvis/models"
 )
 
-// Script internal members
+// ShellService internal members
 type ShellService struct {
 	// members
-	*core_apis.SERVICE
+	*core_services.SERVICE
 	// SetPluginShellService with injection mecanism
 	SetPluginShellService func(interface{}) `bean:"plugin-shell-service"`
 	PluginShellService    *PluginShellService
@@ -43,6 +43,12 @@ type ShellService struct {
 // IShellService implements IBean
 type IShellService interface {
 	core_bean.IBean
+}
+
+// New constructor
+func (p *ShellService) New() IShellService {
+	bean := ShellService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
+	return &bean
 }
 
 // Init this API
@@ -69,10 +75,10 @@ func (p *ShellService) Validate(name string) error {
 }
 
 // AsObject execution
-func (p *ShellService) AsObject(body models.AsValue, args map[string]interface{}) (models.AsValue, error) {
+func (p *ShellService) AsObject(body app_models.IValueBean, args map[string]interface{}) (app_models.IValueBean, error) {
 	log.Println("Args:", args, "Body:", body)
 	result, _ := p.PluginShellService.Call(body.GetAsString("body"))
-	return &result, nil
+	return result, nil
 }
 
 // AsBoolean execution

@@ -1,4 +1,4 @@
-// Package interfaces for common interfaces
+// Package services for common services
 // MIT License
 //
 // Copyright (c) 2017 yroffin
@@ -29,14 +29,14 @@ import (
 	"reflect"
 
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
-	core_apis "github.com/yroffin/go-boot-sqllite/core/services"
+	core_services "github.com/yroffin/go-boot-sqllite/core/services"
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
 // PluginShellService internal members
 type PluginShellService struct {
 	// members
-	*core_apis.SERVICE
+	*core_services.SERVICE
 	// SetPropertyService with injection mecanism
 	SetPropertyService func(interface{}) `bean:"property-service"`
 	PropertyService    *PropertyService
@@ -45,6 +45,12 @@ type PluginShellService struct {
 // IPluginShellService implements IBean
 type IPluginShellService interface {
 	core_bean.IBean
+}
+
+// New constructor
+func (p *PluginShellService) New() IPluginShellService {
+	bean := PluginShellService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
+	return &bean
 }
 
 // Init this SERVICE
@@ -105,7 +111,7 @@ func build(data []byte) []string {
 }
 
 // Call execution
-func (p *PluginShellService) Call(body string) (app_models.ValueBean, error) {
+func (p *PluginShellService) Call(body string) (app_models.IValueBean, error) {
 	cmd := exec.Command("sh", "-c", body)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
@@ -121,7 +127,7 @@ func (p *PluginShellService) Call(body string) (app_models.ValueBean, error) {
 		log.Fatal(err)
 	}
 
-	capture := app_models.ValueBean{}
+	capture := (&app_models.ValueBean{}).New()
 
 	slurpOut, _ := ioutil.ReadAll(stdout)
 	capture.Set("stdout", build(slurpOut))

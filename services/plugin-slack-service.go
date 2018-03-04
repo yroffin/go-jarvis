@@ -1,4 +1,4 @@
-// Package interfaces for common interfaces
+// Package services for common services
 // MIT License
 //
 // Copyright (c) 2017 yroffin
@@ -27,14 +27,14 @@ import (
 	"reflect"
 
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
-	core_apis "github.com/yroffin/go-boot-sqllite/core/services"
+	core_services "github.com/yroffin/go-boot-sqllite/core/services"
 	app_helpers "github.com/yroffin/go-jarvis/helpers"
 )
 
 // PluginSlackService internal members
 type PluginSlackService struct {
 	// members
-	*core_apis.SERVICE
+	*core_services.SERVICE
 	// SetPropertyService with injection mecanism
 	SetPropertyService func(interface{}) `bean:"property-service"`
 	PropertyService    *PropertyService
@@ -43,6 +43,12 @@ type PluginSlackService struct {
 // IPluginSlackService implements IBean
 type IPluginSlackService interface {
 	core_bean.IBean
+}
+
+// New constructor
+func (p *PluginSlackService) New() IPluginSlackService {
+	bean := PluginSlackService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
+	return &bean
 }
 
 // Init this SERVICE

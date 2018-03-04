@@ -26,18 +26,24 @@ import (
 	"log"
 
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
-	core_apis "github.com/yroffin/go-boot-sqllite/core/services"
+	core_services "github.com/yroffin/go-boot-sqllite/core/services"
 )
 
 // ZwayService internal members
 type ZwayService struct {
 	// members
-	*core_apis.SERVICE
+	*core_services.SERVICE
 }
 
 // IZwayService implements IBean
 type IZwayService interface {
 	core_bean.IBean
+}
+
+// New constructor
+func (p *ZwayService) New() IZwayService {
+	bean := ZwayService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
+	return &bean
 }
 
 // Init this API

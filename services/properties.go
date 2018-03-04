@@ -31,13 +31,13 @@ import (
 	"github.com/magiconair/properties"
 
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
-	core_apis "github.com/yroffin/go-boot-sqllite/core/services"
+	core_services "github.com/yroffin/go-boot-sqllite/core/services"
 )
 
 // PropertyService internal members
 type PropertyService struct {
 	// members
-	*core_apis.SERVICE
+	*core_services.SERVICE
 	// Props
 	props *properties.Properties
 }
@@ -45,6 +45,12 @@ type PropertyService struct {
 // IPropertyService implements IBean
 type IPropertyService interface {
 	core_bean.IBean
+}
+
+// New constructor
+func (p *PropertyService) New() IPropertyService {
+	bean := PropertyService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
+	return &bean
 }
 
 // Init this SERVICE

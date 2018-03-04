@@ -27,14 +27,14 @@ import (
 	"log"
 )
 
-// ValueBean simple command model
+// ValueBean simple value model
 type ValueBean struct {
-	// internal store
-	store map[string]interface{}
+	// Extended internal store
+	Extended map[string]interface{} `json:"extended"`
 }
 
-// AsValue simple ToString interface
-type AsValue interface {
+// IValueBean simple interface
+type IValueBean interface {
 	Set(string, interface{})
 	SetString(string, string)
 	GetAsString(string) string
@@ -43,9 +43,16 @@ type AsValue interface {
 	ToJSON() string
 }
 
+// New constructor
+func (p *ValueBean) New() IValueBean {
+	bean := ValueBean{}
+	bean.Extended = make(map[string]interface{})
+	return &bean
+}
+
 // ToString stringify this commnd
 func (p *ValueBean) ToString() string {
-	payload, err := json.Marshal(p.store)
+	payload, err := json.Marshal(p.Extended)
 	if err != nil {
 		log.Println("Unable to marshal:", err)
 		return "{}"
@@ -55,7 +62,7 @@ func (p *ValueBean) ToString() string {
 
 // ToJSON return o json formated value (in pretty format)
 func (p *ValueBean) ToJSON() string {
-	payload, err := json.MarshalIndent(p.store, "\t", "\t")
+	payload, err := json.MarshalIndent(p.Extended, "\t", "\t")
 	if err != nil {
 		log.Println("Unable to marshal:", err)
 		return "{}"
@@ -64,27 +71,18 @@ func (p *ValueBean) ToJSON() string {
 }
 
 // Set a value for a key
-func (p *ValueBean) check() {
-	if p.store == nil {
-		p.store = make(map[string]interface{})
-	}
-}
-
-// Set a value for a key
 func (p *ValueBean) Set(key string, value interface{}) {
-	p.check()
-	p.store[key] = value
+	p.Extended[key] = value
 }
 
 // SetString a value for a key
 func (p *ValueBean) SetString(key string, value string) {
-	p.check()
-	p.store[key] = value
+	p.Extended[key] = value
 }
 
 // GetAsString field value
 func (p *ValueBean) GetAsString(key string) string {
-	if assertion, ok := p.store[key].(string); ok {
+	if assertion, ok := p.Extended[key].(string); ok {
 		return assertion
 	}
 	log.Fatalf("Unable to render key %v for string type", key)
@@ -93,7 +91,7 @@ func (p *ValueBean) GetAsString(key string) string {
 
 // GetAsStringArray field value
 func (p *ValueBean) GetAsStringArray(key string) []string {
-	if assertion, ok := p.store[key].([]string); ok {
+	if assertion, ok := p.Extended[key].([]string); ok {
 		return assertion
 	}
 	log.Fatalf("Unable to render key %v for string type", key)

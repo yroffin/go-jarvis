@@ -26,18 +26,24 @@ import (
 	"log"
 
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
-	core_apis "github.com/yroffin/go-boot-sqllite/core/services"
+	core_services "github.com/yroffin/go-boot-sqllite/core/services"
 )
 
-// Script internal members
+// ChaconService internal members
 type ChaconService struct {
 	// members
-	*core_apis.SERVICE
+	*core_services.SERVICE
 }
 
 // IChaconService implements IBean
 type IChaconService interface {
 	core_bean.IBean
+}
+
+// New constructor
+func (p *ChaconService) New() IChaconService {
+	bean := ChaconService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
+	return &bean
 }
 
 // Init this API

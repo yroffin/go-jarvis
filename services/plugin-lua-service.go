@@ -24,45 +24,60 @@ package services
 
 import (
 	"log"
+	"reflect"
 
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
 	core_services "github.com/yroffin/go-boot-sqllite/core/services"
+	app_models "github.com/yroffin/go-jarvis/models"
 )
 
-// LuaService internal members
-type LuaService struct {
+// PluginLuaService internal members
+type PluginLuaService struct {
 	// members
 	*core_services.SERVICE
+	// SetPropertyService with injection mecanism
+	SetPropertyService func(interface{}) `bean:"property-service"`
+	PropertyService    *PropertyService
 }
 
-// ILuaService implements IBean
-type ILuaService interface {
+// IPluginLuaService implements IBean
+type IPluginLuaService interface {
+	// Extend bean
 	core_bean.IBean
+	// Local method
+	Call(body string) (app_models.IValueBean, error)
 }
 
 // New constructor
-func (p *LuaService) New() ILuaService {
-	bean := LuaService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
+func (p *PluginLuaService) New() IPluginLuaService {
+	bean := PluginLuaService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
 	return &bean
 }
 
-// Init this API
-func (p *LuaService) Init() error {
+// Init this SERVICE
+func (p *PluginLuaService) Init() error {
+	// inject store
+	p.SetPropertyService = func(value interface{}) {
+		if assertion, ok := value.(*PropertyService); ok {
+			p.PropertyService = assertion
+		} else {
+			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+		}
+	}
 	return nil
 }
 
-// PostConstruct this API
-func (p *LuaService) PostConstruct(name string) error {
+// PostConstruct this SERVICE
+func (p *PluginLuaService) PostConstruct(name string) error {
 	return nil
 }
 
-// Validate this API
-func (p *LuaService) Validate(name string) error {
+// Validate this SERVICE
+func (p *PluginLuaService) Validate(name string) error {
 	return nil
 }
 
-// Execute this command
-func (p *LuaService) Execute(id string, body string) (string, error) {
-	log.Println("LuaService:", body)
-	return body, nil
+// Call execution
+func (p *PluginLuaService) Call(body string) (app_models.IValueBean, error) {
+	return nil, nil
 }

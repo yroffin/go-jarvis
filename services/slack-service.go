@@ -27,14 +27,14 @@ import (
 	"reflect"
 
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
-	core_apis "github.com/yroffin/go-boot-sqllite/core/services"
+	core_services "github.com/yroffin/go-boot-sqllite/core/services"
 	"github.com/yroffin/go-jarvis/models"
 )
 
 // SlackService internal members
 type SlackService struct {
 	// members
-	*core_apis.SERVICE
+	*core_services.SERVICE
 	// SetPluginSlackService with injection mecanism
 	SetPluginSlackService func(interface{}) `bean:"plugin-slack-service"`
 	PluginSlackService    *PluginSlackService
@@ -43,6 +43,12 @@ type SlackService struct {
 // ISlackService implements IBean
 type ISlackService interface {
 	core_bean.IBean
+}
+
+// New constructor
+func (p *SlackService) New() ISlackService {
+	bean := SlackService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
+	return &bean
 }
 
 // Init this SERVICE
@@ -69,7 +75,7 @@ func (p *SlackService) Validate(name string) error {
 }
 
 // AsObject execution
-func (p *SlackService) AsObject(body models.AsValue, args map[string]interface{}) (models.AsValue, error) {
+func (p *SlackService) AsObject(body models.IValueBean, args map[string]interface{}) (models.IValueBean, error) {
 	command := make(map[string]interface{})
 	log.Println("Args:", args, "Body:", body)
 	command["text"] = body.ToString()

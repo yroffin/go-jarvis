@@ -34,7 +34,7 @@ import (
 	app_services "github.com/yroffin/go-jarvis/services"
 )
 
-// Bean internal members
+// Command internal members
 type Command struct {
 	// Base component
 	*core_apis.API
@@ -75,13 +75,13 @@ func (p *Command) Init() error {
 	}
 	// Crud
 	p.HandlerGetAll = func() (string, error) {
-		return p.GenericGetAll(app_models.NewCommandBean(), app_models.NewCommandBeans())
+		return p.GenericGetAll((&app_models.CommandBean{}).New(), (&app_models.CommandBeans{}).New())
 	}
 	p.HandlerGetByID = func(id string) (string, error) {
-		return p.GenericGetByID(id, app_models.NewCommandBean())
+		return p.GenericGetByID(id, (&app_models.CommandBean{}).New())
 	}
 	p.HandlerPost = func(body string) (string, error) {
-		return p.GenericPost(body, app_models.NewCommandBean())
+		return p.GenericPost(body, (&app_models.CommandBean{}).New())
 	}
 	p.HandlerTasks = func(name string, body string) (string, error) {
 		return "", nil
@@ -99,13 +99,13 @@ func (p *Command) Init() error {
 		return "", nil
 	}
 	p.HandlerPutByID = func(id string, body string) (string, error) {
-		return p.GenericPutByID(id, body, app_models.NewCommandBean())
+		return p.GenericPutByID(id, body, (&app_models.CommandBean{}).New())
 	}
 	p.HandlerDeleteByID = func(id string) (string, error) {
-		return p.GenericDeleteByID(id, app_models.NewCommandBean())
+		return p.GenericDeleteByID(id, (&app_models.CommandBean{}).New())
 	}
 	p.HandlerPatchByID = func(id string, body string) (string, error) {
-		return p.GenericPatchByID(id, body, app_models.NewCommandBean())
+		return p.GenericPatchByID(id, body, (&app_models.CommandBean{}).New())
 	}
 	return p.API.Init()
 }
@@ -122,10 +122,16 @@ func (p *Command) Validate(name string) error {
 	return nil
 }
 
+// New constructor
+func (p *Command) New() ICommand {
+	bean := Command{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+	return &bean
+}
+
 // Execute this command
-func (p *Command) decode(id string, body string) (string, app_models.CommandBean, map[string]interface{}, error) {
+func (p *Command) decode(id string, body string) (string, app_models.ICommandBean, map[string]interface{}, error) {
 	// retrieve command and serialize it
-	model := app_models.NewCommandBean()
+	model := (&app_models.CommandBean{}).New()
 	p.GetByID(id, model)
 	raw, _ := json.Marshal(&model)
 	converted := make(map[string]interface{})

@@ -44,6 +44,12 @@ type INotification interface {
 	core_bean.IBean
 }
 
+// New constructor
+func (p *Notification) New() INotification {
+	bean := Notification{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+	return &bean
+}
+
 // Init this API
 func (p *Notification) Init() error {
 	// Crud

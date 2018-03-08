@@ -26,7 +26,6 @@ import (
 	"flag"
 
 	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
-	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
 	core_business "github.com/yroffin/go-boot-sqllite/core/business"
 	core_manager "github.com/yroffin/go-boot-sqllite/core/manager"
 	core_stores "github.com/yroffin/go-boot-sqllite/core/stores"
@@ -48,9 +47,9 @@ func main() {
 	flag.String("Djarvis.slack.api", "", "Slack API")
 	m.CommandLine()
 	// Core beans
-	m.Register("router", &core_apis.Router{Bean: &core_bean.Bean{}})
-	m.Register("crud-business", &core_business.CrudBusiness{Bean: &core_bean.Bean{}})
-	m.Register("store-manager", &core_stores.Store{Bean: &core_bean.Bean{}, Tables: []string{"Command", "Notification"}, DbPath: "./database.db"})
+	m.Register("router", (&core_apis.Router{}).New())
+	m.Register("crud-business", (&core_business.CrudBusiness{}).New())
+	m.Register("store-manager", (&core_stores.Store{}).New([]string{"Command", "Notification"}, "./database.db"))
 	// helpers
 	m.Register("property-service", (&app_services.PropertyService{}).New())
 	// PLUGINS beans

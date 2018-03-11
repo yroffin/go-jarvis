@@ -30,6 +30,7 @@ import (
 	core_manager "github.com/yroffin/go-boot-sqllite/core/manager"
 	core_stores "github.com/yroffin/go-boot-sqllite/core/stores"
 	app_apis "github.com/yroffin/go-jarvis/apis"
+	app_href "github.com/yroffin/go-jarvis/href"
 	app_services "github.com/yroffin/go-jarvis/services"
 	app_chacon "github.com/yroffin/go-jarvis/services/chacon"
 	app_lua "github.com/yroffin/go-jarvis/services/lua"
@@ -65,7 +66,9 @@ func main() {
 	m.Register("zway-service", (&app_zway.ZwayService{}).New())
 	m.Register("chacon-service", (&app_chacon.ChaconService{}).New())
 	// API beans
-	m.Register("command", (&app_apis.Command{}).New())
-	m.Register("notification", (&app_apis.Notification{}).New())
-	m.Boot()
+	m.Register("command-api", (&app_apis.Command{}).New())
+	m.Register("notification-api", (&app_apis.Notification{}).New())
+	// HREF beans
+	m.Register("command-notification-href", (&app_href.CommandNotificationHref{}).New())
+	m.Boot("router")
 }

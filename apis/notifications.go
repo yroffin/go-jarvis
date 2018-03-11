@@ -36,7 +36,7 @@ type Notification struct {
 	// internal members
 	Name string
 	// mounts
-	crud string `path:"/api/notifications"`
+	crud string `path:"/api/notifications-api"`
 }
 
 // INotification implements IBean

@@ -1,4 +1,4 @@
-// Package interfaces for common interfaces
+// Package apis for common apis
 // MIT License
 //
 // Copyright (c) 2017 yroffin
@@ -61,6 +61,9 @@ type Command struct {
 	// ZwayService with injection mecanism
 	SetZwayService func(interface{}) `bean:"zway-service"`
 	ZwayService    *app_zway.ZwayService
+	// Notification with injection mecanism
+	SetNotification func(interface{}) `bean:"notification-api" role:"notification"`
+	Notification    *Notification
 }
 
 // ICommand implements IBean
@@ -68,8 +71,22 @@ type ICommand interface {
 	core_bean.IBean
 }
 
+// New constructor
+func (p *Command) New() ICommand {
+	bean := Command{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+	return &bean
+}
+
 // Init this API
 func (p *Command) Init() error {
+	// inject notification
+	p.SetNotification = func(value interface{}) {
+		if assertion, ok := value.(*Notification); ok {
+			p.Notification = assertion
+		} else {
+			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+		}
+	}
 	// inject store
 	p.SetSlackService = func(value interface{}) {
 		if assertion, ok := value.(*app_slack.SlackService); ok {
@@ -157,12 +174,6 @@ func (p *Command) PostConstruct(name string) error {
 // Validate this API
 func (p *Command) Validate(name string) error {
 	return nil
-}
-
-// New constructor
-func (p *Command) New() ICommand {
-	bean := Command{API: &core_apis.API{Bean: &core_bean.Bean{}}}
-	return &bean
 }
 
 // Execute this command

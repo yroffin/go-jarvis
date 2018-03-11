@@ -151,18 +151,21 @@ func (p *CommandBean) Copy() core_models.IPersistent {
 // CommandBeans simple bean model
 type CommandBeans struct {
 	// Collection
-	Collection []core_models.IPersistent
+	Collection []core_models.IPersistent `json:"collections"`
+	// Collection
+	Collections []CommandBean
 }
 
 // New constructor
 func (p *CommandBeans) New() core_models.IPersistents {
-	bean := CommandBeans{Collection: make([]core_models.IPersistent, 0)}
+	bean := CommandBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]CommandBean, 0)}
 	return &bean
 }
 
 // Add new bean
 func (p *CommandBeans) Add(bean core_models.IPersistent) {
 	p.Collection = append(p.Collection, bean)
+	p.Collections = append(p.Collections, CommandBean{})
 }
 
 // Get collection of bean

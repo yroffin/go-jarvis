@@ -25,7 +25,6 @@ package apis
 import (
 	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
-	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
@@ -36,7 +35,7 @@ type Notification struct {
 	// internal members
 	Name string
 	// mounts
-	crud string `path:"/api/notifications-api"`
+	crud string `path:"/api/notifications"`
 }
 
 // INotification implements IBean
@@ -53,25 +52,25 @@ func (p *Notification) New() INotification {
 // Init this API
 func (p *Notification) Init() error {
 	// Crud
-	p.HandlerGetAll = func() (string, error) {
-		return p.GenericGetAll(&app_models.NotificationBean{}, core_models.IPersistents(&app_models.NotificationBeans{Collection: make([]core_models.IPersistent, 0)}))
+	p.HandlerGetAll = func() (interface{}, error) {
+		return p.GenericGetAll((&app_models.NotificationBean{}).New(), (&app_models.NotificationBeans{}).New())
 	}
-	p.HandlerGetByID = func(id string) (string, error) {
+	p.HandlerGetByID = func(id string) (interface{}, error) {
 		return p.GenericGetByID(id, &app_models.NotificationBean{})
 	}
-	p.HandlerPost = func(body string) (string, error) {
+	p.HandlerPost = func(body string) (interface{}, error) {
 		return p.GenericPost(body, &app_models.NotificationBean{})
 	}
-	p.HandlerTasks = func(name string, body string) (string, error) {
+	p.HandlerTasks = func(name string, body string) (interface{}, error) {
 		return "", nil
 	}
-	p.HandlerPutByID = func(id string, body string) (string, error) {
+	p.HandlerPutByID = func(id string, body string) (interface{}, error) {
 		return p.GenericPutByID(id, body, &app_models.NotificationBean{})
 	}
-	p.HandlerDeleteByID = func(id string) (string, error) {
+	p.HandlerDeleteByID = func(id string) (interface{}, error) {
 		return p.GenericDeleteByID(id, &app_models.NotificationBean{})
 	}
-	p.HandlerPatchByID = func(id string, body string) (string, error) {
+	p.HandlerPatchByID = func(id string, body string) (interface{}, error) {
 		return p.GenericPatchByID(id, body, &app_models.NotificationBean{})
 	}
 	return p.API.Init()

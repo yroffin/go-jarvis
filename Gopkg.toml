@@ -27,3 +27,4 @@
 [[constraint]]
   branch = "master"
   name = "github.com/yroffin/go-boot-sqllite"
+

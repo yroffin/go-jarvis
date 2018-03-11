@@ -40,9 +40,30 @@ type NotificationBean struct {
 	Icon string `json:"icon"`
 }
 
+// INotificationBean interface
+type INotificationBean interface {
+	// inherit persistent behaviour
+	core_models.IPersistent
+	// inherit ValueBean behaviour
+	IValueBean
+	// command
+	GetType() string
+}
+
+// New constructor
+func (p *NotificationBean) New() INotificationBean {
+	bean := NotificationBean{}
+	return &bean
+}
+
 // SetName get set name
 func (p *NotificationBean) SetName() string {
 	return "Notification"
+}
+
+// GetType get set name
+func (p *NotificationBean) GetType() string {
+	return p.Type
 }
 
 // GetID retrieve ID
@@ -53,6 +74,40 @@ func (p *NotificationBean) GetID() string {
 // SetID retrieve ID
 func (p *NotificationBean) SetID(ID string) {
 	p.ID = ID
+}
+
+// Set get set name
+func (p *NotificationBean) Set(key string, value interface{}) {
+}
+
+// SetString get set name
+func (p *NotificationBean) SetString(key string, value string) {
+	// Call super method
+	IValueBean(p).SetString(key, value)
+}
+
+// Get get set name
+func (p *NotificationBean) GetAsString(key string) string {
+	// Call super method
+	return IValueBean(p).GetAsString(key)
+}
+
+// Get get set name
+func (p *NotificationBean) GetAsStringArray(key string) []string {
+	// Call super method
+	return IValueBean(p).GetAsStringArray(key)
+}
+
+// ToString stringify this commnd
+func (p *NotificationBean) ToString() string {
+	// Call super method
+	return IValueBean(p).ToString()
+}
+
+// ToJSON stringify this commnd
+func (p *NotificationBean) ToJSON() string {
+	// Call super method
+	return IValueBean(p).ToJSON()
 }
 
 // SetTimestamp set timestamp
@@ -75,6 +130,12 @@ func (p *NotificationBean) Copy() core_models.IPersistent {
 type NotificationBeans struct {
 	// Collection
 	Collection []core_models.IPersistent
+}
+
+// New constructor
+func (p *NotificationBeans) New() core_models.IPersistents {
+	bean := NotificationBeans{Collection: make([]core_models.IPersistent, 0)}
+	return &bean
 }
 
 // Add new bean

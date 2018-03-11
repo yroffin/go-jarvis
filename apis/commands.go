@@ -128,19 +128,19 @@ func (p *Command) Init() error {
 		}
 	}
 	// Crud
-	p.HandlerGetAll = func() (string, error) {
+	p.HandlerGetAll = func() (interface{}, error) {
 		return p.GenericGetAll((&app_models.CommandBean{}).New(), (&app_models.CommandBeans{}).New())
 	}
-	p.HandlerGetByID = func(id string) (string, error) {
+	p.HandlerGetByID = func(id string) (interface{}, error) {
 		return p.GenericGetByID(id, (&app_models.CommandBean{}).New())
 	}
-	p.HandlerPost = func(body string) (string, error) {
+	p.HandlerPost = func(body string) (interface{}, error) {
 		return p.GenericPost(body, (&app_models.CommandBean{}).New())
 	}
-	p.HandlerTasks = func(name string, body string) (string, error) {
+	p.HandlerTasks = func(name string, body string) (interface{}, error) {
 		return "", nil
 	}
-	p.HandlerTasksByID = func(id string, name string, body string) (string, error) {
+	p.HandlerTasksByID = func(id string, name string, body string) (interface{}, error) {
 		if name == "execute" {
 			// task
 			return p.Execute(id, body)
@@ -152,13 +152,13 @@ func (p *Command) Init() error {
 		}
 		return "", nil
 	}
-	p.HandlerPutByID = func(id string, body string) (string, error) {
+	p.HandlerPutByID = func(id string, body string) (interface{}, error) {
 		return p.GenericPutByID(id, body, (&app_models.CommandBean{}).New())
 	}
-	p.HandlerDeleteByID = func(id string) (string, error) {
+	p.HandlerDeleteByID = func(id string) (interface{}, error) {
 		return p.GenericDeleteByID(id, (&app_models.CommandBean{}).New())
 	}
-	p.HandlerPatchByID = func(id string, body string) (string, error) {
+	p.HandlerPatchByID = func(id string, body string) (interface{}, error) {
 		return p.GenericPatchByID(id, body, (&app_models.CommandBean{}).New())
 	}
 	return p.API.Init()
@@ -193,24 +193,24 @@ func (p *Command) decode(id string, body string) (string, app_models.ICommandBea
 }
 
 // Execute this command
-func (p *Command) Execute(id string, body string) (string, error) {
+func (p *Command) Execute(id string, body string) (interface{}, error) {
 	typ, command, args, _ := p.decode(id, body)
 	switch typ {
 	case "SLACK":
 		result, _ := p.SlackService.AsObject(command, args)
-		return result.ToString(), nil
+		return result, nil
 	case "SHELL":
 		result, _ := p.ShellService.AsObject(command, args)
-		return result.ToString(), nil
+		return result, nil
 	case "LUA":
 		result, _ := p.LuaService.AsObject(command, args)
-		return result.ToString(), nil
+		return result, nil
 	case "CHACON":
 		result, _ := p.ChaconService.AsObject(command, args)
-		return result.ToString(), nil
+		return result, nil
 	case "ZWAY":
 		result, _ := p.ZwayService.AsObject(command, args)
-		return result.ToString(), nil
+		return result, nil
 	default:
 		log.Printf("Warning type %v is not implemented", typ)
 	}

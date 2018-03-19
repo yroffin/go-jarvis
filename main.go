@@ -47,6 +47,7 @@ func main() {
 	flag.String("Djarvis.slack.api", "", "Slack API")
 	m.CommandLine()
 	// Core beans
+	m.Register("swagger", (&core_apis.SwaggerService{}).New())
 	m.Register("router", (&core_apis.Router{}).New())
 	m.Register("crud-business", (&core_business.CrudBusiness{}).New())
 	m.Register("store-manager", (&core_stores.Store{}).New([]string{"Command", "Notification"}, "./database.db"))

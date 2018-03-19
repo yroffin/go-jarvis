@@ -45,7 +45,7 @@ type Command struct {
 	// internal members
 	Name string
 	// mounts
-	crud string `path:"/api/commands"`
+	Crud map[string]interface{} `path:"/api/commands"`
 	// SlackService with injection mecanism
 	SetSlackService func(interface{}) `bean:"slack-service"`
 	SlackService    *app_slack.SlackService
@@ -61,6 +61,9 @@ type Command struct {
 	// ZwayService with injection mecanism
 	SetZwayService func(interface{}) `bean:"zway-service"`
 	ZwayService    *app_zway.ZwayService
+	// SwaggerService with injection mecanism
+	SetSwaggerService func(interface{}) `bean:"swagger"`
+	SwaggerService    *core_apis.SwaggerService
 	// Notification with injection mecanism
 	SetNotification func(interface{}) `bean:"notification-api" role:"notification"`
 	Notification    *Notification
@@ -74,11 +77,22 @@ type ICommand interface {
 // New constructor
 func (p *Command) New() ICommand {
 	bean := Command{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+	bean.Crud = make(map[string]interface{})
+	bean.Crud["entity"] = app_models.CommandBean{}
+	bean.Crud["entities"] = []app_models.CommandBean{}
 	return &bean
 }
 
 // Init this API
 func (p *Command) Init() error {
+	// inject notification
+	p.SetSwaggerService = func(value interface{}) {
+		if assertion, ok := value.(*core_apis.SwaggerService); ok {
+			p.SwaggerService = assertion
+		} else {
+			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+		}
+	}
 	// inject notification
 	p.SetNotification = func(value interface{}) {
 		if assertion, ok := value.(*Notification); ok {
@@ -167,7 +181,7 @@ func (p *Command) Init() error {
 // PostConstruct this API
 func (p *Command) PostConstruct(name string) error {
 	// Scan struct and init all handler
-	p.ScanHandler(p)
+	p.ScanHandler(p.SwaggerService, p)
 	return nil
 }
 

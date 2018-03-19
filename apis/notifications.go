@@ -23,6 +23,9 @@
 package apis
 
 import (
+	"log"
+	"reflect"
+
 	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
 	app_models "github.com/yroffin/go-jarvis/models"
@@ -35,7 +38,10 @@ type Notification struct {
 	// internal members
 	Name string
 	// mounts
-	crud string `path:"/api/notifications"`
+	Crud map[string]interface{} `path:"/api/notifications"`
+	// SwaggerService with injection mecanism
+	SetSwaggerService func(interface{}) `bean:"swagger"`
+	SwaggerService    *core_apis.SwaggerService
 }
 
 // INotification implements IBean
@@ -46,11 +52,22 @@ type INotification interface {
 // New constructor
 func (p *Notification) New() INotification {
 	bean := Notification{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+	bean.Crud = make(map[string]interface{})
+	bean.Crud["entity"] = app_models.NotificationBean{}
+	bean.Crud["entities"] = []app_models.NotificationBean{}
 	return &bean
 }
 
 // Init this API
 func (p *Notification) Init() error {
+	// inject notification
+	p.SetSwaggerService = func(value interface{}) {
+		if assertion, ok := value.(*core_apis.SwaggerService); ok {
+			p.SwaggerService = assertion
+		} else {
+			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+		}
+	}
 	// Crud
 	p.HandlerGetAll = func() (interface{}, error) {
 		return p.GenericGetAll((&app_models.NotificationBean{}).New(), (&app_models.NotificationBeans{}).New())
@@ -79,7 +96,7 @@ func (p *Notification) Init() error {
 // PostConstruct this API
 func (p *Notification) PostConstruct(name string) error {
 	// Scan struct and init all handler
-	p.ScanHandler(p)
+	p.ScanHandler(p.SwaggerService, p)
 	return nil
 }
 

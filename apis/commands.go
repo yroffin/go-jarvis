@@ -30,6 +30,7 @@ import (
 
 	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	"github.com/yroffin/go-boot-sqllite/core/models"
 	app_models "github.com/yroffin/go-jarvis/models"
 	app_chacon "github.com/yroffin/go-jarvis/services/chacon"
 	app_lua "github.com/yroffin/go-jarvis/services/lua"
@@ -45,28 +46,22 @@ type Command struct {
 	// internal members
 	Name string
 	// mounts
-	Crud map[string]interface{} `path:"/api/commands"`
+	Crud map[string]interface{} `@crud:"/api/commands"`
+	Link map[string]interface{} `link:"/api/commands" href:"notifications"`
 	// SlackService with injection mecanism
-	SetSlackService func(interface{}) `bean:"slack-service"`
-	SlackService    *app_slack.SlackService
+	SlackService app_slack.ISlackService `@autowired:"slack-service"`
 	// ShellService with injection mecanism
-	SetShellService func(interface{}) `bean:"shell-service"`
-	ShellService    *app_shell.ShellService
+	ShellService app_shell.IShellService `@autowired:"shell-service"`
 	// LuaService with injection mecanism
-	SetLuaService func(interface{}) `bean:"lua-service"`
-	LuaService    *app_lua.LuaService
+	LuaService app_lua.ILuaService `@autowired:"lua-service"`
 	// ChaconService with injection mecanism
-	SetChaconService func(interface{}) `bean:"chacon-service"`
-	ChaconService    *app_chacon.ChaconService
+	ChaconService app_chacon.IChaconService `@autowired:"chacon-service"`
 	// ZwayService with injection mecanism
-	SetZwayService func(interface{}) `bean:"zway-service"`
-	ZwayService    *app_zway.ZwayService
+	ZwayService app_zway.IZwayService `@autowired:"zway-service"`
 	// SwaggerService with injection mecanism
-	SetSwaggerService func(interface{}) `bean:"swagger"`
-	SwaggerService    *core_apis.SwaggerService
+	SwaggerService core_apis.ISwaggerService `@autowired:"swagger"`
 	// Notification with injection mecanism
-	SetNotification func(interface{}) `bean:"notification-api" role:"notification"`
-	Notification    *Notification
+	Notification INotification `@autowired:"notification-api"`
 }
 
 // ICommand implements IBean
@@ -80,102 +75,99 @@ func (p *Command) New() ICommand {
 	bean.Crud = make(map[string]interface{})
 	bean.Crud["entity"] = app_models.CommandBean{}
 	bean.Crud["entities"] = []app_models.CommandBean{}
+	bean.Link = make(map[string]interface{})
+	bean.Link["entity"] = app_models.NotificationBean{}
+	bean.Link["entities"] = []app_models.NotificationBean{}
 	return &bean
+}
+
+// SetSwagger inject notification
+func (p *Command) SetSwagger(value interface{}) {
+	if assertion, ok := value.(*core_apis.SwaggerService); ok {
+		p.SwaggerService = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
+// SetNotificationApi inject notification
+func (p *Command) SetNotificationApi(value interface{}) {
+	if assertion, ok := value.(*Notification); ok {
+		p.Notification = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
+// inject store
+func (p *Command) SetSlackService(value interface{}) {
+	if assertion, ok := value.(*app_slack.SlackService); ok {
+		p.SlackService = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
+// inject store
+func (p *Command) SetShellService(value interface{}) {
+	if assertion, ok := value.(*app_shell.ShellService); ok {
+		p.ShellService = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
+// inject store
+func (p *Command) SetLuaService(value interface{}) {
+	if assertion, ok := value.(*app_lua.LuaService); ok {
+		p.LuaService = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
+// inject store
+func (p *Command) SetChaconService(value interface{}) {
+	if assertion, ok := value.(*app_chacon.ChaconService); ok {
+		p.ChaconService = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
+// SetZwayService inject store
+func (p *Command) SetZwayService(value interface{}) {
+	if assertion, ok := value.(*app_zway.ZwayService); ok {
+		p.ZwayService = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
 }
 
 // Init this API
 func (p *Command) Init() error {
-	// inject notification
-	p.SetSwaggerService = func(value interface{}) {
-		if assertion, ok := value.(*core_apis.SwaggerService); ok {
-			p.SwaggerService = assertion
-		} else {
-			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-		}
-	}
-	// inject notification
-	p.SetNotification = func(value interface{}) {
-		if assertion, ok := value.(*Notification); ok {
-			p.Notification = assertion
-		} else {
-			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-		}
-	}
-	// inject store
-	p.SetSlackService = func(value interface{}) {
-		if assertion, ok := value.(*app_slack.SlackService); ok {
-			p.SlackService = assertion
-		} else {
-			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-		}
-	}
-	// inject store
-	p.SetShellService = func(value interface{}) {
-		if assertion, ok := value.(*app_shell.ShellService); ok {
-			p.ShellService = assertion
-		} else {
-			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-		}
-	}
-	// inject store
-	p.SetLuaService = func(value interface{}) {
-		if assertion, ok := value.(*app_lua.LuaService); ok {
-			p.LuaService = assertion
-		} else {
-			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-		}
-	}
-	// inject store
-	p.SetChaconService = func(value interface{}) {
-		if assertion, ok := value.(*app_chacon.ChaconService); ok {
-			p.ChaconService = assertion
-		} else {
-			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-		}
-	}
-	// inject store
-	p.SetZwayService = func(value interface{}) {
-		if assertion, ok := value.(*app_zway.ZwayService); ok {
-			p.ZwayService = assertion
-		} else {
-			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-		}
-	}
 	// Crud
-	p.HandlerGetAll = func() (interface{}, error) {
-		return p.GenericGetAll((&app_models.CommandBean{}).New(), (&app_models.CommandBeans{}).New())
+	p.Factory = func() models.IPersistent {
+		return (&app_models.CommandBean{}).New()
 	}
-	p.HandlerGetByID = func(id string) (interface{}, error) {
-		return p.GenericGetByID(id, (&app_models.CommandBean{}).New())
-	}
-	p.HandlerPost = func(body string) (interface{}, error) {
-		return p.GenericPost(body, (&app_models.CommandBean{}).New())
-	}
-	p.HandlerTasks = func(name string, body string) (interface{}, error) {
-		return "", nil
-	}
-	p.HandlerTasksByID = func(id string, name string, body string) (interface{}, error) {
-		if name == "execute" {
-			// task
-			return p.Execute(id, body)
-		}
-		if name == "test" {
-			// task
-			res, err := p.Test(id, body)
-			return strconv.FormatBool(res), err
-		}
-		return "", nil
-	}
-	p.HandlerPutByID = func(id string, body string) (interface{}, error) {
-		return p.GenericPutByID(id, body, (&app_models.CommandBean{}).New())
-	}
-	p.HandlerDeleteByID = func(id string) (interface{}, error) {
-		return p.GenericDeleteByID(id, (&app_models.CommandBean{}).New())
-	}
-	p.HandlerPatchByID = func(id string, body string) (interface{}, error) {
-		return p.GenericPatchByID(id, body, (&app_models.CommandBean{}).New())
+	p.Factories = func() models.IPersistents {
+		return (&app_models.CommandBeans{}).New()
 	}
 	return p.API.Init()
+}
+
+// HandlerTasksByID return task by id
+func (p *Command) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
+	if name == "execute" {
+		// task
+		return p.Execute(id, body)
+	}
+	if name == "test" {
+		// task
+		res, err := p.Test(id, body)
+		return strconv.FormatBool(res), err
+	}
+	return "", nil
 }
 
 // PostConstruct this API

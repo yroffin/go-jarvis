@@ -29,8 +29,8 @@ import (
 	lua "github.com/Shopify/go-lua"
 
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 	core_services "github.com/yroffin/go-boot-sqllite/core/services"
-	app_models "github.com/yroffin/go-jarvis/models"
 	app_services "github.com/yroffin/go-jarvis/services"
 )
 
@@ -39,8 +39,7 @@ type PluginLuaService struct {
 	// members
 	*core_services.SERVICE
 	// SetPropertyService with injection mecanism
-	SetPropertyService func(interface{}) `bean:"property-service"`
-	PropertyService    *app_services.PropertyService
+	PropertyService app_services.IPropertyService `@autowired:"property-service"`
 }
 
 // IPluginLuaService implements IBean
@@ -48,7 +47,7 @@ type IPluginLuaService interface {
 	// Extend bean
 	core_bean.IBean
 	// Local method
-	Call(body string) (app_models.IValueBean, error)
+	Call(body string) (core_models.IValueBean, error)
 }
 
 // New constructor
@@ -57,16 +56,17 @@ func (p *PluginLuaService) New() IPluginLuaService {
 	return &bean
 }
 
+// SetPropertyService injection
+func (p *PluginLuaService) SetPropertyService(value interface{}) {
+	if assertion, ok := value.(app_services.IPropertyService); ok {
+		p.PropertyService = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
 // Init this SERVICE
 func (p *PluginLuaService) Init() error {
-	// inject store
-	p.SetPropertyService = func(value interface{}) {
-		if assertion, ok := value.(*app_services.PropertyService); ok {
-			p.PropertyService = assertion
-		} else {
-			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-		}
-	}
 	return nil
 }
 
@@ -81,7 +81,7 @@ func (p *PluginLuaService) Validate(name string) error {
 }
 
 // Call execution
-func (p *PluginLuaService) Call(body string) (app_models.IValueBean, error) {
+func (p *PluginLuaService) Call(body string) (core_models.IValueBean, error) {
 	l := lua.NewState()
 	lua.OpenLibraries(l)
 
@@ -89,6 +89,6 @@ func (p *PluginLuaService) Call(body string) (app_models.IValueBean, error) {
 		panic(err)
 	}
 
-	result := (&app_models.ValueBean{}).New()
+	result := (&core_models.ValueBean{}).New()
 	return result, nil
 }

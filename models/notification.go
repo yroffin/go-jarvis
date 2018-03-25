@@ -45,7 +45,7 @@ type INotificationBean interface {
 	// inherit persistent behaviour
 	core_models.IPersistent
 	// inherit ValueBean behaviour
-	IValueBean
+	core_models.IValueBean
 	// command
 	GetType() string
 }
@@ -83,31 +83,31 @@ func (p *NotificationBean) Set(key string, value interface{}) {
 // SetString get set name
 func (p *NotificationBean) SetString(key string, value string) {
 	// Call super method
-	IValueBean(p).SetString(key, value)
+	core_models.IValueBean(p).SetString(key, value)
 }
 
 // Get get set name
 func (p *NotificationBean) GetAsString(key string) string {
 	// Call super method
-	return IValueBean(p).GetAsString(key)
+	return core_models.IValueBean(p).GetAsString(key)
 }
 
 // Get get set name
 func (p *NotificationBean) GetAsStringArray(key string) []string {
 	// Call super method
-	return IValueBean(p).GetAsStringArray(key)
+	return core_models.IValueBean(p).GetAsStringArray(key)
 }
 
 // ToString stringify this commnd
 func (p *NotificationBean) ToString() string {
 	// Call super method
-	return IValueBean(p).ToString()
+	return core_models.IValueBean(p).ToString()
 }
 
 // ToJSON stringify this commnd
 func (p *NotificationBean) ToJSON() string {
 	// Call super method
-	return IValueBean(p).ToJSON()
+	return core_models.IValueBean(p).ToJSON()
 }
 
 // SetTimestamp set timestamp

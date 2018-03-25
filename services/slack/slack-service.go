@@ -27,22 +27,23 @@ import (
 	"reflect"
 
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 	core_services "github.com/yroffin/go-boot-sqllite/core/services"
-	"github.com/yroffin/go-jarvis/models"
 )
 
 // SlackService internal members
 type SlackService struct {
 	// members
 	*core_services.SERVICE
-	// SetPluginSlackService with injection mecanism
-	SetPluginSlackService func(interface{}) `bean:"plugin-slack-service"`
-	PluginSlackService    *PluginSlackService
+	// PluginSlackService with injection mecanism
+	PluginSlackService IPluginSlackService `@autowired:"plugin-slack-service"`
 }
 
 // ISlackService implements IBean
 type ISlackService interface {
 	core_bean.IBean
+	AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error)
+	AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error)
 }
 
 // New constructor
@@ -51,16 +52,17 @@ func (p *SlackService) New() ISlackService {
 	return &bean
 }
 
+// SetPluginSlackService injection
+func (p *SlackService) SetPluginSlackService(value interface{}) {
+	if assertion, ok := value.(IPluginSlackService); ok {
+		p.PluginSlackService = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
 // Init this SERVICE
 func (p *SlackService) Init() error {
-	// inject store
-	p.SetPluginSlackService = func(value interface{}) {
-		if assertion, ok := value.(*PluginSlackService); ok {
-			p.PluginSlackService = assertion
-		} else {
-			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-		}
-	}
 	return nil
 }
 
@@ -75,7 +77,7 @@ func (p *SlackService) Validate(name string) error {
 }
 
 // AsObject execution
-func (p *SlackService) AsObject(body models.IValueBean, args map[string]interface{}) (models.IValueBean, error) {
+func (p *SlackService) AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error) {
 	command := make(map[string]interface{})
 	log.Println("Args:", args, "Body:", body)
 	command["text"] = body.ToString()

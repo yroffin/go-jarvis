@@ -27,8 +27,8 @@ import (
 	"reflect"
 
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 	core_services "github.com/yroffin/go-boot-sqllite/core/services"
-	app_models "github.com/yroffin/go-jarvis/models"
 )
 
 // ZwayService internal members
@@ -43,6 +43,8 @@ type ZwayService struct {
 // IZwayService implements IBean
 type IZwayService interface {
 	core_bean.IBean
+	AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error)
+	AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error)
 }
 
 // New constructor
@@ -75,7 +77,7 @@ func (p *ZwayService) Validate(name string) error {
 }
 
 // AsObject execution
-func (p *ZwayService) AsObject(body app_models.IValueBean, args map[string]interface{}) (app_models.IValueBean, error) {
+func (p *ZwayService) AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error) {
 	log.Println("Args:", args, "Body:", body)
 	result, _ := p.PluginZwayService.Call(body.GetAsString("body"))
 	return result, nil

@@ -28,7 +28,7 @@ import (
 
 // CommandHandler simple command handler
 type CommandHandler interface {
-	AsObject(*CommandBean, map[string]interface{}) (ValueBean, error)
+	AsObject(*CommandBean, map[string]interface{}) (core_models.ValueBean, error)
 }
 
 // CommandBean simple command model
@@ -56,7 +56,7 @@ type ICommandBean interface {
 	// inherit persistent behaviour
 	core_models.IPersistent
 	// inherit ValueBean behaviour
-	IValueBean
+	core_models.IValueBean
 	// command
 	GetType() string
 }
@@ -95,7 +95,7 @@ func (p *CommandBean) Set(key string, value interface{}) {
 // SetString get set name
 func (p *CommandBean) SetString(key string, value string) {
 	// Call super method
-	IValueBean(p).SetString(key, value)
+	core_models.IValueBean(p).SetString(key, value)
 	switch key {
 	case "body":
 		p.Body = value
@@ -110,26 +110,26 @@ func (p *CommandBean) GetAsString(key string) string {
 		return p.Body
 	default:
 		// Call super method
-		return IValueBean(p).GetAsString(key)
+		return core_models.IValueBean(p).GetAsString(key)
 	}
 }
 
 // Get get set name
 func (p *CommandBean) GetAsStringArray(key string) []string {
 	// Call super method
-	return IValueBean(p).GetAsStringArray(key)
+	return core_models.IValueBean(p).GetAsStringArray(key)
 }
 
 // ToString stringify this commnd
 func (p *CommandBean) ToString() string {
 	// Call super method
-	return IValueBean(p).ToString()
+	return core_models.IValueBean(p).ToString()
 }
 
 // ToJSON stringify this commnd
 func (p *CommandBean) ToJSON() string {
 	// Call super method
-	return IValueBean(p).ToJSON()
+	return core_models.IValueBean(p).ToJSON()
 }
 
 // SetTimestamp set timestamp

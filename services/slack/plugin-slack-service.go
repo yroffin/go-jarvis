@@ -37,13 +37,13 @@ type PluginSlackService struct {
 	// members
 	*core_services.SERVICE
 	// SetPropertyService with injection mecanism
-	SetPropertyService func(interface{}) `bean:"property-service"`
-	PropertyService    *app_services.PropertyService
+	PropertyService app_services.IPropertyService `@autowired:"property-service"`
 }
 
 // IPluginSlackService implements IBean
 type IPluginSlackService interface {
 	core_bean.IBean
+	Call(body map[string]interface{}) (map[string]interface{}, error)
 }
 
 // New constructor
@@ -52,16 +52,17 @@ func (p *PluginSlackService) New() IPluginSlackService {
 	return &bean
 }
 
+// SetPropertyService injection
+func (p *PluginSlackService) SetPropertyService(value interface{}) {
+	if assertion, ok := value.(app_services.IPropertyService); ok {
+		p.PropertyService = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
 // Init this SERVICE
 func (p *PluginSlackService) Init() error {
-	// inject store
-	p.SetPropertyService = func(value interface{}) {
-		if assertion, ok := value.(*app_services.PropertyService); ok {
-			p.PropertyService = assertion
-		} else {
-			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-		}
-	}
 	return nil
 }
 

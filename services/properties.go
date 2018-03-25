@@ -45,6 +45,7 @@ type PropertyService struct {
 // IPropertyService implements IBean
 type IPropertyService interface {
 	core_bean.IBean
+	Get(key string, def string) string
 }
 
 // New constructor

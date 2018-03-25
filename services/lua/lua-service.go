@@ -27,22 +27,23 @@ import (
 	"reflect"
 
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 	core_services "github.com/yroffin/go-boot-sqllite/core/services"
-	app_models "github.com/yroffin/go-jarvis/models"
 )
 
 // LuaService internal members
 type LuaService struct {
 	// members
 	*core_services.SERVICE
-	// SetPluginSlackService with injection mecanism
-	SetPluginLuaService func(interface{}) `bean:"plugin-lua-service"`
-	PluginLuaService    *PluginLuaService
+	// PluginLuaService with injection mecanism
+	PluginLuaService IPluginLuaService `@autowired:"plugin-lua-service"`
 }
 
 // ILuaService implements IBean
 type ILuaService interface {
 	core_bean.IBean
+	AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error)
+	AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error)
 }
 
 // New constructor
@@ -51,16 +52,17 @@ func (p *LuaService) New() ILuaService {
 	return &bean
 }
 
+// SetPluginLuaService injection
+func (p *LuaService) SetPluginLuaService(value interface{}) {
+	if assertion, ok := value.(IPluginLuaService); ok {
+		p.PluginLuaService = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
 // Init this API
 func (p *LuaService) Init() error {
-	// inject store
-	p.SetPluginLuaService = func(value interface{}) {
-		if assertion, ok := value.(*PluginLuaService); ok {
-			p.PluginLuaService = assertion
-		} else {
-			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-		}
-	}
 	return nil
 }
 
@@ -75,7 +77,7 @@ func (p *LuaService) Validate(name string) error {
 }
 
 // AsObject execution
-func (p *LuaService) AsObject(body app_models.IValueBean, args map[string]interface{}) (app_models.IValueBean, error) {
+func (p *LuaService) AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error) {
 	log.Println("Args:", args, "Body:", body)
 	result, _ := p.PluginLuaService.Call(body.GetAsString("body"))
 	return result, nil

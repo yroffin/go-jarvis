@@ -28,6 +28,7 @@ import (
 
 	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	"github.com/yroffin/go-boot-sqllite/core/models"
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
@@ -38,10 +39,9 @@ type Notification struct {
 	// internal members
 	Name string
 	// mounts
-	Crud map[string]interface{} `path:"/api/notifications"`
+	Crud map[string]interface{} `@crud:"/api/notifications"`
 	// SwaggerService with injection mecanism
-	SetSwaggerService func(interface{}) `bean:"swagger"`
-	SwaggerService    *core_apis.SwaggerService
+	SwaggerService core_apis.ISwaggerService `@autowired:"swagger"`
 }
 
 // INotification implements IBean
@@ -52,43 +52,26 @@ type INotification interface {
 // New constructor
 func (p *Notification) New() INotification {
 	bean := Notification{API: &core_apis.API{Bean: &core_bean.Bean{}}}
-	bean.Crud = make(map[string]interface{})
-	bean.Crud["entity"] = app_models.NotificationBean{}
-	bean.Crud["entities"] = []app_models.NotificationBean{}
 	return &bean
+}
+
+// SetSwagger inject notification
+func (p *Notification) SetSwagger(value interface{}) {
+	if assertion, ok := value.(*core_apis.SwaggerService); ok {
+		p.SwaggerService = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
 }
 
 // Init this API
 func (p *Notification) Init() error {
-	// inject notification
-	p.SetSwaggerService = func(value interface{}) {
-		if assertion, ok := value.(*core_apis.SwaggerService); ok {
-			p.SwaggerService = assertion
-		} else {
-			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-		}
-	}
 	// Crud
-	p.HandlerGetAll = func() (interface{}, error) {
-		return p.GenericGetAll((&app_models.NotificationBean{}).New(), (&app_models.NotificationBeans{}).New())
+	p.Factory = func() models.IPersistent {
+		return (&app_models.NotificationBean{}).New()
 	}
-	p.HandlerGetByID = func(id string) (interface{}, error) {
-		return p.GenericGetByID(id, &app_models.NotificationBean{})
-	}
-	p.HandlerPost = func(body string) (interface{}, error) {
-		return p.GenericPost(body, &app_models.NotificationBean{})
-	}
-	p.HandlerTasks = func(name string, body string) (interface{}, error) {
-		return "", nil
-	}
-	p.HandlerPutByID = func(id string, body string) (interface{}, error) {
-		return p.GenericPutByID(id, body, &app_models.NotificationBean{})
-	}
-	p.HandlerDeleteByID = func(id string) (interface{}, error) {
-		return p.GenericDeleteByID(id, &app_models.NotificationBean{})
-	}
-	p.HandlerPatchByID = func(id string, body string) (interface{}, error) {
-		return p.GenericPatchByID(id, body, &app_models.NotificationBean{})
+	p.Factories = func() models.IPersistents {
+		return (&app_models.NotificationBeans{}).New()
 	}
 	return p.API.Init()
 }

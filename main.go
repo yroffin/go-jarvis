@@ -25,10 +25,10 @@ import (
 	// Apis
 	"flag"
 
-	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
-	core_business "github.com/yroffin/go-boot-sqllite/core/business"
+	"github.com/yroffin/go-boot-sqllite/core/apis"
+	"github.com/yroffin/go-boot-sqllite/core/business"
 	core_manager "github.com/yroffin/go-boot-sqllite/core/manager"
-	core_stores "github.com/yroffin/go-boot-sqllite/core/stores"
+	"github.com/yroffin/go-boot-sqllite/core/stores"
 	app_apis "github.com/yroffin/go-jarvis/apis"
 	app_services "github.com/yroffin/go-jarvis/services"
 	app_chacon "github.com/yroffin/go-jarvis/services/chacon"
@@ -47,10 +47,12 @@ func main() {
 	flag.String("Djarvis.slack.api", "", "Slack API")
 	m.CommandLine()
 	// Core beans
-	m.Register("swagger", (&core_apis.SwaggerService{}).New())
-	m.Register("router", (&core_apis.Router{}).New())
-	m.Register("crud-business", (&core_business.CrudBusiness{}).New())
-	m.Register("store-manager", (&core_stores.Store{}).New([]string{"Command", "Notification"}, "./database.db"))
+	m.Register("swagger", (&apis.SwaggerService{}).New())
+	m.Register("router", (&apis.Router{}).New())
+	m.Register("sql-crud-business", (&business.SqlCrudBusiness{}).New())
+	m.Register("graph-crud-business", (&business.GraphCrudBusiness{}).New())
+	m.Register("sqllite-manager", (&stores.Store{}).New([]string{"Node"}, "./sqllite.db"))
+	m.Register("cayley-manager", (&stores.Graph{}).New([]string{"Node"}, "./cayley.db"))
 	// helpers
 	m.Register("property-service", (&app_services.PropertyService{}).New())
 	// PLUGINS beans

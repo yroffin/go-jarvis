@@ -56,8 +56,6 @@ type IDeviceBean interface {
 	core_models.IPersistent
 	// inherit ValueBean behaviour
 	core_models.IValueBean
-	// Internal
-	Get() *DeviceBean
 }
 
 // New constructor
@@ -70,11 +68,6 @@ func (p *DeviceBean) New() IDeviceBean {
 // GetName get set name
 func (p *DeviceBean) GetName() string {
 	return "DeviceBean"
-}
-
-// GetID retrieve ID
-func (p *DeviceBean) Get() *DeviceBean {
-	return p
 }
 
 // GetID retrieve ID

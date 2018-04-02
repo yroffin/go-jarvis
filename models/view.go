@@ -23,6 +23,8 @@
 package models
 
 import (
+	"log"
+
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 )
 
@@ -43,7 +45,7 @@ type ViewBean struct {
 	// IsHome
 	IsHome bool `json:"ishome"`
 	// Devices
-	Devices []DeviceBean `json:"devices"`
+	Devices []core_models.IPersistent `json:"devices"`
 }
 
 // IViewBean interface
@@ -52,8 +54,6 @@ type IViewBean interface {
 	core_models.IPersistent
 	// inherit ValueBean behaviour
 	core_models.IValueBean
-	// Internal
-	SetDevices([]DeviceBean)
 }
 
 // New constructor
@@ -61,11 +61,6 @@ func (p *ViewBean) New() IViewBean {
 	bean := ViewBean{}
 	bean.Extended = make(map[string]interface{})
 	return &bean
-}
-
-// SetDevices fix devices
-func (p *ViewBean) SetDevices(devices []DeviceBean) {
-	p.Devices = devices
 }
 
 // GetName get set name
@@ -85,6 +80,14 @@ func (p *ViewBean) SetID(ID string) {
 
 // Set get set name
 func (p *ViewBean) Set(key string, value interface{}) {
+	if key == "devices" {
+		assert, ok := value.([]core_models.IPersistent)
+		if ok {
+			p.Devices = assert
+		} else {
+			log.Println("Warn: unable to assert type")
+		}
+	}
 }
 
 // SetString get set name

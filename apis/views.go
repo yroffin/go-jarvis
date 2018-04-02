@@ -118,18 +118,8 @@ func (p *View) Validate(name string) error {
 
 // GetAllViews read all views and all data
 func (p *View) GetAllViews(body string) (interface{}, int, error) {
-	views := (&app_models.ViewBeans{}).New()
-	p.SQLCrudBusiness.GetAll(p.Factory(), views)
-	for _, view := range views.Get() {
-		devices := make([]app_models.DeviceBean, 0)
-		edges, _ := p.GraphBusiness.GetAllLink(view.GetID(), make([]models.IEdgeBean, 0))
-		for _, edge := range edges {
-			device := (&app_models.DeviceBean{}).New()
-			device.SetID(edge.GetTargetID())
-			p.SQLCrudBusiness.Get(device)
-			devices = append(devices, *device.Get())
-		}
-		view.(app_models.IViewBean).SetDevices(devices)
-	}
-	return views.Get(), -1, nil
+	return p.LoadAllLinks("devices",
+		func() models.IPersistent {
+			return (&app_models.DeviceBean{}).New()
+		})
 }

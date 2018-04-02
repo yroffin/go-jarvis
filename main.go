@@ -27,7 +27,7 @@ import (
 
 	"github.com/yroffin/go-boot-sqllite/core/apis"
 	"github.com/yroffin/go-boot-sqllite/core/business"
-	core_manager "github.com/yroffin/go-boot-sqllite/core/manager"
+	"github.com/yroffin/go-boot-sqllite/core/manager"
 	"github.com/yroffin/go-boot-sqllite/core/stores"
 	app_apis "github.com/yroffin/go-jarvis/apis"
 	app_services "github.com/yroffin/go-jarvis/services"
@@ -41,7 +41,7 @@ import (
 // Rest()
 func main() {
 	// declare manager and boot it
-	m := core_manager.Manager{}
+	m := (&manager.Manager{}).New("manager")
 	m.Init()
 	// Command Line
 	flag.String("Djarvis.slack.api", "", "Slack API")
@@ -51,8 +51,8 @@ func main() {
 	m.Register("router", (&apis.Router{}).New())
 	m.Register("sql-crud-business", (&business.SqlCrudBusiness{}).New())
 	m.Register("graph-crud-business", (&business.GraphCrudBusiness{}).New())
-	m.Register("sqllite-manager", (&stores.Store{}).New([]string{"Node"}, "./sqllite.db"))
-	m.Register("cayley-manager", (&stores.Graph{}).New([]string{"Node"}, "./cayley.db"))
+	m.Register("sqllite-manager", (&stores.Store{}).New([]string{"CommandBean", "NotificationBean", "SnapshotBean", "ConfigBean", "ScriptPluginBean", "DeviceBean", "ViewBean", "CronBean", "TriggerBean", "ConnectorBean", "PropertyBean", "ProcessusBean"}, "./sqllite.db"))
+	m.Register("cayley-manager", (&stores.Graph{}).New([]string{}, "./cayley.db"))
 	// helpers
 	m.Register("property-service", (&app_services.PropertyService{}).New())
 	// PLUGINS beans
@@ -68,9 +68,18 @@ func main() {
 	m.Register("zway-service", (&app_zway.ZwayService{}).New())
 	m.Register("chacon-service", (&app_chacon.ChaconService{}).New())
 	// API beans
-	m.Register("command-api", (&app_apis.Command{}).New())
-	m.Register("notification-api", (&app_apis.Notification{}).New())
-	// HREF beans
-	//m.Register("command-notification-href", (&app_href.CommandNotificationHref{}).New())
-	m.Boot("router")
+	m.Register("CommandBean", (&app_apis.Command{}).New())
+	m.Register("NotificationBean", (&app_apis.Notification{}).New())
+	m.Register("SnapshotBean", (&app_apis.Snapshot{}).New())
+	m.Register("ConfigBean", (&app_apis.Config{}).New())
+	m.Register("ScriptPluginBean", (&app_apis.ScriptPlugin{}).New())
+	m.Register("DeviceBean", (&app_apis.Device{}).New())
+	m.Register("ViewBean", (&app_apis.View{}).New())
+	m.Register("CronBean", (&app_apis.Cron{}).New())
+	m.Register("TriggerBean", (&app_apis.Trigger{}).New())
+	m.Register("ConnectorBean", (&app_apis.Connector{}).New())
+	m.Register("PropertyBean", (&app_apis.Property{}).New())
+	m.Register("ProcessBean", (&app_apis.Processus{}).New())
+	m.Register("SecurityBean", (&app_apis.Security{}).New())
+	m.Boot()
 }

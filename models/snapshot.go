@@ -26,13 +26,8 @@ import (
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 )
 
-// CommandHandler simple command handler
-type CommandHandler interface {
-	AsObject(*CommandBean, map[string]interface{}) (core_models.ValueBean, error)
-}
-
-// CommandBean simple command model
-type CommandBean struct {
+// SnapshotBean simple Snapshot model
+type SnapshotBean struct {
 	// Id
 	ID string `json:"id"`
 	// Timestamp
@@ -43,139 +38,139 @@ type CommandBean struct {
 	Type string `json:"type"`
 	// Icon
 	Icon string `json:"icon"`
-	// Mode
-	Mode string `json:"mode"`
-	// Body
-	Body string `json:"body"`
+	// Json
+	JSON interface{} `json:"json"`
 	// Extended internal store
 	Extended map[string]interface{} `json:"extended"`
 }
 
-// ICommandBean interface
-type ICommandBean interface {
+// ISnapshotBean interface
+type ISnapshotBean interface {
 	// inherit persistent behaviour
 	core_models.IPersistent
 	// inherit ValueBean behaviour
 	core_models.IValueBean
-	// command
+	// Snapshot
 	GetType() string
+	// GetJSON
+	GetJSON() interface{}
 }
 
 // New constructor
-func (p *CommandBean) New() ICommandBean {
-	bean := CommandBean{}
+func (p *SnapshotBean) New() ISnapshotBean {
+	bean := SnapshotBean{}
 	bean.Extended = make(map[string]interface{})
 	return &bean
 }
 
 // GetName get set name
-func (p *CommandBean) GetName() string {
-	return "CommandBean"
+func (p *SnapshotBean) GetName() string {
+	return "SnapshotBean"
 }
 
 // GetType get set name
-func (p *CommandBean) GetType() string {
+func (p *SnapshotBean) GetType() string {
 	return p.Type
 }
 
+// GetJSON get set json
+func (p *SnapshotBean) GetJSON() interface{} {
+	return p.JSON
+}
+
 // GetID retrieve ID
-func (p *CommandBean) GetID() string {
+func (p *SnapshotBean) GetID() string {
 	return p.ID
 }
 
 // SetID retrieve ID
-func (p *CommandBean) SetID(ID string) {
+func (p *SnapshotBean) SetID(ID string) {
 	p.ID = ID
 }
 
 // Set get set name
-func (p *CommandBean) Set(key string, value interface{}) {
+func (p *SnapshotBean) Set(key string, value interface{}) {
 }
 
 // SetString get set name
-func (p *CommandBean) SetString(key string, value string) {
+func (p *SnapshotBean) SetString(key string, value string) {
 	// Call super method
 	core_models.IValueBean(p).SetString(key, value)
 	switch key {
-	case "body":
-		p.Body = value
-		break
 	}
 }
 
-// Get get set name
-func (p *CommandBean) GetAsString(key string) string {
+// GetAsString get as string
+func (p *SnapshotBean) GetAsString(key string) string {
 	switch key {
-	case "body":
-		return p.Body
 	default:
 		// Call super method
 		return core_models.IValueBean(p).GetAsString(key)
 	}
 }
 
-// Get get set name
-func (p *CommandBean) GetAsStringArray(key string) []string {
+// GetAsStringArray get array
+func (p *SnapshotBean) GetAsStringArray(key string) []string {
 	// Call super method
 	return core_models.IValueBean(p).GetAsStringArray(key)
 }
 
 // ToString stringify this commnd
-func (p *CommandBean) ToString() string {
+func (p *SnapshotBean) ToString() string {
 	// Call super method
 	return core_models.IValueBean(p).ToString()
 }
 
 // ToJSON stringify this commnd
-func (p *CommandBean) ToJSON() string {
+func (p *SnapshotBean) ToJSON() string {
 	// Call super method
 	return core_models.IValueBean(p).ToJSON()
 }
 
 // SetTimestamp set timestamp
-func (p *CommandBean) SetTimestamp(stamp core_models.JSONTime) {
+func (p *SnapshotBean) SetTimestamp(stamp core_models.JSONTime) {
 	p.Timestamp = stamp
 }
 
 // GetTimestamp get timestamp
-func (p *CommandBean) GetTimestamp() core_models.JSONTime {
+func (p *SnapshotBean) GetTimestamp() core_models.JSONTime {
 	return p.Timestamp
 }
 
 // Copy retrieve ID
-func (p *CommandBean) Copy() core_models.IPersistent {
+func (p *SnapshotBean) Copy() core_models.IPersistent {
 	clone := *p
 	return &clone
 }
 
-// CommandBeans simple bean model
-type CommandBeans struct {
+// SnapshotBeans simple bean model
+type SnapshotBeans struct {
 	// Collection
 	Collection []core_models.IPersistent `json:"collections"`
 	// Collection
-	Collections []CommandBean
+	Collections []SnapshotBean
 }
 
 // New constructor
-func (p *CommandBeans) New() core_models.IPersistents {
-	bean := CommandBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]CommandBean, 0)}
+func (p *SnapshotBeans) New() core_models.IPersistents {
+	bean := SnapshotBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]SnapshotBean, 0)}
 	return &bean
 }
 
 // Add new bean
-func (p *CommandBeans) Add(bean core_models.IPersistent) {
+func (p *SnapshotBeans) Add(bean core_models.IPersistent) {
 	p.Collection = append(p.Collection, bean)
-	p.Collections = append(p.Collections, CommandBean{})
+	p.Collections = append(p.Collections, SnapshotBean{})
 }
 
 // Get collection of bean
-func (p *CommandBeans) Get() []core_models.IPersistent {
+func (p *SnapshotBeans) Get() []core_models.IPersistent {
 	return p.Collection
 }
 
 // Index read a single element
-func (p *CommandBeans) Index(index int) ICommandBean {
-	data, ok := p.Collection[index].(*CommandBean)
+func (p *SnapshotBeans) Index(index int) ISnapshotBean {
+	data, ok := p.Collection[index].(*SnapshotBean)
 	if ok {
 		return data
 	}

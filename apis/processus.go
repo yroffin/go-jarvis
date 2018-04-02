@@ -32,31 +32,31 @@ import (
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
-// Bean internal members
-type Notification struct {
+// Processus internal members
+type Processus struct {
 	// Base component
 	*core_apis.API
 	// internal members
 	Name string
 	// mounts
-	Crud interface{} `@crud:"/api/notifications"`
+	Crud interface{} `@crud:"/api/process"`
 	// Swagger with injection mecanism
 	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
 }
 
-// INotification implements IBean
-type INotification interface {
+// IProcessus implements IBean
+type IProcessus interface {
 	core_apis.IAPI
 }
 
 // New constructor
-func (p *Notification) New() INotification {
-	bean := Notification{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+func (p *Processus) New() IProcessus {
+	bean := Processus{API: &core_apis.API{Bean: &core_bean.Bean{}}}
 	return &bean
 }
 
-// SetSwagger inject notification
-func (p *Notification) SetSwagger(value interface{}) {
+// SetSwagger inject Processus
+func (p *Processus) SetSwagger(value interface{}) {
 	if assertion, ok := value.(core_apis.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
@@ -65,30 +65,30 @@ func (p *Notification) SetSwagger(value interface{}) {
 }
 
 // Init this API
-func (p *Notification) Init() error {
+func (p *Processus) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.NotificationBean{}).New()
+		return (&app_models.ProcessusBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.NotificationBeans{}).New()
+		return (&app_models.ProcessusBeans{}).New()
 	}
 	return p.API.Init()
 }
 
 // PostConstruct this API
-func (p *Notification) PostConstruct(name string) error {
+func (p *Processus) PostConstruct(name string) error {
 	// Scan struct and init all handler
 	p.ScanHandler(p.Swagger, p)
 	return nil
 }
 
 // Validate this API
-func (p *Notification) Validate(name string) error {
+func (p *Processus) Validate(name string) error {
 	return nil
 }
 
 // HandlerTasksByID return task by id
-func (p *Notification) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
+func (p *Processus) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
 	return "", nil
 }

@@ -1,4 +1,4 @@
-// Package interfaces for common interfaces
+// Package apis for common apis
 // MIT License
 //
 // Copyright (c) 2017 yroffin
@@ -28,35 +28,34 @@ import (
 
 	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
-	"github.com/yroffin/go-boot-sqllite/core/models"
-	app_models "github.com/yroffin/go-jarvis/models"
 )
 
-// Bean internal members
-type Notification struct {
+// Security internal members
+type Security struct {
 	// Base component
 	*core_apis.API
 	// internal members
 	Name string
-	// mounts
-	Crud interface{} `@crud:"/api/notifications"`
+	// Api
+	SecConnect interface{} `@handler:"Connect" path:"/api/connect" method:"GET" mime-type:"/application/json"`
+	SecProfile interface{} `@handler:"Profile" path:"/api/profile/me" method:"GET" mime-type:"/application/json"`
 	// Swagger with injection mecanism
 	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
 }
 
-// INotification implements IBean
-type INotification interface {
+// ISecurity implements IBean
+type ISecurity interface {
 	core_apis.IAPI
 }
 
 // New constructor
-func (p *Notification) New() INotification {
-	bean := Notification{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+func (p *Security) New() ISecurity {
+	bean := Security{API: &core_apis.API{Bean: &core_bean.Bean{}}}
 	return &bean
 }
 
 // SetSwagger inject notification
-func (p *Notification) SetSwagger(value interface{}) {
+func (p *Security) SetSwagger(value interface{}) {
 	if assertion, ok := value.(core_apis.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
@@ -65,30 +64,34 @@ func (p *Notification) SetSwagger(value interface{}) {
 }
 
 // Init this API
-func (p *Notification) Init() error {
-	// Crud
-	p.Factory = func() models.IPersistent {
-		return (&app_models.NotificationBean{}).New()
-	}
-	p.Factories = func() models.IPersistents {
-		return (&app_models.NotificationBeans{}).New()
-	}
+func (p *Security) Init() error {
 	return p.API.Init()
 }
 
 // PostConstruct this API
-func (p *Notification) PostConstruct(name string) error {
+func (p *Security) PostConstruct(name string) error {
 	// Scan struct and init all handler
 	p.ScanHandler(p.Swagger, p)
 	return nil
 }
 
 // Validate this API
-func (p *Notification) Validate(name string) error {
+func (p *Security) Validate(name string) error {
 	return nil
 }
 
-// HandlerTasksByID return task by id
-func (p *Notification) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
-	return "", nil
+// Connect API
+func (p *Security) Connect() func() (string, error) {
+	anonymous := func() (string, error) {
+		return "false", nil
+	}
+	return anonymous
+}
+
+// Profile API
+func (p *Security) Profile() func() (string, error) {
+	anonymous := func() (string, error) {
+		return "{\"attributes\":{\"email\":\"-\"}}", nil
+	}
+	return anonymous
 }

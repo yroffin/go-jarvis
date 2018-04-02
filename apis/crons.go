@@ -23,38 +23,72 @@
 package apis
 
 import (
+	"log"
+	"reflect"
+
+	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
-	core_services "github.com/yroffin/go-boot-sqllite/core/services"
+	"github.com/yroffin/go-boot-sqllite/core/models"
+	app_models "github.com/yroffin/go-jarvis/models"
 )
 
-// CommandNotificationHref internal members
-type CommandNotificationHref struct {
+// Cron internal members
+type Cron struct {
 	// Base component
-	*core_services.SERVICE
+	*core_apis.API
+	// internal members
+	Name string
+	// mounts
+	Crud interface{} `@crud:"/api/crons"`
+	// Swagger with injection mecanism
+	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
 }
 
-// ICommandNotificationHref implements IBean
-type ICommandNotificationHref interface {
-	core_bean.IBean
+// ICron implements IBean
+type ICron interface {
+	core_apis.IAPI
 }
 
 // New constructor
-func (p *CommandNotificationHref) New() ICommandNotificationHref {
-	bean := CommandNotificationHref{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
+func (p *Cron) New() ICron {
+	bean := Cron{API: &core_apis.API{Bean: &core_bean.Bean{}}}
 	return &bean
 }
 
+// SetSwagger inject Cron
+func (p *Cron) SetSwagger(value interface{}) {
+	if assertion, ok := value.(core_apis.ISwaggerService); ok {
+		p.Swagger = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
 // Init this API
-func (p *CommandNotificationHref) Init() error {
-	return nil
+func (p *Cron) Init() error {
+	// Crud
+	p.Factory = func() models.IPersistent {
+		return (&app_models.CronBean{}).New()
+	}
+	p.Factories = func() models.IPersistents {
+		return (&app_models.CronBeans{}).New()
+	}
+	return p.API.Init()
 }
 
 // PostConstruct this API
-func (p *CommandNotificationHref) PostConstruct(name string) error {
+func (p *Cron) PostConstruct(name string) error {
+	// Scan struct and init all handler
+	p.ScanHandler(p.Swagger, p)
 	return nil
 }
 
 // Validate this API
-func (p *CommandNotificationHref) Validate(name string) error {
+func (p *Cron) Validate(name string) error {
 	return nil
+}
+
+// HandlerTasksByID return task by id
+func (p *Cron) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
+	return "", nil
 }

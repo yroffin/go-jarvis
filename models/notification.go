@@ -56,9 +56,9 @@ func (p *NotificationBean) New() INotificationBean {
 	return &bean
 }
 
-// SetName get set name
-func (p *NotificationBean) SetName() string {
-	return "Notification"
+// GetName get set name
+func (p *NotificationBean) GetName() string {
+	return "NotificationBean"
 }
 
 // GetType get set name

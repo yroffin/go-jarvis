@@ -32,31 +32,31 @@ import (
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
-// Bean internal members
-type Notification struct {
+// Trigger internal members
+type Trigger struct {
 	// Base component
 	*core_apis.API
 	// internal members
 	Name string
 	// mounts
-	Crud interface{} `@crud:"/api/notifications"`
+	Crud interface{} `@crud:"/api/triggers"`
 	// Swagger with injection mecanism
 	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
 }
 
-// INotification implements IBean
-type INotification interface {
+// ITrigger implements IBean
+type ITrigger interface {
 	core_apis.IAPI
 }
 
 // New constructor
-func (p *Notification) New() INotification {
-	bean := Notification{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+func (p *Trigger) New() ITrigger {
+	bean := Trigger{API: &core_apis.API{Bean: &core_bean.Bean{}}}
 	return &bean
 }
 
-// SetSwagger inject notification
-func (p *Notification) SetSwagger(value interface{}) {
+// SetSwagger inject Trigger
+func (p *Trigger) SetSwagger(value interface{}) {
 	if assertion, ok := value.(core_apis.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
@@ -65,30 +65,30 @@ func (p *Notification) SetSwagger(value interface{}) {
 }
 
 // Init this API
-func (p *Notification) Init() error {
+func (p *Trigger) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.NotificationBean{}).New()
+		return (&app_models.TriggerBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.NotificationBeans{}).New()
+		return (&app_models.TriggerBeans{}).New()
 	}
 	return p.API.Init()
 }
 
 // PostConstruct this API
-func (p *Notification) PostConstruct(name string) error {
+func (p *Trigger) PostConstruct(name string) error {
 	// Scan struct and init all handler
 	p.ScanHandler(p.Swagger, p)
 	return nil
 }
 
 // Validate this API
-func (p *Notification) Validate(name string) error {
+func (p *Trigger) Validate(name string) error {
 	return nil
 }
 
 // HandlerTasksByID return task by id
-func (p *Notification) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
+func (p *Trigger) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
 	return "", nil
 }

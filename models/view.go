@@ -26,88 +26,76 @@ import (
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 )
 
-// CommandHandler simple command handler
-type CommandHandler interface {
-	AsObject(*CommandBean, map[string]interface{}) (core_models.ValueBean, error)
-}
-
-// CommandBean simple command model
-type CommandBean struct {
+// ViewBean simple View model
+type ViewBean struct {
 	// Id
 	ID string `json:"id"`
 	// Timestamp
 	Timestamp core_models.JSONTime `json:"timestamp"`
 	// Name
 	Name string `json:"name"`
-	// Type
-	Type string `json:"type"`
 	// Icon
 	Icon string `json:"icon"`
-	// Mode
-	Mode string `json:"mode"`
-	// Body
-	Body string `json:"body"`
-	// Extended internal store
+	// Extended
 	Extended map[string]interface{} `json:"extended"`
+	// URL
+	URL string `json:"url"`
+	// IsHome
+	IsHome bool `json:"ishome"`
+	// Devices
+	Devices []DeviceBean `json:"devices"`
 }
 
-// ICommandBean interface
-type ICommandBean interface {
+// IViewBean interface
+type IViewBean interface {
 	// inherit persistent behaviour
 	core_models.IPersistent
 	// inherit ValueBean behaviour
 	core_models.IValueBean
-	// command
-	GetType() string
+	// Internal
+	SetDevices([]DeviceBean)
 }
 
 // New constructor
-func (p *CommandBean) New() ICommandBean {
-	bean := CommandBean{}
+func (p *ViewBean) New() IViewBean {
+	bean := ViewBean{}
 	bean.Extended = make(map[string]interface{})
 	return &bean
 }
 
-// GetName get set name
-func (p *CommandBean) GetName() string {
-	return "CommandBean"
+// SetDevices fix devices
+func (p *ViewBean) SetDevices(devices []DeviceBean) {
+	p.Devices = devices
 }
 
-// GetType get set name
-func (p *CommandBean) GetType() string {
-	return p.Type
+// GetName get set name
+func (p *ViewBean) GetName() string {
+	return "ViewBean"
 }
 
 // GetID retrieve ID
-func (p *CommandBean) GetID() string {
+func (p *ViewBean) GetID() string {
 	return p.ID
 }
 
 // SetID retrieve ID
-func (p *CommandBean) SetID(ID string) {
+func (p *ViewBean) SetID(ID string) {
 	p.ID = ID
 }
 
 // Set get set name
-func (p *CommandBean) Set(key string, value interface{}) {
+func (p *ViewBean) Set(key string, value interface{}) {
 }
 
 // SetString get set name
-func (p *CommandBean) SetString(key string, value string) {
+func (p *ViewBean) SetString(key string, value string) {
 	// Call super method
 	core_models.IValueBean(p).SetString(key, value)
-	switch key {
-	case "body":
-		p.Body = value
-		break
-	}
 }
 
 // Get get set name
-func (p *CommandBean) GetAsString(key string) string {
+func (p *ViewBean) GetAsString(key string) string {
 	switch key {
-	case "body":
-		return p.Body
 	default:
 		// Call super method
 		return core_models.IValueBean(p).GetAsString(key)
@@ -115,67 +103,67 @@ func (p *CommandBean) GetAsString(key string) string {
 }
 
 // Get get set name
-func (p *CommandBean) GetAsStringArray(key string) []string {
+func (p *ViewBean) GetAsStringArray(key string) []string {
 	// Call super method
 	return core_models.IValueBean(p).GetAsStringArray(key)
 }
 
 // ToString stringify this commnd
-func (p *CommandBean) ToString() string {
+func (p *ViewBean) ToString() string {
 	// Call super method
 	return core_models.IValueBean(p).ToString()
 }
 
 // ToJSON stringify this commnd
-func (p *CommandBean) ToJSON() string {
+func (p *ViewBean) ToJSON() string {
 	// Call super method
 	return core_models.IValueBean(p).ToJSON()
 }
 
 // SetTimestamp set timestamp
-func (p *CommandBean) SetTimestamp(stamp core_models.JSONTime) {
+func (p *ViewBean) SetTimestamp(stamp core_models.JSONTime) {
 	p.Timestamp = stamp
 }
 
 // GetTimestamp get timestamp
-func (p *CommandBean) GetTimestamp() core_models.JSONTime {
+func (p *ViewBean) GetTimestamp() core_models.JSONTime {
 	return p.Timestamp
 }
 
 // Copy retrieve ID
-func (p *CommandBean) Copy() core_models.IPersistent {
+func (p *ViewBean) Copy() core_models.IPersistent {
 	clone := *p
 	return &clone
 }
 
-// CommandBeans simple bean model
-type CommandBeans struct {
+// ViewBeans simple bean model
+type ViewBeans struct {
 	// Collection
 	Collection []core_models.IPersistent `json:"collections"`
 	// Collection
-	Collections []CommandBean
+	Collections []ViewBean
 }
 
 // New constructor
-func (p *CommandBeans) New() core_models.IPersistents {
-	bean := CommandBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]CommandBean, 0)}
+func (p *ViewBeans) New() core_models.IPersistents {
+	bean := ViewBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]ViewBean, 0)}
 	return &bean
 }
 
 // Add new bean
-func (p *CommandBeans) Add(bean core_models.IPersistent) {
+func (p *ViewBeans) Add(bean core_models.IPersistent) {
 	p.Collection = append(p.Collection, bean)
-	p.Collections = append(p.Collections, CommandBean{})
+	p.Collections = append(p.Collections, ViewBean{})
 }
 
 // Get collection of bean
-func (p *CommandBeans) Get() []core_models.IPersistent {
+func (p *ViewBeans) Get() []core_models.IPersistent {
 	return p.Collection
 }
 
 // Index read a single element
-func (p *CommandBeans) Index(index int) ICommandBean {
-	data, ok := p.Collection[index].(*CommandBean)
+func (p *ViewBeans) Index(index int) IViewBean {
+	data, ok := p.Collection[index].(*ViewBean)
 	if ok {
 		return data
 	}

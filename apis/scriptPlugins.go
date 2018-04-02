@@ -39,7 +39,7 @@ type ScriptPlugin struct {
 	// internal members
 	Name string
 	// mounts
-	Crud interface{} `@crud:"/api/scripts"`
+	Crud interface{} `@crud:"/api/plugins/scripts"`
 	// Swagger with injection mecanism
 	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
 }

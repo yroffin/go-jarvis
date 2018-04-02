@@ -162,6 +162,8 @@ type SnapshotHrefEntityBuild struct {
 	IsError bool `json:"error"`
 	// Link
 	Link string `json:"link"`
+	// Attr
+	Attr map[string]string `json:"attributes"`
 }
 
 // Restore this Snapshot
@@ -212,8 +214,16 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 		case "HREF", "HREF_IF", "HREF_THEN", "HREF_ELSE":
 			for _, entityBean := range linkedBeanValue.(map[string]interface{}) {
 				data, _ := json.MarshalIndent(entityBean, "", "\t")
+				// Common href data
 				var href = SnapshotHref{}
 				json.Unmarshal(data, &href)
+				attr := make(map[string]string)
+				for field, value := range entityBean.(map[string]interface{}) {
+					assert, ok := value.(string)
+					if ok {
+						attr[field] = assert
+					}
+				}
 				if OldIDToNewID[strconv.Itoa(href.From)] != "" && OldIDToNewID[strconv.Itoa(href.To)] != "" {
 					log.Println("Link:", NewIDToBean[OldIDToNewID[strconv.Itoa(href.From)]], "=[", linkedBeanType, "]=>", NewIDToBean[OldIDToNewID[strconv.Itoa(href.To)]])
 					builds = append(builds, SnapshotHrefEntityBuild{
@@ -227,6 +237,7 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 						},
 						IsError: false,
 						Link:    linkedBeanType,
+						Attr:    attr,
 					})
 				} else {
 					if OldIDToNewID[strconv.Itoa(href.From)] == "" {
@@ -262,6 +273,10 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 				SourceID: edge.Source.ID,
 				Target:   edge.Target.Type,
 				TargetID: edge.Target.ID,
+				Extended: make(map[string]interface{}),
+			}
+			for field, value := range edge.Attr {
+				toCreate.Extended[field] = value
 			}
 			p.GraphBusiness.CreateLink(&toCreate)
 		}

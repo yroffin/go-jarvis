@@ -156,6 +156,18 @@ func (p *Command) Init() error {
 	p.Factories = func() models.IPersistents {
 		return (&app_models.CommandBeans{}).New()
 	}
+	p.HandlerTasksByID = func(id string, name string, body string) (interface{}, int, error) {
+		if name == "execute" {
+			// task
+			return p.Execute(id, body)
+		}
+		if name == "test" {
+			// task
+			res, count, err := p.Test(id, body)
+			return strconv.FormatBool(res), count, err
+		}
+		return "", -1, nil
+	}
 	return p.API.Init()
 }
 
@@ -169,20 +181,6 @@ func (p *Command) PostConstruct(name string) error {
 // Validate this API
 func (p *Command) Validate(name string) error {
 	return nil
-}
-
-// HandlerTasksByID return task by id
-func (p *Command) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
-	if name == "execute" {
-		// task
-		return p.Execute(id, body)
-	}
-	if name == "test" {
-		// task
-		res, err := p.Test(id, body)
-		return strconv.FormatBool(res), err
-	}
-	return "", nil
 }
 
 // Execute this command
@@ -202,52 +200,52 @@ func (p *Command) decode(id string, body string) (string, app_models.ICommandBea
 }
 
 // Execute this command
-func (p *Command) Execute(id string, body string) (interface{}, error) {
+func (p *Command) Execute(id string, body string) (interface{}, int, error) {
 	typ, command, args, _ := p.decode(id, body)
 	switch typ {
 	case "SLACK":
 		result, _ := p.SlackService.AsObject(command, args)
-		return result, nil
+		return result, -1, nil
 	case "SHELL":
 		result, _ := p.ShellService.AsObject(command, args)
-		return result, nil
+		return result, -1, nil
 	case "LUA":
 		result, _ := p.LuaService.AsObject(command, args)
-		return result, nil
+		return result, -1, nil
 	case "CHACON":
 		result, _ := p.ChaconService.AsObject(command, args)
-		return result, nil
+		return result, -1, nil
 	case "ZWAY":
 		result, _ := p.ZwayService.AsObject(command, args)
-		return result, nil
+		return result, -1, nil
 	default:
 		log.Printf("Warning type %v is not implemented", typ)
 	}
-	return "", nil
+	return "", -1, nil
 }
 
 // Test this command
-func (p *Command) Test(id string, body string) (bool, error) {
+func (p *Command) Test(id string, body string) (bool, int, error) {
 	typ, command, args, _ := p.decode(id, body)
 	switch typ {
 	case "SLACK":
 		result, _ := p.SlackService.AsObject(command, args)
-		return result.ToString() == "true", nil
+		return result.ToString() == "true", -1, nil
 		break
 	case "SHELL":
 		result, _ := p.ShellService.AsObject(command, args)
-		return result.ToString() == "true", nil
+		return result.ToString() == "true", -1, nil
 	case "LUA":
 		result, _ := p.LuaService.AsObject(command, args)
-		return result.ToString() == "true", nil
+		return result.ToString() == "true", -1, nil
 	case "CHACON":
 		result, _ := p.ChaconService.AsObject(command, args)
-		return result.ToString() == "true", nil
+		return result.ToString() == "true", -1, nil
 	case "ZWAY":
 		result, _ := p.ZwayService.AsObject(command, args)
-		return result.ToString() == "true", nil
+		return result.ToString() == "true", -1, nil
 	default:
 		log.Printf("Warning type %v is not implemented", typ)
 	}
-	return false, nil
+	return false, -1, nil
 }

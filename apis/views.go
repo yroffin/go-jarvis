@@ -121,5 +121,5 @@ func (p *View) GetAllViews(body string) (interface{}, int, error) {
 	return p.LoadAllLinks("devices",
 		func() models.IPersistent {
 			return (&app_models.DeviceBean{}).New()
-		})
+		}, "DeviceBean")
 }

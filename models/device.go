@@ -70,6 +70,13 @@ func (p *DeviceBean) GetName() string {
 	return "DeviceBean"
 }
 
+// Extend vars
+func (p *DeviceBean) Extend(e map[string]interface{}) {
+	for k, v := range e {
+		p.Extended[k] = v
+	}
+}
+
 // GetID retrieve ID
 func (p *DeviceBean) GetID() string {
 	return p.ID

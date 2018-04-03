@@ -60,6 +60,13 @@ func (p *PropertyBean) GetName() string {
 	return "PropertyBean"
 }
 
+// Extend vars
+func (p *PropertyBean) Extend(e map[string]interface{}) {
+	for k, v := range e {
+		p.Extended[k] = v
+	}
+}
+
 // GetID retrieve ID
 func (p *PropertyBean) GetID() string {
 	return p.ID

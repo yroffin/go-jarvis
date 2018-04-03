@@ -60,6 +60,13 @@ func (p *ConnectorBean) GetName() string {
 	return "ConnectorBean"
 }
 
+// Extend vars
+func (p *ConnectorBean) Extend(e map[string]interface{}) {
+	for k, v := range e {
+		p.Extended[k] = v
+	}
+}
+
 // GetID retrieve ID
 func (p *ConnectorBean) GetID() string {
 	return p.ID

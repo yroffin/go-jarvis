@@ -38,6 +38,8 @@ type NotificationBean struct {
 	Type string `json:"type"`
 	// Icon
 	Icon string `json:"icon"`
+	// Extended
+	Extended map[string]interface{} `json:"extended"`
 }
 
 // INotificationBean interface
@@ -59,6 +61,13 @@ func (p *NotificationBean) New() INotificationBean {
 // GetName get set name
 func (p *NotificationBean) GetName() string {
 	return "NotificationBean"
+}
+
+// Extend vars
+func (p *NotificationBean) Extend(e map[string]interface{}) {
+	for k, v := range e {
+		p.Extended[k] = v
+	}
 }
 
 // GetType get set name

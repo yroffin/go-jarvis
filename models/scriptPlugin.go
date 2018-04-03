@@ -60,6 +60,13 @@ func (p *ScriptPluginBean) GetName() string {
 	return "ScriptPluginBean"
 }
 
+// Extend vars
+func (p *ScriptPluginBean) Extend(e map[string]interface{}) {
+	for k, v := range e {
+		p.Extended[k] = v
+	}
+}
+
 // GetID retrieve ID
 func (p *ScriptPluginBean) GetID() string {
 	return p.ID

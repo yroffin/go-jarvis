@@ -68,6 +68,13 @@ func (p *SnapshotBean) GetName() string {
 	return "SnapshotBean"
 }
 
+// Extend vars
+func (p *SnapshotBean) Extend(e map[string]interface{}) {
+	for k, v := range e {
+		p.Extended[k] = v
+	}
+}
+
 // GetType get set name
 func (p *SnapshotBean) GetType() string {
 	return p.Type

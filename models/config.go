@@ -60,6 +60,13 @@ func (p *ConfigBean) GetName() string {
 	return "ConfigBean"
 }
 
+// Extend vars
+func (p *ConfigBean) Extend(e map[string]interface{}) {
+	for k, v := range e {
+		p.Extended[k] = v
+	}
+}
+
 // GetID retrieve ID
 func (p *ConfigBean) GetID() string {
 	return p.ID

@@ -73,6 +73,13 @@ func (p *CommandBean) GetName() string {
 	return "CommandBean"
 }
 
+// Extend vars
+func (p *CommandBean) Extend(e map[string]interface{}) {
+	for k, v := range e {
+		p.Extended[k] = v
+	}
+}
+
 // GetType get set name
 func (p *CommandBean) GetType() string {
 	return p.Type

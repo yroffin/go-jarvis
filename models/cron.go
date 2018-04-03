@@ -60,6 +60,13 @@ func (p *CronBean) GetName() string {
 	return "CronBean"
 }
 
+// Extend vars
+func (p *CronBean) Extend(e map[string]interface{}) {
+	for k, v := range e {
+		p.Extended[k] = v
+	}
+}
+
 // GetID retrieve ID
 func (p *CronBean) GetID() string {
 	return p.ID

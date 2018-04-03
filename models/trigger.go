@@ -60,6 +60,13 @@ func (p *TriggerBean) GetName() string {
 	return "TriggerBean"
 }
 
+// Extend vars
+func (p *TriggerBean) Extend(e map[string]interface{}) {
+	for k, v := range e {
+		p.Extended[k] = v
+	}
+}
+
 // GetID retrieve ID
 func (p *TriggerBean) GetID() string {
 	return p.ID

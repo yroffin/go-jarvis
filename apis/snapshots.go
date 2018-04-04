@@ -115,6 +115,10 @@ func (p *Snapshot) Init() error {
 			// task
 			return p.Restore(id, body)
 		}
+		if name == "download" {
+			// task
+			return p.Download(id, body)
+		}
 		return "", -1, nil
 	}
 	return p.API.Init()
@@ -135,9 +139,13 @@ func (p *Snapshot) Validate(name string) error {
 // SnapshotHref simple Snapshot model
 type SnapshotHref struct {
 	// From
-	From int `json:"__from"`
+	From interface{} `json:"__from"`
 	// To
-	To int `json:"__to"`
+	To interface{} `json:"__to"`
+	// From
+	FromStr string
+	// To
+	ToStr string
 	// Href
 	Href string `json:"href"`
 	// Order
@@ -191,6 +199,7 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 		case "HREF_THEN":
 			break
 		default:
+			log.Println("Bean:", entityBeanType)
 			for idBean, entityBean := range entityBeanValue.(map[string]interface{}) {
 				bean := p.Manager.GetBean(entityBeanType)
 				if bean == nil {
@@ -217,6 +226,19 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 				// Common href data
 				var href = SnapshotHref{}
 				json.Unmarshal(data, &href)
+				assertFrom, okFrom := href.From.(string)
+				if okFrom {
+					href.FromStr = assertFrom
+				} else {
+					href.FromStr = strconv.Itoa(int(href.From.(float64)))
+				}
+				assertTo, okTo := href.From.(string)
+				if okTo {
+					href.ToStr = assertTo
+				} else {
+					href.ToStr = strconv.Itoa(int(href.To.(float64)))
+				}
+				// Attributes
 				attr := make(map[string]string)
 				for field, value := range entityBean.(map[string]interface{}) {
 					assert, ok := value.(string)
@@ -224,36 +246,36 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 						attr[field] = assert
 					}
 				}
-				if OldIDToNewID[strconv.Itoa(href.From)] != "" && OldIDToNewID[strconv.Itoa(href.To)] != "" {
-					log.Println("Link:", NewIDToBean[OldIDToNewID[strconv.Itoa(href.From)]], "=[", linkedBeanType, "]=>", NewIDToBean[OldIDToNewID[strconv.Itoa(href.To)]])
+				if OldIDToNewID[href.FromStr] != "" && OldIDToNewID[href.ToStr] != "" {
+					log.Println("Link:", NewIDToBean[OldIDToNewID[href.FromStr]], "=[", linkedBeanType, "]=>", NewIDToBean[OldIDToNewID[href.ToStr]])
 					builds = append(builds, SnapshotHrefEntityBuild{
 						Source: SnapshotHrefEntity{
-							Type: NewIDToBean[OldIDToNewID[strconv.Itoa(href.From)]],
-							ID:   OldIDToNewID[strconv.Itoa(href.From)],
+							Type: NewIDToBean[OldIDToNewID[href.FromStr]],
+							ID:   OldIDToNewID[href.FromStr],
 						},
 						Target: SnapshotHrefEntity{
-							Type: NewIDToBean[OldIDToNewID[strconv.Itoa(href.To)]],
-							ID:   OldIDToNewID[strconv.Itoa(href.To)],
+							Type: NewIDToBean[OldIDToNewID[href.ToStr]],
+							ID:   OldIDToNewID[href.ToStr],
 						},
 						IsError: false,
 						Link:    linkedBeanType,
 						Attr:    attr,
 					})
 				} else {
-					if OldIDToNewID[strconv.Itoa(href.From)] == "" {
+					if OldIDToNewID[href.FromStr] == "" {
 						hrefInErrors = append(hrefInErrors, href)
 					}
-					if OldIDToNewID[strconv.Itoa(href.To)] == "" {
+					if OldIDToNewID[href.ToStr] == "" {
 						hrefInErrors = append(hrefInErrors, href)
 					}
 					builds = append(builds, SnapshotHrefEntityBuild{
 						Source: SnapshotHrefEntity{
-							Type: NewIDToBean[OldIDToNewID[strconv.Itoa(href.From)]],
-							ID:   OldIDToNewID[strconv.Itoa(href.From)],
+							Type: NewIDToBean[OldIDToNewID[href.FromStr]],
+							ID:   OldIDToNewID[href.FromStr],
 						},
 						Target: SnapshotHrefEntity{
-							Type: NewIDToBean[OldIDToNewID[strconv.Itoa(href.To)]],
-							ID:   OldIDToNewID[strconv.Itoa(href.To)],
+							Type: NewIDToBean[OldIDToNewID[href.ToStr]],
+							ID:   OldIDToNewID[href.ToStr],
 						},
 						IsError: true,
 					})
@@ -286,4 +308,33 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 		log.Println("Warn:", h, "conversion is null")
 	}
 	return builds, len(builds), nil
+}
+
+// Download this Snapshot
+func (p *Snapshot) Download(id string, body string) (interface{}, int, error) {
+	output := make(map[string]interface{})
+
+	out, _ := p.GraphBusiness.Export()
+	for k, v := range out {
+		log.Println("Link:", k)
+		index := make(map[string]interface{})
+		for _, obj := range v {
+			index[obj["id"].(string)] = obj
+		}
+		output[k] = index
+	}
+
+	beans := []string{"ProcessBean", "CommandBean", "DeviceBean", "ScriptPluginBean", "TriggerBean", "ViewBean", "ConnectorBean", "CronBean", "ConfigBean", "PropertyBean"}
+	for _, b := range beans {
+		log.Println("Bean:", b)
+		bean := p.Manager.GetBean(b).(core_apis.IAPI)
+		all, _ := bean.GetAll()
+		index := make(map[string]interface{})
+		for _, obj := range all {
+			index[obj.GetID()] = obj
+		}
+		output[b] = index
+	}
+
+	return output, -1, nil
 }

@@ -32,34 +32,31 @@ import (
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
-// ScriptPlugin internal members
-type ScriptPlugin struct {
+// Model internal members
+type Model struct {
 	// Base component
 	*core_apis.API
 	// internal members
 	Name string
 	// mounts
-	Crud interface{} `@crud:"/api/plugins/scripts"`
-	// LinkCommand with injection mecanism
-	LinkCommand ICommand `@autowired:"CommandBean" @link:"/api/plugins/scripts" @href:"commands"`
-	Command     ICommand `@autowired:"CommandBean"`
+	Crud interface{} `@crud:"/api/models"`
 	// Swagger with injection mecanism
 	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
 }
 
-// IScriptPlugin implements IBean
-type IScriptPlugin interface {
+// IModel implements IBean
+type IModel interface {
 	core_apis.IAPI
 }
 
 // New constructor
-func (p *ScriptPlugin) New() IScriptPlugin {
-	bean := ScriptPlugin{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+func (p *Model) New() IModel {
+	bean := Model{API: &core_apis.API{Bean: &core_bean.Bean{}}}
 	return &bean
 }
 
-// SetSwagger inject ScriptPlugin
-func (p *ScriptPlugin) SetSwagger(value interface{}) {
+// SetSwagger inject Model
+func (p *Model) SetSwagger(value interface{}) {
 	if assertion, ok := value.(core_apis.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
@@ -67,49 +64,31 @@ func (p *ScriptPlugin) SetSwagger(value interface{}) {
 	}
 }
 
-// SetLinkCommand injection
-func (p *ScriptPlugin) SetLinkCommand(value interface{}) {
-	if assertion, ok := value.(ICommand); ok {
-		p.LinkCommand = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetCommand injection
-func (p *ScriptPlugin) SetCommand(value interface{}) {
-	if assertion, ok := value.(ICommand); ok {
-		p.Command = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
 // Init this API
-func (p *ScriptPlugin) Init() error {
+func (p *Model) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.ScriptPluginBean{}).New()
+		return (&app_models.ModelBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.ScriptPluginBeans{}).New()
+		return (&app_models.ModelBeans{}).New()
 	}
 	return p.API.Init()
 }
 
 // PostConstruct this API
-func (p *ScriptPlugin) PostConstruct(name string) error {
+func (p *Model) PostConstruct(name string) error {
 	// Scan struct and init all handler
 	p.ScanHandler(p.Swagger, p)
 	return nil
 }
 
 // Validate this API
-func (p *ScriptPlugin) Validate(name string) error {
+func (p *Model) Validate(name string) error {
 	return nil
 }
 
 // HandlerTasksByID return task by id
-func (p *ScriptPlugin) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
+func (p *Model) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
 	return "", nil
 }

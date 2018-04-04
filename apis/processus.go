@@ -39,7 +39,10 @@ type Processus struct {
 	// internal members
 	Name string
 	// mounts
-	Crud interface{} `@crud:"/api/process"`
+	Crud interface{} `@crud:"/api/processes"`
+	// Trigger with injection mecanism
+	LinkTrigger ITrigger `@autowired:"TriggerBean" @link:"/api/processes" @href:"triggers"`
+	Trigger     ITrigger `@autowired:"TriggerBean"`
 	// Swagger with injection mecanism
 	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
 }
@@ -59,6 +62,24 @@ func (p *Processus) New() IProcessus {
 func (p *Processus) SetSwagger(value interface{}) {
 	if assertion, ok := value.(core_apis.ISwaggerService); ok {
 		p.Swagger = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
+// SetTrigger inject notification
+func (p *Processus) SetTrigger(value interface{}) {
+	if assertion, ok := value.(ITrigger); ok {
+		p.Trigger = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
+// SetLinkTrigger injection
+func (p *Processus) SetLinkTrigger(value interface{}) {
+	if assertion, ok := value.(ITrigger); ok {
+		p.LinkTrigger = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
 	}

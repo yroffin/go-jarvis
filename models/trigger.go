@@ -36,6 +36,10 @@ type TriggerBean struct {
 	Name string `json:"name"`
 	// Icon
 	Icon string `json:"icon"`
+	// Topic
+	Topic string `json:"topic"`
+	// Body
+	Body string `json:"body"`
 	// Extended
 	Extended map[string]interface{} `json:"extended"`
 }

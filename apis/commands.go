@@ -48,7 +48,7 @@ type Command struct {
 	// Local cruds operations
 	Crud interface{} `@crud:"/api/commands"`
 	// Notification with injection mecanism
-	LinkNotification INotification `@autowired:"NotificationBean" @link:"/api/notifications" @href:"notifications"`
+	LinkNotification INotification `@autowired:"NotificationBean" @link:"/api/commands" @href:"notifications"`
 	Notification     INotification `@autowired:"NotificationBean"`
 	// SlackService with injection mecanism
 	SlackService app_slack.ISlackService `@autowired:"slack-service"`

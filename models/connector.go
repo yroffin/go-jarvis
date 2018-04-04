@@ -36,6 +36,16 @@ type ConnectorBean struct {
 	Name string `json:"name"`
 	// Icon
 	Icon string `json:"icon"`
+	// Address
+	Address string `json:"adress"`
+	// IsRenderer
+	IsRenderer bool `json:"isRenderer"`
+	// IsSensor
+	IsSensor bool `json:"isSensor"`
+	// CanAnswer
+	CanAnswer bool `json:"canAnswer"`
+	// LastAdvertise
+	LastAdvertise core_models.JSONTime `json:"lastAdvertise"`
 	// Extended
 	Extended map[string]interface{} `json:"extended"`
 }

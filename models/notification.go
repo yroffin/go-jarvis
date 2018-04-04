@@ -34,10 +34,10 @@ type NotificationBean struct {
 	Timestamp core_models.JSONTime `json:"timestamp"`
 	// Name
 	Name string `json:"name"`
-	// Type
-	Type string `json:"type"`
 	// Icon
 	Icon string `json:"icon"`
+	// Type
+	Type string `json:"type"`
 	// Extended
 	Extended map[string]interface{} `json:"extended"`
 }
@@ -48,13 +48,12 @@ type INotificationBean interface {
 	core_models.IPersistent
 	// inherit ValueBean behaviour
 	core_models.IValueBean
-	// command
-	GetType() string
 }
 
 // New constructor
 func (p *NotificationBean) New() INotificationBean {
 	bean := NotificationBean{}
+	bean.Extended = make(map[string]interface{})
 	return &bean
 }
 
@@ -65,14 +64,12 @@ func (p *NotificationBean) GetName() string {
 
 // Extend vars
 func (p *NotificationBean) Extend(e map[string]interface{}) {
+	if p.Extended == nil {
+		p.Extended = make(map[string]interface{})
+	}
 	for k, v := range e {
 		p.Extended[k] = v
 	}
-}
-
-// GetType get set name
-func (p *NotificationBean) GetType() string {
-	return p.Type
 }
 
 // GetID retrieve ID

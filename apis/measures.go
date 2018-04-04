@@ -32,34 +32,34 @@ import (
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
-// ScriptPlugin internal members
-type ScriptPlugin struct {
+// Measure internal members
+type Measure struct {
 	// Base component
 	*core_apis.API
 	// internal members
 	Name string
 	// mounts
-	Crud interface{} `@crud:"/api/plugins/scripts"`
-	// LinkCommand with injection mecanism
-	LinkCommand ICommand `@autowired:"CommandBean" @link:"/api/plugins/scripts" @href:"commands"`
-	Command     ICommand `@autowired:"CommandBean"`
+	Crud interface{} `@crud:"/api/measures"`
+	// LinkConnector with injection mecanism
+	LinkConnector IConnector `@autowired:"ConnectorBean" @link:"/api/measures" @href:"connectors"`
+	Connector     IConnector `@autowired:"ConnectorBean"`
 	// Swagger with injection mecanism
 	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
 }
 
-// IScriptPlugin implements IBean
-type IScriptPlugin interface {
+// IMeasure implements IBean
+type IMeasure interface {
 	core_apis.IAPI
 }
 
 // New constructor
-func (p *ScriptPlugin) New() IScriptPlugin {
-	bean := ScriptPlugin{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+func (p *Measure) New() IMeasure {
+	bean := Measure{API: &core_apis.API{Bean: &core_bean.Bean{}}}
 	return &bean
 }
 
-// SetSwagger inject ScriptPlugin
-func (p *ScriptPlugin) SetSwagger(value interface{}) {
+// SetSwagger inject Measure
+func (p *Measure) SetSwagger(value interface{}) {
 	if assertion, ok := value.(core_apis.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
@@ -68,48 +68,48 @@ func (p *ScriptPlugin) SetSwagger(value interface{}) {
 }
 
 // SetLinkCommand injection
-func (p *ScriptPlugin) SetLinkCommand(value interface{}) {
-	if assertion, ok := value.(ICommand); ok {
-		p.LinkCommand = assertion
+func (p *Measure) SetLinkConnector(value interface{}) {
+	if assertion, ok := value.(IConnector); ok {
+		p.LinkConnector = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
 	}
 }
 
 // SetCommand injection
-func (p *ScriptPlugin) SetCommand(value interface{}) {
-	if assertion, ok := value.(ICommand); ok {
-		p.Command = assertion
+func (p *Measure) SetConnector(value interface{}) {
+	if assertion, ok := value.(IConnector); ok {
+		p.Connector = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
 	}
 }
 
 // Init this API
-func (p *ScriptPlugin) Init() error {
+func (p *Measure) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.ScriptPluginBean{}).New()
+		return (&app_models.MeasureBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.ScriptPluginBeans{}).New()
+		return (&app_models.MeasureBeans{}).New()
 	}
 	return p.API.Init()
 }
 
 // PostConstruct this API
-func (p *ScriptPlugin) PostConstruct(name string) error {
+func (p *Measure) PostConstruct(name string) error {
 	// Scan struct and init all handler
 	p.ScanHandler(p.Swagger, p)
 	return nil
 }
 
 // Validate this API
-func (p *ScriptPlugin) Validate(name string) error {
+func (p *Measure) Validate(name string) error {
 	return nil
 }
 
 // HandlerTasksByID return task by id
-func (p *ScriptPlugin) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
+func (p *Measure) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
 	return "", nil
 }

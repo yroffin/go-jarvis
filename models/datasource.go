@@ -1,4 +1,4 @@
-// Package models for all models
+// Package DataSources for all DataSources
 // MIT License
 //
 // Copyright (c) 2017 yroffin
@@ -22,12 +22,10 @@
 // SOFTWARE.
 package models
 
-import (
-	core_models "github.com/yroffin/go-boot-sqllite/core/models"
-)
+import core_models "github.com/yroffin/go-boot-sqllite/core/models"
 
-// DeviceBean simple Device model
-type DeviceBean struct {
+// DataSourceBean simple DataSource DataSource
+type DataSourceBean struct {
 	// Id
 	ID string `json:"id"`
 	// Timestamp
@@ -36,32 +34,18 @@ type DeviceBean struct {
 	Name string `json:"name"`
 	// Icon
 	Icon string `json:"icon"`
+	// Collect
+	Collect string `json:"collect"`
+	// Pipes
+	Pipes string `json:"pipes"`
+	// Body
+	Body string `json:"body"`
 	// Extended
 	Extended map[string]interface{} `json:"extended"`
-	// Parameters
-	Parameters string `json:"parameters"`
-	// Owner
-	Owner string `json:"owner"`
-	// Visible
-	Visible bool `json:"visible"`
-	// TagColor
-	TagColor string `json:"tagColor"`
-	// TagOpacity
-	TagOpacity string `json:"tagOpacity"`
-	// TagTextColor
-	TagTextColor string `json:"tagTextColor"`
-	// RowSpan
-	RowSpan string `json:"rowSpan"`
-	// ColSpan
-	ColSpan string `json:"colSpan"`
-	// Template
-	Template string `json:"template"`
-	// Render
-	Render map[string]interface{} `json:"render"`
 }
 
-// IDeviceBean interface
-type IDeviceBean interface {
+// IDataSourceBean interface
+type IDataSourceBean interface {
 	// inherit persistent behaviour
 	core_models.IPersistent
 	// inherit ValueBean behaviour
@@ -69,46 +53,46 @@ type IDeviceBean interface {
 }
 
 // New constructor
-func (p *DeviceBean) New() IDeviceBean {
-	bean := DeviceBean{}
+func (p *DataSourceBean) New() IDataSourceBean {
+	bean := DataSourceBean{}
 	bean.Extended = make(map[string]interface{})
 	return &bean
 }
 
 // GetName get set name
-func (p *DeviceBean) GetName() string {
-	return "DeviceBean"
+func (p *DataSourceBean) GetName() string {
+	return "DataSourceBean"
 }
 
 // Extend vars
-func (p *DeviceBean) Extend(e map[string]interface{}) {
+func (p *DataSourceBean) Extend(e map[string]interface{}) {
 	for k, v := range e {
 		p.Extended[k] = v
 	}
 }
 
 // GetID retrieve ID
-func (p *DeviceBean) GetID() string {
+func (p *DataSourceBean) GetID() string {
 	return p.ID
 }
 
 // SetID retrieve ID
-func (p *DeviceBean) SetID(ID string) {
+func (p *DataSourceBean) SetID(ID string) {
 	p.ID = ID
 }
 
 // Set get set name
-func (p *DeviceBean) Set(key string, value interface{}) {
+func (p *DataSourceBean) Set(key string, value interface{}) {
 }
 
 // SetString get set name
-func (p *DeviceBean) SetString(key string, value string) {
+func (p *DataSourceBean) SetString(key string, value string) {
 	// Call super method
 	core_models.IValueBean(p).SetString(key, value)
 }
 
 // Get get set name
-func (p *DeviceBean) GetAsString(key string) string {
+func (p *DataSourceBean) GetAsString(key string) string {
 	switch key {
 	default:
 		// Call super method
@@ -117,67 +101,67 @@ func (p *DeviceBean) GetAsString(key string) string {
 }
 
 // Get get set name
-func (p *DeviceBean) GetAsStringArray(key string) []string {
+func (p *DataSourceBean) GetAsStringArray(key string) []string {
 	// Call super method
 	return core_models.IValueBean(p).GetAsStringArray(key)
 }
 
 // ToString stringify this commnd
-func (p *DeviceBean) ToString() string {
+func (p *DataSourceBean) ToString() string {
 	// Call super method
 	return core_models.IValueBean(p).ToString()
 }
 
 // ToJSON stringify this commnd
-func (p *DeviceBean) ToJSON() string {
+func (p *DataSourceBean) ToJSON() string {
 	// Call super method
 	return core_models.IValueBean(p).ToJSON()
 }
 
 // SetTimestamp set timestamp
-func (p *DeviceBean) SetTimestamp(stamp core_models.JSONTime) {
+func (p *DataSourceBean) SetTimestamp(stamp core_models.JSONTime) {
 	p.Timestamp = stamp
 }
 
 // GetTimestamp get timestamp
-func (p *DeviceBean) GetTimestamp() core_models.JSONTime {
+func (p *DataSourceBean) GetTimestamp() core_models.JSONTime {
 	return p.Timestamp
 }
 
 // Copy retrieve ID
-func (p *DeviceBean) Copy() core_models.IPersistent {
+func (p *DataSourceBean) Copy() core_models.IPersistent {
 	clone := *p
 	return &clone
 }
 
-// DeviceBeans simple bean model
-type DeviceBeans struct {
+// DataSourceBeans simple bean DataSource
+type DataSourceBeans struct {
 	// Collection
 	Collection []core_models.IPersistent `json:"collections"`
 	// Collection
-	Collections []DeviceBean
+	Collections []DataSourceBean
 }
 
 // New constructor
-func (p *DeviceBeans) New() core_models.IPersistents {
-	bean := DeviceBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]DeviceBean, 0)}
+func (p *DataSourceBeans) New() core_models.IPersistents {
+	bean := DataSourceBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]DataSourceBean, 0)}
 	return &bean
 }
 
 // Add new bean
-func (p *DeviceBeans) Add(bean core_models.IPersistent) {
+func (p *DataSourceBeans) Add(bean core_models.IPersistent) {
 	p.Collection = append(p.Collection, bean)
-	p.Collections = append(p.Collections, DeviceBean{})
+	p.Collections = append(p.Collections, DataSourceBean{})
 }
 
 // Get collection of bean
-func (p *DeviceBeans) Get() []core_models.IPersistent {
+func (p *DataSourceBeans) Get() []core_models.IPersistent {
 	return p.Collection
 }
 
 // Index read a single element
-func (p *DeviceBeans) Index(index int) IDeviceBean {
-	data, ok := p.Collection[index].(*DeviceBean)
+func (p *DataSourceBeans) Index(index int) IDataSourceBean {
+	data, ok := p.Collection[index].(*DataSourceBean)
 	if ok {
 		return data
 	}

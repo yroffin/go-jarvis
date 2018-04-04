@@ -36,6 +36,18 @@ type CronBean struct {
 	Name string `json:"name"`
 	// Icon
 	Icon string `json:"icon"`
+	// TriggerType
+	TriggerType string `json:"triggerType"`
+	// Latitude
+	Latitude string `json:"latitude"`
+	// Longitude
+	Longitude string `json:"longitude"`
+	// Shift
+	Shift int64 `json:"shift"`
+	// Cron
+	Cron string `json:"cron"`
+	// StartAtRuntime
+	StartAtRuntime bool `json:"startAtRuntime"`
 	// Extended
 	Extended map[string]interface{} `json:"extended"`
 }

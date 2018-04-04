@@ -34,8 +34,10 @@ type PropertyBean struct {
 	Timestamp core_models.JSONTime `json:"timestamp"`
 	// Name
 	Name string `json:"name"`
-	// Icon
-	Icon string `json:"icon"`
+	// Key
+	Key string `json:"key"`
+	// Value
+	Value string `json:"value"`
 	// Extended
 	Extended map[string]interface{} `json:"extended"`
 }

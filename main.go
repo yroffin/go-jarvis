@@ -80,6 +80,10 @@ func main() {
 	m.Register("ConnectorBean", (&app_apis.Connector{}).New())
 	m.Register("PropertyBean", (&app_apis.Property{}).New())
 	m.Register("ProcessBean", (&app_apis.Processus{}).New())
+	m.Register("ModelBean", (&app_apis.Model{}).New())
+	m.Register("MeasureBean", (&app_apis.Measure{}).New())
+	m.Register("DataSourceBean", (&app_apis.DataSource{}).New())
+	m.Register("ConfigurationBean", (&app_apis.Configuration{}).New())
 	m.Register("SecurityBean", (&app_apis.Security{}).New())
 	m.Boot()
 }

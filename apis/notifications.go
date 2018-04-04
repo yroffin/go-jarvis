@@ -87,8 +87,3 @@ func (p *Notification) PostConstruct(name string) error {
 func (p *Notification) Validate(name string) error {
 	return nil
 }
-
-// HandlerTasksByID return task by id
-func (p *Notification) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
-	return "", nil
-}

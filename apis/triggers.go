@@ -40,6 +40,9 @@ type Trigger struct {
 	Name string
 	// mounts
 	Crud interface{} `@crud:"/api/triggers"`
+	// LinkCron with injection mecanism
+	LinkCron ICron `@autowired:"CronBean" @link:"/api/triggers" @href:"crons"`
+	Cron     ICron `@autowired:"CronBean"`
 	// Swagger with injection mecanism
 	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
 }
@@ -59,6 +62,24 @@ func (p *Trigger) New() ITrigger {
 func (p *Trigger) SetSwagger(value interface{}) {
 	if assertion, ok := value.(core_apis.ISwaggerService); ok {
 		p.Swagger = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
+// SetLinkCommand injection
+func (p *Trigger) SetLinkCron(value interface{}) {
+	if assertion, ok := value.(ICron); ok {
+		p.LinkCron = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
+// SetCommand injection
+func (p *Trigger) SetCron(value interface{}) {
+	if assertion, ok := value.(ICron); ok {
+		p.Cron = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
 	}

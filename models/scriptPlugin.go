@@ -36,6 +36,14 @@ type ScriptPluginBean struct {
 	Name string `json:"name"`
 	// Icon
 	Icon string `json:"icon"`
+	// Type
+	Type string `json:"type"`
+	// Owner
+	Owner string `json:"owner"`
+	// Active
+	Active bool `json:"active"`
+	// Visible
+	Visible bool `json:"visible"`
 	// Extended
 	Extended map[string]interface{} `json:"extended"`
 }

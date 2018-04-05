@@ -29,7 +29,16 @@ import (
 	"github.com/yroffin/go-boot-sqllite/core/business"
 	"github.com/yroffin/go-boot-sqllite/core/manager"
 	"github.com/yroffin/go-boot-sqllite/core/stores"
-	app_apis "github.com/yroffin/go-jarvis/apis"
+	"github.com/yroffin/go-jarvis/apis/commands"
+	"github.com/yroffin/go-jarvis/apis/configurations"
+	"github.com/yroffin/go-jarvis/apis/connectors"
+	"github.com/yroffin/go-jarvis/apis/datasources"
+	"github.com/yroffin/go-jarvis/apis/devices"
+	"github.com/yroffin/go-jarvis/apis/events"
+	"github.com/yroffin/go-jarvis/apis/process"
+	"github.com/yroffin/go-jarvis/apis/scripts"
+	"github.com/yroffin/go-jarvis/apis/system"
+	"github.com/yroffin/go-jarvis/apis/views"
 	app_services "github.com/yroffin/go-jarvis/services"
 	app_chacon "github.com/yroffin/go-jarvis/services/chacon"
 	app_lua "github.com/yroffin/go-jarvis/services/lua"
@@ -68,22 +77,22 @@ func main() {
 	m.Register("zway-service", (&app_zway.ZwayService{}).New())
 	m.Register("chacon-service", (&app_chacon.ChaconService{}).New())
 	// API beans
-	m.Register("CommandBean", (&app_apis.Command{}).New())
-	m.Register("NotificationBean", (&app_apis.Notification{}).New())
-	m.Register("SnapshotBean", (&app_apis.Snapshot{}).New())
-	m.Register("ConfigBean", (&app_apis.Config{}).New())
-	m.Register("ScriptPluginBean", (&app_apis.ScriptPlugin{}).New())
-	m.Register("DeviceBean", (&app_apis.Device{}).New())
-	m.Register("ViewBean", (&app_apis.View{}).New())
-	m.Register("CronBean", (&app_apis.Cron{}).New())
-	m.Register("TriggerBean", (&app_apis.Trigger{}).New())
-	m.Register("ConnectorBean", (&app_apis.Connector{}).New())
-	m.Register("PropertyBean", (&app_apis.Property{}).New())
-	m.Register("ProcessBean", (&app_apis.Processus{}).New())
-	m.Register("ModelBean", (&app_apis.Model{}).New())
-	m.Register("MeasureBean", (&app_apis.Measure{}).New())
-	m.Register("DataSourceBean", (&app_apis.DataSource{}).New())
-	m.Register("ConfigurationBean", (&app_apis.Configuration{}).New())
-	m.Register("SecurityBean", (&app_apis.Security{}).New())
+	m.Register("CommandBean", (&commands.Command{}).New())
+	m.Register("NotificationBean", (&events.Notification{}).New())
+	m.Register("SnapshotBean", (&system.Snapshot{}).New())
+	m.Register("ConfigBean", (&configurations.Config{}).New())
+	m.Register("ScriptPluginBean", (&scripts.ScriptPlugin{}).New())
+	m.Register("DeviceBean", (&devices.Device{}).New())
+	m.Register("ViewBean", (&views.View{}).New())
+	m.Register("CronBean", (&events.Cron{}).New())
+	m.Register("TriggerBean", (&events.Trigger{}).New())
+	m.Register("ConnectorBean", (&connectors.Connector{}).New())
+	m.Register("PropertyBean", (&configurations.Property{}).New())
+	m.Register("ProcessBean", (&process.Processus{}).New())
+	m.Register("ModelBean", (&process.Model{}).New())
+	m.Register("MeasureBean", (&datasources.Measure{}).New())
+	m.Register("DataSourceBean", (&datasources.DataSource{}).New())
+	m.Register("ConfigurationBean", (&configurations.Configuration{}).New())
+	m.Register("SecurityBean", (&system.Security{}).New())
 	m.Boot()
 }

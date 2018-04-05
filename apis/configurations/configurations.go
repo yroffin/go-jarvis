@@ -20,7 +20,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package apis
+package configurations
 
 import (
 	"log"
@@ -28,41 +28,35 @@ import (
 
 	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
-	"github.com/yroffin/go-boot-sqllite/core/manager"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
-// View internal members
-type View struct {
+// Configuration internal members
+type Configuration struct {
 	// Base component
 	*core_apis.API
 	// internal members
 	Name string
 	// mounts
-	Crud interface{} `@crud:"/api/views"`
-	// Notification with injection mecanism
-	LinkDevice IDevice `@autowired:"DeviceBean" @link:"/api/views" @href:"devices"`
-	Device     IDevice `@autowired:"DeviceBean"`
-	// SwaggerService with injection mecanism
-	Manager manager.IManager `@autowired:"manager"`
+	Crud interface{} `@crud:"/api/configurations"`
 	// Swagger with injection mecanism
 	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
 }
 
-// IView implements IBean
-type IView interface {
+// IConfiguration implements IBean
+type IConfiguration interface {
 	core_apis.IAPI
 }
 
 // New constructor
-func (p *View) New() IView {
-	bean := View{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+func (p *Configuration) New() IConfiguration {
+	bean := Configuration{API: &core_apis.API{Bean: &core_bean.Bean{}}}
 	return &bean
 }
 
-// SetSwagger inject View
-func (p *View) SetSwagger(value interface{}) {
+// SetSwagger inject Configuration
+func (p *Configuration) SetSwagger(value interface{}) {
 	if assertion, ok := value.(core_apis.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
@@ -70,68 +64,31 @@ func (p *View) SetSwagger(value interface{}) {
 	}
 }
 
-// SetManager inject notification
-func (p *View) SetManager(value interface{}) {
-	if assertion, ok := value.(manager.IManager); ok {
-		p.Manager = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetDevice inject notification
-func (p *View) SetDevice(value interface{}) {
-	if assertion, ok := value.(IDevice); ok {
-		p.Device = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetLinkDevice injection
-func (p *View) SetLinkDevice(value interface{}) {
-	if assertion, ok := value.(IDevice); ok {
-		p.LinkDevice = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
 // Init this API
-func (p *View) Init() error {
+func (p *Configuration) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.ViewBean{}).New()
+		return (&app_models.ConfigurationBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.ViewBeans{}).New()
-	}
-	p.HandlerTasks = func(name string, body string) (interface{}, int, error) {
-		if name == "GET" {
-			// task
-			return p.GetAllViews(body)
-		}
-		return "", -1, nil
+		return (&app_models.ConfigurationBeans{}).New()
 	}
 	return p.API.Init()
 }
 
 // PostConstruct this API
-func (p *View) PostConstruct(name string) error {
+func (p *Configuration) PostConstruct(name string) error {
 	// Scan struct and init all handler
 	p.ScanHandler(p.Swagger, p)
 	return nil
 }
 
 // Validate this API
-func (p *View) Validate(name string) error {
+func (p *Configuration) Validate(name string) error {
 	return nil
 }
 
-// GetAllViews read all views and all data
-func (p *View) GetAllViews(body string) (interface{}, int, error) {
-	return p.LoadAllLinks("devices",
-		func() models.IPersistent {
-			return (&app_models.DeviceBean{}).New()
-		}, p.Manager.GetBean("DeviceBean").(core_apis.IAPI))
+// HandlerTasksByID return task by id
+func (p *Configuration) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
+	return "", nil
 }

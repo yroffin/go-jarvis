@@ -20,7 +20,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package apis
+package views
 
 import (
 	"log"
@@ -28,44 +28,42 @@ import (
 
 	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	"github.com/yroffin/go-boot-sqllite/core/manager"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-jarvis/apis/devices"
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
-// Device internal members
-type Device struct {
+// View internal members
+type View struct {
 	// Base component
 	*core_apis.API
 	// internal members
 	Name string
 	// mounts
-	Crud interface{} `@crud:"/api/devices"`
-	// Device with injection mecanism
-	LinkDevice IDevice `@autowired:"DeviceBean" @link:"/api/devices" @href:"devices"`
-	Device     IDevice `@autowired:"DeviceBean"`
-	// Trigger with injection mecanism
-	LinkTrigger ITrigger `@autowired:"TriggerBean" @link:"/api/devices" @href:"triggers"`
-	Trigger     ITrigger `@autowired:"TriggerBean"`
-	// PluginScript with injection mecanism
-	LinkPluginScript IScriptPlugin `@autowired:"ScriptPluginBean" @link:"/api/devices" @href:"plugins/scripts"`
-	PluginScript     IScriptPlugin `@autowired:"ScriptPluginBean"`
+	Crud interface{} `@crud:"/api/views"`
+	// Notification with injection mecanism
+	LinkDevice devices.IDevice `@autowired:"DeviceBean" @link:"/api/views" @href:"devices"`
+	Device     devices.IDevice `@autowired:"DeviceBean"`
+	// SwaggerService with injection mecanism
+	Manager manager.IManager `@autowired:"manager"`
 	// Swagger with injection mecanism
 	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
 }
 
-// IDevice implements IBean
-type IDevice interface {
+// IView implements IBean
+type IView interface {
 	core_apis.IAPI
 }
 
 // New constructor
-func (p *Device) New() IDevice {
-	bean := Device{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+func (p *View) New() IView {
+	bean := View{API: &core_apis.API{Bean: &core_bean.Bean{}}}
 	return &bean
 }
 
-// SetSwagger inject Device
-func (p *Device) SetSwagger(value interface{}) {
+// SetSwagger inject View
+func (p *View) SetSwagger(value interface{}) {
 	if assertion, ok := value.(core_apis.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
@@ -73,9 +71,18 @@ func (p *Device) SetSwagger(value interface{}) {
 	}
 }
 
+// SetManager inject notification
+func (p *View) SetManager(value interface{}) {
+	if assertion, ok := value.(manager.IManager); ok {
+		p.Manager = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
 // SetDevice inject notification
-func (p *Device) SetDevice(value interface{}) {
-	if assertion, ok := value.(IDevice); ok {
+func (p *View) SetDevice(value interface{}) {
+	if assertion, ok := value.(devices.IDevice); ok {
 		p.Device = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
@@ -83,63 +90,27 @@ func (p *Device) SetDevice(value interface{}) {
 }
 
 // SetLinkDevice injection
-func (p *Device) SetLinkDevice(value interface{}) {
-	if assertion, ok := value.(IDevice); ok {
+func (p *View) SetLinkDevice(value interface{}) {
+	if assertion, ok := value.(devices.IDevice); ok {
 		p.LinkDevice = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
 	}
 }
 
-// SetDevice inject notification
-func (p *Device) SetTrigger(value interface{}) {
-	if assertion, ok := value.(ITrigger); ok {
-		p.Trigger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetLinkDevice injection
-func (p *Device) SetLinkTrigger(value interface{}) {
-	if assertion, ok := value.(ITrigger); ok {
-		p.LinkTrigger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetDevice inject notification
-func (p *Device) SetPluginScript(value interface{}) {
-	if assertion, ok := value.(IDevice); ok {
-		p.PluginScript = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetLinkDevice injection
-func (p *Device) SetLinkPluginScript(value interface{}) {
-	if assertion, ok := value.(IDevice); ok {
-		p.LinkPluginScript = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
 // Init this API
-func (p *Device) Init() error {
+func (p *View) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.DeviceBean{}).New()
+		return (&app_models.ViewBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.DeviceBeans{}).New()
+		return (&app_models.ViewBeans{}).New()
 	}
-	p.HandlerTasksByID = func(id string, name string, body string) (interface{}, int, error) {
-		if name == "uml" {
+	p.HandlerTasks = func(name string, body string) (interface{}, int, error) {
+		if name == "GET" {
 			// task
-			return p.Uml(id, body)
+			return p.GetAllViews(body)
 		}
 		return "", -1, nil
 	}
@@ -147,18 +118,21 @@ func (p *Device) Init() error {
 }
 
 // PostConstruct this API
-func (p *Device) PostConstruct(name string) error {
+func (p *View) PostConstruct(name string) error {
 	// Scan struct and init all handler
 	p.ScanHandler(p.Swagger, p)
 	return nil
 }
 
 // Validate this API
-func (p *Device) Validate(name string) error {
+func (p *View) Validate(name string) error {
 	return nil
 }
 
-// HandlerTasksByID return task by id
-func (p *Device) Uml(id string, body string) (interface{}, int, error) {
-	return "", -1, nil
+// GetAllViews read all views and all data
+func (p *View) GetAllViews(body string) (interface{}, int, error) {
+	return p.LoadAllLinks("devices",
+		func() models.IPersistent {
+			return (&app_models.DeviceBean{}).New()
+		}, p.Manager.GetBean("DeviceBean").(core_apis.IAPI))
 }

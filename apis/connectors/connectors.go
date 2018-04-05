@@ -20,7 +20,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package apis
+package connectors
 
 import (
 	"log"
@@ -32,34 +32,31 @@ import (
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
-// Processus internal members
-type Processus struct {
+// Connector internal members
+type Connector struct {
 	// Base component
 	*core_apis.API
 	// internal members
 	Name string
 	// mounts
-	Crud interface{} `@crud:"/api/processes"`
-	// Trigger with injection mecanism
-	LinkTrigger ITrigger `@autowired:"TriggerBean" @link:"/api/processes" @href:"triggers"`
-	Trigger     ITrigger `@autowired:"TriggerBean"`
+	Crud interface{} `@crud:"/api/connectors"`
 	// Swagger with injection mecanism
 	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
 }
 
-// IProcessus implements IBean
-type IProcessus interface {
+// IConnector implements IBean
+type IConnector interface {
 	core_apis.IAPI
 }
 
 // New constructor
-func (p *Processus) New() IProcessus {
-	bean := Processus{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+func (p *Connector) New() IConnector {
+	bean := Connector{API: &core_apis.API{Bean: &core_bean.Bean{}}}
 	return &bean
 }
 
-// SetSwagger inject Processus
-func (p *Processus) SetSwagger(value interface{}) {
+// SetSwagger inject Connector
+func (p *Connector) SetSwagger(value interface{}) {
 	if assertion, ok := value.(core_apis.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
@@ -67,49 +64,31 @@ func (p *Processus) SetSwagger(value interface{}) {
 	}
 }
 
-// SetTrigger inject notification
-func (p *Processus) SetTrigger(value interface{}) {
-	if assertion, ok := value.(ITrigger); ok {
-		p.Trigger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetLinkTrigger injection
-func (p *Processus) SetLinkTrigger(value interface{}) {
-	if assertion, ok := value.(ITrigger); ok {
-		p.LinkTrigger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
 // Init this API
-func (p *Processus) Init() error {
+func (p *Connector) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.ProcessusBean{}).New()
+		return (&app_models.ConnectorBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.ProcessusBeans{}).New()
+		return (&app_models.ConnectorBeans{}).New()
 	}
 	return p.API.Init()
 }
 
 // PostConstruct this API
-func (p *Processus) PostConstruct(name string) error {
+func (p *Connector) PostConstruct(name string) error {
 	// Scan struct and init all handler
 	p.ScanHandler(p.Swagger, p)
 	return nil
 }
 
 // Validate this API
-func (p *Processus) Validate(name string) error {
+func (p *Connector) Validate(name string) error {
 	return nil
 }
 
 // HandlerTasksByID return task by id
-func (p *Processus) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
+func (p *Connector) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
 	return "", nil
 }

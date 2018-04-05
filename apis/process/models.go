@@ -20,7 +20,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package apis
+package process
 
 import (
 	"log"
@@ -32,31 +32,31 @@ import (
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
-// Configuration internal members
-type Configuration struct {
+// Model internal members
+type Model struct {
 	// Base component
 	*core_apis.API
 	// internal members
 	Name string
 	// mounts
-	Crud interface{} `@crud:"/api/configurations"`
+	Crud interface{} `@crud:"/api/models"`
 	// Swagger with injection mecanism
 	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
 }
 
-// IConfiguration implements IBean
-type IConfiguration interface {
+// IModel implements IBean
+type IModel interface {
 	core_apis.IAPI
 }
 
 // New constructor
-func (p *Configuration) New() IConfiguration {
-	bean := Configuration{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+func (p *Model) New() IModel {
+	bean := Model{API: &core_apis.API{Bean: &core_bean.Bean{}}}
 	return &bean
 }
 
-// SetSwagger inject Configuration
-func (p *Configuration) SetSwagger(value interface{}) {
+// SetSwagger inject Model
+func (p *Model) SetSwagger(value interface{}) {
 	if assertion, ok := value.(core_apis.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
@@ -65,30 +65,30 @@ func (p *Configuration) SetSwagger(value interface{}) {
 }
 
 // Init this API
-func (p *Configuration) Init() error {
+func (p *Model) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.ConfigurationBean{}).New()
+		return (&app_models.ModelBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.ConfigurationBeans{}).New()
+		return (&app_models.ModelBeans{}).New()
 	}
 	return p.API.Init()
 }
 
 // PostConstruct this API
-func (p *Configuration) PostConstruct(name string) error {
+func (p *Model) PostConstruct(name string) error {
 	// Scan struct and init all handler
 	p.ScanHandler(p.Swagger, p)
 	return nil
 }
 
 // Validate this API
-func (p *Configuration) Validate(name string) error {
+func (p *Model) Validate(name string) error {
 	return nil
 }
 
 // HandlerTasksByID return task by id
-func (p *Configuration) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
+func (p *Model) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
 	return "", nil
 }

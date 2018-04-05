@@ -1,4 +1,4 @@
-// Package apis for common apis
+// Package interfaces for common interfaces
 // MIT License
 //
 // Copyright (c) 2017 yroffin
@@ -20,7 +20,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package apis
+package datasources
 
 import (
 	"log"
@@ -28,34 +28,38 @@ import (
 
 	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	"github.com/yroffin/go-boot-sqllite/core/models"
+	app_models "github.com/yroffin/go-jarvis/models"
 )
 
-// Security internal members
-type Security struct {
+// DataSource internal members
+type DataSource struct {
 	// Base component
 	*core_apis.API
 	// internal members
 	Name string
-	// Api
-	SecConnect interface{} `@handler:"Connect" path:"/api/connect" method:"GET" mime-type:"/application/json"`
-	SecProfile interface{} `@handler:"Profile" path:"/api/profile/me" method:"GET" mime-type:"/application/json"`
+	// mounts
+	Crud interface{} `@crud:"/api/datasources"`
+	// LinkMeasure with injection mecanism
+	LinkMeasure IMeasure `@autowired:"MeasureBean" @link:"/api/DataSources" @href:"measures"`
+	Measure     IMeasure `@autowired:"MeasureBean"`
 	// Swagger with injection mecanism
 	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
 }
 
-// ISecurity implements IBean
-type ISecurity interface {
+// IDataSource implements IBean
+type IDataSource interface {
 	core_apis.IAPI
 }
 
 // New constructor
-func (p *Security) New() ISecurity {
-	bean := Security{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+func (p *DataSource) New() IDataSource {
+	bean := DataSource{API: &core_apis.API{Bean: &core_bean.Bean{}}}
 	return &bean
 }
 
-// SetSwagger inject notification
-func (p *Security) SetSwagger(value interface{}) {
+// SetSwagger inject DataSource
+func (p *DataSource) SetSwagger(value interface{}) {
 	if assertion, ok := value.(core_apis.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
@@ -63,35 +67,49 @@ func (p *Security) SetSwagger(value interface{}) {
 	}
 }
 
+// SetLinkCommand injection
+func (p *DataSource) SetLinkMeasure(value interface{}) {
+	if assertion, ok := value.(IMeasure); ok {
+		p.LinkMeasure = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
+// SetCommand injection
+func (p *DataSource) SetMeasure(value interface{}) {
+	if assertion, ok := value.(IMeasure); ok {
+		p.Measure = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
 // Init this API
-func (p *Security) Init() error {
+func (p *DataSource) Init() error {
+	// Crud
+	p.Factory = func() models.IPersistent {
+		return (&app_models.DataSourceBean{}).New()
+	}
+	p.Factories = func() models.IPersistents {
+		return (&app_models.DataSourceBeans{}).New()
+	}
 	return p.API.Init()
 }
 
 // PostConstruct this API
-func (p *Security) PostConstruct(name string) error {
+func (p *DataSource) PostConstruct(name string) error {
 	// Scan struct and init all handler
 	p.ScanHandler(p.Swagger, p)
 	return nil
 }
 
 // Validate this API
-func (p *Security) Validate(name string) error {
+func (p *DataSource) Validate(name string) error {
 	return nil
 }
 
-// Connect API
-func (p *Security) Connect() func() (string, error) {
-	anonymous := func() (string, error) {
-		return "false", nil
-	}
-	return anonymous
-}
-
-// Profile API
-func (p *Security) Profile() func() (string, error) {
-	anonymous := func() (string, error) {
-		return "{\"attributes\":{\"email\":\"-\"}}", nil
-	}
-	return anonymous
+// HandlerTasksByID return task by id
+func (p *DataSource) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
+	return "", nil
 }

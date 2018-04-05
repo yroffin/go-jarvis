@@ -20,7 +20,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package apis
+package datasources
 
 import (
 	"log"
@@ -29,34 +29,38 @@ import (
 	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-jarvis/apis/connectors"
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
-// Model internal members
-type Model struct {
+// Measure internal members
+type Measure struct {
 	// Base component
 	*core_apis.API
 	// internal members
 	Name string
 	// mounts
-	Crud interface{} `@crud:"/api/models"`
+	Crud interface{} `@crud:"/api/measures"`
+	// LinkConnector with injection mecanism
+	LinkConnector connectors.IConnector `@autowired:"ConnectorBean" @link:"/api/measures" @href:"connectors"`
+	Connector     connectors.IConnector `@autowired:"ConnectorBean"`
 	// Swagger with injection mecanism
 	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
 }
 
-// IModel implements IBean
-type IModel interface {
+// IMeasure implements IBean
+type IMeasure interface {
 	core_apis.IAPI
 }
 
 // New constructor
-func (p *Model) New() IModel {
-	bean := Model{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+func (p *Measure) New() IMeasure {
+	bean := Measure{API: &core_apis.API{Bean: &core_bean.Bean{}}}
 	return &bean
 }
 
-// SetSwagger inject Model
-func (p *Model) SetSwagger(value interface{}) {
+// SetSwagger inject Measure
+func (p *Measure) SetSwagger(value interface{}) {
 	if assertion, ok := value.(core_apis.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
@@ -64,31 +68,49 @@ func (p *Model) SetSwagger(value interface{}) {
 	}
 }
 
+// SetLinkConnector injection
+func (p *Measure) SetLinkConnector(value interface{}) {
+	if assertion, ok := value.(connectors.IConnector); ok {
+		p.LinkConnector = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
+// SetConnector injection
+func (p *Measure) SetConnector(value interface{}) {
+	if assertion, ok := value.(connectors.IConnector); ok {
+		p.Connector = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
 // Init this API
-func (p *Model) Init() error {
+func (p *Measure) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.ModelBean{}).New()
+		return (&app_models.MeasureBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.ModelBeans{}).New()
+		return (&app_models.MeasureBeans{}).New()
 	}
 	return p.API.Init()
 }
 
 // PostConstruct this API
-func (p *Model) PostConstruct(name string) error {
+func (p *Measure) PostConstruct(name string) error {
 	// Scan struct and init all handler
 	p.ScanHandler(p.Swagger, p)
 	return nil
 }
 
 // Validate this API
-func (p *Model) Validate(name string) error {
+func (p *Measure) Validate(name string) error {
 	return nil
 }
 
 // HandlerTasksByID return task by id
-func (p *Model) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
+func (p *Measure) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
 	return "", nil
 }

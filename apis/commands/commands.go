@@ -20,7 +20,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package apis
+package commands
 
 import (
 	"encoding/json"
@@ -31,6 +31,7 @@ import (
 	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-jarvis/apis/events"
 	app_models "github.com/yroffin/go-jarvis/models"
 	app_chacon "github.com/yroffin/go-jarvis/services/chacon"
 	app_lua "github.com/yroffin/go-jarvis/services/lua"
@@ -48,8 +49,8 @@ type Command struct {
 	// Local cruds operations
 	Crud interface{} `@crud:"/api/commands"`
 	// Notification with injection mecanism
-	LinkNotification INotification `@autowired:"NotificationBean" @link:"/api/commands" @href:"notifications"`
-	Notification     INotification `@autowired:"NotificationBean"`
+	LinkNotification events.INotification `@autowired:"NotificationBean" @link:"/api/commands" @href:"notifications"`
+	Notification     events.INotification `@autowired:"NotificationBean"`
 	// SlackService with injection mecanism
 	SlackService app_slack.ISlackService `@autowired:"slack-service"`
 	// ShellService with injection mecanism
@@ -86,7 +87,7 @@ func (p *Command) SetSwagger(value interface{}) {
 
 // SetNotification inject notification
 func (p *Command) SetNotification(value interface{}) {
-	if assertion, ok := value.(INotification); ok {
+	if assertion, ok := value.(events.INotification); ok {
 		p.Notification = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
@@ -95,7 +96,7 @@ func (p *Command) SetNotification(value interface{}) {
 
 // SetLinkNotification injection
 func (p *Command) SetLinkNotification(value interface{}) {
-	if assertion, ok := value.(INotification); ok {
+	if assertion, ok := value.(events.INotification); ok {
 		p.LinkNotification = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))

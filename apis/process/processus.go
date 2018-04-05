@@ -20,7 +20,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package apis
+package process
 
 import (
 	"log"
@@ -29,37 +29,38 @@ import (
 	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
 	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-jarvis/apis/events"
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
-// ScriptPlugin internal members
-type ScriptPlugin struct {
+// Processus internal members
+type Processus struct {
 	// Base component
 	*core_apis.API
 	// internal members
 	Name string
 	// mounts
-	Crud interface{} `@crud:"/api/plugins/scripts"`
-	// LinkCommand with injection mecanism
-	LinkCommand ICommand `@autowired:"CommandBean" @link:"/api/plugins/scripts" @href:"commands"`
-	Command     ICommand `@autowired:"CommandBean"`
+	Crud interface{} `@crud:"/api/processes"`
+	// Trigger with injection mecanism
+	LinkTrigger events.ITrigger `@autowired:"TriggerBean" @link:"/api/processes" @href:"triggers"`
+	Trigger     events.ITrigger `@autowired:"TriggerBean"`
 	// Swagger with injection mecanism
 	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
 }
 
-// IScriptPlugin implements IBean
-type IScriptPlugin interface {
+// IProcessus implements IBean
+type IProcessus interface {
 	core_apis.IAPI
 }
 
 // New constructor
-func (p *ScriptPlugin) New() IScriptPlugin {
-	bean := ScriptPlugin{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+func (p *Processus) New() IProcessus {
+	bean := Processus{API: &core_apis.API{Bean: &core_bean.Bean{}}}
 	return &bean
 }
 
-// SetSwagger inject ScriptPlugin
-func (p *ScriptPlugin) SetSwagger(value interface{}) {
+// SetSwagger inject Processus
+func (p *Processus) SetSwagger(value interface{}) {
 	if assertion, ok := value.(core_apis.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
@@ -67,49 +68,49 @@ func (p *ScriptPlugin) SetSwagger(value interface{}) {
 	}
 }
 
-// SetLinkCommand injection
-func (p *ScriptPlugin) SetLinkCommand(value interface{}) {
-	if assertion, ok := value.(ICommand); ok {
-		p.LinkCommand = assertion
+// SetTrigger inject notification
+func (p *Processus) SetTrigger(value interface{}) {
+	if assertion, ok := value.(events.ITrigger); ok {
+		p.Trigger = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
 	}
 }
 
-// SetCommand injection
-func (p *ScriptPlugin) SetCommand(value interface{}) {
-	if assertion, ok := value.(ICommand); ok {
-		p.Command = assertion
+// SetLinkTrigger injection
+func (p *Processus) SetLinkTrigger(value interface{}) {
+	if assertion, ok := value.(events.ITrigger); ok {
+		p.LinkTrigger = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
 	}
 }
 
 // Init this API
-func (p *ScriptPlugin) Init() error {
+func (p *Processus) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.ScriptPluginBean{}).New()
+		return (&app_models.ProcessusBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.ScriptPluginBeans{}).New()
+		return (&app_models.ProcessusBeans{}).New()
 	}
 	return p.API.Init()
 }
 
 // PostConstruct this API
-func (p *ScriptPlugin) PostConstruct(name string) error {
+func (p *Processus) PostConstruct(name string) error {
 	// Scan struct and init all handler
 	p.ScanHandler(p.Swagger, p)
 	return nil
 }
 
 // Validate this API
-func (p *ScriptPlugin) Validate(name string) error {
+func (p *Processus) Validate(name string) error {
 	return nil
 }
 
 // HandlerTasksByID return task by id
-func (p *ScriptPlugin) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
+func (p *Processus) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
 	return "", nil
 }

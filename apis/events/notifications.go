@@ -20,7 +20,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package apis
+package events
 
 import (
 	"log"
@@ -32,7 +32,7 @@ import (
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
-// Bean internal members
+// Notification internal members
 type Notification struct {
 	// Base component
 	*core_apis.API

@@ -20,7 +20,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package apis
+package events
 
 import (
 	"log"
@@ -32,31 +32,34 @@ import (
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
-// Cron internal members
-type Cron struct {
+// Trigger internal members
+type Trigger struct {
 	// Base component
 	*core_apis.API
 	// internal members
 	Name string
 	// mounts
-	Crud interface{} `@crud:"/api/crons"`
+	Crud interface{} `@crud:"/api/triggers"`
+	// LinkCron with injection mecanism
+	LinkCron ICron `@autowired:"CronBean" @link:"/api/triggers" @href:"crons"`
+	Cron     ICron `@autowired:"CronBean"`
 	// Swagger with injection mecanism
 	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
 }
 
-// ICron implements IBean
-type ICron interface {
+// ITrigger implements IBean
+type ITrigger interface {
 	core_apis.IAPI
 }
 
 // New constructor
-func (p *Cron) New() ICron {
-	bean := Cron{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+func (p *Trigger) New() ITrigger {
+	bean := Trigger{API: &core_apis.API{Bean: &core_bean.Bean{}}}
 	return &bean
 }
 
-// SetSwagger inject Cron
-func (p *Cron) SetSwagger(value interface{}) {
+// SetSwagger inject Trigger
+func (p *Trigger) SetSwagger(value interface{}) {
 	if assertion, ok := value.(core_apis.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
@@ -64,31 +67,49 @@ func (p *Cron) SetSwagger(value interface{}) {
 	}
 }
 
+// SetLinkCommand injection
+func (p *Trigger) SetLinkCron(value interface{}) {
+	if assertion, ok := value.(ICron); ok {
+		p.LinkCron = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
+// SetCommand injection
+func (p *Trigger) SetCron(value interface{}) {
+	if assertion, ok := value.(ICron); ok {
+		p.Cron = assertion
+	} else {
+		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
+	}
+}
+
 // Init this API
-func (p *Cron) Init() error {
+func (p *Trigger) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.CronBean{}).New()
+		return (&app_models.TriggerBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.CronBeans{}).New()
+		return (&app_models.TriggerBeans{}).New()
 	}
 	return p.API.Init()
 }
 
 // PostConstruct this API
-func (p *Cron) PostConstruct(name string) error {
+func (p *Trigger) PostConstruct(name string) error {
 	// Scan struct and init all handler
 	p.ScanHandler(p.Swagger, p)
 	return nil
 }
 
 // Validate this API
-func (p *Cron) Validate(name string) error {
+func (p *Trigger) Validate(name string) error {
 	return nil
 }
 
 // HandlerTasksByID return task by id
-func (p *Cron) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
+func (p *Trigger) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
 	return "", nil
 }

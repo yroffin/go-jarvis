@@ -20,48 +20,38 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package services
+package slack
 
 import (
 	"log"
-	"reflect"
 
-	"github.com/yroffin/go-boot-sqllite/core/engine"
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
 func init() {
-	engine.Winter.Register("slack-service", (&SlackService{}).New())
+	winter.Helper.Register("slack-service", (&SlackService{}).New())
 }
 
 // SlackService internal members
 type SlackService struct {
 	// members
-	*engine.SERVICE
+	*winter.Service
 	// PluginSlackService with injection mecanism
 	PluginSlackService IPluginSlackService `@autowired:"plugin-slack-service"`
 }
 
 // ISlackService implements IBean
 type ISlackService interface {
-	engine.IBean
+	winter.IBean
 	AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error)
 	AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error)
 }
 
 // New constructor
 func (p *SlackService) New() ISlackService {
-	bean := SlackService{SERVICE: &engine.SERVICE{Bean: &engine.Bean{}}}
+	bean := SlackService{Service: &winter.Service{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetPluginSlackService injection
-func (p *SlackService) SetPluginSlackService(value interface{}) {
-	if assertion, ok := value.(IPluginSlackService); ok {
-		p.PluginSlackService = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this SERVICE

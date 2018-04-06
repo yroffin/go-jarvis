@@ -24,44 +24,34 @@ package chacon
 
 import (
 	"log"
-	"reflect"
 
-	"github.com/yroffin/go-boot-sqllite/core/engine"
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
 func init() {
-	engine.Winter.Register("chacon-service", (&ChaconService{}).New())
+	winter.Helper.Register("chacon-service", (&ChaconService{}).New())
 }
 
 // ChaconService internal members
 type ChaconService struct {
 	// members
-	*engine.SERVICE
+	*winter.Service
 	// SetPluginSlackService with injection mecanism
 	PluginChaconService IPluginChaconService `@autowired:"plugin-chacon-service"`
 }
 
 // IChaconService implements IBean
 type IChaconService interface {
-	engine.IBean
+	winter.IBean
 	AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error)
 	AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error)
 }
 
 // New constructor
 func (p *ChaconService) New() IChaconService {
-	bean := ChaconService{SERVICE: &engine.SERVICE{Bean: &engine.Bean{}}}
+	bean := ChaconService{Service: &winter.Service{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetPluginChaconService injection
-func (p *ChaconService) SetPluginChaconService(value interface{}) {
-	if assertion, ok := value.(IPluginChaconService); ok {
-		p.PluginChaconService = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API

@@ -23,16 +23,14 @@
 package views
 
 import (
-	"log"
-	"reflect"
-
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 	"github.com/yroffin/go-jarvis/apis/devices"
 )
 
 func init() {
-	engine.Winter.Register("ViewBean", (&View{}).New())
+	winter.Helper.Register("ViewBean", (&View{}).New())
 }
 
 // View internal members
@@ -46,8 +44,6 @@ type View struct {
 	// Notification with injection mecanism
 	LinkDevice devices.IDevice `@autowired:"DeviceBean" @link:"/api/views" @href:"devices"`
 	Device     devices.IDevice `@autowired:"DeviceBean"`
-	// SwaggerService with injection mecanism
-	Manager engine.IManager `@autowired:"manager"`
 	// Swagger with injection mecanism
 	Swagger engine.ISwaggerService `@autowired:"swagger"`
 }
@@ -59,44 +55,8 @@ type IView interface {
 
 // New constructor
 func (p *View) New() IView {
-	bean := View{API: &engine.API{Bean: &engine.Bean{}}}
+	bean := View{API: &engine.API{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetSwagger inject View
-func (p *View) SetSwagger(value interface{}) {
-	if assertion, ok := value.(engine.ISwaggerService); ok {
-		p.Swagger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetManager inject notification
-func (p *View) SetManager(value interface{}) {
-	if assertion, ok := value.(engine.IManager); ok {
-		p.Manager = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetDevice inject notification
-func (p *View) SetDevice(value interface{}) {
-	if assertion, ok := value.(devices.IDevice); ok {
-		p.Device = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetLinkDevice injection
-func (p *View) SetLinkDevice(value interface{}) {
-	if assertion, ok := value.(devices.IDevice); ok {
-		p.LinkDevice = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API
@@ -135,5 +95,5 @@ func (p *View) GetAllViews(body string) (interface{}, int, error) {
 	return p.LoadAllLinks("devices",
 		func() models.IPersistent {
 			return (&devices.DeviceBean{}).New()
-		}, p.Manager.GetBean("DeviceBean").(engine.IAPI))
+		}, winter.Helper.GetBean("DeviceBean").(engine.IAPI))
 }

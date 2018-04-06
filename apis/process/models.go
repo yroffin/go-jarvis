@@ -23,15 +23,13 @@
 package process
 
 import (
-	"log"
-	"reflect"
-
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
 func init() {
-	engine.Winter.Register("ModelBean", (&Model{}).New())
+	winter.Helper.Register("ModelBean", (&Model{}).New())
 }
 
 // Model internal members
@@ -53,17 +51,8 @@ type IModel interface {
 
 // New constructor
 func (p *Model) New() IModel {
-	bean := Model{API: &engine.API{Bean: &engine.Bean{}}}
+	bean := Model{API: &engine.API{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetSwagger inject Model
-func (p *Model) SetSwagger(value interface{}) {
-	if assertion, ok := value.(engine.ISwaggerService); ok {
-		p.Swagger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API
@@ -88,9 +77,4 @@ func (p *Model) PostConstruct(name string) error {
 // Validate this API
 func (p *Model) Validate(name string) error {
 	return nil
-}
-
-// HandlerTasksByID return task by id
-func (p *Model) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
-	return "", nil
 }

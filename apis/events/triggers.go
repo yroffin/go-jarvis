@@ -23,15 +23,13 @@
 package events
 
 import (
-	"log"
-	"reflect"
-
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
 func init() {
-	engine.Winter.Register("TriggerBean", (&Trigger{}).New())
+	winter.Helper.Register("TriggerBean", (&Trigger{}).New())
 }
 
 // Trigger internal members
@@ -56,35 +54,8 @@ type ITrigger interface {
 
 // New constructor
 func (p *Trigger) New() ITrigger {
-	bean := Trigger{API: &engine.API{Bean: &engine.Bean{}}}
+	bean := Trigger{API: &engine.API{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetSwagger inject Trigger
-func (p *Trigger) SetSwagger(value interface{}) {
-	if assertion, ok := value.(engine.ISwaggerService); ok {
-		p.Swagger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetLinkCommand injection
-func (p *Trigger) SetLinkCron(value interface{}) {
-	if assertion, ok := value.(ICron); ok {
-		p.LinkCron = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetCommand injection
-func (p *Trigger) SetCron(value interface{}) {
-	if assertion, ok := value.(ICron); ok {
-		p.Cron = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API
@@ -109,9 +80,4 @@ func (p *Trigger) PostConstruct(name string) error {
 // Validate this API
 func (p *Trigger) Validate(name string) error {
 	return nil
-}
-
-// HandlerTasksByID return task by id
-func (p *Trigger) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
-	return "", nil
 }

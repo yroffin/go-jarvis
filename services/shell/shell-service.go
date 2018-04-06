@@ -20,48 +20,38 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package services
+package shell
 
 import (
 	"log"
-	"reflect"
 
-	"github.com/yroffin/go-boot-sqllite/core/engine"
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
 func init() {
-	engine.Winter.Register("shell-service", (&ShellService{}).New())
+	winter.Helper.Register("shell-service", (&ShellService{}).New())
 }
 
 // ShellService internal members
 type ShellService struct {
 	// members
-	*engine.SERVICE
+	*winter.Service
 	// SetPluginShellService with injection mecanism
 	PluginShellService IPluginShellService `@autowired:"plugin-shell-service"`
 }
 
 // IShellService implements IBean
 type IShellService interface {
-	engine.IBean
+	winter.IBean
 	AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error)
 	AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error)
 }
 
 // New constructor
 func (p *ShellService) New() IShellService {
-	bean := ShellService{SERVICE: &engine.SERVICE{Bean: &engine.Bean{}}}
+	bean := ShellService{Service: &winter.Service{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetPluginShellService injection
-func (p *ShellService) SetPluginShellService(value interface{}) {
-	if assertion, ok := value.(IPluginShellService); ok {
-		p.PluginShellService = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API

@@ -25,15 +25,15 @@ package system
 import (
 	"encoding/json"
 	"log"
-	"reflect"
 	"strconv"
 
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
 func init() {
-	engine.Winter.Register("SnapshotBean", (&Snapshot{}).New())
+	winter.Helper.Register("SnapshotBean", (&Snapshot{}).New())
 }
 
 // Snapshot internal members
@@ -46,8 +46,6 @@ type Snapshot struct {
 	Crud interface{} `@crud:"/api/snapshots"`
 	// Swagger with injection mecanism
 	Swagger engine.ISwaggerService `@autowired:"swagger"`
-	// SwaggerService with injection mecanism
-	Manager engine.IManager `@autowired:"manager"`
 	// SqlCrudBusiness with injection mecanism
 	SQLCrudBusiness engine.ICrudBusiness `@autowired:"sql-crud-business"`
 	// GraphBusiness with injection mecanism
@@ -61,44 +59,8 @@ type ISnapshot interface {
 
 // New constructor
 func (p *Snapshot) New() ISnapshot {
-	bean := Snapshot{API: &engine.API{Bean: &engine.Bean{}}}
+	bean := Snapshot{API: &engine.API{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetSwagger inject notification
-func (p *Snapshot) SetSwagger(value interface{}) {
-	if assertion, ok := value.(engine.ISwaggerService); ok {
-		p.Swagger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetManager inject notification
-func (p *Snapshot) SetManager(value interface{}) {
-	if assertion, ok := value.(engine.IManager); ok {
-		p.Manager = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetSQLCrudBusiness inject CrudBusiness
-func (p *Snapshot) SetSQLCrudBusiness(value interface{}) {
-	if assertion, ok := value.(engine.ICrudBusiness); ok {
-		p.SQLCrudBusiness = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetGraphBusiness inject CrudBusiness
-func (p *Snapshot) SetGraphBusiness(value interface{}) {
-	if assertion, ok := value.(engine.ILinkBusiness); ok {
-		p.GraphBusiness = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API
@@ -201,7 +163,7 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 		default:
 			log.Println("Bean:", entityBeanType)
 			for idBean, entityBean := range entityBeanValue.(map[string]interface{}) {
-				bean := p.Manager.GetBean(entityBeanType)
+				bean := winter.Helper.GetBean(entityBeanType)
 				if bean == nil {
 					log.Println("Bean:", entityBeanType, "Not handled")
 				} else {
@@ -327,7 +289,7 @@ func (p *Snapshot) Download(id string, body string) (interface{}, int, error) {
 	beans := []string{"ProcessBean", "CommandBean", "DeviceBean", "ScriptPluginBean", "TriggerBean", "ViewBean", "ConnectorBean", "CronBean", "ConfigBean", "PropertyBean"}
 	for _, b := range beans {
 		log.Println("Bean:", b)
-		bean := p.Manager.GetBean(b).(engine.IAPI)
+		bean := winter.Helper.GetBean(b).(engine.IAPI)
 		all, _ := bean.GetAll()
 		index := make(map[string]interface{})
 		for _, obj := range all {

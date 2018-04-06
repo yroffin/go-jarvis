@@ -20,48 +20,38 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package services
+package lua
 
 import (
 	"log"
-	"reflect"
 
-	"github.com/yroffin/go-boot-sqllite/core/engine"
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
 func init() {
-	engine.Winter.Register("lua-service", (&LuaService{}).New())
+	winter.Helper.Register("lua-service", (&LuaService{}).New())
 }
 
 // LuaService internal members
 type LuaService struct {
 	// members
-	*engine.SERVICE
+	*winter.Service
 	// PluginLuaService with injection mecanism
 	PluginLuaService IPluginLuaService `@autowired:"plugin-lua-service"`
 }
 
 // ILuaService implements IBean
 type ILuaService interface {
-	engine.IBean
+	winter.IBean
 	AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error)
 	AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error)
 }
 
 // New constructor
 func (p *LuaService) New() ILuaService {
-	bean := LuaService{SERVICE: &engine.SERVICE{Bean: &engine.Bean{}}}
+	bean := LuaService{Service: &winter.Service{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetPluginLuaService injection
-func (p *LuaService) SetPluginLuaService(value interface{}) {
-	if assertion, ok := value.(IPluginLuaService); ok {
-		p.PluginLuaService = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API

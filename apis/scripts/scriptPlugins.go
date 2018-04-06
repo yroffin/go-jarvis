@@ -23,16 +23,14 @@
 package scripts
 
 import (
-	"log"
-	"reflect"
-
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 	"github.com/yroffin/go-jarvis/apis/commands"
 )
 
 func init() {
-	engine.Winter.Register("ScriptPluginBean", (&ScriptPlugin{}).New())
+	winter.Helper.Register("ScriptPluginBean", (&ScriptPlugin{}).New())
 }
 
 // ScriptPlugin internal members
@@ -57,35 +55,8 @@ type IScriptPlugin interface {
 
 // New constructor
 func (p *ScriptPlugin) New() IScriptPlugin {
-	bean := ScriptPlugin{API: &engine.API{Bean: &engine.Bean{}}}
+	bean := ScriptPlugin{API: &engine.API{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetSwagger inject ScriptPlugin
-func (p *ScriptPlugin) SetSwagger(value interface{}) {
-	if assertion, ok := value.(engine.ISwaggerService); ok {
-		p.Swagger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetLinkCommand injection
-func (p *ScriptPlugin) SetLinkCommand(value interface{}) {
-	if assertion, ok := value.(commands.ICommand); ok {
-		p.LinkCommand = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetCommand injection
-func (p *ScriptPlugin) SetCommand(value interface{}) {
-	if assertion, ok := value.(commands.ICommand); ok {
-		p.Command = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API
@@ -110,9 +81,4 @@ func (p *ScriptPlugin) PostConstruct(name string) error {
 // Validate this API
 func (p *ScriptPlugin) Validate(name string) error {
 	return nil
-}
-
-// HandlerTasksByID return task by id
-func (p *ScriptPlugin) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
-	return "", nil
 }

@@ -23,10 +23,8 @@
 package system
 
 import (
-	"log"
-	"reflect"
-
 	"github.com/yroffin/go-boot-sqllite/core/engine"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
 var (
@@ -34,7 +32,7 @@ var (
 )
 
 func init() {
-	engine.Winter.Register("SecurityBean", (&Security{}).New())
+	winter.Helper.Register("SecurityBean", (&Security{}).New())
 }
 
 // Security internal members
@@ -57,17 +55,8 @@ type ISecurity interface {
 
 // New constructor
 func (p *Security) New() ISecurity {
-	bean := Security{API: &engine.API{Bean: &engine.Bean{}}}
+	bean := Security{API: &engine.API{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetSwagger inject notification
-func (p *Security) SetSwagger(value interface{}) {
-	if assertion, ok := value.(engine.ISwaggerService); ok {
-		p.Swagger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API

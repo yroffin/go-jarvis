@@ -23,17 +23,15 @@
 package devices
 
 import (
-	"log"
-	"reflect"
-
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 	"github.com/yroffin/go-jarvis/apis/events"
 	"github.com/yroffin/go-jarvis/apis/scripts"
 )
 
 func init() {
-	engine.Winter.Register("DeviceBean", (&Device{}).New())
+	winter.Helper.Register("DeviceBean", (&Device{}).New())
 }
 
 // Device internal members
@@ -64,71 +62,8 @@ type IDevice interface {
 
 // New constructor
 func (p *Device) New() IDevice {
-	bean := Device{API: &engine.API{Bean: &engine.Bean{}}}
+	bean := Device{API: &engine.API{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetSwagger inject Device
-func (p *Device) SetSwagger(value interface{}) {
-	if assertion, ok := value.(engine.ISwaggerService); ok {
-		p.Swagger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetDevice inject notification
-func (p *Device) SetDevice(value interface{}) {
-	if assertion, ok := value.(IDevice); ok {
-		p.Device = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetLinkDevice injection
-func (p *Device) SetLinkDevice(value interface{}) {
-	if assertion, ok := value.(IDevice); ok {
-		p.LinkDevice = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetTrigger inject notification
-func (p *Device) SetTrigger(value interface{}) {
-	if assertion, ok := value.(events.ITrigger); ok {
-		p.Trigger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetLinkTrigger injection
-func (p *Device) SetLinkTrigger(value interface{}) {
-	if assertion, ok := value.(events.ITrigger); ok {
-		p.LinkTrigger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetPluginScript inject notification
-func (p *Device) SetPluginScript(value interface{}) {
-	if assertion, ok := value.(IDevice); ok {
-		p.PluginScript = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetLinkPluginScript injection
-func (p *Device) SetLinkPluginScript(value interface{}) {
-	if assertion, ok := value.(IDevice); ok {
-		p.LinkPluginScript = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API

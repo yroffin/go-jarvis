@@ -23,16 +23,14 @@
 package process
 
 import (
-	"log"
-	"reflect"
-
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 	"github.com/yroffin/go-jarvis/apis/events"
 )
 
 func init() {
-	engine.Winter.Register("ProcessBean", (&Processus{}).New())
+	winter.Helper.Register("ProcessBean", (&Processus{}).New())
 }
 
 // Processus internal members
@@ -57,35 +55,8 @@ type IProcessus interface {
 
 // New constructor
 func (p *Processus) New() IProcessus {
-	bean := Processus{API: &engine.API{Bean: &engine.Bean{}}}
+	bean := Processus{API: &engine.API{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetSwagger inject Processus
-func (p *Processus) SetSwagger(value interface{}) {
-	if assertion, ok := value.(engine.ISwaggerService); ok {
-		p.Swagger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetTrigger inject notification
-func (p *Processus) SetTrigger(value interface{}) {
-	if assertion, ok := value.(events.ITrigger); ok {
-		p.Trigger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetLinkTrigger injection
-func (p *Processus) SetLinkTrigger(value interface{}) {
-	if assertion, ok := value.(events.ITrigger); ok {
-		p.LinkTrigger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API
@@ -110,9 +81,4 @@ func (p *Processus) PostConstruct(name string) error {
 // Validate this API
 func (p *Processus) Validate(name string) error {
 	return nil
-}
-
-// HandlerTasksByID return task by id
-func (p *Processus) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
-	return "", nil
 }

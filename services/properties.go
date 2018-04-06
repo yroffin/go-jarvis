@@ -29,30 +29,30 @@ import (
 	"strings"
 
 	"github.com/magiconair/properties"
-	"github.com/yroffin/go-boot-sqllite/core/engine"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
 func init() {
-	engine.Winter.Register("property-service", (&PropertyService{}).New())
+	winter.Helper.Register("property-service", (&PropertyService{}).New())
 }
 
 // PropertyService internal members
 type PropertyService struct {
 	// members
-	*engine.SERVICE
+	*winter.Service
 	// Props
 	props *properties.Properties
 }
 
 // IPropertyService implements IBean
 type IPropertyService interface {
-	engine.IBean
+	winter.IBean
 	Get(key string, def string) string
 }
 
 // New constructor
 func (p *PropertyService) New() IPropertyService {
-	bean := PropertyService{SERVICE: &engine.SERVICE{Bean: &engine.Bean{}}}
+	bean := PropertyService{Service: &winter.Service{Bean: &winter.Bean{}}}
 	return &bean
 }
 

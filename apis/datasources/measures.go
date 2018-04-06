@@ -23,16 +23,14 @@
 package datasources
 
 import (
-	"log"
-	"reflect"
-
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 	"github.com/yroffin/go-jarvis/apis/connectors"
 )
 
 func init() {
-	engine.Winter.Register("MeasureBean", (&Measure{}).New())
+	winter.Helper.Register("MeasureBean", (&Measure{}).New())
 }
 
 // Measure internal members
@@ -57,35 +55,8 @@ type IMeasure interface {
 
 // New constructor
 func (p *Measure) New() IMeasure {
-	bean := Measure{API: &engine.API{Bean: &engine.Bean{}}}
+	bean := Measure{API: &engine.API{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetSwagger inject Measure
-func (p *Measure) SetSwagger(value interface{}) {
-	if assertion, ok := value.(engine.ISwaggerService); ok {
-		p.Swagger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetLinkConnector injection
-func (p *Measure) SetLinkConnector(value interface{}) {
-	if assertion, ok := value.(connectors.IConnector); ok {
-		p.LinkConnector = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetConnector injection
-func (p *Measure) SetConnector(value interface{}) {
-	if assertion, ok := value.(connectors.IConnector); ok {
-		p.Connector = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API
@@ -110,9 +81,4 @@ func (p *Measure) PostConstruct(name string) error {
 // Validate this API
 func (p *Measure) Validate(name string) error {
 	return nil
-}
-
-// HandlerTasksByID return task by id
-func (p *Measure) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
-	return "", nil
 }

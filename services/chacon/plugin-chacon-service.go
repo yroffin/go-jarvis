@@ -23,22 +23,19 @@
 package chacon
 
 import (
-	"log"
-	"reflect"
-
-	"github.com/yroffin/go-boot-sqllite/core/engine"
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 	app_services "github.com/yroffin/go-jarvis/services"
 )
 
 func init() {
-	engine.Winter.Register("plugin-chacon-service", (&PluginChaconService{}).New())
+	winter.Helper.Register("plugin-chacon-service", (&PluginChaconService{}).New())
 }
 
 // PluginChaconService internal members
 type PluginChaconService struct {
 	// members
-	*engine.SERVICE
+	*winter.Service
 	// SetPropertyService with injection mecanism
 	PropertyService app_services.IPropertyService `@autowired:"property-service"`
 }
@@ -46,24 +43,15 @@ type PluginChaconService struct {
 // IPluginChaconService implements IBean
 type IPluginChaconService interface {
 	// Extend bean
-	engine.IBean
+	winter.IBean
 	// Local method
 	Call(body string) (core_models.IValueBean, error)
 }
 
 // New constructor
 func (p *PluginChaconService) New() IPluginChaconService {
-	bean := PluginChaconService{SERVICE: &engine.SERVICE{Bean: &engine.Bean{}}}
+	bean := PluginChaconService{Service: &winter.Service{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetPropertyService injection
-func (p *PluginChaconService) SetPropertyService(value interface{}) {
-	if assertion, ok := value.(app_services.IPropertyService); ok {
-		p.PropertyService = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this SERVICE

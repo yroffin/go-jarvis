@@ -23,15 +23,13 @@
 package events
 
 import (
-	"log"
-	"reflect"
-
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
 func init() {
-	engine.Winter.Register("NotificationBean", (&Notification{}).New())
+	winter.Helper.Register("NotificationBean", (&Notification{}).New())
 }
 
 // Notification internal members
@@ -53,17 +51,8 @@ type INotification interface {
 
 // New constructor
 func (p *Notification) New() INotification {
-	bean := Notification{API: &engine.API{Bean: &engine.Bean{}}}
+	bean := Notification{API: &engine.API{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetSwagger inject notification
-func (p *Notification) SetSwagger(value interface{}) {
-	if assertion, ok := value.(engine.ISwaggerService); ok {
-		p.Swagger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API

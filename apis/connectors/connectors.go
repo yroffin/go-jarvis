@@ -23,15 +23,13 @@
 package connectors
 
 import (
-	"log"
-	"reflect"
-
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
 func init() {
-	engine.Winter.Register("ConnectorBean", (&Connector{}).New())
+	winter.Helper.Register("ConnectorBean", (&Connector{}).New())
 }
 
 // Connector internal members
@@ -53,17 +51,8 @@ type IConnector interface {
 
 // New constructor
 func (p *Connector) New() IConnector {
-	bean := Connector{API: &engine.API{Bean: &engine.Bean{}}}
+	bean := Connector{API: &engine.API{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetSwagger inject Connector
-func (p *Connector) SetSwagger(value interface{}) {
-	if assertion, ok := value.(engine.ISwaggerService); ok {
-		p.Swagger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API
@@ -88,9 +77,4 @@ func (p *Connector) PostConstruct(name string) error {
 // Validate this API
 func (p *Connector) Validate(name string) error {
 	return nil
-}
-
-// HandlerTasksByID return task by id
-func (p *Connector) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
-	return "", nil
 }

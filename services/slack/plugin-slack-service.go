@@ -20,48 +20,36 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package services
+package slack
 
 import (
-	"log"
-	"reflect"
-
-	"github.com/yroffin/go-boot-sqllite/core/engine"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 	app_helpers "github.com/yroffin/go-jarvis/helpers"
 	app_services "github.com/yroffin/go-jarvis/services"
 )
 
 func init() {
-	engine.Winter.Register("plugin-slack-service", (&PluginSlackService{}).New())
+	winter.Helper.Register("plugin-slack-service", (&PluginSlackService{}).New())
 }
 
 // PluginSlackService internal members
 type PluginSlackService struct {
 	// members
-	*engine.SERVICE
+	*winter.Service
 	// SetPropertyService with injection mecanism
 	PropertyService app_services.IPropertyService `@autowired:"property-service"`
 }
 
 // IPluginSlackService implements IBean
 type IPluginSlackService interface {
-	engine.IBean
+	winter.IBean
 	Call(body map[string]interface{}) (map[string]interface{}, error)
 }
 
 // New constructor
 func (p *PluginSlackService) New() IPluginSlackService {
-	bean := PluginSlackService{SERVICE: &engine.SERVICE{Bean: &engine.Bean{}}}
+	bean := PluginSlackService{Service: &winter.Service{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetPropertyService injection
-func (p *PluginSlackService) SetPropertyService(value interface{}) {
-	if assertion, ok := value.(app_services.IPropertyService); ok {
-		p.PropertyService = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this SERVICE

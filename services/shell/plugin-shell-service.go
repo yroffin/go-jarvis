@@ -20,50 +20,40 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package services
+package shell
 
 import (
 	"io/ioutil"
 	"log"
 	"os/exec"
-	"reflect"
 
-	"github.com/yroffin/go-boot-sqllite/core/engine"
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 	app_services "github.com/yroffin/go-jarvis/services"
 )
 
 func init() {
-	engine.Winter.Register("plugin-shell-service", (&PluginShellService{}).New())
+	winter.Helper.Register("plugin-shell-service", (&PluginShellService{}).New())
 }
 
 // PluginShellService internal members
 type PluginShellService struct {
 	// members
-	*engine.SERVICE
+	*winter.Service
 	// SetPropertyService with injection mecanism
 	PropertyService app_services.IPropertyService `@autowired:"property-service"`
 }
 
 // IPluginShellService implements IBean
 type IPluginShellService interface {
-	engine.IBean
+	winter.IBean
 	Call(body string) (core_models.IValueBean, error)
 }
 
 // New constructor
 func (p *PluginShellService) New() IPluginShellService {
-	bean := PluginShellService{SERVICE: &engine.SERVICE{Bean: &engine.Bean{}}}
+	bean := PluginShellService{Service: &winter.Service{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetPropertyService injection
-func (p *PluginShellService) SetPropertyService(value interface{}) {
-	if assertion, ok := value.(app_services.IPropertyService); ok {
-		p.PropertyService = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this SERVICE

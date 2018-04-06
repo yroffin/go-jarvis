@@ -23,15 +23,13 @@
 package datasources
 
 import (
-	"log"
-	"reflect"
-
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
 func init() {
-	engine.Winter.Register("DataSourceBean", (&DataSource{}).New())
+	winter.Helper.Register("DataSourceBean", (&DataSource{}).New())
 }
 
 // DataSource internal members
@@ -56,35 +54,8 @@ type IDataSource interface {
 
 // New constructor
 func (p *DataSource) New() IDataSource {
-	bean := DataSource{API: &engine.API{Bean: &engine.Bean{}}}
+	bean := DataSource{API: &engine.API{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetSwagger inject DataSource
-func (p *DataSource) SetSwagger(value interface{}) {
-	if assertion, ok := value.(engine.ISwaggerService); ok {
-		p.Swagger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetLinkMeasure injection
-func (p *DataSource) SetLinkMeasure(value interface{}) {
-	if assertion, ok := value.(IMeasure); ok {
-		p.LinkMeasure = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetMeasure injection
-func (p *DataSource) SetMeasure(value interface{}) {
-	if assertion, ok := value.(IMeasure); ok {
-		p.Measure = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API
@@ -109,9 +80,4 @@ func (p *DataSource) PostConstruct(name string) error {
 // Validate this API
 func (p *DataSource) Validate(name string) error {
 	return nil
-}
-
-// HandlerTasksByID return task by id
-func (p *DataSource) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
-	return "", nil
 }

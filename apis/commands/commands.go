@@ -25,21 +25,21 @@ package commands
 import (
 	"encoding/json"
 	"log"
-	"reflect"
 	"strconv"
 
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 	"github.com/yroffin/go-jarvis/apis/events"
 	"github.com/yroffin/go-jarvis/services/chacon"
-	app_lua "github.com/yroffin/go-jarvis/services/lua"
-	app_shell "github.com/yroffin/go-jarvis/services/shell"
-	app_slack "github.com/yroffin/go-jarvis/services/slack"
-	app_zway "github.com/yroffin/go-jarvis/services/zway"
+	"github.com/yroffin/go-jarvis/services/lua"
+	"github.com/yroffin/go-jarvis/services/shell"
+	"github.com/yroffin/go-jarvis/services/slack"
+	"github.com/yroffin/go-jarvis/services/zway"
 )
 
 func init() {
-	engine.Winter.Register("CommandBean", (&Command{}).New())
+	winter.Helper.Register("CommandBean", (&Command{}).New())
 }
 
 // Command internal members
@@ -54,15 +54,15 @@ type Command struct {
 	LinkNotification events.INotification `@autowired:"NotificationBean" @link:"/api/commands" @href:"notifications"`
 	Notification     events.INotification `@autowired:"NotificationBean"`
 	// SlackService with injection mecanism
-	SlackService app_slack.ISlackService `@autowired:"slack-service"`
+	SlackService slack.ISlackService `@autowired:"slack-service"`
 	// ShellService with injection mecanism
-	ShellService app_shell.IShellService `@autowired:"shell-service"`
+	ShellService shell.IShellService `@autowired:"shell-service"`
 	// LuaService with injection mecanism
-	LuaService app_lua.ILuaService `@autowired:"lua-service"`
+	LuaService lua.ILuaService `@autowired:"lua-service"`
 	// ChaconService with injection mecanism
 	ChaconService chacon.IChaconService `@autowired:"chacon-service"`
 	// ZwayService with injection mecanism
-	ZwayService app_zway.IZwayService `@autowired:"zway-service"`
+	ZwayService zway.IZwayService `@autowired:"zway-service"`
 	// Swagger with injection mecanism
 	Swagger engine.ISwaggerService `@autowired:"swagger"`
 }
@@ -74,80 +74,8 @@ type ICommand interface {
 
 // New constructor
 func (p *Command) New() ICommand {
-	bean := Command{API: &engine.API{Bean: &engine.Bean{}}}
+	bean := Command{API: &engine.API{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetSwagger inject notification
-func (p *Command) SetSwagger(value interface{}) {
-	if assertion, ok := value.(engine.ISwaggerService); ok {
-		p.Swagger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetNotification inject notification
-func (p *Command) SetNotification(value interface{}) {
-	if assertion, ok := value.(events.INotification); ok {
-		p.Notification = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetLinkNotification injection
-func (p *Command) SetLinkNotification(value interface{}) {
-	if assertion, ok := value.(events.INotification); ok {
-		p.LinkNotification = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetSlackService inject store
-func (p *Command) SetSlackService(value interface{}) {
-	if assertion, ok := value.(app_slack.ISlackService); ok {
-		p.SlackService = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetShellService inject store
-func (p *Command) SetShellService(value interface{}) {
-	if assertion, ok := value.(app_shell.IShellService); ok {
-		p.ShellService = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetLuaService inject store
-func (p *Command) SetLuaService(value interface{}) {
-	if assertion, ok := value.(app_lua.ILuaService); ok {
-		p.LuaService = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetChaconService inject store
-func (p *Command) SetChaconService(value interface{}) {
-	if assertion, ok := value.(chacon.IChaconService); ok {
-		p.ChaconService = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetZwayService inject store
-func (p *Command) SetZwayService(value interface{}) {
-	if assertion, ok := value.(app_zway.IZwayService); ok {
-		p.ZwayService = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API

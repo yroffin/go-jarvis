@@ -20,27 +20,24 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package services
+package lua
 
 import (
-	"log"
-	"reflect"
-
 	lua "github.com/Shopify/go-lua"
 
-	"github.com/yroffin/go-boot-sqllite/core/engine"
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 	app_services "github.com/yroffin/go-jarvis/services"
 )
 
 func init() {
-	engine.Winter.Register("plugin-lua-service", (&PluginLuaService{}).New())
+	winter.Helper.Register("plugin-lua-service", (&PluginLuaService{}).New())
 }
 
 // PluginLuaService internal members
 type PluginLuaService struct {
 	// members
-	*engine.SERVICE
+	*winter.Service
 	// SetPropertyService with injection mecanism
 	PropertyService app_services.IPropertyService `@autowired:"property-service"`
 }
@@ -48,24 +45,15 @@ type PluginLuaService struct {
 // IPluginLuaService implements IBean
 type IPluginLuaService interface {
 	// Extend bean
-	engine.IBean
+	winter.IBean
 	// Local method
 	Call(body string) (core_models.IValueBean, error)
 }
 
 // New constructor
 func (p *PluginLuaService) New() IPluginLuaService {
-	bean := PluginLuaService{SERVICE: &engine.SERVICE{Bean: &engine.Bean{}}}
+	bean := PluginLuaService{Service: &winter.Service{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetPropertyService injection
-func (p *PluginLuaService) SetPropertyService(value interface{}) {
-	if assertion, ok := value.(app_services.IPropertyService); ok {
-		p.PropertyService = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this SERVICE

@@ -23,15 +23,13 @@
 package configurations
 
 import (
-	"log"
-	"reflect"
-
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
 func init() {
-	engine.Winter.Register("ConfigurationBean", (&Configuration{}).New())
+	winter.Helper.Register("ConfigurationBean", (&Configuration{}).New())
 }
 
 // Configuration internal members
@@ -53,17 +51,8 @@ type IConfiguration interface {
 
 // New constructor
 func (p *Configuration) New() IConfiguration {
-	bean := Configuration{API: &engine.API{Bean: &engine.Bean{}}}
+	bean := Configuration{API: &engine.API{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetSwagger inject Configuration
-func (p *Configuration) SetSwagger(value interface{}) {
-	if assertion, ok := value.(engine.ISwaggerService); ok {
-		p.Swagger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API
@@ -88,9 +77,4 @@ func (p *Configuration) PostConstruct(name string) error {
 // Validate this API
 func (p *Configuration) Validate(name string) error {
 	return nil
-}
-
-// HandlerTasksByID return task by id
-func (p *Configuration) HandlerTasksByID(id string, name string, body string) (interface{}, error) {
-	return "", nil
 }

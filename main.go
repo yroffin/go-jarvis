@@ -22,8 +22,8 @@
 package main
 
 import (
-	"github.com/yroffin/go-boot-sqllite/core/auto"
-	"github.com/yroffin/go-boot-sqllite/core/engine"
+	_ "github.com/yroffin/go-boot-sqllite/core/auto"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 	_ "github.com/yroffin/go-jarvis/apis/commands"
 	_ "github.com/yroffin/go-jarvis/apis/configurations"
 	_ "github.com/yroffin/go-jarvis/apis/connectors"
@@ -42,6 +42,5 @@ import (
 )
 
 func main() {
-	auto.Version()
-	engine.Winter.Boot()
+	winter.Helper.Boot()
 }

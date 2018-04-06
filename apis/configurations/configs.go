@@ -23,15 +23,13 @@
 package configurations
 
 import (
-	"log"
-	"reflect"
-
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
 func init() {
-	engine.Winter.Register("ConfigBean", (&Config{}).New())
+	winter.Helper.Register("ConfigBean", (&Config{}).New())
 }
 
 // Config internal members
@@ -57,35 +55,8 @@ type IConfig interface {
 
 // New constructor
 func (p *Config) New() IConfig {
-	bean := Config{API: &engine.API{Bean: &engine.Bean{}}}
+	bean := Config{API: &engine.API{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// SetSwagger inject Config
-func (p *Config) SetSwagger(value interface{}) {
-	if assertion, ok := value.(engine.ISwaggerService); ok {
-		p.Swagger = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetSQLCrudBusiness inject CrudBusiness
-func (p *Config) SetSQLCrudBusiness(value interface{}) {
-	if assertion, ok := value.(engine.ICrudBusiness); ok {
-		p.SQLCrudBusiness = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
-}
-
-// SetGraphBusiness inject CrudBusiness
-func (p *Config) SetGraphBusiness(value interface{}) {
-	if assertion, ok := value.(engine.ILinkBusiness); ok {
-		p.GraphBusiness = assertion
-	} else {
-		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-	}
 }
 
 // Init this API

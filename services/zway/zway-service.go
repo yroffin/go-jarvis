@@ -20,24 +20,23 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package services
+package zway
 
 import (
 	"log"
-	"reflect"
 
-	"github.com/yroffin/go-boot-sqllite/core/engine"
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
 func init() {
-	engine.Winter.Register("zway-service", (&ZwayService{}).New())
+	winter.Helper.Register("zway-service", (&ZwayService{}).New())
 }
 
 // ZwayService internal members
 type ZwayService struct {
 	// members
-	*engine.SERVICE
+	*winter.Service
 	// SetPluginZwayService with injection mecanism
 	SetPluginZwayService func(interface{}) `bean:"plugin-zway-service"`
 	PluginZwayService    *PluginZwayService
@@ -45,28 +44,15 @@ type ZwayService struct {
 
 // IZwayService implements IBean
 type IZwayService interface {
-	engine.IBean
+	winter.IBean
 	AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error)
 	AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error)
 }
 
 // New constructor
 func (p *ZwayService) New() IZwayService {
-	bean := ZwayService{SERVICE: &engine.SERVICE{Bean: &engine.Bean{}}}
+	bean := ZwayService{Service: &winter.Service{Bean: &winter.Bean{}}}
 	return &bean
-}
-
-// Init this API
-func (p *ZwayService) Init() error {
-	// inject store
-	p.SetPluginZwayService = func(value interface{}) {
-		if assertion, ok := value.(*PluginZwayService); ok {
-			p.PluginZwayService = assertion
-		} else {
-			log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
-		}
-	}
-	return nil
 }
 
 // PostConstruct this API

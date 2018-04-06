@@ -30,7 +30,6 @@ import (
 
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
-	app_models "github.com/yroffin/go-jarvis/models"
 )
 
 func init() {
@@ -106,10 +105,10 @@ func (p *Snapshot) SetGraphBusiness(value interface{}) {
 func (p *Snapshot) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.SnapshotBean{}).New()
+		return (&SnapshotBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.SnapshotBeans{}).New()
+		return (&SnapshotBeans{}).New()
 	}
 	p.HandlerTasksByID = func(id string, name string, body string) (interface{}, int, error) {
 		if name == "restore" {
@@ -188,7 +187,7 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 	builds := make([]SnapshotHrefEntityBuild, 0)
 
 	// retrieve command and serialize it
-	model := (&app_models.SnapshotBean{}).New()
+	model := (&SnapshotBean{}).New()
 	p.GetByID(id, model)
 	// iterate for entities
 	for entityBeanType, entityBeanValue := range model.GetJSON().(map[string]interface{}) {

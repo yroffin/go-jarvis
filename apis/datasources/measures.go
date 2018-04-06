@@ -29,7 +29,6 @@ import (
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-jarvis/apis/connectors"
-	app_models "github.com/yroffin/go-jarvis/models"
 )
 
 func init() {
@@ -93,10 +92,10 @@ func (p *Measure) SetConnector(value interface{}) {
 func (p *Measure) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.MeasureBean{}).New()
+		return (&MeasureBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.MeasureBeans{}).New()
+		return (&MeasureBeans{}).New()
 	}
 	return p.API.Init()
 }

@@ -30,7 +30,6 @@ import (
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-jarvis/apis/events"
 	"github.com/yroffin/go-jarvis/apis/scripts"
-	app_models "github.com/yroffin/go-jarvis/models"
 )
 
 func init() {
@@ -136,10 +135,10 @@ func (p *Device) SetLinkPluginScript(value interface{}) {
 func (p *Device) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.DeviceBean{}).New()
+		return (&DeviceBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.DeviceBeans{}).New()
+		return (&DeviceBeans{}).New()
 	}
 	p.HandlerTasksByID = func(id string, name string, body string) (interface{}, int, error) {
 		if name == "uml" {

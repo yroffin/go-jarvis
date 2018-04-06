@@ -20,26 +20,32 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package models
+package events
 
 import (
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 )
 
-// ModelBean simple Model model
-type ModelBean struct {
+// TriggerBean simple Trigger model
+type TriggerBean struct {
 	// Id
 	ID string `json:"id"`
 	// Timestamp
 	Timestamp core_models.JSONTime `json:"timestamp"`
 	// Name
 	Name string `json:"name"`
+	// Icon
+	Icon string `json:"icon"`
+	// Topic
+	Topic string `json:"topic"`
+	// Body
+	Body string `json:"body"`
 	// Extended
 	Extended map[string]interface{} `json:"extended"`
 }
 
-// IModelBean interface
-type IModelBean interface {
+// ITriggerBean interface
+type ITriggerBean interface {
 	// inherit persistent behaviour
 	core_models.IPersistent
 	// inherit ValueBean behaviour
@@ -47,46 +53,46 @@ type IModelBean interface {
 }
 
 // New constructor
-func (p *ModelBean) New() IModelBean {
-	bean := ModelBean{}
+func (p *TriggerBean) New() ITriggerBean {
+	bean := TriggerBean{}
 	bean.Extended = make(map[string]interface{})
 	return &bean
 }
 
 // GetName get set name
-func (p *ModelBean) GetName() string {
-	return "ModelBean"
+func (p *TriggerBean) GetName() string {
+	return "TriggerBean"
 }
 
 // Extend vars
-func (p *ModelBean) Extend(e map[string]interface{}) {
+func (p *TriggerBean) Extend(e map[string]interface{}) {
 	for k, v := range e {
 		p.Extended[k] = v
 	}
 }
 
 // GetID retrieve ID
-func (p *ModelBean) GetID() string {
+func (p *TriggerBean) GetID() string {
 	return p.ID
 }
 
 // SetID retrieve ID
-func (p *ModelBean) SetID(ID string) {
+func (p *TriggerBean) SetID(ID string) {
 	p.ID = ID
 }
 
 // Set get set name
-func (p *ModelBean) Set(key string, value interface{}) {
+func (p *TriggerBean) Set(key string, value interface{}) {
 }
 
 // SetString get set name
-func (p *ModelBean) SetString(key string, value string) {
+func (p *TriggerBean) SetString(key string, value string) {
 	// Call super method
 	core_models.IValueBean(p).SetString(key, value)
 }
 
 // Get get set name
-func (p *ModelBean) GetAsString(key string) string {
+func (p *TriggerBean) GetAsString(key string) string {
 	switch key {
 	default:
 		// Call super method
@@ -95,67 +101,67 @@ func (p *ModelBean) GetAsString(key string) string {
 }
 
 // Get get set name
-func (p *ModelBean) GetAsStringArray(key string) []string {
+func (p *TriggerBean) GetAsStringArray(key string) []string {
 	// Call super method
 	return core_models.IValueBean(p).GetAsStringArray(key)
 }
 
 // ToString stringify this commnd
-func (p *ModelBean) ToString() string {
+func (p *TriggerBean) ToString() string {
 	// Call super method
 	return core_models.IValueBean(p).ToString()
 }
 
 // ToJSON stringify this commnd
-func (p *ModelBean) ToJSON() string {
+func (p *TriggerBean) ToJSON() string {
 	// Call super method
 	return core_models.IValueBean(p).ToJSON()
 }
 
 // SetTimestamp set timestamp
-func (p *ModelBean) SetTimestamp(stamp core_models.JSONTime) {
+func (p *TriggerBean) SetTimestamp(stamp core_models.JSONTime) {
 	p.Timestamp = stamp
 }
 
 // GetTimestamp get timestamp
-func (p *ModelBean) GetTimestamp() core_models.JSONTime {
+func (p *TriggerBean) GetTimestamp() core_models.JSONTime {
 	return p.Timestamp
 }
 
 // Copy retrieve ID
-func (p *ModelBean) Copy() core_models.IPersistent {
+func (p *TriggerBean) Copy() core_models.IPersistent {
 	clone := *p
 	return &clone
 }
 
-// ModelBeans simple bean model
-type ModelBeans struct {
+// TriggerBeans simple bean model
+type TriggerBeans struct {
 	// Collection
 	Collection []core_models.IPersistent `json:"collections"`
 	// Collection
-	Collections []ModelBean
+	Collections []TriggerBean
 }
 
 // New constructor
-func (p *ModelBeans) New() core_models.IPersistents {
-	bean := ModelBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]ModelBean, 0)}
+func (p *TriggerBeans) New() core_models.IPersistents {
+	bean := TriggerBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]TriggerBean, 0)}
 	return &bean
 }
 
 // Add new bean
-func (p *ModelBeans) Add(bean core_models.IPersistent) {
+func (p *TriggerBeans) Add(bean core_models.IPersistent) {
 	p.Collection = append(p.Collection, bean)
-	p.Collections = append(p.Collections, ModelBean{})
+	p.Collections = append(p.Collections, TriggerBean{})
 }
 
 // Get collection of bean
-func (p *ModelBeans) Get() []core_models.IPersistent {
+func (p *TriggerBeans) Get() []core_models.IPersistent {
 	return p.Collection
 }
 
 // Index read a single element
-func (p *ModelBeans) Index(index int) IModelBean {
-	data, ok := p.Collection[index].(*ModelBean)
+func (p *TriggerBeans) Index(index int) ITriggerBean {
+	data, ok := p.Collection[index].(*TriggerBean)
 	if ok {
 		return data
 	}

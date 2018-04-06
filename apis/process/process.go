@@ -1,4 +1,4 @@
-// Package DataSources for all DataSources
+// Package models for all models
 // MIT License
 //
 // Copyright (c) 2017 yroffin
@@ -20,12 +20,14 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package models
+package process
 
-import core_models "github.com/yroffin/go-boot-sqllite/core/models"
+import (
+	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+)
 
-// DataSourceBean simple DataSource DataSource
-type DataSourceBean struct {
+// ProcessusBean simple Processus model
+type ProcessusBean struct {
 	// Id
 	ID string `json:"id"`
 	// Timestamp
@@ -34,18 +36,12 @@ type DataSourceBean struct {
 	Name string `json:"name"`
 	// Icon
 	Icon string `json:"icon"`
-	// Collect
-	Collect string `json:"collect"`
-	// Pipes
-	Pipes string `json:"pipes"`
-	// Body
-	Body string `json:"body"`
 	// Extended
 	Extended map[string]interface{} `json:"extended"`
 }
 
-// IDataSourceBean interface
-type IDataSourceBean interface {
+// IProcessusBean interface
+type IProcessusBean interface {
 	// inherit persistent behaviour
 	core_models.IPersistent
 	// inherit ValueBean behaviour
@@ -53,46 +49,46 @@ type IDataSourceBean interface {
 }
 
 // New constructor
-func (p *DataSourceBean) New() IDataSourceBean {
-	bean := DataSourceBean{}
+func (p *ProcessusBean) New() IProcessusBean {
+	bean := ProcessusBean{}
 	bean.Extended = make(map[string]interface{})
 	return &bean
 }
 
 // GetName get set name
-func (p *DataSourceBean) GetName() string {
-	return "DataSourceBean"
+func (p *ProcessusBean) GetName() string {
+	return "ProcessusBean"
 }
 
 // Extend vars
-func (p *DataSourceBean) Extend(e map[string]interface{}) {
+func (p *ProcessusBean) Extend(e map[string]interface{}) {
 	for k, v := range e {
 		p.Extended[k] = v
 	}
 }
 
 // GetID retrieve ID
-func (p *DataSourceBean) GetID() string {
+func (p *ProcessusBean) GetID() string {
 	return p.ID
 }
 
 // SetID retrieve ID
-func (p *DataSourceBean) SetID(ID string) {
+func (p *ProcessusBean) SetID(ID string) {
 	p.ID = ID
 }
 
 // Set get set name
-func (p *DataSourceBean) Set(key string, value interface{}) {
+func (p *ProcessusBean) Set(key string, value interface{}) {
 }
 
 // SetString get set name
-func (p *DataSourceBean) SetString(key string, value string) {
+func (p *ProcessusBean) SetString(key string, value string) {
 	// Call super method
 	core_models.IValueBean(p).SetString(key, value)
 }
 
 // Get get set name
-func (p *DataSourceBean) GetAsString(key string) string {
+func (p *ProcessusBean) GetAsString(key string) string {
 	switch key {
 	default:
 		// Call super method
@@ -101,67 +97,67 @@ func (p *DataSourceBean) GetAsString(key string) string {
 }
 
 // Get get set name
-func (p *DataSourceBean) GetAsStringArray(key string) []string {
+func (p *ProcessusBean) GetAsStringArray(key string) []string {
 	// Call super method
 	return core_models.IValueBean(p).GetAsStringArray(key)
 }
 
 // ToString stringify this commnd
-func (p *DataSourceBean) ToString() string {
+func (p *ProcessusBean) ToString() string {
 	// Call super method
 	return core_models.IValueBean(p).ToString()
 }
 
 // ToJSON stringify this commnd
-func (p *DataSourceBean) ToJSON() string {
+func (p *ProcessusBean) ToJSON() string {
 	// Call super method
 	return core_models.IValueBean(p).ToJSON()
 }
 
 // SetTimestamp set timestamp
-func (p *DataSourceBean) SetTimestamp(stamp core_models.JSONTime) {
+func (p *ProcessusBean) SetTimestamp(stamp core_models.JSONTime) {
 	p.Timestamp = stamp
 }
 
 // GetTimestamp get timestamp
-func (p *DataSourceBean) GetTimestamp() core_models.JSONTime {
+func (p *ProcessusBean) GetTimestamp() core_models.JSONTime {
 	return p.Timestamp
 }
 
 // Copy retrieve ID
-func (p *DataSourceBean) Copy() core_models.IPersistent {
+func (p *ProcessusBean) Copy() core_models.IPersistent {
 	clone := *p
 	return &clone
 }
 
-// DataSourceBeans simple bean DataSource
-type DataSourceBeans struct {
+// ProcessusBeans simple bean model
+type ProcessusBeans struct {
 	// Collection
 	Collection []core_models.IPersistent `json:"collections"`
 	// Collection
-	Collections []DataSourceBean
+	Collections []ProcessusBean
 }
 
 // New constructor
-func (p *DataSourceBeans) New() core_models.IPersistents {
-	bean := DataSourceBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]DataSourceBean, 0)}
+func (p *ProcessusBeans) New() core_models.IPersistents {
+	bean := ProcessusBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]ProcessusBean, 0)}
 	return &bean
 }
 
 // Add new bean
-func (p *DataSourceBeans) Add(bean core_models.IPersistent) {
+func (p *ProcessusBeans) Add(bean core_models.IPersistent) {
 	p.Collection = append(p.Collection, bean)
-	p.Collections = append(p.Collections, DataSourceBean{})
+	p.Collections = append(p.Collections, ProcessusBean{})
 }
 
 // Get collection of bean
-func (p *DataSourceBeans) Get() []core_models.IPersistent {
+func (p *ProcessusBeans) Get() []core_models.IPersistent {
 	return p.Collection
 }
 
 // Index read a single element
-func (p *DataSourceBeans) Index(index int) IDataSourceBean {
-	data, ok := p.Collection[index].(*DataSourceBean)
+func (p *ProcessusBeans) Index(index int) IProcessusBean {
+	data, ok := p.Collection[index].(*ProcessusBean)
 	if ok {
 		return data
 	}

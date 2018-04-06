@@ -28,7 +28,6 @@ import (
 
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
-	app_models "github.com/yroffin/go-jarvis/models"
 )
 
 func init() {
@@ -71,10 +70,10 @@ func (p *Connector) SetSwagger(value interface{}) {
 func (p *Connector) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.ConnectorBean{}).New()
+		return (&ConnectorBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.ConnectorBeans{}).New()
+		return (&ConnectorBeans{}).New()
 	}
 	return p.API.Init()
 }

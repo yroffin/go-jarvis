@@ -28,7 +28,6 @@ import (
 
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
-	app_models "github.com/yroffin/go-jarvis/models"
 )
 
 func init() {
@@ -92,10 +91,10 @@ func (p *DataSource) SetMeasure(value interface{}) {
 func (p *DataSource) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.DataSourceBean{}).New()
+		return (&DataSourceBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.DataSourceBeans{}).New()
+		return (&DataSourceBeans{}).New()
 	}
 	return p.API.Init()
 }

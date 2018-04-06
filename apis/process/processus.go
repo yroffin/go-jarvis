@@ -29,7 +29,6 @@ import (
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-jarvis/apis/events"
-	app_models "github.com/yroffin/go-jarvis/models"
 )
 
 func init() {
@@ -93,10 +92,10 @@ func (p *Processus) SetLinkTrigger(value interface{}) {
 func (p *Processus) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.ProcessusBean{}).New()
+		return (&ProcessusBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.ProcessusBeans{}).New()
+		return (&ProcessusBeans{}).New()
 	}
 	return p.API.Init()
 }

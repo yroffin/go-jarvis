@@ -29,7 +29,6 @@ import (
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-jarvis/apis/commands"
-	app_models "github.com/yroffin/go-jarvis/models"
 )
 
 func init() {
@@ -93,10 +92,10 @@ func (p *ScriptPlugin) SetCommand(value interface{}) {
 func (p *ScriptPlugin) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.ScriptPluginBean{}).New()
+		return (&ScriptPluginBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.ScriptPluginBeans{}).New()
+		return (&ScriptPluginBeans{}).New()
 	}
 	return p.API.Init()
 }

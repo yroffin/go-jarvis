@@ -29,7 +29,6 @@ import (
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-jarvis/apis/devices"
-	app_models "github.com/yroffin/go-jarvis/models"
 )
 
 func init() {
@@ -104,10 +103,10 @@ func (p *View) SetLinkDevice(value interface{}) {
 func (p *View) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.ViewBean{}).New()
+		return (&ViewBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.ViewBeans{}).New()
+		return (&ViewBeans{}).New()
 	}
 	p.HandlerTasks = func(name string, body string) (interface{}, int, error) {
 		if name == "GET" {
@@ -135,6 +134,6 @@ func (p *View) Validate(name string) error {
 func (p *View) GetAllViews(body string) (interface{}, int, error) {
 	return p.LoadAllLinks("devices",
 		func() models.IPersistent {
-			return (&app_models.DeviceBean{}).New()
+			return (&devices.DeviceBean{}).New()
 		}, p.Manager.GetBean("DeviceBean").(engine.IAPI))
 }

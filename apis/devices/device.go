@@ -20,30 +20,48 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package models
+package devices
 
 import (
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 )
 
-// PropertyBean simple Property model
-type PropertyBean struct {
+// DeviceBean simple Device model
+type DeviceBean struct {
 	// Id
 	ID string `json:"id"`
 	// Timestamp
 	Timestamp core_models.JSONTime `json:"timestamp"`
 	// Name
 	Name string `json:"name"`
-	// Key
-	Key string `json:"key"`
-	// Value
-	Value string `json:"value"`
+	// Icon
+	Icon string `json:"icon"`
 	// Extended
 	Extended map[string]interface{} `json:"extended"`
+	// Parameters
+	Parameters string `json:"parameters"`
+	// Owner
+	Owner string `json:"owner"`
+	// Visible
+	Visible bool `json:"visible"`
+	// TagColor
+	TagColor string `json:"tagColor"`
+	// TagOpacity
+	TagOpacity string `json:"tagOpacity"`
+	// TagTextColor
+	TagTextColor string `json:"tagTextColor"`
+	// RowSpan
+	RowSpan string `json:"rowSpan"`
+	// ColSpan
+	ColSpan string `json:"colSpan"`
+	// Template
+	Template string `json:"template"`
+	// Render
+	Render map[string]interface{} `json:"render"`
 }
 
-// IPropertyBean interface
-type IPropertyBean interface {
+// IDeviceBean interface
+type IDeviceBean interface {
 	// inherit persistent behaviour
 	core_models.IPersistent
 	// inherit ValueBean behaviour
@@ -51,46 +69,46 @@ type IPropertyBean interface {
 }
 
 // New constructor
-func (p *PropertyBean) New() IPropertyBean {
-	bean := PropertyBean{}
+func (p *DeviceBean) New() IDeviceBean {
+	bean := DeviceBean{}
 	bean.Extended = make(map[string]interface{})
 	return &bean
 }
 
 // GetName get set name
-func (p *PropertyBean) GetName() string {
-	return "PropertyBean"
+func (p *DeviceBean) GetName() string {
+	return "DeviceBean"
 }
 
 // Extend vars
-func (p *PropertyBean) Extend(e map[string]interface{}) {
+func (p *DeviceBean) Extend(e map[string]interface{}) {
 	for k, v := range e {
 		p.Extended[k] = v
 	}
 }
 
 // GetID retrieve ID
-func (p *PropertyBean) GetID() string {
+func (p *DeviceBean) GetID() string {
 	return p.ID
 }
 
 // SetID retrieve ID
-func (p *PropertyBean) SetID(ID string) {
+func (p *DeviceBean) SetID(ID string) {
 	p.ID = ID
 }
 
 // Set get set name
-func (p *PropertyBean) Set(key string, value interface{}) {
+func (p *DeviceBean) Set(key string, value interface{}) {
 }
 
 // SetString get set name
-func (p *PropertyBean) SetString(key string, value string) {
+func (p *DeviceBean) SetString(key string, value string) {
 	// Call super method
 	core_models.IValueBean(p).SetString(key, value)
 }
 
 // Get get set name
-func (p *PropertyBean) GetAsString(key string) string {
+func (p *DeviceBean) GetAsString(key string) string {
 	switch key {
 	default:
 		// Call super method
@@ -99,67 +117,67 @@ func (p *PropertyBean) GetAsString(key string) string {
 }
 
 // Get get set name
-func (p *PropertyBean) GetAsStringArray(key string) []string {
+func (p *DeviceBean) GetAsStringArray(key string) []string {
 	// Call super method
 	return core_models.IValueBean(p).GetAsStringArray(key)
 }
 
 // ToString stringify this commnd
-func (p *PropertyBean) ToString() string {
+func (p *DeviceBean) ToString() string {
 	// Call super method
 	return core_models.IValueBean(p).ToString()
 }
 
 // ToJSON stringify this commnd
-func (p *PropertyBean) ToJSON() string {
+func (p *DeviceBean) ToJSON() string {
 	// Call super method
 	return core_models.IValueBean(p).ToJSON()
 }
 
 // SetTimestamp set timestamp
-func (p *PropertyBean) SetTimestamp(stamp core_models.JSONTime) {
+func (p *DeviceBean) SetTimestamp(stamp core_models.JSONTime) {
 	p.Timestamp = stamp
 }
 
 // GetTimestamp get timestamp
-func (p *PropertyBean) GetTimestamp() core_models.JSONTime {
+func (p *DeviceBean) GetTimestamp() core_models.JSONTime {
 	return p.Timestamp
 }
 
 // Copy retrieve ID
-func (p *PropertyBean) Copy() core_models.IPersistent {
+func (p *DeviceBean) Copy() core_models.IPersistent {
 	clone := *p
 	return &clone
 }
 
-// PropertyBeans simple bean model
-type PropertyBeans struct {
+// DeviceBeans simple bean model
+type DeviceBeans struct {
 	// Collection
 	Collection []core_models.IPersistent `json:"collections"`
 	// Collection
-	Collections []PropertyBean
+	Collections []DeviceBean
 }
 
 // New constructor
-func (p *PropertyBeans) New() core_models.IPersistents {
-	bean := PropertyBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]PropertyBean, 0)}
+func (p *DeviceBeans) New() core_models.IPersistents {
+	bean := DeviceBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]DeviceBean, 0)}
 	return &bean
 }
 
 // Add new bean
-func (p *PropertyBeans) Add(bean core_models.IPersistent) {
+func (p *DeviceBeans) Add(bean core_models.IPersistent) {
 	p.Collection = append(p.Collection, bean)
-	p.Collections = append(p.Collections, PropertyBean{})
+	p.Collections = append(p.Collections, DeviceBean{})
 }
 
 // Get collection of bean
-func (p *PropertyBeans) Get() []core_models.IPersistent {
+func (p *DeviceBeans) Get() []core_models.IPersistent {
 	return p.Collection
 }
 
 // Index read a single element
-func (p *PropertyBeans) Index(index int) IPropertyBean {
-	data, ok := p.Collection[index].(*PropertyBean)
+func (p *DeviceBeans) Index(index int) IDeviceBean {
+	data, ok := p.Collection[index].(*DeviceBean)
 	if ok {
 		return data
 	}

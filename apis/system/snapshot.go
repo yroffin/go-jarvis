@@ -20,83 +20,95 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package models
+package system
 
 import (
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 )
 
-// ScriptPluginBean simple ScriptPlugin model
-type ScriptPluginBean struct {
+// SnapshotBean simple Snapshot model
+type SnapshotBean struct {
 	// Id
 	ID string `json:"id"`
 	// Timestamp
 	Timestamp core_models.JSONTime `json:"timestamp"`
 	// Name
 	Name string `json:"name"`
-	// Icon
-	Icon string `json:"icon"`
 	// Type
 	Type string `json:"type"`
-	// Owner
-	Owner string `json:"owner"`
-	// Active
-	Active bool `json:"active"`
-	// Visible
-	Visible bool `json:"visible"`
-	// Extended
+	// Icon
+	Icon string `json:"icon"`
+	// Json
+	JSON interface{} `json:"json"`
+	// Extended internal store
 	Extended map[string]interface{} `json:"extended"`
 }
 
-// IScriptPluginBean interface
-type IScriptPluginBean interface {
+// ISnapshotBean interface
+type ISnapshotBean interface {
 	// inherit persistent behaviour
 	core_models.IPersistent
 	// inherit ValueBean behaviour
 	core_models.IValueBean
+	// Snapshot
+	GetType() string
+	// GetJSON
+	GetJSON() interface{}
 }
 
 // New constructor
-func (p *ScriptPluginBean) New() IScriptPluginBean {
-	bean := ScriptPluginBean{}
+func (p *SnapshotBean) New() ISnapshotBean {
+	bean := SnapshotBean{}
 	bean.Extended = make(map[string]interface{})
 	return &bean
 }
 
 // GetName get set name
-func (p *ScriptPluginBean) GetName() string {
-	return "ScriptPluginBean"
+func (p *SnapshotBean) GetName() string {
+	return "SnapshotBean"
 }
 
 // Extend vars
-func (p *ScriptPluginBean) Extend(e map[string]interface{}) {
+func (p *SnapshotBean) Extend(e map[string]interface{}) {
 	for k, v := range e {
 		p.Extended[k] = v
 	}
 }
 
+// GetType get set name
+func (p *SnapshotBean) GetType() string {
+	return p.Type
+}
+
+// GetJSON get set json
+func (p *SnapshotBean) GetJSON() interface{} {
+	return p.JSON
+}
+
 // GetID retrieve ID
-func (p *ScriptPluginBean) GetID() string {
+func (p *SnapshotBean) GetID() string {
 	return p.ID
 }
 
 // SetID retrieve ID
-func (p *ScriptPluginBean) SetID(ID string) {
+func (p *SnapshotBean) SetID(ID string) {
 	p.ID = ID
 }
 
 // Set get set name
-func (p *ScriptPluginBean) Set(key string, value interface{}) {
+func (p *SnapshotBean) Set(key string, value interface{}) {
 }
 
 // SetString get set name
-func (p *ScriptPluginBean) SetString(key string, value string) {
+func (p *SnapshotBean) SetString(key string, value string) {
 	// Call super method
 	core_models.IValueBean(p).SetString(key, value)
+	switch key {
+	}
 }
 
-// Get get set name
-func (p *ScriptPluginBean) GetAsString(key string) string {
+// GetAsString get as string
+func (p *SnapshotBean) GetAsString(key string) string {
 	switch key {
 	default:
 		// Call super method
@@ -104,68 +116,68 @@ func (p *ScriptPluginBean) GetAsString(key string) string {
 	}
 }
 
-// Get get set name
-func (p *ScriptPluginBean) GetAsStringArray(key string) []string {
+// GetAsStringArray get array
+func (p *SnapshotBean) GetAsStringArray(key string) []string {
 	// Call super method
 	return core_models.IValueBean(p).GetAsStringArray(key)
 }
 
 // ToString stringify this commnd
-func (p *ScriptPluginBean) ToString() string {
+func (p *SnapshotBean) ToString() string {
 	// Call super method
 	return core_models.IValueBean(p).ToString()
 }
 
 // ToJSON stringify this commnd
-func (p *ScriptPluginBean) ToJSON() string {
+func (p *SnapshotBean) ToJSON() string {
 	// Call super method
 	return core_models.IValueBean(p).ToJSON()
 }
 
 // SetTimestamp set timestamp
-func (p *ScriptPluginBean) SetTimestamp(stamp core_models.JSONTime) {
+func (p *SnapshotBean) SetTimestamp(stamp core_models.JSONTime) {
 	p.Timestamp = stamp
 }
 
 // GetTimestamp get timestamp
-func (p *ScriptPluginBean) GetTimestamp() core_models.JSONTime {
+func (p *SnapshotBean) GetTimestamp() core_models.JSONTime {
 	return p.Timestamp
 }
 
 // Copy retrieve ID
-func (p *ScriptPluginBean) Copy() core_models.IPersistent {
+func (p *SnapshotBean) Copy() core_models.IPersistent {
 	clone := *p
 	return &clone
 }
 
-// ScriptPluginBeans simple bean model
-type ScriptPluginBeans struct {
+// SnapshotBeans simple bean model
+type SnapshotBeans struct {
 	// Collection
 	Collection []core_models.IPersistent `json:"collections"`
 	// Collection
-	Collections []ScriptPluginBean
+	Collections []SnapshotBean
 }
 
 // New constructor
-func (p *ScriptPluginBeans) New() core_models.IPersistents {
-	bean := ScriptPluginBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]ScriptPluginBean, 0)}
+func (p *SnapshotBeans) New() core_models.IPersistents {
+	bean := SnapshotBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]SnapshotBean, 0)}
 	return &bean
 }
 
 // Add new bean
-func (p *ScriptPluginBeans) Add(bean core_models.IPersistent) {
+func (p *SnapshotBeans) Add(bean core_models.IPersistent) {
 	p.Collection = append(p.Collection, bean)
-	p.Collections = append(p.Collections, ScriptPluginBean{})
+	p.Collections = append(p.Collections, SnapshotBean{})
 }
 
 // Get collection of bean
-func (p *ScriptPluginBeans) Get() []core_models.IPersistent {
+func (p *SnapshotBeans) Get() []core_models.IPersistent {
 	return p.Collection
 }
 
 // Index read a single element
-func (p *ScriptPluginBeans) Index(index int) IScriptPluginBean {
-	data, ok := p.Collection[index].(*ScriptPluginBean)
+func (p *SnapshotBeans) Index(index int) ISnapshotBean {
+	data, ok := p.Collection[index].(*SnapshotBean)
 	if ok {
 		return data
 	}

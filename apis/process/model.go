@@ -1,4 +1,4 @@
-// Package Measures for all Measures
+// Package models for all models
 // MIT License
 //
 // Copyright (c) 2017 yroffin
@@ -20,28 +20,26 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package models
+package process
 
-import core_models "github.com/yroffin/go-boot-sqllite/core/models"
+import (
+	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+)
 
-// MeasureBean simple Measure Measure
-type MeasureBean struct {
+// ModelBean simple Model model
+type ModelBean struct {
 	// Id
 	ID string `json:"id"`
 	// Timestamp
 	Timestamp core_models.JSONTime `json:"timestamp"`
 	// Name
 	Name string `json:"name"`
-	// DateTime
-	DateTime string `json:"datetime"`
-	// Value
-	Value string `json:"value"`
 	// Extended
 	Extended map[string]interface{} `json:"extended"`
 }
 
-// IMeasureBean interface
-type IMeasureBean interface {
+// IModelBean interface
+type IModelBean interface {
 	// inherit persistent behaviour
 	core_models.IPersistent
 	// inherit ValueBean behaviour
@@ -49,46 +47,46 @@ type IMeasureBean interface {
 }
 
 // New constructor
-func (p *MeasureBean) New() IMeasureBean {
-	bean := MeasureBean{}
+func (p *ModelBean) New() IModelBean {
+	bean := ModelBean{}
 	bean.Extended = make(map[string]interface{})
 	return &bean
 }
 
 // GetName get set name
-func (p *MeasureBean) GetName() string {
-	return "MeasureBean"
+func (p *ModelBean) GetName() string {
+	return "ModelBean"
 }
 
 // Extend vars
-func (p *MeasureBean) Extend(e map[string]interface{}) {
+func (p *ModelBean) Extend(e map[string]interface{}) {
 	for k, v := range e {
 		p.Extended[k] = v
 	}
 }
 
 // GetID retrieve ID
-func (p *MeasureBean) GetID() string {
+func (p *ModelBean) GetID() string {
 	return p.ID
 }
 
 // SetID retrieve ID
-func (p *MeasureBean) SetID(ID string) {
+func (p *ModelBean) SetID(ID string) {
 	p.ID = ID
 }
 
 // Set get set name
-func (p *MeasureBean) Set(key string, value interface{}) {
+func (p *ModelBean) Set(key string, value interface{}) {
 }
 
 // SetString get set name
-func (p *MeasureBean) SetString(key string, value string) {
+func (p *ModelBean) SetString(key string, value string) {
 	// Call super method
 	core_models.IValueBean(p).SetString(key, value)
 }
 
 // Get get set name
-func (p *MeasureBean) GetAsString(key string) string {
+func (p *ModelBean) GetAsString(key string) string {
 	switch key {
 	default:
 		// Call super method
@@ -97,67 +95,67 @@ func (p *MeasureBean) GetAsString(key string) string {
 }
 
 // Get get set name
-func (p *MeasureBean) GetAsStringArray(key string) []string {
+func (p *ModelBean) GetAsStringArray(key string) []string {
 	// Call super method
 	return core_models.IValueBean(p).GetAsStringArray(key)
 }
 
 // ToString stringify this commnd
-func (p *MeasureBean) ToString() string {
+func (p *ModelBean) ToString() string {
 	// Call super method
 	return core_models.IValueBean(p).ToString()
 }
 
 // ToJSON stringify this commnd
-func (p *MeasureBean) ToJSON() string {
+func (p *ModelBean) ToJSON() string {
 	// Call super method
 	return core_models.IValueBean(p).ToJSON()
 }
 
 // SetTimestamp set timestamp
-func (p *MeasureBean) SetTimestamp(stamp core_models.JSONTime) {
+func (p *ModelBean) SetTimestamp(stamp core_models.JSONTime) {
 	p.Timestamp = stamp
 }
 
 // GetTimestamp get timestamp
-func (p *MeasureBean) GetTimestamp() core_models.JSONTime {
+func (p *ModelBean) GetTimestamp() core_models.JSONTime {
 	return p.Timestamp
 }
 
 // Copy retrieve ID
-func (p *MeasureBean) Copy() core_models.IPersistent {
+func (p *ModelBean) Copy() core_models.IPersistent {
 	clone := *p
 	return &clone
 }
 
-// MeasureBeans simple bean Measure
-type MeasureBeans struct {
+// ModelBeans simple bean model
+type ModelBeans struct {
 	// Collection
 	Collection []core_models.IPersistent `json:"collections"`
 	// Collection
-	Collections []MeasureBean
+	Collections []ModelBean
 }
 
 // New constructor
-func (p *MeasureBeans) New() core_models.IPersistents {
-	bean := MeasureBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]MeasureBean, 0)}
+func (p *ModelBeans) New() core_models.IPersistents {
+	bean := ModelBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]ModelBean, 0)}
 	return &bean
 }
 
 // Add new bean
-func (p *MeasureBeans) Add(bean core_models.IPersistent) {
+func (p *ModelBeans) Add(bean core_models.IPersistent) {
 	p.Collection = append(p.Collection, bean)
-	p.Collections = append(p.Collections, MeasureBean{})
+	p.Collections = append(p.Collections, ModelBean{})
 }
 
 // Get collection of bean
-func (p *MeasureBeans) Get() []core_models.IPersistent {
+func (p *ModelBeans) Get() []core_models.IPersistent {
 	return p.Collection
 }
 
 // Index read a single element
-func (p *MeasureBeans) Index(index int) IMeasureBean {
-	data, ok := p.Collection[index].(*MeasureBean)
+func (p *ModelBeans) Index(index int) IModelBean {
+	data, ok := p.Collection[index].(*ModelBean)
 	if ok {
 		return data
 	}

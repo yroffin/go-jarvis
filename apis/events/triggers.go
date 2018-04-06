@@ -28,7 +28,6 @@ import (
 
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
-	app_models "github.com/yroffin/go-jarvis/models"
 )
 
 func init() {
@@ -92,10 +91,10 @@ func (p *Trigger) SetCron(value interface{}) {
 func (p *Trigger) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.TriggerBean{}).New()
+		return (&TriggerBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.TriggerBeans{}).New()
+		return (&TriggerBeans{}).New()
 	}
 	return p.API.Init()
 }

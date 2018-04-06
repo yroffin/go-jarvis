@@ -28,46 +28,47 @@ import (
 	"reflect"
 	"strconv"
 
-	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
-	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
-	"github.com/yroffin/go-boot-sqllite/core/business"
-	"github.com/yroffin/go-boot-sqllite/core/manager"
+	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
+func init() {
+	engine.Winter.Register("SnapshotBean", (&Snapshot{}).New())
+}
+
 // Snapshot internal members
 type Snapshot struct {
 	// Base component
-	*core_apis.API
+	*engine.API
 	// internal members
 	Name string
 	// mounts
 	Crud interface{} `@crud:"/api/snapshots"`
 	// Swagger with injection mecanism
-	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
+	Swagger engine.ISwaggerService `@autowired:"swagger"`
 	// SwaggerService with injection mecanism
-	Manager manager.IManager `@autowired:"manager"`
+	Manager engine.IManager `@autowired:"manager"`
 	// SqlCrudBusiness with injection mecanism
-	SQLCrudBusiness business.ICrudBusiness `@autowired:"sql-crud-business"`
+	SQLCrudBusiness engine.ICrudBusiness `@autowired:"sql-crud-business"`
 	// GraphBusiness with injection mecanism
-	GraphBusiness business.ILinkBusiness `@autowired:"graph-crud-business"`
+	GraphBusiness engine.ILinkBusiness `@autowired:"graph-crud-business"`
 }
 
 // ISnapshot implements IBean
 type ISnapshot interface {
-	core_apis.IAPI
+	engine.IAPI
 }
 
 // New constructor
 func (p *Snapshot) New() ISnapshot {
-	bean := Snapshot{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+	bean := Snapshot{API: &engine.API{Bean: &engine.Bean{}}}
 	return &bean
 }
 
 // SetSwagger inject notification
 func (p *Snapshot) SetSwagger(value interface{}) {
-	if assertion, ok := value.(core_apis.ISwaggerService); ok {
+	if assertion, ok := value.(engine.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
@@ -76,7 +77,7 @@ func (p *Snapshot) SetSwagger(value interface{}) {
 
 // SetManager inject notification
 func (p *Snapshot) SetManager(value interface{}) {
-	if assertion, ok := value.(manager.IManager); ok {
+	if assertion, ok := value.(engine.IManager); ok {
 		p.Manager = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
@@ -85,7 +86,7 @@ func (p *Snapshot) SetManager(value interface{}) {
 
 // SetSQLCrudBusiness inject CrudBusiness
 func (p *Snapshot) SetSQLCrudBusiness(value interface{}) {
-	if assertion, ok := value.(business.ICrudBusiness); ok {
+	if assertion, ok := value.(engine.ICrudBusiness); ok {
 		p.SQLCrudBusiness = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
@@ -94,7 +95,7 @@ func (p *Snapshot) SetSQLCrudBusiness(value interface{}) {
 
 // SetGraphBusiness inject CrudBusiness
 func (p *Snapshot) SetGraphBusiness(value interface{}) {
-	if assertion, ok := value.(business.ILinkBusiness); ok {
+	if assertion, ok := value.(engine.ILinkBusiness); ok {
 		p.GraphBusiness = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
@@ -206,7 +207,7 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 					log.Println("Bean:", entityBeanType, "Not handled")
 				} else {
 					data, _ := json.MarshalIndent(entityBean, "", "\t")
-					entity, _ := bean.(core_apis.CrudHandler).HandlerPost(string(data))
+					entity, _ := bean.(engine.CrudHandler).HandlerPost(string(data))
 					log.Println("Type:", entityBeanType, "With:", entity.(models.IPersistent).GetID())
 					OldIDToNewID[idBean] = entity.(models.IPersistent).GetID()
 					NewIDToOldID[entity.(models.IPersistent).GetID()] = idBean
@@ -327,7 +328,7 @@ func (p *Snapshot) Download(id string, body string) (interface{}, int, error) {
 	beans := []string{"ProcessBean", "CommandBean", "DeviceBean", "ScriptPluginBean", "TriggerBean", "ViewBean", "ConnectorBean", "CronBean", "ConfigBean", "PropertyBean"}
 	for _, b := range beans {
 		log.Println("Bean:", b)
-		bean := p.Manager.GetBean(b).(core_apis.IAPI)
+		bean := p.Manager.GetBean(b).(engine.IAPI)
 		all, _ := bean.GetAll()
 		index := make(map[string]interface{})
 		for _, obj := range all {

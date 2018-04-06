@@ -26,17 +26,20 @@ import (
 	"log"
 	"reflect"
 
-	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
-	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-jarvis/apis/events"
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
+func init() {
+	engine.Winter.Register("ProcessBean", (&Processus{}).New())
+}
+
 // Processus internal members
 type Processus struct {
 	// Base component
-	*core_apis.API
+	*engine.API
 	// internal members
 	Name string
 	// mounts
@@ -45,23 +48,23 @@ type Processus struct {
 	LinkTrigger events.ITrigger `@autowired:"TriggerBean" @link:"/api/processes" @href:"triggers"`
 	Trigger     events.ITrigger `@autowired:"TriggerBean"`
 	// Swagger with injection mecanism
-	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
+	Swagger engine.ISwaggerService `@autowired:"swagger"`
 }
 
 // IProcessus implements IBean
 type IProcessus interface {
-	core_apis.IAPI
+	engine.IAPI
 }
 
 // New constructor
 func (p *Processus) New() IProcessus {
-	bean := Processus{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+	bean := Processus{API: &engine.API{Bean: &engine.Bean{}}}
 	return &bean
 }
 
 // SetSwagger inject Processus
 func (p *Processus) SetSwagger(value interface{}) {
-	if assertion, ok := value.(core_apis.ISwaggerService); ok {
+	if assertion, ok := value.(engine.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))

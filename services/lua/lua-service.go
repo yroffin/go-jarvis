@@ -26,29 +26,32 @@ import (
 	"log"
 	"reflect"
 
-	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	"github.com/yroffin/go-boot-sqllite/core/engine"
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
-	core_services "github.com/yroffin/go-boot-sqllite/core/services"
 )
+
+func init() {
+	engine.Winter.Register("lua-service", (&LuaService{}).New())
+}
 
 // LuaService internal members
 type LuaService struct {
 	// members
-	*core_services.SERVICE
+	*engine.SERVICE
 	// PluginLuaService with injection mecanism
 	PluginLuaService IPluginLuaService `@autowired:"plugin-lua-service"`
 }
 
 // ILuaService implements IBean
 type ILuaService interface {
-	core_bean.IBean
+	engine.IBean
 	AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error)
 	AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error)
 }
 
 // New constructor
 func (p *LuaService) New() ILuaService {
-	bean := LuaService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
+	bean := LuaService{SERVICE: &engine.SERVICE{Bean: &engine.Bean{}}}
 	return &bean
 }
 

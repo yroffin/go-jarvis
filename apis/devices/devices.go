@@ -26,18 +26,21 @@ import (
 	"log"
 	"reflect"
 
-	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
-	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-jarvis/apis/events"
 	"github.com/yroffin/go-jarvis/apis/scripts"
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
+func init() {
+	engine.Winter.Register("DeviceBean", (&Device{}).New())
+}
+
 // Device internal members
 type Device struct {
 	// Base component
-	*core_apis.API
+	*engine.API
 	// internal members
 	Name string
 	// mounts
@@ -52,23 +55,23 @@ type Device struct {
 	LinkPluginScript scripts.IScriptPlugin `@autowired:"ScriptPluginBean" @link:"/api/devices" @href:"plugins/scripts"`
 	PluginScript     scripts.IScriptPlugin `@autowired:"ScriptPluginBean"`
 	// Swagger with injection mecanism
-	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
+	Swagger engine.ISwaggerService `@autowired:"swagger"`
 }
 
 // IDevice implements IBean
 type IDevice interface {
-	core_apis.IAPI
+	engine.IAPI
 }
 
 // New constructor
 func (p *Device) New() IDevice {
-	bean := Device{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+	bean := Device{API: &engine.API{Bean: &engine.Bean{}}}
 	return &bean
 }
 
 // SetSwagger inject Device
 func (p *Device) SetSwagger(value interface{}) {
-	if assertion, ok := value.(core_apis.ISwaggerService); ok {
+	if assertion, ok := value.(engine.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))

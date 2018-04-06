@@ -26,38 +26,41 @@ import (
 	"log"
 	"reflect"
 
-	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
-	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
+func init() {
+	engine.Winter.Register("CronBean", (&Cron{}).New())
+}
+
 // Cron internal members
 type Cron struct {
 	// Base component
-	*core_apis.API
+	*engine.API
 	// internal members
 	Name string
 	// mounts
 	Crud interface{} `@crud:"/api/crons"`
 	// Swagger with injection mecanism
-	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
+	Swagger engine.ISwaggerService `@autowired:"swagger"`
 }
 
 // ICron implements IBean
 type ICron interface {
-	core_apis.IAPI
+	engine.IAPI
 }
 
 // New constructor
 func (p *Cron) New() ICron {
-	bean := Cron{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+	bean := Cron{API: &engine.API{Bean: &engine.Bean{}}}
 	return &bean
 }
 
 // SetSwagger inject Cron
 func (p *Cron) SetSwagger(value interface{}) {
-	if assertion, ok := value.(core_apis.ISwaggerService); ok {
+	if assertion, ok := value.(engine.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))

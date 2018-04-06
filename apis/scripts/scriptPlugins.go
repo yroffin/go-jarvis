@@ -26,17 +26,20 @@ import (
 	"log"
 	"reflect"
 
-	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
-	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-jarvis/apis/commands"
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
+func init() {
+	engine.Winter.Register("ScriptPluginBean", (&ScriptPlugin{}).New())
+}
+
 // ScriptPlugin internal members
 type ScriptPlugin struct {
 	// Base component
-	*core_apis.API
+	*engine.API
 	// internal members
 	Name string
 	// mounts
@@ -45,23 +48,23 @@ type ScriptPlugin struct {
 	LinkCommand commands.ICommand `@autowired:"CommandBean" @link:"/api/plugins/scripts" @href:"commands"`
 	Command     commands.ICommand `@autowired:"CommandBean"`
 	// Swagger with injection mecanism
-	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
+	Swagger engine.ISwaggerService `@autowired:"swagger"`
 }
 
 // IScriptPlugin implements IBean
 type IScriptPlugin interface {
-	core_apis.IAPI
+	engine.IAPI
 }
 
 // New constructor
 func (p *ScriptPlugin) New() IScriptPlugin {
-	bean := ScriptPlugin{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+	bean := ScriptPlugin{API: &engine.API{Bean: &engine.Bean{}}}
 	return &bean
 }
 
 // SetSwagger inject ScriptPlugin
 func (p *ScriptPlugin) SetSwagger(value interface{}) {
-	if assertion, ok := value.(core_apis.ISwaggerService); ok {
+	if assertion, ok := value.(engine.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))

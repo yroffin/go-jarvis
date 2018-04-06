@@ -1,4 +1,4 @@
-// Package models for all models
+// Package configurations for all models
 // MIT License
 //
 // Copyright (c) 2017 yroffin
@@ -20,7 +20,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package models
+package configurations
 
 import (
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"

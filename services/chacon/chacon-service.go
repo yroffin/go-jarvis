@@ -20,35 +20,38 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package services
+package chacon
 
 import (
 	"log"
 	"reflect"
 
-	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	"github.com/yroffin/go-boot-sqllite/core/engine"
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
-	core_services "github.com/yroffin/go-boot-sqllite/core/services"
 )
+
+func init() {
+	engine.Winter.Register("chacon-service", (&ChaconService{}).New())
+}
 
 // ChaconService internal members
 type ChaconService struct {
 	// members
-	*core_services.SERVICE
+	*engine.SERVICE
 	// SetPluginSlackService with injection mecanism
 	PluginChaconService IPluginChaconService `@autowired:"plugin-chacon-service"`
 }
 
 // IChaconService implements IBean
 type IChaconService interface {
-	core_bean.IBean
+	engine.IBean
 	AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error)
 	AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error)
 }
 
 // New constructor
 func (p *ChaconService) New() IChaconService {
-	bean := ChaconService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
+	bean := ChaconService{SERVICE: &engine.SERVICE{Bean: &engine.Bean{}}}
 	return &bean
 }
 

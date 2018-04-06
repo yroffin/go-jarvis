@@ -26,15 +26,18 @@ import (
 	"log"
 	"reflect"
 
-	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	"github.com/yroffin/go-boot-sqllite/core/engine"
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
-	core_services "github.com/yroffin/go-boot-sqllite/core/services"
 )
+
+func init() {
+	engine.Winter.Register("zway-service", (&ZwayService{}).New())
+}
 
 // ZwayService internal members
 type ZwayService struct {
 	// members
-	*core_services.SERVICE
+	*engine.SERVICE
 	// SetPluginZwayService with injection mecanism
 	SetPluginZwayService func(interface{}) `bean:"plugin-zway-service"`
 	PluginZwayService    *PluginZwayService
@@ -42,14 +45,14 @@ type ZwayService struct {
 
 // IZwayService implements IBean
 type IZwayService interface {
-	core_bean.IBean
+	engine.IBean
 	AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error)
 	AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error)
 }
 
 // New constructor
 func (p *ZwayService) New() IZwayService {
-	bean := ZwayService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
+	bean := ZwayService{SERVICE: &engine.SERVICE{Bean: &engine.Bean{}}}
 	return &bean
 }
 

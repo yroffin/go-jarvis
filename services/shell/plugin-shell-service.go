@@ -28,29 +28,32 @@ import (
 	"os/exec"
 	"reflect"
 
-	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	"github.com/yroffin/go-boot-sqllite/core/engine"
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
-	core_services "github.com/yroffin/go-boot-sqllite/core/services"
 	app_services "github.com/yroffin/go-jarvis/services"
 )
+
+func init() {
+	engine.Winter.Register("plugin-shell-service", (&PluginShellService{}).New())
+}
 
 // PluginShellService internal members
 type PluginShellService struct {
 	// members
-	*core_services.SERVICE
+	*engine.SERVICE
 	// SetPropertyService with injection mecanism
 	PropertyService app_services.IPropertyService `@autowired:"property-service"`
 }
 
 // IPluginShellService implements IBean
 type IPluginShellService interface {
-	core_bean.IBean
+	engine.IBean
 	Call(body string) (core_models.IValueBean, error)
 }
 
 // New constructor
 func (p *PluginShellService) New() IPluginShellService {
-	bean := PluginShellService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
+	bean := PluginShellService{SERVICE: &engine.SERVICE{Bean: &engine.Bean{}}}
 	return &bean
 }
 

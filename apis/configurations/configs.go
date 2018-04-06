@@ -26,44 +26,44 @@ import (
 	"log"
 	"reflect"
 
-	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
-	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
-	"github.com/yroffin/go-boot-sqllite/core/business"
+	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
-	"github.com/yroffin/go-boot-sqllite/core/stores"
-	app_models "github.com/yroffin/go-jarvis/models"
 )
+
+func init() {
+	engine.Winter.Register("ConfigBean", (&Config{}).New())
+}
 
 // Config internal members
 type Config struct {
 	// Base component
-	*core_apis.API
+	*engine.API
 	// internal members
 	Name string
 	// mounts
 	Crud interface{} `@crud:"/api/configs"`
 	// Swagger with injection mecanism
-	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
+	Swagger engine.ISwaggerService `@autowired:"swagger"`
 	// SqlCrudBusiness with injection mecanism
-	SQLCrudBusiness business.ICrudBusiness `@autowired:"sql-crud-business"`
+	SQLCrudBusiness engine.ICrudBusiness `@autowired:"sql-crud-business"`
 	// GraphBusiness with injection mecanism
-	GraphBusiness business.ILinkBusiness `@autowired:"graph-crud-business"`
+	GraphBusiness engine.ILinkBusiness `@autowired:"graph-crud-business"`
 }
 
 // IConfig implements IBean
 type IConfig interface {
-	core_apis.IAPI
+	engine.IAPI
 }
 
 // New constructor
 func (p *Config) New() IConfig {
-	bean := Config{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+	bean := Config{API: &engine.API{Bean: &engine.Bean{}}}
 	return &bean
 }
 
 // SetSwagger inject Config
 func (p *Config) SetSwagger(value interface{}) {
-	if assertion, ok := value.(core_apis.ISwaggerService); ok {
+	if assertion, ok := value.(engine.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
@@ -72,7 +72,7 @@ func (p *Config) SetSwagger(value interface{}) {
 
 // SetSQLCrudBusiness inject CrudBusiness
 func (p *Config) SetSQLCrudBusiness(value interface{}) {
-	if assertion, ok := value.(business.ICrudBusiness); ok {
+	if assertion, ok := value.(engine.ICrudBusiness); ok {
 		p.SQLCrudBusiness = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
@@ -81,7 +81,7 @@ func (p *Config) SetSQLCrudBusiness(value interface{}) {
 
 // SetGraphBusiness inject CrudBusiness
 func (p *Config) SetGraphBusiness(value interface{}) {
-	if assertion, ok := value.(business.ILinkBusiness); ok {
+	if assertion, ok := value.(engine.ILinkBusiness); ok {
 		p.GraphBusiness = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
@@ -92,10 +92,10 @@ func (p *Config) SetGraphBusiness(value interface{}) {
 func (p *Config) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.ConfigBean{}).New()
+		return (&ConfigBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.ConfigBeans{}).New()
+		return (&ConfigBeans{}).New()
 	}
 	p.HandlerTasks = func(name string, body string) (interface{}, int, error) {
 		if name == "statistics" {
@@ -124,8 +124,8 @@ func (p *Config) Validate(name string) error {
 
 // StatisticsResult result
 type StatisticsResult struct {
-	SQL   []stores.IStats
-	Graph []stores.IStats
+	SQL   []engine.IStats
+	Graph []engine.IStats
 }
 
 // Statistics this Snapshot

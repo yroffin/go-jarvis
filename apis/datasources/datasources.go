@@ -26,16 +26,19 @@ import (
 	"log"
 	"reflect"
 
-	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
-	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
+func init() {
+	engine.Winter.Register("DataSourceBean", (&DataSource{}).New())
+}
+
 // DataSource internal members
 type DataSource struct {
 	// Base component
-	*core_apis.API
+	*engine.API
 	// internal members
 	Name string
 	// mounts
@@ -44,30 +47,30 @@ type DataSource struct {
 	LinkMeasure IMeasure `@autowired:"MeasureBean" @link:"/api/DataSources" @href:"measures"`
 	Measure     IMeasure `@autowired:"MeasureBean"`
 	// Swagger with injection mecanism
-	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
+	Swagger engine.ISwaggerService `@autowired:"swagger"`
 }
 
 // IDataSource implements IBean
 type IDataSource interface {
-	core_apis.IAPI
+	engine.IAPI
 }
 
 // New constructor
 func (p *DataSource) New() IDataSource {
-	bean := DataSource{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+	bean := DataSource{API: &engine.API{Bean: &engine.Bean{}}}
 	return &bean
 }
 
 // SetSwagger inject DataSource
 func (p *DataSource) SetSwagger(value interface{}) {
-	if assertion, ok := value.(core_apis.ISwaggerService); ok {
+	if assertion, ok := value.(engine.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
 	}
 }
 
-// SetLinkCommand injection
+// SetLinkMeasure injection
 func (p *DataSource) SetLinkMeasure(value interface{}) {
 	if assertion, ok := value.(IMeasure); ok {
 		p.LinkMeasure = assertion
@@ -76,7 +79,7 @@ func (p *DataSource) SetLinkMeasure(value interface{}) {
 	}
 }
 
-// SetCommand injection
+// SetMeasure injection
 func (p *DataSource) SetMeasure(value interface{}) {
 	if assertion, ok := value.(IMeasure); ok {
 		p.Measure = assertion

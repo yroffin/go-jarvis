@@ -26,29 +26,32 @@ import (
 	"log"
 	"reflect"
 
-	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	"github.com/yroffin/go-boot-sqllite/core/engine"
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
-	core_services "github.com/yroffin/go-boot-sqllite/core/services"
 )
+
+func init() {
+	engine.Winter.Register("shell-service", (&ShellService{}).New())
+}
 
 // ShellService internal members
 type ShellService struct {
 	// members
-	*core_services.SERVICE
+	*engine.SERVICE
 	// SetPluginShellService with injection mecanism
 	PluginShellService IPluginShellService `@autowired:"plugin-shell-service"`
 }
 
 // IShellService implements IBean
 type IShellService interface {
-	core_bean.IBean
+	engine.IBean
 	AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error)
 	AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error)
 }
 
 // New constructor
 func (p *ShellService) New() IShellService {
-	bean := ShellService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
+	bean := ShellService{SERVICE: &engine.SERVICE{Bean: &engine.Bean{}}}
 	return &bean
 }
 

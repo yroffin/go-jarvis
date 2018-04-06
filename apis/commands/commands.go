@@ -1,4 +1,4 @@
-// Package apis for common apis
+// Package commands for common apis
 // MIT License
 //
 // Copyright (c) 2017 yroffin
@@ -28,22 +28,24 @@ import (
 	"reflect"
 	"strconv"
 
-	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
-	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-jarvis/apis/events"
-	app_models "github.com/yroffin/go-jarvis/models"
-	app_chacon "github.com/yroffin/go-jarvis/services/chacon"
+	"github.com/yroffin/go-jarvis/services/chacon"
 	app_lua "github.com/yroffin/go-jarvis/services/lua"
 	app_shell "github.com/yroffin/go-jarvis/services/shell"
 	app_slack "github.com/yroffin/go-jarvis/services/slack"
 	app_zway "github.com/yroffin/go-jarvis/services/zway"
 )
 
+func init() {
+	engine.Winter.Register("CommandBean", (&Command{}).New())
+}
+
 // Command internal members
 type Command struct {
 	// Base component
-	*core_apis.API
+	*engine.API
 	// internal members
 	Name string
 	// Local cruds operations
@@ -58,27 +60,27 @@ type Command struct {
 	// LuaService with injection mecanism
 	LuaService app_lua.ILuaService `@autowired:"lua-service"`
 	// ChaconService with injection mecanism
-	ChaconService app_chacon.IChaconService `@autowired:"chacon-service"`
+	ChaconService chacon.IChaconService `@autowired:"chacon-service"`
 	// ZwayService with injection mecanism
 	ZwayService app_zway.IZwayService `@autowired:"zway-service"`
 	// Swagger with injection mecanism
-	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
+	Swagger engine.ISwaggerService `@autowired:"swagger"`
 }
 
 // ICommand implements IBean
 type ICommand interface {
-	core_apis.IAPI
+	engine.IAPI
 }
 
 // New constructor
 func (p *Command) New() ICommand {
-	bean := Command{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+	bean := Command{API: &engine.API{Bean: &engine.Bean{}}}
 	return &bean
 }
 
 // SetSwagger inject notification
 func (p *Command) SetSwagger(value interface{}) {
-	if assertion, ok := value.(core_apis.ISwaggerService); ok {
+	if assertion, ok := value.(engine.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
@@ -103,7 +105,7 @@ func (p *Command) SetLinkNotification(value interface{}) {
 	}
 }
 
-// inject store
+// SetSlackService inject store
 func (p *Command) SetSlackService(value interface{}) {
 	if assertion, ok := value.(app_slack.ISlackService); ok {
 		p.SlackService = assertion
@@ -112,7 +114,7 @@ func (p *Command) SetSlackService(value interface{}) {
 	}
 }
 
-// inject store
+// SetShellService inject store
 func (p *Command) SetShellService(value interface{}) {
 	if assertion, ok := value.(app_shell.IShellService); ok {
 		p.ShellService = assertion
@@ -121,7 +123,7 @@ func (p *Command) SetShellService(value interface{}) {
 	}
 }
 
-// inject store
+// SetLuaService inject store
 func (p *Command) SetLuaService(value interface{}) {
 	if assertion, ok := value.(app_lua.ILuaService); ok {
 		p.LuaService = assertion
@@ -130,9 +132,9 @@ func (p *Command) SetLuaService(value interface{}) {
 	}
 }
 
-// inject store
+// SetChaconService inject store
 func (p *Command) SetChaconService(value interface{}) {
-	if assertion, ok := value.(app_chacon.IChaconService); ok {
+	if assertion, ok := value.(chacon.IChaconService); ok {
 		p.ChaconService = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))
@@ -152,10 +154,10 @@ func (p *Command) SetZwayService(value interface{}) {
 func (p *Command) Init() error {
 	// Crud
 	p.Factory = func() models.IPersistent {
-		return (&app_models.CommandBean{}).New()
+		return (&CommandBean{}).New()
 	}
 	p.Factories = func() models.IPersistents {
-		return (&app_models.CommandBeans{}).New()
+		return (&CommandBeans{}).New()
 	}
 	p.HandlerTasksByID = func(id string, name string, body string) (interface{}, int, error) {
 		if name == "execute" {
@@ -185,9 +187,9 @@ func (p *Command) Validate(name string) error {
 }
 
 // Execute this command
-func (p *Command) decode(id string, body string) (string, app_models.ICommandBean, map[string]interface{}, error) {
+func (p *Command) decode(id string, body string) (string, ICommandBean, map[string]interface{}, error) {
 	// retrieve command and serialize it
-	model := (&app_models.CommandBean{}).New()
+	model := (&CommandBean{}).New()
 	p.GetByID(id, model)
 	raw, _ := json.Marshal(&model)
 	converted := make(map[string]interface{})

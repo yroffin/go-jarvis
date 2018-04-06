@@ -26,16 +26,19 @@ import (
 	"log"
 	"reflect"
 
-	core_apis "github.com/yroffin/go-boot-sqllite/core/apis"
-	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
+	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	app_models "github.com/yroffin/go-jarvis/models"
 )
 
+func init() {
+	engine.Winter.Register("TriggerBean", (&Trigger{}).New())
+}
+
 // Trigger internal members
 type Trigger struct {
 	// Base component
-	*core_apis.API
+	*engine.API
 	// internal members
 	Name string
 	// mounts
@@ -44,23 +47,23 @@ type Trigger struct {
 	LinkCron ICron `@autowired:"CronBean" @link:"/api/triggers" @href:"crons"`
 	Cron     ICron `@autowired:"CronBean"`
 	// Swagger with injection mecanism
-	Swagger core_apis.ISwaggerService `@autowired:"swagger"`
+	Swagger engine.ISwaggerService `@autowired:"swagger"`
 }
 
 // ITrigger implements IBean
 type ITrigger interface {
-	core_apis.IAPI
+	engine.IAPI
 }
 
 // New constructor
 func (p *Trigger) New() ITrigger {
-	bean := Trigger{API: &core_apis.API{Bean: &core_bean.Bean{}}}
+	bean := Trigger{API: &engine.API{Bean: &engine.Bean{}}}
 	return &bean
 }
 
 // SetSwagger inject Trigger
 func (p *Trigger) SetSwagger(value interface{}) {
-	if assertion, ok := value.(core_apis.ISwaggerService); ok {
+	if assertion, ok := value.(engine.ISwaggerService); ok {
 		p.Swagger = assertion
 	} else {
 		log.Fatalf("Unable to validate injection with %v type is %v", value, reflect.TypeOf(value))

@@ -26,29 +26,32 @@ import (
 	"log"
 	"reflect"
 
-	core_bean "github.com/yroffin/go-boot-sqllite/core/bean"
-	core_services "github.com/yroffin/go-boot-sqllite/core/services"
+	"github.com/yroffin/go-boot-sqllite/core/engine"
 	app_helpers "github.com/yroffin/go-jarvis/helpers"
 	app_services "github.com/yroffin/go-jarvis/services"
 )
 
+func init() {
+	engine.Winter.Register("plugin-slack-service", (&PluginSlackService{}).New())
+}
+
 // PluginSlackService internal members
 type PluginSlackService struct {
 	// members
-	*core_services.SERVICE
+	*engine.SERVICE
 	// SetPropertyService with injection mecanism
 	PropertyService app_services.IPropertyService `@autowired:"property-service"`
 }
 
 // IPluginSlackService implements IBean
 type IPluginSlackService interface {
-	core_bean.IBean
+	engine.IBean
 	Call(body map[string]interface{}) (map[string]interface{}, error)
 }
 
 // New constructor
 func (p *PluginSlackService) New() IPluginSlackService {
-	bean := PluginSlackService{SERVICE: &core_services.SERVICE{Bean: &core_bean.Bean{}}}
+	bean := PluginSlackService{SERVICE: &engine.SERVICE{Bean: &engine.Bean{}}}
 	return &bean
 }
 

@@ -23,6 +23,9 @@
 package devices
 
 import (
+	"encoding/json"
+	"log"
+
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
@@ -44,13 +47,10 @@ type Device struct {
 	Crud interface{} `@crud:"/api/devices"`
 	// Device with injection mecanism
 	LinkDevice IDevice `@autowired:"DeviceBean" @link:"/api/devices" @href:"devices"`
-	Device     IDevice `@autowired:"DeviceBean"`
 	// Trigger with injection mecanism
 	LinkTrigger events.ITrigger `@autowired:"TriggerBean" @link:"/api/devices" @href:"triggers"`
-	Trigger     events.ITrigger `@autowired:"TriggerBean"`
 	// PluginScript with injection mecanism
 	LinkPluginScript scripts.IScriptPlugin `@autowired:"ScriptPluginBean" @link:"/api/devices" @href:"plugins/scripts"`
-	PluginScript     scripts.IScriptPlugin `@autowired:"ScriptPluginBean"`
 	// Swagger with injection mecanism
 	Swagger engine.ISwaggerService `@autowired:"swagger"`
 }
@@ -76,11 +76,17 @@ func (p *Device) Init() error {
 		return (&DeviceBeans{}).New()
 	}
 	p.HandlerTasksByID = func(id string, name string, body string) (interface{}, int, error) {
+		var parameters = make(map[string]interface{})
+		json.Unmarshal([]byte(body), &parameters)
 		if name == "uml" {
 			// task
 			return p.Uml(id, body)
 		}
-		return "", -1, nil
+		if name == "execute" {
+			// Execute all associated script
+			return p.ExecuteOrRender(id, parameters, true)
+		}
+		return "{}", -1, nil
 	}
 	return p.API.Init()
 }
@@ -97,7 +103,19 @@ func (p *Device) Validate(name string) error {
 	return nil
 }
 
-// HandlerTasksByID return task by id
+// Uml return task by id
 func (p *Device) Uml(id string, body string) (interface{}, int, error) {
 	return "", -1, nil
+}
+
+// ExecuteOrRender execute or render all scripts
+func (p *Device) ExecuteOrRender(id string, parameters map[string]interface{}, render bool) (interface{}, int, error) {
+	// Retrieve all script
+	links, _ := p.GetAllLinks(id, p.LinkPluginScript)
+	for _, script := range links {
+		log.Println("SCRIPT - INPUT", script.GetID(), parameters)
+		result, count, _ := p.LinkPluginScript.Execute(script.GetID(), parameters)
+		log.Println("SCRIPT - INPUT", script.GetID(), result, count)
+	}
+	return links, -1, nil
 }

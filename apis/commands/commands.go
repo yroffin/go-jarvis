@@ -70,6 +70,10 @@ type Command struct {
 // ICommand implements IBean
 type ICommand interface {
 	engine.IAPI
+	// Execute this command
+	Execute(id string, parameters map[string]interface{}) (interface{}, int, error)
+	// Test this command
+	Test(id string, parameters map[string]interface{}) (bool, int, error)
 }
 
 // New constructor
@@ -88,16 +92,18 @@ func (p *Command) Init() error {
 		return (&CommandBeans{}).New()
 	}
 	p.HandlerTasksByID = func(id string, name string, body string) (interface{}, int, error) {
+		var parameters = make(map[string]interface{})
+		json.Unmarshal([]byte(body), &parameters)
 		if name == "execute" {
 			// task
-			return p.Execute(id, body)
+			return p.Execute(id, parameters)
 		}
 		if name == "test" {
 			// task
-			res, count, err := p.Test(id, body)
+			res, count, err := p.Test(id, parameters)
 			return strconv.FormatBool(res), count, err
 		}
-		return "", -1, nil
+		return parameters, -1, nil
 	}
 	return p.API.Init()
 }
@@ -115,24 +121,21 @@ func (p *Command) Validate(name string) error {
 }
 
 // Execute this command
-func (p *Command) decode(id string, body string) (string, ICommandBean, map[string]interface{}, error) {
+func (p *Command) decode(id string, parameters map[string]interface{}) (string, ICommandBean, map[string]interface{}, error) {
 	// retrieve command and serialize it
 	model := (&CommandBean{}).New()
 	p.GetByID(id, model)
 	raw, _ := json.Marshal(&model)
 	converted := make(map[string]interface{})
 	json.Unmarshal(raw, &converted)
-	// retrieve args and serialize it
-	args := make(map[string]interface{})
-	json.Unmarshal([]byte(body), &args)
 	// log some trace
 	log.Printf("COMMAND - INPUT - TYPE %v\nBODY: %v", model.GetType(), converted)
-	return model.GetType(), model, args, nil
+	return model.GetType(), model, parameters, nil
 }
 
 // Execute this command
-func (p *Command) Execute(id string, body string) (interface{}, int, error) {
-	typ, command, args, _ := p.decode(id, body)
+func (p *Command) Execute(id string, parameters map[string]interface{}) (interface{}, int, error) {
+	typ, command, args, _ := p.decode(id, parameters)
 	switch typ {
 	case "SLACK":
 		result, _ := p.SlackService.AsObject(command, args)
@@ -156,25 +159,25 @@ func (p *Command) Execute(id string, body string) (interface{}, int, error) {
 }
 
 // Test this command
-func (p *Command) Test(id string, body string) (bool, int, error) {
-	typ, command, args, _ := p.decode(id, body)
+func (p *Command) Test(id string, parameters map[string]interface{}) (bool, int, error) {
+	typ, command, args, _ := p.decode(id, parameters)
 	switch typ {
 	case "SLACK":
 		result, _ := p.SlackService.AsObject(command, args)
-		return result.ToString() == "true", -1, nil
+		return models.ToString(result) == "true", -1, nil
 		break
 	case "SHELL":
 		result, _ := p.ShellService.AsObject(command, args)
-		return result.ToString() == "true", -1, nil
+		return models.ToString(result) == "true", -1, nil
 	case "LUA":
 		result, _ := p.LuaService.AsObject(command, args)
-		return result.ToString() == "true", -1, nil
+		return models.ToString(result) == "true", -1, nil
 	case "CHACON":
 		result, _ := p.ChaconService.AsObject(command, args)
-		return result.ToString() == "true", -1, nil
+		return models.ToString(result) == "true", -1, nil
 	case "ZWAY":
 		result, _ := p.ZwayService.AsObject(command, args)
-		return result.ToString() == "true", -1, nil
+		return models.ToString(result) == "true", -1, nil
 	default:
 		log.Printf("Warning type %v is not implemented", typ)
 	}

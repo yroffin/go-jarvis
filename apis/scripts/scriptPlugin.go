@@ -110,18 +110,6 @@ func (p *ScriptPluginBean) GetAsStringArray(key string) []string {
 	return core_models.IValueBean(p).GetAsStringArray(key)
 }
 
-// ToString stringify this commnd
-func (p *ScriptPluginBean) ToString() string {
-	// Call super method
-	return core_models.IValueBean(p).ToString()
-}
-
-// ToJSON stringify this commnd
-func (p *ScriptPluginBean) ToJSON() string {
-	// Call super method
-	return core_models.IValueBean(p).ToJSON()
-}
-
 // SetTimestamp set timestamp
 func (p *ScriptPluginBean) SetTimestamp(stamp core_models.JSONTime) {
 	p.Timestamp = stamp

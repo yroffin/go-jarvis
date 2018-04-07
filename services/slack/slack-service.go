@@ -25,7 +25,7 @@ package slack
 import (
 	"log"
 
-	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
@@ -44,7 +44,7 @@ type SlackService struct {
 // ISlackService implements IBean
 type ISlackService interface {
 	winter.IBean
-	AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error)
+	AsObject(body models.IValueBean, args map[string]interface{}) (models.IValueBean, error)
 	AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error)
 }
 
@@ -70,10 +70,10 @@ func (p *SlackService) Validate(name string) error {
 }
 
 // AsObject execution
-func (p *SlackService) AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error) {
+func (p *SlackService) AsObject(body models.IValueBean, args map[string]interface{}) (models.IValueBean, error) {
 	command := make(map[string]interface{})
 	log.Println("Args:", args, "Body:", body)
-	command["text"] = body.ToString()
+	command["text"] = models.ToString(body)
 	p.PluginSlackService.Call(command)
 	return body, nil
 }

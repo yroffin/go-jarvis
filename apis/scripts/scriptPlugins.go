@@ -23,6 +23,9 @@
 package scripts
 
 import (
+	"encoding/json"
+	"log"
+
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
@@ -43,7 +46,6 @@ type ScriptPlugin struct {
 	Crud interface{} `@crud:"/api/plugins/scripts"`
 	// LinkCommand with injection mecanism
 	LinkCommand commands.ICommand `@autowired:"CommandBean" @link:"/api/plugins/scripts" @href:"commands"`
-	Command     commands.ICommand `@autowired:"CommandBean"`
 	// Swagger with injection mecanism
 	Swagger engine.ISwaggerService `@autowired:"swagger"`
 }
@@ -51,6 +53,7 @@ type ScriptPlugin struct {
 // IScriptPlugin implements IBean
 type IScriptPlugin interface {
 	engine.IAPI
+	Execute(id string, parameters map[string]interface{}) (interface{}, int, error)
 }
 
 // New constructor
@@ -68,6 +71,15 @@ func (p *ScriptPlugin) Init() error {
 	p.Factories = func() models.IPersistents {
 		return (&ScriptPluginBeans{}).New()
 	}
+	p.HandlerTasksByID = func(id string, name string, body string) (interface{}, int, error) {
+		var parameters = make(map[string]interface{})
+		json.Unmarshal([]byte(body), &parameters)
+		if name == "execute" {
+			// Execute the script
+			return p.Execute(id, parameters)
+		}
+		return "{}", -1, nil
+	}
 	return p.API.Init()
 }
 
@@ -81,4 +93,16 @@ func (p *ScriptPlugin) PostConstruct(name string) error {
 // Validate this API
 func (p *ScriptPlugin) Validate(name string) error {
 	return nil
+}
+
+// Execute the script
+func (p *ScriptPlugin) Execute(id string, parameters map[string]interface{}) (interface{}, int, error) {
+	// Retrieve all script
+	links, _ := p.GetAllLinks(id, p.LinkCommand)
+	for _, command := range links {
+		log.Println("COMMAND - INPUT", command.GetID(), parameters)
+		result, count, _ := p.LinkCommand.Execute(command.GetID(), parameters)
+		log.Println("COMMAND - OUTPUT", command.GetID(), result, count)
+	}
+	return links, -1, nil
 }

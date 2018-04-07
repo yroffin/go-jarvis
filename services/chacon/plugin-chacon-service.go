@@ -72,5 +72,6 @@ func (p *PluginChaconService) Validate(name string) error {
 // Call execution
 func (p *PluginChaconService) Call(body string) (core_models.IValueBean, error) {
 	result := (&core_models.ValueBean{}).New()
+	result.SetString("TEST", "TEST")
 	return result, nil
 }

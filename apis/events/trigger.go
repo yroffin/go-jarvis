@@ -106,18 +106,6 @@ func (p *TriggerBean) GetAsStringArray(key string) []string {
 	return core_models.IValueBean(p).GetAsStringArray(key)
 }
 
-// ToString stringify this commnd
-func (p *TriggerBean) ToString() string {
-	// Call super method
-	return core_models.IValueBean(p).ToString()
-}
-
-// ToJSON stringify this commnd
-func (p *TriggerBean) ToJSON() string {
-	// Call super method
-	return core_models.IValueBean(p).ToJSON()
-}
-
 // SetTimestamp set timestamp
 func (p *TriggerBean) SetTimestamp(stamp core_models.JSONTime) {
 	p.Timestamp = stamp

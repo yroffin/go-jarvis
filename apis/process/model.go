@@ -100,18 +100,6 @@ func (p *ModelBean) GetAsStringArray(key string) []string {
 	return core_models.IValueBean(p).GetAsStringArray(key)
 }
 
-// ToString stringify this commnd
-func (p *ModelBean) ToString() string {
-	// Call super method
-	return core_models.IValueBean(p).ToString()
-}
-
-// ToJSON stringify this commnd
-func (p *ModelBean) ToJSON() string {
-	// Call super method
-	return core_models.IValueBean(p).ToJSON()
-}
-
 // SetTimestamp set timestamp
 func (p *ModelBean) SetTimestamp(stamp core_models.JSONTime) {
 	p.Timestamp = stamp

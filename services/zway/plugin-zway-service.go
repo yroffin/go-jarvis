@@ -23,8 +23,9 @@
 package zway
 
 import (
-	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
+	"github.com/yroffin/go-jarvis/helpers"
 	app_services "github.com/yroffin/go-jarvis/services"
 )
 
@@ -32,12 +33,18 @@ func init() {
 	winter.Helper.Register("plugin-zway-service", (&PluginZwayService{}).New())
 }
 
-// PluginLuaService internal members
+// PluginZwayService internal members
 type PluginZwayService struct {
 	// members
 	*winter.Service
 	// SetPropertyService with injection mecanism
 	PropertyService app_services.IPropertyService `@autowired:"property-service"`
+	// UrlZway
+	urlzway string
+	// passZway
+	passZway string
+	// Http client
+	client helpers.HTTPClient
 }
 
 // IPluginZwayService implements IBean
@@ -45,7 +52,7 @@ type IPluginZwayService interface {
 	// Extend bean
 	winter.IBean
 	// Local method
-	Call(body string) (core_models.IValueBean, error)
+	Call(device string, instance string, commandClasses string, data string) (models.IValueBean, error)
 }
 
 // New constructor
@@ -61,6 +68,9 @@ func (p *PluginZwayService) Init() error {
 
 // PostConstruct this SERVICE
 func (p *PluginZwayService) PostConstruct(name string) error {
+	p.urlzway = p.PropertyService.Get("jarvis.zway.url", "")
+	p.passZway = p.PropertyService.Get("jarvis.zway.password", "")
+	p.client = helpers.HTTPClient{URL: p.urlzway, User: "admin", Password: p.passZway}
 	return nil
 }
 
@@ -70,7 +80,16 @@ func (p *PluginZwayService) Validate(name string) error {
 }
 
 // Call execution
-func (p *PluginZwayService) Call(body string) (core_models.IValueBean, error) {
-	result := (&core_models.ValueBean{}).New()
+func (p *PluginZwayService) Call(device string, instance string, commandClasses string, data string) (models.IValueBean, error) {
+	// Make ZWay call
+	headers := make(map[string]string)
+	headers["Content-Type"] = "application/json"
+	params := make(map[string]string)
+	res, _ := p.client.GET("/ZWaveAPI/Run/devices["+device+"].instances["+instance+"].commandClasses["+commandClasses+"].data["+data+"]", headers, params)
+	// parse result
+	result := (&models.ValueBean{}).New()
+	for k, v := range res {
+		result.Set(k, v)
+	}
 	return result, nil
 }

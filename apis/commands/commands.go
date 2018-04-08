@@ -129,7 +129,7 @@ func (p *Command) decode(id string, parameters map[string]interface{}) (string, 
 	converted := make(map[string]interface{})
 	json.Unmarshal(raw, &converted)
 	// log some trace
-	log.Printf("COMMAND - INPUT - TYPE %v\nBODY: %v", model.GetType(), converted)
+	log.Printf("COMMAND - INPUT - TYPE %v\nBODY: %v", model.GetType(), models.ToJSON(converted))
 	return model.GetType(), model, parameters, nil
 }
 

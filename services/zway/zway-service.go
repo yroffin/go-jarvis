@@ -24,8 +24,9 @@ package zway
 
 import (
 	"log"
+	"strings"
 
-	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
@@ -38,14 +39,13 @@ type ZwayService struct {
 	// members
 	*winter.Service
 	// SetPluginZwayService with injection mecanism
-	SetPluginZwayService func(interface{}) `bean:"plugin-zway-service"`
-	PluginZwayService    *PluginZwayService
+	PluginZwayService IPluginZwayService `@autowired:"plugin-zway-service"`
 }
 
 // IZwayService implements IBean
 type IZwayService interface {
 	winter.IBean
-	AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error)
+	AsObject(body models.IValueBean, args map[string]interface{}) (models.IValueBean, error)
 	AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error)
 }
 
@@ -66,15 +66,15 @@ func (p *ZwayService) Validate(name string) error {
 }
 
 // AsObject execution
-func (p *ZwayService) AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error) {
-	log.Println("Args:", args, "Body:", body)
-	result, _ := p.PluginZwayService.Call(body.GetAsString("body"))
+func (p *ZwayService) AsObject(body models.IValueBean, args map[string]interface{}) (models.IValueBean, error) {
+	res := strings.Split(strings.Split(body.GetAsString("body"), "_")[2], "-")
+	result, _ := p.PluginZwayService.Call(res[0], res[1], res[2], res[3])
 	return result, nil
 }
 
 // AsBoolean execution
 func (p *ZwayService) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
 	result := false
-	log.Println("Args:", args, "Body:", body, "Not implemented")
+	log.Println("Not implemented")
 	return result, nil
 }

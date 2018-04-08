@@ -23,11 +23,14 @@
 package helpers
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
+
+	"github.com/yroffin/go-boot-sqllite/core/models"
 )
 
 // HTTPClient simple command model
@@ -53,6 +56,11 @@ func (p *HTTPClient) request(method string, path string, body map[string]interfa
 	return http.NewRequest(method, p.URL+path, nil)
 }
 
+func basicAuth(username, password string) string {
+	auth := username + ":" + password
+	return base64.StdEncoding.EncodeToString([]byte(auth))
+}
+
 // Call http
 func (p *HTTPClient) Call(method string, path string, body map[string]interface{}, headers map[string]string, params map[string]string) (map[string]interface{}, error) {
 	// build client
@@ -66,6 +74,9 @@ func (p *HTTPClient) Call(method string, path string, body map[string]interface{
 
 	// fix headers
 	//req.Header.Add("Authorization", "secretToken")
+	if len(p.User) > 0 {
+		req.Header.Add("Authorization", "Basic "+basicAuth(p.User, p.Password))
+	}
 
 	// execute request
 	resp, err := client.Do(req)
@@ -84,11 +95,12 @@ func (p *HTTPClient) Call(method string, path string, body map[string]interface{
 		return nil, err
 	}
 
-	log.Println("Url:", req.URL, "Body:", body, "Status:", resp.Status)
-
 	// build result
 	args := make(map[string]interface{})
 	json.Unmarshal(data, &args)
+
+	log.Println("Url:", req.URL, "Body:", models.ToJSON(args), "Status:", resp.Status)
+
 	return args, nil
 }
 

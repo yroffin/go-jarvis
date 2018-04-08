@@ -139,18 +139,23 @@ func (p *Command) Execute(id string, parameters map[string]interface{}) (interfa
 	switch typ {
 	case "SLACK":
 		result, _ := p.SlackService.AsObject(command, args)
+		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
 		return result, -1, nil
 	case "SHELL":
 		result, _ := p.ShellService.AsObject(command, args)
+		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
 		return result, -1, nil
 	case "LUA":
 		result, _ := p.LuaService.AsObject(command, args)
+		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
 		return result, -1, nil
 	case "CHACON":
 		result, _ := p.ChaconService.AsObject(command, args)
+		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
 		return result, -1, nil
 	case "ZWAY":
 		result, _ := p.ZwayService.AsObject(command, args)
+		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
 		return result, -1, nil
 	default:
 		log.Printf("Warning type %v is not implemented", typ)
@@ -164,19 +169,24 @@ func (p *Command) Test(id string, parameters map[string]interface{}) (bool, int,
 	switch typ {
 	case "SLACK":
 		result, _ := p.SlackService.AsObject(command, args)
+		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
 		return models.ToString(result) == "true", -1, nil
 		break
 	case "SHELL":
 		result, _ := p.ShellService.AsObject(command, args)
+		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
 		return models.ToString(result) == "true", -1, nil
 	case "LUA":
 		result, _ := p.LuaService.AsObject(command, args)
+		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
 		return models.ToString(result) == "true", -1, nil
 	case "CHACON":
 		result, _ := p.ChaconService.AsObject(command, args)
+		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
 		return models.ToString(result) == "true", -1, nil
 	case "ZWAY":
 		result, _ := p.ZwayService.AsObject(command, args)
+		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
 		return models.ToString(result) == "true", -1, nil
 	default:
 		log.Printf("Warning type %v is not implemented", typ)

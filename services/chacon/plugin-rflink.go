@@ -29,49 +29,51 @@ import (
 )
 
 func init() {
-	winter.Helper.Register("plugin-chacon-service", (&PluginChaconService{}).New())
+	winter.Helper.Register("plugin-rflink-service", (&PluginRFLinkService{}).New())
 }
 
-// PluginChaconService internal members
-type PluginChaconService struct {
+// PluginRFLinkService internal members
+type PluginRFLinkService struct {
 	// members
 	*winter.Service
 	// SetPropertyService with injection mecanism
 	PropertyService app_services.IPropertyService `@autowired:"property-service"`
 }
 
-// IPluginChaconService implements IBean
-type IPluginChaconService interface {
+// IPluginRFLinkService implements IBean
+type IPluginRFLinkService interface {
 	// Extend bean
 	winter.IBean
 	// Local method
-	Call(body string) (core_models.IValueBean, error)
+	Chacon(channel string, command string, order string) (core_models.IValueBean, error)
 }
 
 // New constructor
-func (p *PluginChaconService) New() IPluginChaconService {
-	bean := PluginChaconService{Service: &winter.Service{Bean: &winter.Bean{}}}
+func (p *PluginRFLinkService) New() IPluginRFLinkService {
+	bean := PluginRFLinkService{Service: &winter.Service{Bean: &winter.Bean{}}}
 	return &bean
 }
 
 // Init this SERVICE
-func (p *PluginChaconService) Init() error {
+func (p *PluginRFLinkService) Init() error {
 	return nil
 }
 
 // PostConstruct this SERVICE
-func (p *PluginChaconService) PostConstruct(name string) error {
+func (p *PluginRFLinkService) PostConstruct(name string) error {
 	return nil
 }
 
 // Validate this SERVICE
-func (p *PluginChaconService) Validate(name string) error {
+func (p *PluginRFLinkService) Validate(name string) error {
 	return nil
 }
 
-// Call execution
-func (p *PluginChaconService) Call(body string) (core_models.IValueBean, error) {
+// Chacon execution
+func (p *PluginRFLinkService) Chacon(channel string, command string, order string) (core_models.IValueBean, error) {
 	result := (&core_models.ValueBean{}).New()
-	result.SetString("TEST", "TEST")
+	result.SetString("Channel", channel)
+	result.SetString("Command", command)
+	result.SetString("Order", order)
 	return result, nil
 }

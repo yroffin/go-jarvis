@@ -1,3 +1,4 @@
+// Package models for all models
 // MIT License
 //
 // Copyright (c) 2017 yroffin
@@ -19,28 +20,22 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package main
+package auto
 
 import (
+	"flag"
+	"log"
+
+	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
-	_ "github.com/yroffin/go-jarvis/apis/commands"
-	_ "github.com/yroffin/go-jarvis/apis/configurations"
-	_ "github.com/yroffin/go-jarvis/apis/connectors"
-	_ "github.com/yroffin/go-jarvis/apis/datasources"
-	_ "github.com/yroffin/go-jarvis/apis/devices"
-	_ "github.com/yroffin/go-jarvis/apis/events"
-	_ "github.com/yroffin/go-jarvis/apis/process"
-	_ "github.com/yroffin/go-jarvis/apis/scripts"
-	_ "github.com/yroffin/go-jarvis/apis/system"
-	_ "github.com/yroffin/go-jarvis/apis/views"
-	_ "github.com/yroffin/go-jarvis/auto"
-	_ "github.com/yroffin/go-jarvis/services/chacon"
-	_ "github.com/yroffin/go-jarvis/services/lua"
-	_ "github.com/yroffin/go-jarvis/services/shell"
-	_ "github.com/yroffin/go-jarvis/services/slack"
-	_ "github.com/yroffin/go-jarvis/services/zway"
 )
 
-func main() {
-	winter.Helper.Boot()
+func init() {
+	log.Println("Init Winter")
+	winter.Helper.Init()
+	// Command Line
+	flag.String("Djarvis.slack.api", "", "Slack API")
+	// Command Line
+	flag.String("Djarvis.zway.password", "", "Zway API")
+	winter.Helper.GetBean("APIManager").(engine.IAPIManager).CommandLine()
 }

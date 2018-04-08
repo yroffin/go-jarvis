@@ -24,6 +24,7 @@ package chacon
 
 import (
 	"log"
+	"strings"
 
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
@@ -38,7 +39,7 @@ type ChaconService struct {
 	// members
 	*winter.Service
 	// SetPluginSlackService with injection mecanism
-	PluginChaconService IPluginChaconService `@autowired:"plugin-chacon-service"`
+	PluginRFLinkService IPluginRFLinkService `@autowired:"plugin-rflink-service"`
 }
 
 // IChaconService implements IBean
@@ -69,11 +70,25 @@ func (p *ChaconService) Validate(name string) error {
 	return nil
 }
 
+func parse(args map[string]interface{}, list []string) []string {
+	result := make([]string, 0)
+	for _, value := range list {
+		for k, v := range args {
+			value = strings.Replace(value, "${"+k+"}", v.(string), -1)
+		}
+		result = append(result, value)
+	}
+	return result
+}
+
 // AsObject execution
 func (p *ChaconService) AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error) {
-	log.Println("Args:", args, "Body:", body)
-	result, _ := p.PluginChaconService.Call(body.GetAsString("body"))
-	return result, nil
+	parsed := parse(args, strings.Split(body.GetAsString("body"), " "))
+	if len(parsed) == 4 && parsed[0] == "CHACON" && !strings.Contains(parsed[1], "$") && !strings.Contains(parsed[2], "$") && !strings.Contains(parsed[3], "$") {
+		result, _ := p.PluginRFLinkService.Chacon(parsed[1], parsed[2], parsed[3])
+		return result, nil
+	}
+	return nil, nil
 }
 
 // AsBoolean execution

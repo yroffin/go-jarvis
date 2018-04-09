@@ -23,9 +23,13 @@
 package lua
 
 import (
-	lua "github.com/Shopify/go-lua"
+	"net/http"
 
-	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+	lua_http "github.com/cjoudrey/gluahttp"
+	lua_mapper "github.com/yuin/gluamapper"
+	lua "github.com/yuin/gopher-lua"
+
+	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
 	app_services "github.com/yroffin/go-jarvis/services"
 )
@@ -47,7 +51,7 @@ type IPluginLuaService interface {
 	// Extend bean
 	winter.IBean
 	// Local method
-	Call(body string) (core_models.IValueBean, error)
+	Call(body string, args map[string]interface{}) (models.IValueBean, error)
 }
 
 // New constructor
@@ -72,14 +76,39 @@ func (p *PluginLuaService) Validate(name string) error {
 }
 
 // Call execution
-func (p *PluginLuaService) Call(body string) (core_models.IValueBean, error) {
+func (p *PluginLuaService) Call(body string, args map[string]interface{}) (models.IValueBean, error) {
 	l := lua.NewState()
-	lua.OpenLibraries(l)
+	defer l.Close()
 
-	if err := lua.DoString(l, body); err != nil {
-		panic(err)
+	l.PreloadModule("http", lua_http.NewHttpModule(&http.Client{}).Loader)
+	l.PreloadModule("extends", Loader)
+
+	// register functions to the table
+	mod := l.NewTable()
+
+	l.SetGlobal("input", mod)
+	for k, v := range args {
+		l.SetField(mod, k, lua.LString(v.(string)))
 	}
 
-	result := (&core_models.ValueBean{}).New()
+	result := (&models.ValueBean{}).New()
+
+	if err := l.DoString(body); err != nil {
+		result.Set("error", err)
+		return result, nil
+	}
+
+	// Map lua table to result
+	var res map[string]interface{}
+	if err := lua_mapper.Map(l.Get(-1).(*lua.LTable), &res); err != nil {
+		result.Set("error", err)
+		return result, nil
+	}
+
+	// build result
+	for k, v := range res {
+		result.Set(k, v)
+	}
+
 	return result, nil
 }

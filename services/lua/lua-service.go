@@ -25,7 +25,7 @@ package lua
 import (
 	"log"
 
-	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
@@ -44,7 +44,7 @@ type LuaService struct {
 // ILuaService implements IBean
 type ILuaService interface {
 	winter.IBean
-	AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error)
+	AsObject(body models.IValueBean, args map[string]interface{}) (models.IValueBean, error)
 	AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error)
 }
 
@@ -70,9 +70,8 @@ func (p *LuaService) Validate(name string) error {
 }
 
 // AsObject execution
-func (p *LuaService) AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error) {
-	log.Println("Args:", args, "Body:", body)
-	result, _ := p.PluginLuaService.Call(body.GetAsString("body"))
+func (p *LuaService) AsObject(body models.IValueBean, args map[string]interface{}) (models.IValueBean, error) {
+	result, _ := p.PluginLuaService.Call(body.GetAsString("body"), args)
 	return result, nil
 }
 

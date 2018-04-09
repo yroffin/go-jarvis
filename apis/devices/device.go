@@ -76,7 +76,7 @@ func (p *DeviceBean) New() IDeviceBean {
 }
 
 // GetName get set name
-func (p *DeviceBean) GetName() string {
+func (p *DeviceBean) GetEntityName() string {
 	return "DeviceBean"
 }
 

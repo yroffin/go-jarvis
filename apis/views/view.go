@@ -64,7 +64,7 @@ func (p *ViewBean) New() IViewBean {
 }
 
 // GetName get set name
-func (p *ViewBean) GetName() string {
+func (p *ViewBean) GetEntityName() string {
 	return "ViewBean"
 }
 

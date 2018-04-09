@@ -59,6 +59,8 @@ type ICommandBean interface {
 	core_models.IValueBean
 	// command
 	GetType() string
+	// Name
+	GetName() string
 }
 
 // New constructor
@@ -68,9 +70,14 @@ func (p *CommandBean) New() ICommandBean {
 	return &bean
 }
 
+// GetEntityName get set name
+func (p *CommandBean) GetEntityName() string {
+	return "CommandBean"
+}
+
 // GetName get set name
 func (p *CommandBean) GetName() string {
-	return "CommandBean"
+	return p.Name
 }
 
 // Extend vars

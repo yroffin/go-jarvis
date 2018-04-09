@@ -64,7 +64,7 @@ func (p *SnapshotBean) New() ISnapshotBean {
 }
 
 // GetName get set name
-func (p *SnapshotBean) GetName() string {
+func (p *SnapshotBean) GetEntityName() string {
 	return "SnapshotBean"
 }
 

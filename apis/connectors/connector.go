@@ -66,7 +66,7 @@ func (p *ConnectorBean) New() IConnectorBean {
 }
 
 // GetName get set name
-func (p *ConnectorBean) GetName() string {
+func (p *ConnectorBean) GetEntityName() string {
 	return "ConnectorBean"
 }
 

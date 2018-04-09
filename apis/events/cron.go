@@ -68,7 +68,7 @@ func (p *CronBean) New() ICronBean {
 }
 
 // GetName get set name
-func (p *CronBean) GetName() string {
+func (p *CronBean) GetEntityName() string {
 	return "CronBean"
 }
 

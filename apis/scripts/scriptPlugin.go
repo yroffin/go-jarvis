@@ -54,6 +54,8 @@ type IScriptPluginBean interface {
 	core_models.IPersistent
 	// inherit ValueBean behaviour
 	core_models.IValueBean
+	// GetName
+	GetName() string
 }
 
 // New constructor
@@ -63,9 +65,14 @@ func (p *ScriptPluginBean) New() IScriptPluginBean {
 	return &bean
 }
 
+// GetEntityName get set name
+func (p *ScriptPluginBean) GetEntityName() string {
+	return "ScriptPluginBean"
+}
+
 // GetName get set name
 func (p *ScriptPluginBean) GetName() string {
-	return "ScriptPluginBean"
+	return p.Name
 }
 
 // Extend vars

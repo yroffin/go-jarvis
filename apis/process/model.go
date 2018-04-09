@@ -54,7 +54,7 @@ func (p *ModelBean) New() IModelBean {
 }
 
 // GetName get set name
-func (p *ModelBean) GetName() string {
+func (p *ModelBean) GetEntityName() string {
 	return "ModelBean"
 }
 

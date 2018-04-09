@@ -56,7 +56,7 @@ func (p *MeasureBean) New() IMeasureBean {
 }
 
 // GetName get set name
-func (p *MeasureBean) GetName() string {
+func (p *MeasureBean) GetEntityName() string {
 	return "MeasureBean"
 }
 

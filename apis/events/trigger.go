@@ -60,7 +60,7 @@ func (p *TriggerBean) New() ITriggerBean {
 }
 
 // GetName get set name
-func (p *TriggerBean) GetName() string {
+func (p *TriggerBean) GetEntityName() string {
 	return "TriggerBean"
 }
 

@@ -149,10 +149,9 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 	builds := make([]SnapshotHrefEntityBuild, 0)
 
 	// retrieve command and serialize it
-	model := (&SnapshotBean{}).New()
-	p.GetByID(id, model)
+	model, _ := p.GetByID(id)
 	// iterate for entities
-	for entityBeanType, entityBeanValue := range model.GetJSON().(map[string]interface{}) {
+	for entityBeanType, entityBeanValue := range model.(ISnapshotBean).GetJSON().(map[string]interface{}) {
 		switch entityBeanType {
 		case "HREF":
 			break
@@ -180,7 +179,7 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 	}
 	hrefInErrors := make([]SnapshotHref, 0)
 	// iterate for links
-	for linkedBeanType, linkedBeanValue := range model.GetJSON().(map[string]interface{}) {
+	for linkedBeanType, linkedBeanValue := range model.((ISnapshotBean)).GetJSON().(map[string]interface{}) {
 		switch linkedBeanType {
 		case "HREF", "HREF_IF", "HREF_THEN", "HREF_ELSE":
 			for _, entityBean := range linkedBeanValue.(map[string]interface{}) {

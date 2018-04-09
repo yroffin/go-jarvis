@@ -56,7 +56,7 @@ func (p *ConfigBean) New() IConfigBean {
 }
 
 // GetName get set name
-func (p *ConfigBean) GetName() string {
+func (p *ConfigBean) GetEntityName() string {
 	return "ConfigBean"
 }
 

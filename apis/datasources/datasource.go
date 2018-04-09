@@ -60,7 +60,7 @@ func (p *DataSourceBean) New() IDataSourceBean {
 }
 
 // GetName get set name
-func (p *DataSourceBean) GetName() string {
+func (p *DataSourceBean) GetEntityName() string {
 	return "DataSourceBean"
 }
 

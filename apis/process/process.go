@@ -56,7 +56,7 @@ func (p *ProcessusBean) New() IProcessusBean {
 }
 
 // GetName get set name
-func (p *ProcessusBean) GetName() string {
+func (p *ProcessusBean) GetEntityName() string {
 	return "ProcessusBean"
 }
 

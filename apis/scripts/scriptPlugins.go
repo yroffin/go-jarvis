@@ -78,6 +78,10 @@ func (p *ScriptPlugin) Init() error {
 			// Execute the script
 			return p.Execute(id, parameters)
 		}
+		if name == "graph" {
+			// Execute the script
+			return p.Graph(id, parameters)
+		}
 		return "{}", -1, nil
 	}
 	return p.API.Init()
@@ -105,4 +109,40 @@ func (p *ScriptPlugin) Execute(id string, parameters map[string]interface{}) (in
 		log.Println("COMMAND - OUTPUT", command.GetID(), result, count)
 	}
 	return links, -1, nil
+}
+
+// Graph type
+type Graph struct {
+	Nodes []Node `json:"nodes"`
+	Edges []Edge `json:"edges"`
+}
+
+// Node type
+type Node struct {
+	ID    string `json:"id"`
+	Label string `json:"label"`
+}
+
+// Edge type
+type Edge struct {
+	From  string `json:"from"`
+	To    string `json:"to"`
+	Label string `json:"label"`
+}
+
+// Graph render as graph
+func (p *ScriptPlugin) Graph(id string, parameters map[string]interface{}) (interface{}, int, error) {
+	graph := Graph{
+		Nodes: make([]Node, 0),
+		Edges: make([]Edge, 0),
+	}
+	// Retrieve all script
+	instance, _ := p.GetByID(id)
+	graph.Nodes = append(graph.Nodes, Node{ID: instance.GetID(), Label: instance.(IScriptPluginBean).GetName()})
+	links, _ := p.GetAllLinks(id, p.LinkCommand)
+	for _, command := range links {
+		graph.Nodes = append(graph.Nodes, Node{ID: command.GetID(), Label: command.(commands.ICommandBean).GetName()})
+		graph.Edges = append(graph.Edges, Edge{From: instance.GetID(), To: command.GetID(), Label: "link"})
+	}
+	return graph, -1, nil
 }

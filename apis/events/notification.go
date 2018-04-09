@@ -58,7 +58,7 @@ func (p *NotificationBean) New() INotificationBean {
 }
 
 // GetName get set name
-func (p *NotificationBean) GetName() string {
+func (p *NotificationBean) GetEntityName() string {
 	return "NotificationBean"
 }
 

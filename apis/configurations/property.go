@@ -58,7 +58,7 @@ func (p *PropertyBean) New() IPropertyBean {
 }
 
 // GetName get set name
-func (p *PropertyBean) GetName() string {
+func (p *PropertyBean) GetEntityName() string {
 	return "PropertyBean"
 }
 

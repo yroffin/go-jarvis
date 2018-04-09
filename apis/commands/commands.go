@@ -123,14 +123,13 @@ func (p *Command) Validate(name string) error {
 // Execute this command
 func (p *Command) decode(id string, parameters map[string]interface{}) (string, ICommandBean, map[string]interface{}, error) {
 	// retrieve command and serialize it
-	model := (&CommandBean{}).New()
-	p.GetByID(id, model)
+	model, _ := p.GetByID(id)
 	raw, _ := json.Marshal(&model)
 	converted := make(map[string]interface{})
 	json.Unmarshal(raw, &converted)
 	// log some trace
-	log.Printf("COMMAND - INPUT - TYPE %v\nBODY: %v", model.GetType(), models.ToJSON(converted))
-	return model.GetType(), model, parameters, nil
+	log.Printf("COMMAND - INPUT - TYPE %v\nBODY: %v", model.(ICommandBean).GetType(), models.ToJSON(converted))
+	return model.(ICommandBean).GetType(), model.(ICommandBean), parameters, nil
 }
 
 // Execute this command

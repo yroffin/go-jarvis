@@ -69,6 +69,23 @@ func (p *LuaService) Validate(name string) error {
 	return nil
 }
 
+/**
+local m = require("extends")
+
+local http = require("http")
+response, error = http.request("put", "http://hue/api/xxxxxxxxxxxxxxxxxxxxx/lights/" .. input.light .. "/state", {
+    body="{\"on\":" .. input.state .. "}",
+    headers={
+    }
+})
+
+if response.status_code == 200 then
+    return { status=response.status_code, output=m.ArrayToJSON(response.body) }
+else
+    return { status=response.status_code, error=m.ArrayToJSON(response.body) }
+end
+*/
+
 // AsObject execution
 func (p *LuaService) AsObject(body models.IValueBean, args map[string]interface{}) (models.IValueBean, error) {
 	result, _ := p.PluginLuaService.Call(body.GetAsString("body"), args)

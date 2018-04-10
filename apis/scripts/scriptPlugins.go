@@ -24,11 +24,14 @@ package scripts
 
 import (
 	"encoding/json"
-	"log"
+	"sort"
+	"strconv"
 
+	log "github.com/sirupsen/logrus"
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
+	"github.com/yroffin/go-jarvis/apis"
 	"github.com/yroffin/go-jarvis/apis/commands"
 )
 
@@ -53,7 +56,7 @@ type ScriptPlugin struct {
 // IScriptPlugin implements IBean
 type IScriptPlugin interface {
 	engine.IAPI
-	Execute(id string, parameters map[string]interface{}) (interface{}, int, error)
+	RenderOrExecute(id string, parameters map[string]interface{}, execute bool) (interface{}, int, error)
 }
 
 // New constructor
@@ -76,7 +79,11 @@ func (p *ScriptPlugin) Init() error {
 		json.Unmarshal([]byte(body), &parameters)
 		if name == "execute" {
 			// Execute the script
-			return p.Execute(id, parameters)
+			return p.RenderOrExecute(id, parameters, true)
+		}
+		if name == "render" {
+			// Execute the script
+			return p.RenderOrExecute(id, parameters, false)
 		}
 		if name == "graph" {
 			// Execute the script
@@ -99,50 +106,75 @@ func (p *ScriptPlugin) Validate(name string) error {
 	return nil
 }
 
-// Execute the script
-func (p *ScriptPlugin) Execute(id string, parameters map[string]interface{}) (interface{}, int, error) {
+// RenderOrExecute the script
+func (p *ScriptPlugin) RenderOrExecute(id string, parameters map[string]interface{}, execute bool) (interface{}, int, error) {
+	// Store outputs
+	outputs := make(map[string]interface{})
 	// Retrieve all script
 	links, _ := p.GetAllLinks(id, p.LinkCommand)
+	// Sort
+	sort.Slice(links, func(i, j int) bool {
+		var left = links[i].(commands.ICommandBean).GetExtended()["order"]
+		var right = links[j].(commands.ICommandBean).GetExtended()["order"]
+		iLeft, _ := strconv.Atoi(left.(string))
+		iRight, _ := strconv.Atoi(right.(string))
+		return iLeft < iRight
+	})
+	// Iterate
 	for _, command := range links {
-		log.Println("COMMAND - INPUT", command.GetID(), parameters)
-		result, count, _ := p.LinkCommand.Execute(command.GetID(), parameters)
-		log.Println("COMMAND - OUTPUT", command.GetID(), result, count)
+		var t = command.(commands.ICommandBean).GetExtended()["type"]
+
+		// ignore data in phase action
+		if t == "data" && execute {
+			log.WithFields(log.Fields{
+				"type":       t,
+				"script.id":  id,
+				"command.id": command.GetID(),
+			}).Warn("Cannot be executed, it's a data")
+			continue
+		}
+		// ignore action in phase data
+		if t == "action" && !execute {
+			log.WithFields(log.Fields{
+				"type":       t,
+				"script.id":  id,
+				"command.id": command.GetID(),
+			}).Warn("Cannot be rendered, it's a action")
+			continue
+		}
+
+		// Execute the command
+		var name = command.(commands.ICommandBean).GetExtended()["name"]
+		result, _, _ := p.LinkCommand.Execute(command.GetID(), parameters)
+
+		// store result
+		if name != nil {
+			log.WithFields(log.Fields{
+				"name": name,
+			}).Info("Store result")
+			outputs[name.(string)] = result
+		} else {
+			log.WithFields(log.Fields{
+				"name": nil,
+			}).Warn("Store result cannot be done")
+		}
 	}
-	return links, -1, nil
-}
-
-// Graph type
-type Graph struct {
-	Nodes []Node `json:"nodes"`
-	Edges []Edge `json:"edges"`
-}
-
-// Node type
-type Node struct {
-	ID    string `json:"id"`
-	Label string `json:"label"`
-}
-
-// Edge type
-type Edge struct {
-	From  string `json:"from"`
-	To    string `json:"to"`
-	Label string `json:"label"`
+	return outputs, len(outputs), nil
 }
 
 // Graph render as graph
 func (p *ScriptPlugin) Graph(id string, parameters map[string]interface{}) (interface{}, int, error) {
-	graph := Graph{
-		Nodes: make([]Node, 0),
-		Edges: make([]Edge, 0),
+	graph := apis.Graph{
+		Nodes: make([]apis.Node, 0),
+		Edges: make([]apis.Edge, 0),
 	}
 	// Retrieve all script
 	instance, _ := p.GetByID(id)
-	graph.Nodes = append(graph.Nodes, Node{ID: instance.GetID(), Label: instance.(IScriptPluginBean).GetName()})
+	graph.Nodes = append(graph.Nodes, apis.Node{ID: instance.GetID(), Label: instance.(IScriptPluginBean).GetName()})
 	links, _ := p.GetAllLinks(id, p.LinkCommand)
 	for _, command := range links {
-		graph.Nodes = append(graph.Nodes, Node{ID: command.GetID(), Label: command.(commands.ICommandBean).GetName()})
-		graph.Edges = append(graph.Edges, Edge{From: instance.GetID(), To: command.GetID(), Label: "link"})
+		graph.Nodes = append(graph.Nodes, apis.Node{ID: command.GetID(), Label: command.(commands.ICommandBean).GetName()})
+		graph.Edges = append(graph.Edges, apis.Edge{From: instance.GetID(), To: command.GetID(), Label: "link"})
 	}
 	return graph, -1, nil
 }

@@ -24,8 +24,9 @@ package commands
 
 import (
 	"encoding/json"
-	"log"
 	"strconv"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
@@ -128,7 +129,10 @@ func (p *Command) decode(id string, parameters map[string]interface{}) (string, 
 	converted := make(map[string]interface{})
 	json.Unmarshal(raw, &converted)
 	// log some trace
-	log.Printf("COMMAND - INPUT - TYPE %v\nBODY: %v", model.(ICommandBean).GetType(), models.ToJSON(converted))
+	log.WithFields(log.Fields{
+		"type": model.(ICommandBean).GetType(),
+		"json": models.ToJSON(converted),
+	}).Info("Command input")
 	return model.(ICommandBean).GetType(), model.(ICommandBean), parameters, nil
 }
 
@@ -138,26 +142,38 @@ func (p *Command) Execute(id string, parameters map[string]interface{}) (interfa
 	switch typ {
 	case "SLACK":
 		result, _ := p.SlackService.AsObject(command, args)
-		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
+		log.WithFields(log.Fields{
+			"json": models.ToJSON(result),
+		}).Info("Command output")
 		return result, -1, nil
 	case "SHELL":
 		result, _ := p.ShellService.AsObject(command, args)
-		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
+		log.WithFields(log.Fields{
+			"json": models.ToJSON(result),
+		}).Info("Command output")
 		return result, -1, nil
 	case "LUA":
 		result, _ := p.LuaService.AsObject(command, args)
-		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
+		log.WithFields(log.Fields{
+			"json": models.ToJSON(result),
+		}).Info("Command output")
 		return result, -1, nil
 	case "CHACON":
 		result, _ := p.ChaconService.AsObject(command, args)
-		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
+		log.WithFields(log.Fields{
+			"json": models.ToJSON(result),
+		}).Info("Command output")
 		return result, -1, nil
 	case "ZWAY":
 		result, _ := p.ZwayService.AsObject(command, args)
-		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
+		log.WithFields(log.Fields{
+			"json": models.ToJSON(result),
+		}).Info("Command output")
 		return result, -1, nil
 	default:
-		log.Printf("Warning type %v is not implemented", typ)
+		log.WithFields(log.Fields{
+			"type": typ,
+		}).Warn("Type not implemented")
 	}
 	return "", -1, nil
 }
@@ -168,27 +184,39 @@ func (p *Command) Test(id string, parameters map[string]interface{}) (bool, int,
 	switch typ {
 	case "SLACK":
 		result, _ := p.SlackService.AsObject(command, args)
-		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
+		log.WithFields(log.Fields{
+			"result": models.ToString(result),
+		}).Info("Command test result")
 		return models.ToString(result) == "true", -1, nil
 		break
 	case "SHELL":
 		result, _ := p.ShellService.AsObject(command, args)
-		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
+		log.WithFields(log.Fields{
+			"result": models.ToString(result),
+		}).Info("Command test result")
 		return models.ToString(result) == "true", -1, nil
 	case "LUA":
 		result, _ := p.LuaService.AsObject(command, args)
-		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
+		log.WithFields(log.Fields{
+			"result": models.ToString(result),
+		}).Info("Command test result")
 		return models.ToString(result) == "true", -1, nil
 	case "CHACON":
 		result, _ := p.ChaconService.AsObject(command, args)
-		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
+		log.WithFields(log.Fields{
+			"result": models.ToString(result),
+		}).Info("Command test result")
 		return models.ToString(result) == "true", -1, nil
 	case "ZWAY":
 		result, _ := p.ZwayService.AsObject(command, args)
-		log.Printf("COMMAND - OUTPUT %v", models.ToJSON(result))
+		log.WithFields(log.Fields{
+			"result": models.ToString(result),
+		}).Info("Command test result")
 		return models.ToString(result) == "true", -1, nil
 	default:
-		log.Printf("Warning type %v is not implemented", typ)
+		log.WithFields(log.Fields{
+			"type": typ,
+		}).Warn("Type not implemented")
 	}
 	return false, -1, nil
 }

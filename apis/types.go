@@ -1,3 +1,4 @@
+// Package interfaces for common interfaces
 // MIT License
 //
 // Copyright (c) 2017 yroffin
@@ -19,32 +20,23 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package main
+package apis
 
-import (
-	log "github.com/sirupsen/logrus"
-	"github.com/yroffin/go-boot-sqllite/core/winter"
-	_ "github.com/yroffin/go-jarvis/apis/commands"
-	_ "github.com/yroffin/go-jarvis/apis/configurations"
-	_ "github.com/yroffin/go-jarvis/apis/connectors"
-	_ "github.com/yroffin/go-jarvis/apis/datasources"
-	_ "github.com/yroffin/go-jarvis/apis/devices"
-	_ "github.com/yroffin/go-jarvis/apis/events"
-	_ "github.com/yroffin/go-jarvis/apis/process"
-	_ "github.com/yroffin/go-jarvis/apis/scripts"
-	_ "github.com/yroffin/go-jarvis/apis/system"
-	_ "github.com/yroffin/go-jarvis/apis/views"
-	_ "github.com/yroffin/go-jarvis/auto"
-	_ "github.com/yroffin/go-jarvis/services/chacon"
-	_ "github.com/yroffin/go-jarvis/services/lua"
-	_ "github.com/yroffin/go-jarvis/services/shell"
-	_ "github.com/yroffin/go-jarvis/services/slack"
-	_ "github.com/yroffin/go-jarvis/services/zway"
-)
+// Graph type
+type Graph struct {
+	Nodes []Node `json:"nodes"`
+	Edges []Edge `json:"edges"`
+}
 
-func main() {
-	log.SetFormatter(&log.TextFormatter{
-		ForceColors: true,
-	})
-	winter.Helper.Boot()
+// Node type
+type Node struct {
+	ID    string `json:"id"`
+	Label string `json:"label"`
+}
+
+// Edge type
+type Edge struct {
+	From  string `json:"from"`
+	To    string `json:"to"`
+	Label string `json:"label"`
 }

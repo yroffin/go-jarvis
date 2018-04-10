@@ -84,7 +84,7 @@ func (p *Device) Init() error {
 		}
 		if name == "execute" {
 			// Execute all associated script
-			return p.ExecuteOrRender(id, parameters, true)
+			return p.RenderOrExecute(id, parameters, true)
 		}
 		return "{}", -1, nil
 	}
@@ -108,13 +108,13 @@ func (p *Device) Uml(id string, body string) (interface{}, int, error) {
 	return "", -1, nil
 }
 
-// ExecuteOrRender execute or render all scripts
-func (p *Device) ExecuteOrRender(id string, parameters map[string]interface{}, render bool) (interface{}, int, error) {
+// RenderOrExecute execute or render all scripts
+func (p *Device) RenderOrExecute(id string, parameters map[string]interface{}, execute bool) (interface{}, int, error) {
 	// Retrieve all script
 	links, _ := p.GetAllLinks(id, p.LinkPluginScript)
 	for _, script := range links {
 		log.Println("SCRIPT - INPUT", script.GetID(), parameters)
-		result, count, _ := p.LinkPluginScript.Execute(script.GetID(), parameters)
+		result, count, _ := p.LinkPluginScript.RenderOrExecute(script.GetID(), parameters, execute)
 		log.Println("SCRIPT - INPUT", script.GetID(), result, count)
 	}
 	return links, -1, nil

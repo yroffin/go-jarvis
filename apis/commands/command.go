@@ -23,12 +23,12 @@
 package commands
 
 import (
-	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+	models "github.com/yroffin/go-boot-sqllite/core/models"
 )
 
 // CommandHandler simple command handler
 type CommandHandler interface {
-	AsObject(*CommandBean, map[string]interface{}) (core_models.ValueBean, error)
+	AsObject(*CommandBean, map[string]interface{}) (models.ValueBean, error)
 }
 
 // CommandBean simple command model
@@ -36,7 +36,7 @@ type CommandBean struct {
 	// Id
 	ID string `json:"id"`
 	// Timestamp
-	Timestamp core_models.JSONTime `json:"timestamp"`
+	Timestamp models.JSONTime `json:"timestamp"`
 	// Name
 	Name string `json:"name"`
 	// Type
@@ -54,13 +54,15 @@ type CommandBean struct {
 // ICommandBean interface
 type ICommandBean interface {
 	// inherit persistent behaviour
-	core_models.IPersistent
+	models.IPersistent
 	// inherit ValueBean behaviour
-	core_models.IValueBean
+	models.IValueBean
 	// command
 	GetType() string
 	// Name
 	GetName() string
+	// GetExtended
+	GetExtended() map[string]interface{}
 }
 
 // New constructor
@@ -78,6 +80,11 @@ func (p *CommandBean) GetEntityName() string {
 // GetName get set name
 func (p *CommandBean) GetName() string {
 	return p.Name
+}
+
+// GetName get set name
+func (p *CommandBean) GetExtended() map[string]interface{} {
+	return p.Extended
 }
 
 // Extend vars
@@ -109,7 +116,7 @@ func (p *CommandBean) Set(key string, value interface{}) {
 // SetString get set name
 func (p *CommandBean) SetString(key string, value string) {
 	// Call super method
-	core_models.IValueBean(p).SetString(key, value)
+	models.IValueBean(p).SetString(key, value)
 	switch key {
 	case "body":
 		p.Body = value
@@ -124,28 +131,28 @@ func (p *CommandBean) GetAsString(key string) string {
 		return p.Body
 	default:
 		// Call super method
-		return core_models.IValueBean(p).GetAsString(key)
+		return models.IValueBean(p).GetAsString(key)
 	}
 }
 
 // Get get set name
 func (p *CommandBean) GetAsStringArray(key string) []string {
 	// Call super method
-	return core_models.IValueBean(p).GetAsStringArray(key)
+	return models.IValueBean(p).GetAsStringArray(key)
 }
 
 // SetTimestamp set timestamp
-func (p *CommandBean) SetTimestamp(stamp core_models.JSONTime) {
+func (p *CommandBean) SetTimestamp(stamp models.JSONTime) {
 	p.Timestamp = stamp
 }
 
 // GetTimestamp get timestamp
-func (p *CommandBean) GetTimestamp() core_models.JSONTime {
+func (p *CommandBean) GetTimestamp() models.JSONTime {
 	return p.Timestamp
 }
 
 // Copy retrieve ID
-func (p *CommandBean) Copy() core_models.IPersistent {
+func (p *CommandBean) Copy() models.IPersistent {
 	clone := *p
 	return &clone
 }
@@ -153,25 +160,25 @@ func (p *CommandBean) Copy() core_models.IPersistent {
 // CommandBeans simple bean model
 type CommandBeans struct {
 	// Collection
-	Collection []core_models.IPersistent `json:"collections"`
+	Collection []models.IPersistent `json:"collections"`
 	// Collection
 	Collections []CommandBean
 }
 
 // New constructor
-func (p *CommandBeans) New() core_models.IPersistents {
-	bean := CommandBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]CommandBean, 0)}
+func (p *CommandBeans) New() models.IPersistents {
+	bean := CommandBeans{Collection: make([]models.IPersistent, 0), Collections: make([]CommandBean, 0)}
 	return &bean
 }
 
 // Add new bean
-func (p *CommandBeans) Add(bean core_models.IPersistent) {
+func (p *CommandBeans) Add(bean models.IPersistent) {
 	p.Collection = append(p.Collection, bean)
 	p.Collections = append(p.Collections, CommandBean{})
 }
 
 // Get collection of bean
-func (p *CommandBeans) Get() []core_models.IPersistent {
+func (p *CommandBeans) Get() []models.IPersistent {
 	return p.Collection
 }
 

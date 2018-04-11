@@ -23,8 +23,6 @@
 package lua
 
 import (
-	"log"
-
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
@@ -95,6 +93,5 @@ func (p *LuaService) AsObject(body models.IValueBean, args map[string]interface{
 // AsBoolean execution
 func (p *LuaService) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
 	result := false
-	log.Println("Args:", args, "Body:", body, "Not implemented")
 	return result, nil
 }

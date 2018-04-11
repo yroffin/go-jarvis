@@ -26,9 +26,10 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"strings"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/yroffin/go-boot-sqllite/core/models"
 )
@@ -48,7 +49,9 @@ func (p *HTTPClient) request(method string, path string, body map[string]interfa
 	if body != nil {
 		payload, err := json.Marshal(body)
 		if err != nil {
-			log.Println("Body/Error:", err)
+			log.WithFields(log.Fields{
+				"error": err,
+			}).Error("Body/Error")
 			return nil, err
 		}
 		return http.NewRequest(method, p.URL+path, strings.NewReader(string(payload)))
@@ -67,7 +70,9 @@ func (p *HTTPClient) Call(method string, path string, body map[string]interface{
 	req, err := p.request(method, path, body)
 
 	if err != nil {
-		log.Println("NewRequest/Error:", err)
+		log.WithFields(log.Fields{
+			"error": err,
+		}).Error("Request")
 		return nil, err
 	}
 	client := &http.Client{}
@@ -82,7 +87,9 @@ func (p *HTTPClient) Call(method string, path string, body map[string]interface{
 	resp, err := client.Do(req)
 
 	if err != nil {
-		log.Println("Do/Error:", err)
+		log.WithFields(log.Fields{
+			"error": err,
+		}).Error("Do")
 		return nil, err
 	}
 
@@ -91,7 +98,9 @@ func (p *HTTPClient) Call(method string, path string, body map[string]interface{
 	data, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
-		log.Println("Read/Error:", err)
+		log.WithFields(log.Fields{
+			"error": err,
+		}).Error("Read")
 		return nil, err
 	}
 
@@ -99,7 +108,11 @@ func (p *HTTPClient) Call(method string, path string, body map[string]interface{
 	args := make(map[string]interface{})
 	json.Unmarshal(data, &args)
 
-	log.Println("Url:", req.URL, "Body:", models.ToJSON(args), "Status:", resp.Status)
+	log.WithFields(log.Fields{
+		"url":    req.URL,
+		"body":   models.ToJSON(args),
+		"status": resp.Status,
+	}).Info("Result")
 
 	return args, nil
 }

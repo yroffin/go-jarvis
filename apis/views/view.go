@@ -23,7 +23,7 @@
 package views
 
 import (
-	"log"
+	log "github.com/sirupsen/logrus"
 
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 )
@@ -92,7 +92,9 @@ func (p *ViewBean) Set(key string, value interface{}) {
 		if ok {
 			p.Devices = assert
 		} else {
-			log.Println("Warn: unable to assert type")
+			log.WithFields(log.Fields{
+				"key": key,
+			}).Error("Assert error")
 		}
 	}
 }

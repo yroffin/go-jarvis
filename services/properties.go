@@ -24,7 +24,6 @@ package services
 
 import (
 	"flag"
-	"log"
 	"os"
 	"strings"
 
@@ -83,7 +82,6 @@ func (p *PropertyService) Validate(name string) error {
 
 // Get value
 func (p *PropertyService) Get(key string, def string) string {
-	log.Println("Properties:", key, "Default:", def)
 	value := p.props.GetString(key, def)
 	if len(value) == 0 {
 		fromEnv := os.Getenv(key)

@@ -24,8 +24,9 @@ package shell
 
 import (
 	"io/ioutil"
-	"log"
 	"os/exec"
+
+	log "github.com/sirupsen/logrus"
 
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
@@ -110,16 +111,22 @@ func (p *PluginShellService) Call(body string) (core_models.IValueBean, error) {
 	cmd := exec.Command("sh", "-c", body)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
-		log.Fatal(err)
+		log.WithFields(log.Fields{
+			"error": err,
+		}).Error("Stdout")
 	}
 
 	stderr, err := cmd.StderrPipe()
 	if err != nil {
-		log.Fatal(err)
+		log.WithFields(log.Fields{
+			"error": err,
+		}).Error("Stderr")
 	}
 
 	if err := cmd.Start(); err != nil {
-		log.Fatal(err)
+		log.WithFields(log.Fields{
+			"error": err,
+		}).Error("Start")
 	}
 
 	capture := (&core_models.ValueBean{}).New()

@@ -22,7 +22,6 @@
 package main
 
 import (
-	log "github.com/sirupsen/logrus"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
 	_ "github.com/yroffin/go-jarvis/apis/commands"
 	_ "github.com/yroffin/go-jarvis/apis/configurations"
@@ -43,8 +42,5 @@ import (
 )
 
 func main() {
-	log.SetFormatter(&log.TextFormatter{
-		ForceColors: true,
-	})
 	winter.Helper.Boot()
 }

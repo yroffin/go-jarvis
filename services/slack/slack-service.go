@@ -23,8 +23,6 @@
 package slack
 
 import (
-	"log"
-
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
@@ -72,7 +70,6 @@ func (p *SlackService) Validate(name string) error {
 // AsObject execution
 func (p *SlackService) AsObject(body models.IValueBean, args map[string]interface{}) (models.IValueBean, error) {
 	command := make(map[string]interface{})
-	log.Println("Args:", args, "Body:", body)
 	command["text"] = models.ToString(body)
 	p.PluginSlackService.Call(command)
 	return body, nil
@@ -81,6 +78,5 @@ func (p *SlackService) AsObject(body models.IValueBean, args map[string]interfac
 // AsBoolean execution
 func (p *SlackService) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
 	result := false
-	log.Println("Args:", args, "Body:", body, "Not implemented")
 	return result, nil
 }

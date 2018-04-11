@@ -23,7 +23,6 @@
 package zway
 
 import (
-	"log"
 	"strings"
 
 	"github.com/yroffin/go-boot-sqllite/core/models"
@@ -75,6 +74,5 @@ func (p *ZwayService) AsObject(body models.IValueBean, args map[string]interface
 // AsBoolean execution
 func (p *ZwayService) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
 	result := false
-	log.Println("Not implemented")
 	return result, nil
 }

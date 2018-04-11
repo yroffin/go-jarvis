@@ -23,7 +23,6 @@
 package chacon
 
 import (
-	"log"
 	"strings"
 
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
@@ -94,6 +93,5 @@ func (p *ChaconService) AsObject(body core_models.IValueBean, args map[string]in
 // AsBoolean execution
 func (p *ChaconService) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
 	result := false
-	log.Println("Args:", args, "Body:", body, "Not implemented")
 	return result, nil
 }

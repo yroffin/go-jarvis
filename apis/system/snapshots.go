@@ -24,8 +24,9 @@ package system
 
 import (
 	"encoding/json"
-	"log"
 	"strconv"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
@@ -160,15 +161,22 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 		case "HREF_THEN":
 			break
 		default:
-			log.Println("Bean:", entityBeanType)
+			log.WithFields(log.Fields{
+				"bean": entityBeanType,
+			}).Info("Restore")
 			for idBean, entityBean := range entityBeanValue.(map[string]interface{}) {
 				bean := winter.Helper.GetBean(entityBeanType)
 				if bean == nil {
-					log.Println("Bean:", entityBeanType, "Not handled")
+					log.WithFields(log.Fields{
+						"bean": entityBeanType,
+					}).Warn("Not handled")
 				} else {
 					data, _ := json.MarshalIndent(entityBean, "", "\t")
 					entity, _ := bean.(engine.CrudHandler).HandlerPost(string(data))
-					log.Println("Type:", entityBeanType, "With:", entity.(models.IPersistent).GetID())
+					log.WithFields(log.Fields{
+						"bean": entityBeanType,
+						"with": entity.(models.IPersistent).GetID(),
+					}).Info("Link")
 					OldIDToNewID[idBean] = entity.(models.IPersistent).GetID()
 					NewIDToOldID[entity.(models.IPersistent).GetID()] = idBean
 					NewIDToBean[entity.(models.IPersistent).GetID()] = entityBeanType
@@ -208,7 +216,11 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 					}
 				}
 				if OldIDToNewID[href.FromStr] != "" && OldIDToNewID[href.ToStr] != "" {
-					log.Println("Link:", NewIDToBean[OldIDToNewID[href.FromStr]], "=[", linkedBeanType, "]=>", NewIDToBean[OldIDToNewID[href.ToStr]])
+					log.WithFields(log.Fields{
+						"from": NewIDToBean[OldIDToNewID[href.FromStr]],
+						"with": linkedBeanType,
+						"to":   NewIDToBean[OldIDToNewID[href.ToStr]],
+					}).Info("Link")
 					builds = append(builds, SnapshotHrefEntityBuild{
 						Source: SnapshotHrefEntity{
 							Type: NewIDToBean[OldIDToNewID[href.FromStr]],
@@ -266,7 +278,9 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 	}
 	// HREF in errors
 	for _, h := range hrefInErrors {
-		log.Println("Warn:", h, "conversion is null")
+		log.WithFields(log.Fields{
+			"from": h,
+		}).Warn("No conversion")
 	}
 	return builds, len(builds), nil
 }
@@ -277,7 +291,9 @@ func (p *Snapshot) Download(id string, body string) (interface{}, int, error) {
 
 	out, _ := p.GraphBusiness.Export()
 	for k, v := range out {
-		log.Println("Link:", k)
+		log.WithFields(log.Fields{
+			"link": k,
+		}).Info("Link")
 		index := make(map[string]interface{})
 		for _, obj := range v {
 			index[obj["id"].(string)] = obj
@@ -287,7 +303,9 @@ func (p *Snapshot) Download(id string, body string) (interface{}, int, error) {
 
 	beans := []string{"ProcessBean", "CommandBean", "DeviceBean", "ScriptPluginBean", "TriggerBean", "ViewBean", "ConnectorBean", "CronBean", "ConfigBean", "PropertyBean"}
 	for _, b := range beans {
-		log.Println("Bean:", b)
+		log.WithFields(log.Fields{
+			"name": b,
+		}).Info("Bean")
 		bean := winter.Helper.GetBean(b).(engine.IAPI)
 		all, _ := bean.GetAll()
 		index := make(map[string]interface{})

@@ -24,9 +24,7 @@ package lua
 
 import (
 	"encoding/json"
-	"log"
 
-	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yuin/gopher-lua"
 	luar "layeh.com/gopher-luar"
 )
@@ -49,7 +47,6 @@ var exports = map[string]lua.LGFunction{
 func objectToJSON(L *lua.LState) int {
 	res := make(map[string]interface{})
 	json.Unmarshal([]byte(L.CheckString(1)), &res)
-	log.Println("json", L.CheckString(1), models.ToJSON(res))
 	L.Push(luar.New(L, res))
 	return 1
 }
@@ -57,7 +54,6 @@ func objectToJSON(L *lua.LState) int {
 func arrayToJSON(L *lua.LState) int {
 	res := make([]interface{}, 0)
 	json.Unmarshal([]byte(L.CheckString(1)), &res)
-	log.Println("json", L.CheckString(1), models.ToJSON(res))
 	L.Push(luar.New(L, res))
 	return 1
 }

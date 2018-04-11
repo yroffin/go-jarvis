@@ -23,8 +23,6 @@
 package shell
 
 import (
-	"log"
-
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
@@ -71,7 +69,6 @@ func (p *ShellService) Validate(name string) error {
 
 // AsObject execution
 func (p *ShellService) AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error) {
-	log.Println("Args:", args, "Body:", body)
 	result, _ := p.PluginShellService.Call(body.GetAsString("body"))
 	return result, nil
 }
@@ -79,6 +76,5 @@ func (p *ShellService) AsObject(body core_models.IValueBean, args map[string]int
 // AsBoolean execution
 func (p *ShellService) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
 	result := false
-	log.Println("Args:", args, "Body:", body, "Not implemented")
 	return result, nil
 }

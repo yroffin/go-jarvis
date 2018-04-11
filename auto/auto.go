@@ -24,14 +24,12 @@ package auto
 
 import (
 	"flag"
-	"log"
 
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
 func init() {
-	log.Println("Init Winter")
 	winter.Helper.Init()
 	// Command Line
 	flag.String("Djarvis.slack.api", "", "Slack API")

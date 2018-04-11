@@ -24,7 +24,8 @@ package devices
 
 import (
 	"encoding/json"
-	"log"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
@@ -113,9 +114,16 @@ func (p *Device) RenderOrExecute(id string, parameters map[string]interface{}, e
 	// Retrieve all script
 	links, _ := p.GetAllLinks(id, p.LinkPluginScript)
 	for _, script := range links {
-		log.Println("SCRIPT - INPUT", script.GetID(), parameters)
+		log.WithFields(log.Fields{
+			"script":     script.GetID(),
+			"parameters": parameters,
+		}).Info("Script input")
 		result, count, _ := p.LinkPluginScript.RenderOrExecute(script.GetID(), parameters, execute)
-		log.Println("SCRIPT - INPUT", script.GetID(), result, count)
+		log.WithFields(log.Fields{
+			"script": script.GetID(),
+			"result": result,
+			"count":  count,
+		}).Info("Script output")
 	}
 	return links, -1, nil
 }

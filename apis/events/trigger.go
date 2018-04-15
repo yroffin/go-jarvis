@@ -71,6 +71,11 @@ func (p *TriggerBean) Extend(e map[string]interface{}) {
 	}
 }
 
+// GetExtend vars
+func (p *TriggerBean) GetExtend() map[string]interface{} {
+	return p.Extended
+}
+
 // GetID retrieve ID
 func (p *TriggerBean) GetID() string {
 	return p.ID

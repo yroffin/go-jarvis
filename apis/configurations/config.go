@@ -67,6 +67,11 @@ func (p *ConfigBean) Extend(e map[string]interface{}) {
 	}
 }
 
+// GetExtend vars
+func (p *ConfigBean) GetExtend() map[string]interface{} {
+	return p.Extended
+}
+
 // GetID retrieve ID
 func (p *ConfigBean) GetID() string {
 	return p.ID

@@ -79,6 +79,11 @@ func (p *CronBean) Extend(e map[string]interface{}) {
 	}
 }
 
+// GetExtend vars
+func (p *CronBean) GetExtend() map[string]interface{} {
+	return p.Extended
+}
+
 // GetID retrieve ID
 func (p *CronBean) GetID() string {
 	return p.ID

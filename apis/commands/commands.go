@@ -131,8 +131,11 @@ func (p *Command) decode(id string, parameters map[string]interface{}) (string, 
 	// log some trace
 	log.WithFields(log.Fields{
 		"type": model.(ICommandBean).GetType(),
-		"json": models.ToJSON(converted),
-	}).Info("Command input")
+	}).Info("Execute command")
+	log.WithFields(log.Fields{
+		"model": model,
+		"json":  models.ToJSON(converted),
+	}).Debug("Execute command")
 	return model.(ICommandBean).GetType(), model.(ICommandBean), parameters, nil
 }
 
@@ -144,31 +147,31 @@ func (p *Command) Execute(id string, parameters map[string]interface{}) (interfa
 		result, _ := p.SlackService.AsObject(command, args)
 		log.WithFields(log.Fields{
 			"json": models.ToJSON(result),
-		}).Info("Command output")
+		}).Debug("Execute command - result")
 		return result, -1, nil
 	case "SHELL":
 		result, _ := p.ShellService.AsObject(command, args)
 		log.WithFields(log.Fields{
 			"json": models.ToJSON(result),
-		}).Info("Command output")
+		}).Debug("Execute command - result")
 		return result, -1, nil
 	case "LUA":
 		result, _ := p.LuaService.AsObject(command, args)
 		log.WithFields(log.Fields{
 			"json": models.ToJSON(result),
-		}).Info("Command output")
+		}).Debug("Execute command - result")
 		return result, -1, nil
 	case "CHACON":
 		result, _ := p.ChaconService.AsObject(command, args)
 		log.WithFields(log.Fields{
 			"json": models.ToJSON(result),
-		}).Info("Command output")
+		}).Debug("Execute command - result")
 		return result, -1, nil
 	case "ZWAY":
 		result, _ := p.ZwayService.AsObject(command, args)
 		log.WithFields(log.Fields{
 			"json": models.ToJSON(result),
-		}).Info("Command output")
+		}).Debug("Execute command - result")
 		return result, -1, nil
 	default:
 		log.WithFields(log.Fields{

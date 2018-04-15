@@ -23,6 +23,8 @@
 package devices
 
 import (
+	"encoding/json"
+
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 )
 
@@ -66,6 +68,8 @@ type IDeviceBean interface {
 	core_models.IPersistent
 	// inherit ValueBean behaviour
 	core_models.IValueBean
+	// GetParameters
+	GetParameters() map[string]interface{}
 }
 
 // New constructor
@@ -75,7 +79,7 @@ func (p *DeviceBean) New() IDeviceBean {
 	return &bean
 }
 
-// GetName get set name
+// GetEntityName get set name
 func (p *DeviceBean) GetEntityName() string {
 	return "DeviceBean"
 }
@@ -87,9 +91,21 @@ func (p *DeviceBean) Extend(e map[string]interface{}) {
 	}
 }
 
+// GetExtend vars
+func (p *DeviceBean) GetExtend() map[string]interface{} {
+	return p.Extended
+}
+
 // GetID retrieve ID
 func (p *DeviceBean) GetID() string {
 	return p.ID
+}
+
+// GetParameters field
+func (p *DeviceBean) GetParameters() map[string]interface{} {
+	value := make(map[string]interface{})
+	json.Unmarshal([]byte(p.Parameters), &value)
+	return value
 }
 
 // SetID retrieve ID
@@ -107,7 +123,7 @@ func (p *DeviceBean) SetString(key string, value string) {
 	core_models.IValueBean(p).SetString(key, value)
 }
 
-// Get get set name
+// GetAsString method
 func (p *DeviceBean) GetAsString(key string) string {
 	switch key {
 	default:
@@ -116,7 +132,7 @@ func (p *DeviceBean) GetAsString(key string) string {
 	}
 }
 
-// Get get set name
+// GetAsStringArray method
 func (p *DeviceBean) GetAsStringArray(key string) []string {
 	// Call super method
 	return core_models.IValueBean(p).GetAsStringArray(key)

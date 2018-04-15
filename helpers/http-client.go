@@ -110,19 +110,21 @@ func (p *HTTPClient) Call(method string, path string, body map[string]interface{
 
 	log.WithFields(log.Fields{
 		"url":    req.URL,
-		"body":   models.ToJSON(args),
 		"status": resp.Status,
 	}).Info("Result")
+	log.WithFields(log.Fields{
+		"body": models.ToJSON(args),
+	}).Debug("Result")
 
 	return args, nil
 }
 
-// Call http
+// GET Call http
 func (p *HTTPClient) GET(path string, headers map[string]string, params map[string]string) (map[string]interface{}, error) {
 	return p.Call("GET", path, nil, headers, params)
 }
 
-// Call http
+// POST Call http
 func (p *HTTPClient) POST(path string, body map[string]interface{}, headers map[string]string, params map[string]string) (map[string]interface{}, error) {
 	return p.Call("POST", path, body, headers, params)
 }

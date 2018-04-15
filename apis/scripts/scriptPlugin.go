@@ -82,6 +82,11 @@ func (p *ScriptPluginBean) Extend(e map[string]interface{}) {
 	}
 }
 
+// GetExtend vars
+func (p *ScriptPluginBean) GetExtend() map[string]interface{} {
+	return p.Extended
+}
+
 // GetID retrieve ID
 func (p *ScriptPluginBean) GetID() string {
 	return p.ID

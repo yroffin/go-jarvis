@@ -87,6 +87,10 @@ func (p *Device) Init() error {
 			// Execute all associated script
 			return p.RenderOrExecute(id, parameters, true)
 		}
+		if name == "render" {
+			// Execute all associated script
+			return p.RenderOrExecute(id, parameters, false)
+		}
 		return "{}", -1, nil
 	}
 	return p.API.Init()
@@ -110,20 +114,57 @@ func (p *Device) Uml(id string, body string) (interface{}, int, error) {
 }
 
 // RenderOrExecute execute or render all scripts
-func (p *Device) RenderOrExecute(id string, parameters map[string]interface{}, execute bool) (interface{}, int, error) {
-	// Retrieve all script
-	links, _ := p.GetAllLinks(id, p.LinkPluginScript)
-	for _, script := range links {
-		log.WithFields(log.Fields{
-			"script":     script.GetID(),
-			"parameters": parameters,
-		}).Info("Script input")
-		result, count, _ := p.LinkPluginScript.RenderOrExecute(script.GetID(), parameters, execute)
-		log.WithFields(log.Fields{
-			"script": script.GetID(),
-			"result": result,
-			"count":  count,
-		}).Info("Script output")
+func (p *Device) RenderOrExecute(id string, args map[string]interface{}, execute bool) (interface{}, int, error) {
+	var results = make(map[string]interface{})
+	// Retrieve parameters
+	device, _ := p.GetByID(id)
+	// Read params
+	parameters := make(map[string]interface{})
+	var params = device.(IDeviceBean).GetParameters()
+	if len(params) != 0 {
+		for key, value := range params {
+			parameters[key] = value
+		}
+	} else {
+		parameters["default"] = make(map[string]interface{})
 	}
-	return links, -1, nil
+	log.WithFields(log.Fields{
+		"device":     device.GetID(),
+		"args":       args,
+		"parameters": parameters,
+		"execute":    execute,
+	}).Info("Render or execute")
+	log.WithFields(log.Fields{
+		"device": models.ToJSON(device.(IDeviceBean)),
+	}).Debug("Render or execute device")
+	// iterate on params (it must be an map[string]interface{})
+	for key, value := range parameters {
+		// Retrieve all script
+		links, _ := p.GetAllLinks(id, p.LinkPluginScript)
+		log.WithFields(log.Fields{
+			"key":   key,
+			"value": value,
+		}).Info("Render or execute device - parameters")
+		for _, script := range links {
+			log.WithFields(log.Fields{
+				"script": models.ToJSON(script),
+			}).Debug("Render or execute device - script")
+			result, count, _ := p.LinkPluginScript.RenderOrExecute(script.GetID(), value.(map[string]interface{}), execute)
+			log.WithFields(log.Fields{
+				"script": script.GetID(),
+				"count":  count,
+			}).Info("Render or execute device - script result")
+			log.WithFields(log.Fields{
+				"result": models.ToJSON(result),
+			}).Debug("Render or execute device - script result")
+			for field, v := range result.(map[string]interface{}) {
+				results[field] = v
+			}
+		}
+	}
+	// results
+	log.WithFields(log.Fields{
+		"results": models.ToJSON(results),
+	}).Debug("Render or execute device - script")
+	return results, -1, nil
 }

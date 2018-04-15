@@ -24,8 +24,10 @@ package lua
 
 import (
 	"net/http"
+	"reflect"
 
 	lua_http "github.com/cjoudrey/gluahttp"
+	log "github.com/sirupsen/logrus"
 	lua_mapper "github.com/yuin/gluamapper"
 	lua "github.com/yuin/gopher-lua"
 
@@ -88,7 +90,19 @@ func (p *PluginLuaService) Call(body string, args map[string]interface{}) (model
 
 	l.SetGlobal("input", mod)
 	for k, v := range args {
-		l.SetField(mod, k, lua.LString(v.(string)))
+		switch reflect.TypeOf(v).String() {
+		case "string":
+			l.SetField(mod, k, lua.LString(v.(string)))
+			break
+		case "float64":
+			l.SetField(mod, k, lua.LNumber(v.(float64)))
+			break
+		default:
+			log.WithFields(log.Fields{
+				"type": reflect.TypeOf(v).String(),
+			}).Error("Unable to map type")
+			break
+		}
 	}
 
 	result := (&models.ValueBean{}).New()

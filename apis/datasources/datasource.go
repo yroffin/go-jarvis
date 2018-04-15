@@ -71,6 +71,11 @@ func (p *DataSourceBean) Extend(e map[string]interface{}) {
 	}
 }
 
+// GetExtend vars
+func (p *DataSourceBean) GetExtend() map[string]interface{} {
+	return p.Extended
+}
+
 // GetID retrieve ID
 func (p *DataSourceBean) GetID() string {
 	return p.ID

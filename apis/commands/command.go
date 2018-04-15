@@ -61,8 +61,6 @@ type ICommandBean interface {
 	GetType() string
 	// Name
 	GetName() string
-	// GetExtended
-	GetExtended() map[string]interface{}
 }
 
 // New constructor
@@ -82,16 +80,16 @@ func (p *CommandBean) GetName() string {
 	return p.Name
 }
 
-// GetName get set name
-func (p *CommandBean) GetExtended() map[string]interface{} {
-	return p.Extended
-}
-
 // Extend vars
 func (p *CommandBean) Extend(e map[string]interface{}) {
 	for k, v := range e {
 		p.Extended[k] = v
 	}
+}
+
+// GetExtend vars
+func (p *CommandBean) GetExtend() map[string]interface{} {
+	return p.Extended
 }
 
 // GetType get set name

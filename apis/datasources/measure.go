@@ -67,6 +67,11 @@ func (p *MeasureBean) Extend(e map[string]interface{}) {
 	}
 }
 
+// GetExtend vars
+func (p *MeasureBean) GetExtend() map[string]interface{} {
+	return p.Extended
+}
+
 // GetID retrieve ID
 func (p *MeasureBean) GetID() string {
 	return p.ID

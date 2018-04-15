@@ -65,6 +65,11 @@ func (p *ModelBean) Extend(e map[string]interface{}) {
 	}
 }
 
+// GetExtend vars
+func (p *ModelBean) GetExtend() map[string]interface{} {
+	return p.Extended
+}
+
 // GetID retrieve ID
 func (p *ModelBean) GetID() string {
 	return p.ID

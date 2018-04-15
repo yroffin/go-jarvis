@@ -67,6 +67,11 @@ func (p *ProcessusBean) Extend(e map[string]interface{}) {
 	}
 }
 
+// GetExtend vars
+func (p *ProcessusBean) GetExtend() map[string]interface{} {
+	return p.Extended
+}
+
 // GetID retrieve ID
 func (p *ProcessusBean) GetID() string {
 	return p.ID

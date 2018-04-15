@@ -72,6 +72,11 @@ func (p *NotificationBean) Extend(e map[string]interface{}) {
 	}
 }
 
+// GetExtend vars
+func (p *NotificationBean) GetExtend() map[string]interface{} {
+	return p.Extended
+}
+
 // GetID retrieve ID
 func (p *NotificationBean) GetID() string {
 	return p.ID

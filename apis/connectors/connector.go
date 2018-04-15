@@ -77,6 +77,11 @@ func (p *ConnectorBean) Extend(e map[string]interface{}) {
 	}
 }
 
+// GetExtend vars
+func (p *ConnectorBean) GetExtend() map[string]interface{} {
+	return p.Extended
+}
+
 // GetID retrieve ID
 func (p *ConnectorBean) GetID() string {
 	return p.ID

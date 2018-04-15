@@ -114,15 +114,19 @@ func (p *ScriptPlugin) RenderOrExecute(id string, parameters map[string]interfac
 	links, _ := p.GetAllLinks(id, p.LinkCommand)
 	// Sort
 	sort.Slice(links, func(i, j int) bool {
-		var left = links[i].(commands.ICommandBean).GetExtended()["order"]
-		var right = links[j].(commands.ICommandBean).GetExtended()["order"]
+		var left = links[i].(commands.ICommandBean).GetExtend()["order"]
+		var right = links[j].(commands.ICommandBean).GetExtend()["order"]
 		iLeft, _ := strconv.Atoi(left.(string))
 		iRight, _ := strconv.Atoi(right.(string))
 		return iLeft < iRight
 	})
+	log.WithFields(log.Fields{
+		"script":     id,
+		"parameters": parameters,
+	}).Info("Render or execute script")
 	// Iterate
 	for _, command := range links {
-		var t = command.(commands.ICommandBean).GetExtended()["type"]
+		var t = command.(commands.ICommandBean).GetExtend()["type"]
 
 		// ignore data in phase action
 		if t == "data" && execute {
@@ -143,15 +147,17 @@ func (p *ScriptPlugin) RenderOrExecute(id string, parameters map[string]interfac
 			continue
 		}
 
-		// Execute the command
-		var name = command.(commands.ICommandBean).GetExtended()["name"]
+		// Execute the command in all case to obtain data
+		// to render ... or simply execute
+		var name = command.(commands.ICommandBean).GetExtend()["name"]
 		result, _, _ := p.LinkCommand.Execute(command.GetID(), parameters)
 
 		// store result
 		if name != nil {
 			log.WithFields(log.Fields{
-				"name": name,
-			}).Info("Store result")
+				"name":   name,
+				"result": result,
+			}).Info("Render or execute script - result")
 			outputs[name.(string)] = result
 		} else {
 			log.WithFields(log.Fields{
@@ -159,6 +165,9 @@ func (p *ScriptPlugin) RenderOrExecute(id string, parameters map[string]interfac
 			}).Warn("Store result cannot be done")
 		}
 	}
+	log.WithFields(log.Fields{
+		"outputs": models.ToJSON(outputs),
+	}).Debug("Render or execute script - result")
 	return outputs, len(outputs), nil
 }
 

@@ -1,4 +1,4 @@
-// Package services for common services
+// Package chacon for common services
 // MIT License
 //
 // Copyright (c) 2017 yroffin
@@ -109,7 +109,7 @@ func (p *PluginRFLinkService) Validate(name string) error {
 // Open init
 func (p *PluginRFLinkService) Open() error {
 	comport := p.PropertyService.Get("jarvis.rflink.comport", "/dev/ttyS0")
-	bitRate, _ := strconv.Atoi(p.PropertyService.Get("jarvis.rflink.baud", "9600"))
+	bitRate, _ := strconv.Atoi(p.PropertyService.Get("jarvis.rflink.baud", "57600"))
 	log.WithFields(log.Fields{
 		"key":  comport,
 		"baud": bitRate,

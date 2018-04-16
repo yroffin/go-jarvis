@@ -1,4 +1,4 @@
-// Package interfaces for common interfaces
+// Package zway for common interfaces
 // MIT License
 //
 // Copyright (c) 2017 yroffin

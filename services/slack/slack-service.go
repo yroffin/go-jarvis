@@ -25,18 +25,21 @@ package slack
 import (
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
+	"github.com/yroffin/go-jarvis/services/mqtt"
 )
 
 func init() {
-	winter.Helper.Register("slack-service", (&SlackService{}).New())
+	winter.Helper.Register("slack-service", (&service{}).New())
 }
 
-// SlackService internal members
-type SlackService struct {
+// service internal members
+type service struct {
 	// members
 	*winter.Service
 	// PluginSlackService with injection mecanism
 	PluginSlackService IPluginSlackService `@autowired:"plugin-slack-service"`
+	// IMqttService with injection mecanism
+	MqttService mqtt.IMqttService `@autowired:"mqtt-service"`
 }
 
 // ISlackService implements IBean
@@ -47,28 +50,30 @@ type ISlackService interface {
 }
 
 // New constructor
-func (p *SlackService) New() ISlackService {
-	bean := SlackService{Service: &winter.Service{Bean: &winter.Bean{}}}
+func (p *service) New() ISlackService {
+	bean := service{Service: &winter.Service{Bean: &winter.Bean{}}}
 	return &bean
 }
 
 // Init this SERVICE
-func (p *SlackService) Init() error {
+func (p *service) Init() error {
 	return nil
 }
 
 // PostConstruct this SERVICE
-func (p *SlackService) PostConstruct(name string) error {
+func (p *service) PostConstruct(name string) error {
 	return nil
 }
 
 // Validate this SERVICE
-func (p *SlackService) Validate(name string) error {
+func (p *service) Validate(name string) error {
+	// Notify system ready
+	p.MqttService.PublishMostOne("/system/slack", "ready")
 	return nil
 }
 
 // AsObject execution
-func (p *SlackService) AsObject(body models.IValueBean, args map[string]interface{}) (models.IValueBean, error) {
+func (p *service) AsObject(body models.IValueBean, args map[string]interface{}) (models.IValueBean, error) {
 	command := make(map[string]interface{})
 	command["text"] = models.ToString(body)
 	p.PluginSlackService.Call(command)
@@ -76,7 +81,7 @@ func (p *SlackService) AsObject(body models.IValueBean, args map[string]interfac
 }
 
 // AsBoolean execution
-func (p *SlackService) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
+func (p *service) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
 	result := false
 	return result, nil
 }

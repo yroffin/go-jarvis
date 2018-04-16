@@ -31,18 +31,21 @@ import (
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
 	app_services "github.com/yroffin/go-jarvis/services"
+	"github.com/yroffin/go-jarvis/services/mqtt"
 )
 
 func init() {
-	winter.Helper.Register("plugin-shell-service", (&PluginShellService{}).New())
+	winter.Helper.Register("plugin-shell-service", (&service{}).New())
 }
 
-// PluginShellService internal members
-type PluginShellService struct {
+// service internal members
+type service struct {
 	// members
 	*winter.Service
 	// SetPropertyService with injection mecanism
 	PropertyService app_services.IPropertyService `@autowired:"property-service"`
+	// IMqttService with injection mecanism
+	MqttService mqtt.IMqttService `@autowired:"mqtt-service"`
 }
 
 // IPluginShellService implements IBean
@@ -52,23 +55,25 @@ type IPluginShellService interface {
 }
 
 // New constructor
-func (p *PluginShellService) New() IPluginShellService {
-	bean := PluginShellService{Service: &winter.Service{Bean: &winter.Bean{}}}
+func (p *service) New() IPluginShellService {
+	bean := service{Service: &winter.Service{Bean: &winter.Bean{}}}
 	return &bean
 }
 
 // Init this SERVICE
-func (p *PluginShellService) Init() error {
+func (p *service) Init() error {
 	return nil
 }
 
 // PostConstruct this SERVICE
-func (p *PluginShellService) PostConstruct(name string) error {
+func (p *service) PostConstruct(name string) error {
 	return nil
 }
 
 // Validate this SERVICE
-func (p *PluginShellService) Validate(name string) error {
+func (p *service) Validate(name string) error {
+	// Notify system ready
+	p.MqttService.PublishMostOne("/system/shell", "ready")
 	return nil
 }
 
@@ -107,7 +112,7 @@ func build(data []byte) []string {
 }
 
 // Call execution
-func (p *PluginShellService) Call(body string) (core_models.IValueBean, error) {
+func (p *service) Call(body string) (core_models.IValueBean, error) {
 	cmd := exec.Command("sh", "-c", body)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {

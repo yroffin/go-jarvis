@@ -25,45 +25,50 @@ package lua
 import (
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
+	"github.com/yroffin/go-jarvis/services/mqtt"
 )
 
 func init() {
-	winter.Helper.Register("lua-service", (&LuaService{}).New())
+	winter.Helper.Register("lua-service", (&service{}).New())
 }
 
-// LuaService internal members
-type LuaService struct {
+// service internal members
+type service struct {
 	// members
 	*winter.Service
 	// PluginLuaService with injection mecanism
 	PluginLuaService IPluginLuaService `@autowired:"plugin-lua-service"`
+	// IMqttService with injection mecanism
+	MqttService mqtt.IMqttService `@autowired:"mqtt-service"`
 }
 
 // ILuaService implements IBean
 type ILuaService interface {
-	winter.IBean
+	winter.IService
 	AsObject(body models.IValueBean, args map[string]interface{}) (models.IValueBean, error)
 	AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error)
 }
 
 // New constructor
-func (p *LuaService) New() ILuaService {
-	bean := LuaService{Service: &winter.Service{Bean: &winter.Bean{}}}
+func (p *service) New() ILuaService {
+	bean := service{Service: &winter.Service{Bean: &winter.Bean{}}}
 	return &bean
 }
 
 // Init this API
-func (p *LuaService) Init() error {
+func (p *service) Init() error {
 	return nil
 }
 
 // PostConstruct this API
-func (p *LuaService) PostConstruct(name string) error {
+func (p *service) PostConstruct(name string) error {
 	return nil
 }
 
 // Validate this API
-func (p *LuaService) Validate(name string) error {
+func (p *service) Validate(name string) error {
+	// Notify system ready
+	p.MqttService.PublishMostOne("/system/lua", "ready")
 	return nil
 }
 
@@ -85,13 +90,13 @@ end
 */
 
 // AsObject execution
-func (p *LuaService) AsObject(body models.IValueBean, args map[string]interface{}) (models.IValueBean, error) {
+func (p *service) AsObject(body models.IValueBean, args map[string]interface{}) (models.IValueBean, error) {
 	result, _ := p.PluginLuaService.Call(body.GetAsString("body"), args)
 	return result, nil
 }
 
 // AsBoolean execution
-func (p *LuaService) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
+func (p *service) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
 	result := false
 	return result, nil
 }

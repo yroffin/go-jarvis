@@ -36,6 +36,7 @@ import (
 	_ "github.com/yroffin/go-jarvis/auto"
 	_ "github.com/yroffin/go-jarvis/services/chacon"
 	_ "github.com/yroffin/go-jarvis/services/lua"
+	_ "github.com/yroffin/go-jarvis/services/mqtt"
 	_ "github.com/yroffin/go-jarvis/services/shell"
 	_ "github.com/yroffin/go-jarvis/services/slack"
 	_ "github.com/yroffin/go-jarvis/services/zway"

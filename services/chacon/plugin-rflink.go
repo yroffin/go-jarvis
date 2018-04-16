@@ -23,9 +23,15 @@
 package chacon
 
 import (
-	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+	"strconv"
+
+	log "github.com/sirupsen/logrus"
+
+	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
-	app_services "github.com/yroffin/go-jarvis/services"
+	"github.com/yroffin/go-jarvis/services"
+	"github.com/yroffin/go-jarvis/services/mqtt"
+	serial "go.bug.st/serial.v1"
 )
 
 func init() {
@@ -36,16 +42,22 @@ func init() {
 type PluginRFLinkService struct {
 	// members
 	*winter.Service
-	// SetPropertyService with injection mecanism
-	PropertyService app_services.IPropertyService `@autowired:"property-service"`
+	// PropertyService with injection mecanism
+	PropertyService services.IPropertyService `@autowired:"property-service"`
+	// IMqttService with injection mecanism
+	MqttService mqtt.IMqttService `@autowired:"mqtt-service"`
+	// Port
+	handle serial.Port
+	// Chan
+	channel chan string
 }
 
 // IPluginRFLinkService implements IBean
 type IPluginRFLinkService interface {
 	// Extend bean
-	winter.IBean
+	winter.IService
 	// Local method
-	Chacon(channel string, command string, order string) (core_models.IValueBean, error)
+	Chacon(channel string, command string, order string) (models.IValueBean, error)
 }
 
 // New constructor
@@ -66,12 +78,92 @@ func (p *PluginRFLinkService) PostConstruct(name string) error {
 
 // Validate this SERVICE
 func (p *PluginRFLinkService) Validate(name string) error {
+	// Retrieve the port list
+	ports, err := serial.GetPortsList()
+	if err != nil {
+		log.WithFields(log.Fields{
+			"err": err,
+		}).Error("Rflink - get port list")
+	}
+	if len(ports) == 0 {
+		if err != nil {
+			log.WithFields(log.Fields{
+				"err": err,
+			}).Error("Rflink - no port found")
+		}
+	}
+	log.WithFields(log.Fields{
+		"ports": ports,
+	}).Info("Rflink - get port list")
+	errOpen := p.Open()
+	if errOpen == nil {
+		// go p.Read()
+		// go p.Write()
+		return nil
+	}
+	// Notify system ready
+	p.MqttService.PublishMostOne("/system/rflink", "ready")
+	return err
+}
+
+// Open init
+func (p *PluginRFLinkService) Open() error {
+	comport := p.PropertyService.Get("jarvis.rflink.comport", "/dev/ttyS0")
+	bitRate, _ := strconv.Atoi(p.PropertyService.Get("jarvis.rflink.baud", "9600"))
+	log.WithFields(log.Fields{
+		"key":  comport,
+		"baud": bitRate,
+	}).Info("Rflink - comport open")
+	// Open the first serial port detected at 9600bps N81
+	mode := &serial.Mode{
+		BaudRate: bitRate,
+		Parity:   serial.NoParity,
+		DataBits: 8,
+		StopBits: serial.OneStopBit,
+	}
+	port, err := serial.Open(comport, mode)
+	if err != nil {
+		log.WithFields(log.Fields{
+			"options": mode,
+			"err":     err,
+		}).Error("Rflink - comport open")
+	}
+
+	p.handle = port
+
+	// Create channel
+	p.channel = make(chan string)
 	return nil
 }
 
+// Read serial port
+func (p *PluginRFLinkService) Read() error {
+	for {
+		buf := make([]byte, 128)
+		n, err := p.handle.Read(buf)
+		if err != nil {
+			log.Fatal(err)
+		}
+		p.channel <- string(buf[:n])
+		log.WithFields(log.Fields{
+			"value": string(buf[:n]),
+		}).Info("Rflink - com read")
+	}
+}
+
+// Read serial port
+func (p *PluginRFLinkService) Write() error {
+	for {
+		value := <-p.channel
+		log.WithFields(log.Fields{
+			"value": value,
+		}).Info("Rflink - com write")
+	}
+}
+
 // Chacon execution
-func (p *PluginRFLinkService) Chacon(channel string, command string, order string) (core_models.IValueBean, error) {
-	result := (&core_models.ValueBean{}).New()
+func (p *PluginRFLinkService) Chacon(channel string, command string, order string) (models.IValueBean, error) {
+	result := (&models.ValueBean{}).New()
 	result.SetString("Channel", channel)
 	result.SetString("Command", command)
 	result.SetString("Order", order)

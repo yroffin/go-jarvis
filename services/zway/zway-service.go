@@ -27,18 +27,21 @@ import (
 
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
+	"github.com/yroffin/go-jarvis/services/mqtt"
 )
 
 func init() {
-	winter.Helper.Register("zway-service", (&ZwayService{}).New())
+	winter.Helper.Register("zway-service", (&service{}).New())
 }
 
-// ZwayService internal members
-type ZwayService struct {
+// service internal members
+type service struct {
 	// members
 	*winter.Service
 	// SetPluginZwayService with injection mecanism
 	PluginZwayService IPluginZwayService `@autowired:"plugin-zway-service"`
+	// IMqttService with injection mecanism
+	MqttService mqtt.IMqttService `@autowired:"mqtt-service"`
 }
 
 // IZwayService implements IBean
@@ -49,30 +52,32 @@ type IZwayService interface {
 }
 
 // New constructor
-func (p *ZwayService) New() IZwayService {
-	bean := ZwayService{Service: &winter.Service{Bean: &winter.Bean{}}}
+func (p *service) New() IZwayService {
+	bean := service{Service: &winter.Service{Bean: &winter.Bean{}}}
 	return &bean
 }
 
 // PostConstruct this API
-func (p *ZwayService) PostConstruct(name string) error {
+func (p *service) PostConstruct(name string) error {
 	return nil
 }
 
 // Validate this API
-func (p *ZwayService) Validate(name string) error {
+func (p *service) Validate(name string) error {
+	// Notify system ready
+	p.MqttService.PublishMostOne("/system/zway", "ready")
 	return nil
 }
 
 // AsObject execution
-func (p *ZwayService) AsObject(body models.IValueBean, args map[string]interface{}) (models.IValueBean, error) {
+func (p *service) AsObject(body models.IValueBean, args map[string]interface{}) (models.IValueBean, error) {
 	res := strings.Split(strings.Split(body.GetAsString("body"), "_")[2], "-")
 	result, _ := p.PluginZwayService.Call(res[0], res[1], res[2], res[3])
 	return result, nil
 }
 
 // AsBoolean execution
-func (p *ZwayService) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
+func (p *service) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
 	result := false
 	return result, nil
 }

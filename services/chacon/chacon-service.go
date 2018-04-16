@@ -27,45 +27,50 @@ import (
 
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
+	"github.com/yroffin/go-jarvis/services/mqtt"
 )
 
 func init() {
-	winter.Helper.Register("chacon-service", (&ChaconService{}).New())
+	winter.Helper.Register("chacon-service", (&service{}).New())
 }
 
-// ChaconService internal members
-type ChaconService struct {
+// service internal members
+type service struct {
 	// members
 	*winter.Service
 	// SetPluginSlackService with injection mecanism
 	PluginRFLinkService IPluginRFLinkService `@autowired:"plugin-rflink-service"`
+	// IMqttService with injection mecanism
+	MqttService mqtt.IMqttService `@autowired:"mqtt-service"`
 }
 
 // IChaconService implements IBean
 type IChaconService interface {
-	winter.IBean
+	winter.IService
 	AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error)
 	AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error)
 }
 
 // New constructor
-func (p *ChaconService) New() IChaconService {
-	bean := ChaconService{Service: &winter.Service{Bean: &winter.Bean{}}}
+func (p *service) New() IChaconService {
+	bean := service{Service: &winter.Service{Bean: &winter.Bean{}}}
 	return &bean
 }
 
 // Init this API
-func (p *ChaconService) Init() error {
+func (p *service) Init() error {
 	return nil
 }
 
 // PostConstruct this API
-func (p *ChaconService) PostConstruct(name string) error {
+func (p *service) PostConstruct(name string) error {
 	return nil
 }
 
 // Validate this API
-func (p *ChaconService) Validate(name string) error {
+func (p *service) Validate(name string) error {
+	// Notify system ready
+	p.MqttService.PublishMostOne("/system/chacon", "ready")
 	return nil
 }
 
@@ -81,7 +86,7 @@ func parse(args map[string]interface{}, list []string) []string {
 }
 
 // AsObject execution
-func (p *ChaconService) AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error) {
+func (p *service) AsObject(body core_models.IValueBean, args map[string]interface{}) (core_models.IValueBean, error) {
 	parsed := parse(args, strings.Split(body.GetAsString("body"), " "))
 	if len(parsed) == 4 && parsed[0] == "CHACON" && !strings.Contains(parsed[1], "$") && !strings.Contains(parsed[2], "$") && !strings.Contains(parsed[3], "$") {
 		result, _ := p.PluginRFLinkService.Chacon(parsed[1], parsed[2], parsed[3])
@@ -91,7 +96,7 @@ func (p *ChaconService) AsObject(body core_models.IValueBean, args map[string]in
 }
 
 // AsBoolean execution
-func (p *ChaconService) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
+func (p *service) AsBoolean(body map[string]interface{}, args map[string]interface{}) (bool, error) {
 	result := false
 	return result, nil
 }

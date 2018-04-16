@@ -22,6 +22,9 @@
 package main
 
 import (
+	"path"
+	"runtime"
+
 	"github.com/yroffin/go-boot-sqllite/core/winter"
 	_ "github.com/yroffin/go-jarvis/apis/commands"
 	_ "github.com/yroffin/go-jarvis/apis/configurations"
@@ -43,5 +46,11 @@ import (
 )
 
 func main() {
-	winter.Helper.Boot()
+	// Files
+	_, filename, _, ok := runtime.Caller(0)
+	if !ok {
+		panic("No caller information")
+	}
+	// Boot
+	winter.Helper.Boot(path.Dir(filename) + "/dist")
 }

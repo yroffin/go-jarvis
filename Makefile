@@ -9,6 +9,7 @@ clean:
 	rm -rf ${WHERE}/armhf
 	rm -f ${MODULE_ARMHF}
 	rm -f ${MODULE_ARMEL}
+	sh dist.sh
 
 ${MODULE_ARMEL}:
 	# module

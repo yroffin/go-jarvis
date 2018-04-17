@@ -20,3 +20,9 @@ ${MODULE_ARMHF}:
 	# module
 	CC=arm-linux-gnueabihf-gcc GOOS=linux GOARCH=arm GOARM=7 CGO_ENABLED=1 CGO_CFLAGS="" go install -installsuffix armhf
 	mv -f ${GOPATH}/bin/linux_arm/go-jarvis ${GOPATH}/go-jarvis-0.0.1-SNAPSHOT.armhf
+
+tag:
+	git config --local user.name "Yannick Roffin"
+	git config --local user.email "yroffin@gmail.com"
+	git tag "$(shell date +'%Y%m%d-%H%M%S')"
+	git push --tags

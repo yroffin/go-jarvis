@@ -20,4 +20,6 @@ vendor
 **/vendor
 go-jarvis
 *.lock
+*.log
+
 

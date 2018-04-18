@@ -1,8 +1,0 @@
-[36mINFO[0m[0000] Mqtt listener                                 [36mmessage[0m=ready [36mtopic[0m=/system/chacon
-[36mINFO[0m[0000] Rflink - get port list                        [36mports[0m="[/dev/cu.Bluetooth-Incoming-Port /dev/tty.Bluetooth-Incoming-Port]"
-[36mINFO[0m[0000] Rflink - comport open                         [36mbaud[0m=57600 [36mkey[0m=/dev/ttyS0
-[31mERRO[0m[0000] Rflink - comport open                         [31merr[0m="no such file or directory" [31moptions[0m="&{57600 8 0 0}"
-[36mINFO[0m[0000] Mqtt listener                                 [36mmessage[0m=ready [36mtopic[0m=/system/lua
-[36mINFO[0m[0000] Mqtt listener                                 [36mmessage[0m=ready [36mtopic[0m=/system/shell
-[36mINFO[0m[0000] Mqtt listener                                 [36mmessage[0m=ready [36mtopic[0m=/system/slack
-[36mINFO[0m[0000] Mqtt listener                                 [36mmessage[0m=ready [36mtopic[0m=/system/zway

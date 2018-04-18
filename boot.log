@@ -1,0 +1,923 @@
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=manager
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e098 <nil> ./cayley.db}" [37mname[0m=Store
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=graph-crud-business
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0a0 <nil> [] ./sqllite.db <nil>}" [37mname[0m=Store
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=sql-crud-business
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=cayley-manager
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0a8 0xc420318040 0xc420318050 <nil>}" [37mname[0m=APIManager
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=sqllite-manager
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} <nil>}" [37mname[0m=Router
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=APIManager
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=router
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} 0xc420078ac0}" [37mname[0m=Router
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=CronBean
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} 0xc420078ac0}" [37mname[0m=Router
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=NotificationBean
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc4202bd9d0  <nil> 0xc420078ac0}" [37mname[0m=LinkCron
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc4202bd9d0  <nil> 0xc420078ac0}" [37mname[0m=Cron
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} 0xc420078ac0}" [37mname[0m=Router
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=TriggerBean
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=mqtt-service
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=property-service
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420322010 <nil> <nil> <nil> <nil>}" [37mname[0m=PluginRFLinkService
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0c0 0xc420252a80}" [37mname[0m=MqttService
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=chacon-service
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420322000 <nil>}" [37mname[0m=PropertyService
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0c0 0xc420252a80}" [37mname[0m=MqttService
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=plugin-rflink-service
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420322030 <nil>}" [37mname[0m=PluginLuaService
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0c0 0xc420252a80}" [37mname[0m=MqttService
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=lua-service
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420322000 <nil>}" [37mname[0m=PropertyService
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=plugin-lua-service
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420322000 <nil>}" [37mname[0m=PropertyService
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0c0 0xc420252a80}" [37mname[0m=MqttService
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=plugin-shell-service
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420322038 0xc420320000 0xc42000c8e0}" [37mname[0m=PluginShellService
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=shell-service
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420322000 <nil>}" [37mname[0m=PropertyService
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=plugin-slack-service
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420322048 0xc420320000}" [37mname[0m=PluginSlackService
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0c0 0xc420252a80}" [37mname[0m=MqttService
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=slack-service
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420322000 <nil>}" [37mname[0m=PropertyService
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=plugin-zway-service
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420322058 0xc420320000   {  }}" [37mname[0m=PluginZwayService
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0c0 0xc420252a80}" [37mname[0m=MqttService
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=zway-service
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc4202bda40  <nil> 0xc420078ac0}" [37mname[0m=LinkNotification
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc4202bda40  <nil> 0xc420078ac0}" [37mname[0m=Notification
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420322050 0xc42031a120 0xc42000c8e0}" [37mname[0m=SlackService
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420322040 0xc4203144e0}" [37mname[0m=ShellService
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420322028 0xc42031a0e0 0xc42000c8e0}" [37mname[0m=LuaService
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420322008 0xc420310080 0xc42000c8e0}" [37mname[0m=ChaconService
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420322060 0xc420316460 0xc42000c8e0}" [37mname[0m=ZwayService
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} 0xc420078ac0}" [37mname[0m=Router
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=CommandBean
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} 0xc420078ac0}" [37mname[0m=Router
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=ConfigBean
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} 0xc420078ac0}" [37mname[0m=Router
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=ConfigurationBean
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} 0xc420078ac0}" [37mname[0m=Router
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=PropertyBean
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} 0xc420078ac0}" [37mname[0m=Router
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=ConnectorBean
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420316770  <nil> <nil> <nil> <nil>}" [37mname[0m=LinkMeasure
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420316770  <nil> <nil> <nil> <nil>}" [37mname[0m=Measure
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} 0xc420078ac0}" [37mname[0m=Router
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=DataSourceBean
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420316690  <nil> 0xc420078ac0}" [37mname[0m=LinkConnector
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc420316690  <nil> 0xc420078ac0}" [37mname[0m=Connector
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} 0xc420078ac0}" [37mname[0m=Router
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=MeasureBean
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc4203164d0  <nil> 0xc4200304c0 0xc4200304c0 0xc420314510 0xc42031a100 0xc4203144b0 0xc420314150 0xc420314540 0xc420078ac0}" [37mname[0m=LinkCommand
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} 0xc420078ac0}" [37mname[0m=Router
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=ScriptPluginBean
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc4203168c0  <nil> <nil> <nil> <nil> <nil>}" [37mname[0m=LinkDevice
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc4202bdab0  <nil> 0xc420030480 0xc420030480 0xc420078ac0}" [37mname[0m=LinkTrigger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc4203167e0  <nil> 0xc420344000 0xc420078ac0}" [37mname[0m=LinkPluginScript
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} 0xc420078ac0}" [37mname[0m=Router
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=DeviceBean
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} 0xc420078ac0}" [37mname[0m=Router
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=ModelBean
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc4202bdab0  <nil> 0xc420030480 0xc420030480 0xc420078ac0}" [37mname[0m=LinkTrigger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc4202bdab0  <nil> 0xc420030480 0xc420030480 0xc420078ac0}" [37mname[0m=Trigger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} 0xc420078ac0}" [37mname[0m=Router
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=ProcessBean
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} 0xc420078ac0}" [37mname[0m=Router
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=SecurityBean
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} 0xc420078ac0}" [37mname[0m=Router
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=SnapshotBean
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc4203168c0  <nil> 0xc420316850 0xc4202b4ae0 0xc42033c050 0xc420078ac0}" [37mname[0m=LinkDevice
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc4203168c0  <nil> 0xc420316850 0xc4202b4ae0 0xc42033c050 0xc420078ac0}" [37mname[0m=Device
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b8 0xc42025cea0}" [37mname[0m=Swagger
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e0b0 <nil> {  map[] map[]} 0xc420078ac0}" [37mname[0m=Router
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e090 0xc42021e9b0}" [37mname[0m=SQLCrudBusiness
+[37mDEBU[0m[0000] Set                                           [37mbean[0m="&{0xc42000e088 0xc42000c860}" [37mname[0m=GraphBusiness
+[36mINFO[0m[0000] Boot injection sucessfull                     [36mname[0m=ViewBean
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=0 [36mname[0m=manager
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=0 [36mname[0m=manager
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=1 [36mname[0m=graph-crud-business
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=1 [36mname[0m=graph-crud-business
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=2 [36mname[0m=sql-crud-business
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=2 [36mname[0m=sql-crud-business
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=3 [36mname[0m=cayley-manager
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=3 [36mname[0m=cayley-manager
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=4 [36mname[0m=sqllite-manager
+[36mINFO[0m[0000] Factory is nil                                [36mname[0m=SecurityBean
+[36mINFO[0m[0000] Tables                                        [36mtables[0m="[CronBean NotificationBean TriggerBean CommandBean ConfigBean ConfigurationBean PropertyBean ConnectorBean DataSourceBean MeasureBean ScriptPluginBean DeviceBean ModelBean ProcessusBean SnapshotBean ViewBean]"
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=4 [36mname[0m=sqllite-manager
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=5 [36mname[0m=APIManager
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=5 [36mname[0m=APIManager
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=6 [36mname[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=6 [36mname[0m=router
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=7 [36mname[0m=swagger
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=7 [36mname[0m=swagger
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=8 [36mname[0m=CronBean
+[36mINFO[0m[0000] Api                                           [36mname[0m=Crud
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetAll [36mpath[0m=/api/crons
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPost [36mpath[0m=/api/crons
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetByID [36mpath[0m="/api/crons/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerStaticPutByID [36mpath[0m="/api/crons/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerStaticDeleteByID [36mpath[0m="/api/crons/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PATCH [36mmime[0m=application/json [36mname[0m=HandlerStaticPatchByID [36mpath[0m="/api/crons/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPostByID [36mpath[0m="/api/crons/:id"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/crons
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m=/api/crons [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/crons
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPost [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m=/api/crons [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/crons/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetByID [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/crons/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/crons/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/crons/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/crons/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/crons/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/crons/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPatchByID [36mmethod[0m=PATCH [36mmime[0m=application/json [36mpath[0m="/api/crons/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/crons/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/crons/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=8 [36mname[0m=CronBean
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=9 [36mname[0m=NotificationBean
+[36mINFO[0m[0000] Api                                           [36mname[0m=Crud
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetAll [36mpath[0m=/api/notifications
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPost [36mpath[0m=/api/notifications
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetByID [36mpath[0m="/api/notifications/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerStaticPutByID [36mpath[0m="/api/notifications/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerStaticDeleteByID [36mpath[0m="/api/notifications/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PATCH [36mmime[0m=application/json [36mname[0m=HandlerStaticPatchByID [36mpath[0m="/api/notifications/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPostByID [36mpath[0m="/api/notifications/:id"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/notifications
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m=/api/notifications [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/notifications
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPost [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m=/api/notifications [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/notifications/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetByID [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/notifications/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/notifications/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/notifications/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/notifications/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/notifications/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/notifications/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPatchByID [36mmethod[0m=PATCH [36mmime[0m=application/json [36mpath[0m="/api/notifications/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/notifications/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/notifications/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=9 [36mname[0m=NotificationBean
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=10 [36mname[0m=TriggerBean
+[36mINFO[0m[0000] Api                                           [36mname[0m=Crud
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetAll [36mpath[0m=/api/triggers
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPost [36mpath[0m=/api/triggers
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetByID [36mpath[0m="/api/triggers/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerStaticPutByID [36mpath[0m="/api/triggers/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerStaticDeleteByID [36mpath[0m="/api/triggers/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PATCH [36mmime[0m=application/json [36mname[0m=HandlerStaticPatchByID [36mpath[0m="/api/triggers/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPostByID [36mpath[0m="/api/triggers/:id"
+[36mINFO[0m[0000] Api/href                                      [36mlink[0m=CronBean [36mname[0m=LinkCron
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetAll [36mpath[0m="/api/triggers/:id/crons"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetByID [36mpath[0m="/api/triggers/:id/crons/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPostByID [36mpath[0m="/api/triggers/:id/crons/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPutByID [36mpath[0m="/api/triggers/:id/crons/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticDeleteByID [36mpath[0m="/api/triggers/:id/crons/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/triggers
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m=/api/triggers [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/triggers
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPost [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m=/api/triggers [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/triggers/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetByID [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/triggers/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/triggers/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/triggers/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/triggers/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/triggers/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/triggers/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPatchByID [36mmethod[0m=PATCH [36mmime[0m=application/json [36mpath[0m="/api/triggers/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/triggers/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/triggers/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/triggers/:id/crons"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/triggers/:id/crons" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/triggers/:id/crons/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/triggers/:id/crons/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/triggers/:id/crons/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/triggers/:id/crons/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/triggers/:id/crons/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/triggers/:id/crons/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/triggers/:id/crons/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=10 [36mname[0m=TriggerBean
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=11 [36mname[0m=mqtt-service
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=11 [36mname[0m=mqtt-service
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=12 [36mname[0m=property-service
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=12 [36mname[0m=property-service
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=13 [36mname[0m=chacon-service
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=13 [36mname[0m=chacon-service
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=14 [36mname[0m=plugin-rflink-service
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=14 [36mname[0m=plugin-rflink-service
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=15 [36mname[0m=lua-service
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=15 [36mname[0m=lua-service
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=16 [36mname[0m=plugin-lua-service
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=16 [36mname[0m=plugin-lua-service
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=17 [36mname[0m=plugin-shell-service
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=17 [36mname[0m=plugin-shell-service
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=18 [36mname[0m=shell-service
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=18 [36mname[0m=shell-service
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=19 [36mname[0m=plugin-slack-service
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=19 [36mname[0m=plugin-slack-service
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=20 [36mname[0m=slack-service
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=20 [36mname[0m=slack-service
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=21 [36mname[0m=plugin-zway-service
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=21 [36mname[0m=plugin-zway-service
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=22 [36mname[0m=zway-service
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=22 [36mname[0m=zway-service
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=23 [36mname[0m=CommandBean
+[36mINFO[0m[0000] Api                                           [36mname[0m=Crud
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetAll [36mpath[0m=/api/commands
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPost [36mpath[0m=/api/commands
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetByID [36mpath[0m="/api/commands/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerStaticPutByID [36mpath[0m="/api/commands/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerStaticDeleteByID [36mpath[0m="/api/commands/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PATCH [36mmime[0m=application/json [36mname[0m=HandlerStaticPatchByID [36mpath[0m="/api/commands/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPostByID [36mpath[0m="/api/commands/:id"
+[36mINFO[0m[0000] Api/href                                      [36mlink[0m=NotificationBean [36mname[0m=LinkNotification
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetAll [36mpath[0m="/api/commands/:id/notifications"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetByID [36mpath[0m="/api/commands/:id/notifications/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPostByID [36mpath[0m="/api/commands/:id/notifications/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPutByID [36mpath[0m="/api/commands/:id/notifications/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticDeleteByID [36mpath[0m="/api/commands/:id/notifications/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/commands
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m=/api/commands [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/commands
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPost [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m=/api/commands [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/commands/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetByID [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/commands/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/commands/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/commands/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/commands/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/commands/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/commands/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPatchByID [36mmethod[0m=PATCH [36mmime[0m=application/json [36mpath[0m="/api/commands/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/commands/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/commands/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/commands/:id/notifications"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/commands/:id/notifications" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/commands/:id/notifications/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/commands/:id/notifications/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/commands/:id/notifications/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/commands/:id/notifications/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/commands/:id/notifications/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/commands/:id/notifications/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/commands/:id/notifications/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=23 [36mname[0m=CommandBean
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=24 [36mname[0m=ConfigBean
+[36mINFO[0m[0000] Api                                           [36mname[0m=Crud
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetAll [36mpath[0m=/api/configs
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPost [36mpath[0m=/api/configs
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetByID [36mpath[0m="/api/configs/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerStaticPutByID [36mpath[0m="/api/configs/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerStaticDeleteByID [36mpath[0m="/api/configs/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PATCH [36mmime[0m=application/json [36mname[0m=HandlerStaticPatchByID [36mpath[0m="/api/configs/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPostByID [36mpath[0m="/api/configs/:id"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/configs
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m=/api/configs [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/configs
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPost [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m=/api/configs [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/configs/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetByID [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/configs/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/configs/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/configs/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/configs/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/configs/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/configs/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPatchByID [36mmethod[0m=PATCH [36mmime[0m=application/json [36mpath[0m="/api/configs/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/configs/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/configs/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=24 [36mname[0m=ConfigBean
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=25 [36mname[0m=ConfigurationBean
+[36mINFO[0m[0000] Api                                           [36mname[0m=Crud
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetAll [36mpath[0m=/api/configurations
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPost [36mpath[0m=/api/configurations
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetByID [36mpath[0m="/api/configurations/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerStaticPutByID [36mpath[0m="/api/configurations/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerStaticDeleteByID [36mpath[0m="/api/configurations/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PATCH [36mmime[0m=application/json [36mname[0m=HandlerStaticPatchByID [36mpath[0m="/api/configurations/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPostByID [36mpath[0m="/api/configurations/:id"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/configurations
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m=/api/configurations [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/configurations
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPost [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m=/api/configurations [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/configurations/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetByID [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/configurations/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/configurations/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/configurations/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/configurations/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/configurations/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/configurations/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPatchByID [36mmethod[0m=PATCH [36mmime[0m=application/json [36mpath[0m="/api/configurations/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/configurations/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/configurations/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=25 [36mname[0m=ConfigurationBean
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=26 [36mname[0m=PropertyBean
+[36mINFO[0m[0000] Api                                           [36mname[0m=Crud
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetAll [36mpath[0m=/api/properties
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPost [36mpath[0m=/api/properties
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetByID [36mpath[0m="/api/properties/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerStaticPutByID [36mpath[0m="/api/properties/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerStaticDeleteByID [36mpath[0m="/api/properties/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PATCH [36mmime[0m=application/json [36mname[0m=HandlerStaticPatchByID [36mpath[0m="/api/properties/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPostByID [36mpath[0m="/api/properties/:id"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/properties
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m=/api/properties [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/properties
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPost [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m=/api/properties [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/properties/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetByID [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/properties/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/properties/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/properties/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/properties/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/properties/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/properties/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPatchByID [36mmethod[0m=PATCH [36mmime[0m=application/json [36mpath[0m="/api/properties/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/properties/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/properties/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=26 [36mname[0m=PropertyBean
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=27 [36mname[0m=ConnectorBean
+[36mINFO[0m[0000] Api                                           [36mname[0m=Crud
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetAll [36mpath[0m=/api/connectors
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPost [36mpath[0m=/api/connectors
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetByID [36mpath[0m="/api/connectors/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerStaticPutByID [36mpath[0m="/api/connectors/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerStaticDeleteByID [36mpath[0m="/api/connectors/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PATCH [36mmime[0m=application/json [36mname[0m=HandlerStaticPatchByID [36mpath[0m="/api/connectors/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPostByID [36mpath[0m="/api/connectors/:id"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/connectors
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m=/api/connectors [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/connectors
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPost [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m=/api/connectors [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/connectors/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetByID [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/connectors/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/connectors/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/connectors/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/connectors/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/connectors/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/connectors/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPatchByID [36mmethod[0m=PATCH [36mmime[0m=application/json [36mpath[0m="/api/connectors/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/connectors/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/connectors/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=27 [36mname[0m=ConnectorBean
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=28 [36mname[0m=DataSourceBean
+[36mINFO[0m[0000] Api                                           [36mname[0m=Crud
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetAll [36mpath[0m=/api/datasources
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPost [36mpath[0m=/api/datasources
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetByID [36mpath[0m="/api/datasources/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerStaticPutByID [36mpath[0m="/api/datasources/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerStaticDeleteByID [36mpath[0m="/api/datasources/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PATCH [36mmime[0m=application/json [36mname[0m=HandlerStaticPatchByID [36mpath[0m="/api/datasources/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPostByID [36mpath[0m="/api/datasources/:id"
+[36mINFO[0m[0000] Api/href                                      [36mlink[0m=MeasureBean [36mname[0m=LinkMeasure
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetAll [36mpath[0m="/api/DataSources/:id/measures"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetByID [36mpath[0m="/api/DataSources/:id/measures/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPostByID [36mpath[0m="/api/DataSources/:id/measures/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPutByID [36mpath[0m="/api/DataSources/:id/measures/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticDeleteByID [36mpath[0m="/api/DataSources/:id/measures/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/datasources
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m=/api/datasources [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/datasources
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPost [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m=/api/datasources [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/datasources/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetByID [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/datasources/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/datasources/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/datasources/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/datasources/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/datasources/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/datasources/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPatchByID [36mmethod[0m=PATCH [36mmime[0m=application/json [36mpath[0m="/api/datasources/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/datasources/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/datasources/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/DataSources/:id/measures"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/DataSources/:id/measures" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/DataSources/:id/measures/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/DataSources/:id/measures/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/DataSources/:id/measures/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/DataSources/:id/measures/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/DataSources/:id/measures/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/DataSources/:id/measures/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/DataSources/:id/measures/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=28 [36mname[0m=DataSourceBean
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=29 [36mname[0m=MeasureBean
+[36mINFO[0m[0000] Api                                           [36mname[0m=Crud
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetAll [36mpath[0m=/api/measures
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPost [36mpath[0m=/api/measures
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetByID [36mpath[0m="/api/measures/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerStaticPutByID [36mpath[0m="/api/measures/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerStaticDeleteByID [36mpath[0m="/api/measures/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PATCH [36mmime[0m=application/json [36mname[0m=HandlerStaticPatchByID [36mpath[0m="/api/measures/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPostByID [36mpath[0m="/api/measures/:id"
+[36mINFO[0m[0000] Api/href                                      [36mlink[0m=ConnectorBean [36mname[0m=LinkConnector
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetAll [36mpath[0m="/api/measures/:id/connectors"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetByID [36mpath[0m="/api/measures/:id/connectors/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPostByID [36mpath[0m="/api/measures/:id/connectors/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPutByID [36mpath[0m="/api/measures/:id/connectors/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticDeleteByID [36mpath[0m="/api/measures/:id/connectors/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/measures
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m=/api/measures [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/measures
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPost [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m=/api/measures [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/measures/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetByID [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/measures/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/measures/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/measures/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/measures/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/measures/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/measures/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPatchByID [36mmethod[0m=PATCH [36mmime[0m=application/json [36mpath[0m="/api/measures/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/measures/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/measures/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/measures/:id/connectors"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/measures/:id/connectors" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/measures/:id/connectors/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/measures/:id/connectors/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/measures/:id/connectors/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/measures/:id/connectors/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/measures/:id/connectors/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/measures/:id/connectors/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/measures/:id/connectors/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=29 [36mname[0m=MeasureBean
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=30 [36mname[0m=ScriptPluginBean
+[36mINFO[0m[0000] Api                                           [36mname[0m=Crud
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetAll [36mpath[0m=/api/plugins/scripts
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPost [36mpath[0m=/api/plugins/scripts
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetByID [36mpath[0m="/api/plugins/scripts/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerStaticPutByID [36mpath[0m="/api/plugins/scripts/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerStaticDeleteByID [36mpath[0m="/api/plugins/scripts/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PATCH [36mmime[0m=application/json [36mname[0m=HandlerStaticPatchByID [36mpath[0m="/api/plugins/scripts/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPostByID [36mpath[0m="/api/plugins/scripts/:id"
+[36mINFO[0m[0000] Api/href                                      [36mlink[0m=CommandBean [36mname[0m=LinkCommand
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetAll [36mpath[0m="/api/plugins/scripts/:id/commands"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetByID [36mpath[0m="/api/plugins/scripts/:id/commands/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPostByID [36mpath[0m="/api/plugins/scripts/:id/commands/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPutByID [36mpath[0m="/api/plugins/scripts/:id/commands/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticDeleteByID [36mpath[0m="/api/plugins/scripts/:id/commands/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/plugins/scripts
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m=/api/plugins/scripts [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/plugins/scripts
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPost [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m=/api/plugins/scripts [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/plugins/scripts/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetByID [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/plugins/scripts/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/plugins/scripts/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/plugins/scripts/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/plugins/scripts/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/plugins/scripts/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/plugins/scripts/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPatchByID [36mmethod[0m=PATCH [36mmime[0m=application/json [36mpath[0m="/api/plugins/scripts/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/plugins/scripts/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/plugins/scripts/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/plugins/scripts/:id/commands"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/plugins/scripts/:id/commands" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/plugins/scripts/:id/commands/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/plugins/scripts/:id/commands/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/plugins/scripts/:id/commands/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/plugins/scripts/:id/commands/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/plugins/scripts/:id/commands/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/plugins/scripts/:id/commands/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/plugins/scripts/:id/commands/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=30 [36mname[0m=ScriptPluginBean
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=31 [36mname[0m=DeviceBean
+[36mINFO[0m[0000] Api                                           [36mname[0m=Crud
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetAll [36mpath[0m=/api/devices
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPost [36mpath[0m=/api/devices
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetByID [36mpath[0m="/api/devices/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerStaticPutByID [36mpath[0m="/api/devices/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerStaticDeleteByID [36mpath[0m="/api/devices/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PATCH [36mmime[0m=application/json [36mname[0m=HandlerStaticPatchByID [36mpath[0m="/api/devices/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPostByID [36mpath[0m="/api/devices/:id"
+[36mINFO[0m[0000] Api/href                                      [36mlink[0m=DeviceBean [36mname[0m=LinkDevice
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetAll [36mpath[0m="/api/devices/:id/devices"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetByID [36mpath[0m="/api/devices/:id/devices/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPostByID [36mpath[0m="/api/devices/:id/devices/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPutByID [36mpath[0m="/api/devices/:id/devices/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticDeleteByID [36mpath[0m="/api/devices/:id/devices/:link"
+[36mINFO[0m[0000] Api/href                                      [36mlink[0m=TriggerBean [36mname[0m=LinkTrigger
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetAll [36mpath[0m="/api/devices/:id/triggers"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetByID [36mpath[0m="/api/devices/:id/triggers/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPostByID [36mpath[0m="/api/devices/:id/triggers/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPutByID [36mpath[0m="/api/devices/:id/triggers/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticDeleteByID [36mpath[0m="/api/devices/:id/triggers/:link"
+[36mINFO[0m[0000] Api/href                                      [36mlink[0m=ScriptPluginBean [36mname[0m=LinkPluginScript
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetAll [36mpath[0m="/api/devices/:id/plugins/scripts"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetByID [36mpath[0m="/api/devices/:id/plugins/scripts/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPostByID [36mpath[0m="/api/devices/:id/plugins/scripts/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPutByID [36mpath[0m="/api/devices/:id/plugins/scripts/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticDeleteByID [36mpath[0m="/api/devices/:id/plugins/scripts/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/devices
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m=/api/devices [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/devices
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPost [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m=/api/devices [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetByID [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/devices/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/devices/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/devices/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPatchByID [36mmethod[0m=PATCH [36mmime[0m=application/json [36mpath[0m="/api/devices/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/devices/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id/devices"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/devices/:id/devices" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id/devices/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id/devices/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/devices/:id/devices/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id/devices/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/devices/:id/devices/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id/devices/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/devices/:id/devices/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id/triggers"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/devices/:id/triggers" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id/triggers/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id/triggers/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/devices/:id/triggers/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id/triggers/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/devices/:id/triggers/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id/triggers/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/devices/:id/triggers/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id/plugins/scripts"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/devices/:id/plugins/scripts" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id/plugins/scripts/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id/plugins/scripts/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/devices/:id/plugins/scripts/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id/plugins/scripts/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/devices/:id/plugins/scripts/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/devices/:id/plugins/scripts/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/devices/:id/plugins/scripts/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=31 [36mname[0m=DeviceBean
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=32 [36mname[0m=ModelBean
+[36mINFO[0m[0000] Api                                           [36mname[0m=Crud
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetAll [36mpath[0m=/api/models
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPost [36mpath[0m=/api/models
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetByID [36mpath[0m="/api/models/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerStaticPutByID [36mpath[0m="/api/models/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerStaticDeleteByID [36mpath[0m="/api/models/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PATCH [36mmime[0m=application/json [36mname[0m=HandlerStaticPatchByID [36mpath[0m="/api/models/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPostByID [36mpath[0m="/api/models/:id"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/models
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m=/api/models [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/models
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPost [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m=/api/models [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/models/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetByID [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/models/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/models/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/models/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/models/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/models/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/models/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPatchByID [36mmethod[0m=PATCH [36mmime[0m=application/json [36mpath[0m="/api/models/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/models/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/models/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=32 [36mname[0m=ModelBean
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=33 [36mname[0m=ProcessBean
+[36mINFO[0m[0000] Api                                           [36mname[0m=Crud
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetAll [36mpath[0m=/api/processes
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPost [36mpath[0m=/api/processes
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetByID [36mpath[0m="/api/processes/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerStaticPutByID [36mpath[0m="/api/processes/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerStaticDeleteByID [36mpath[0m="/api/processes/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PATCH [36mmime[0m=application/json [36mname[0m=HandlerStaticPatchByID [36mpath[0m="/api/processes/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPostByID [36mpath[0m="/api/processes/:id"
+[36mINFO[0m[0000] Api/href                                      [36mlink[0m=TriggerBean [36mname[0m=LinkTrigger
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetAll [36mpath[0m="/api/processes/:id/triggers"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetByID [36mpath[0m="/api/processes/:id/triggers/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPostByID [36mpath[0m="/api/processes/:id/triggers/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPutByID [36mpath[0m="/api/processes/:id/triggers/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticDeleteByID [36mpath[0m="/api/processes/:id/triggers/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/processes
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m=/api/processes [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/processes
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPost [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m=/api/processes [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/processes/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetByID [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/processes/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/processes/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/processes/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/processes/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/processes/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/processes/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPatchByID [36mmethod[0m=PATCH [36mmime[0m=application/json [36mpath[0m="/api/processes/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/processes/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/processes/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/processes/:id/triggers"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/processes/:id/triggers" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/processes/:id/triggers/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/processes/:id/triggers/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/processes/:id/triggers/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/processes/:id/triggers/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/processes/:id/triggers/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/processes/:id/triggers/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/processes/:id/triggers/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=33 [36mname[0m=ProcessBean
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=34 [36mname[0m=SecurityBean
+[36mINFO[0m[0000] Handler                                       [36mname[0m=SecConnect
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=/application/json [36mname[0m=Connect [36mpath[0m=/api/connect
+[36mINFO[0m[0000] Handler                                       [36mname[0m=SecProfile
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=/application/json [36mname[0m=Profile [36mpath[0m=/api/profile/me
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/connect
+[36mINFO[0m[0000] Declare function                              [36mhandler[0m=Connect [36mmethod[0m=GET [36mmime[0m=/application/json [36mpath[0m=/api/connect [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/profile/me
+[36mINFO[0m[0000] Declare function                              [36mhandler[0m=Profile [36mmethod[0m=GET [36mmime[0m=/application/json [36mpath[0m=/api/profile/me [36mrouter[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=34 [36mname[0m=SecurityBean
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=35 [36mname[0m=SnapshotBean
+[36mINFO[0m[0000] Api                                           [36mname[0m=Crud
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetAll [36mpath[0m=/api/snapshots
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPost [36mpath[0m=/api/snapshots
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetByID [36mpath[0m="/api/snapshots/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerStaticPutByID [36mpath[0m="/api/snapshots/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerStaticDeleteByID [36mpath[0m="/api/snapshots/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PATCH [36mmime[0m=application/json [36mname[0m=HandlerStaticPatchByID [36mpath[0m="/api/snapshots/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPostByID [36mpath[0m="/api/snapshots/:id"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/snapshots
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m=/api/snapshots [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/snapshots
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPost [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m=/api/snapshots [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/snapshots/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetByID [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/snapshots/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/snapshots/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/snapshots/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/snapshots/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/snapshots/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/snapshots/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPatchByID [36mmethod[0m=PATCH [36mmime[0m=application/json [36mpath[0m="/api/snapshots/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/snapshots/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/snapshots/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=35 [36mname[0m=SnapshotBean
+[36mINFO[0m[0000] Boot post-construct execute                   [36mcount[0m=37 [36mindex[0m=36 [36mname[0m=ViewBean
+[36mINFO[0m[0000] Api                                           [36mname[0m=Crud
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetAll [36mpath[0m=/api/views
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPost [36mpath[0m=/api/views
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerStaticGetByID [36mpath[0m="/api/views/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerStaticPutByID [36mpath[0m="/api/views/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerStaticDeleteByID [36mpath[0m="/api/views/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PATCH [36mmime[0m=application/json [36mname[0m=HandlerStaticPatchByID [36mpath[0m="/api/views/:id"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerStaticPostByID [36mpath[0m="/api/views/:id"
+[36mINFO[0m[0000] Api/href                                      [36mlink[0m=DeviceBean [36mname[0m=LinkDevice
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetAll [36mpath[0m="/api/views/:id/devices"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=GET [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticGetByID [36mpath[0m="/api/views/:id/devices/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=POST [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPostByID [36mpath[0m="/api/views/:id/devices/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=PUT [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticPutByID [36mpath[0m="/api/views/:id/devices/:link"
+[36mINFO[0m[0000] Successfully mounted method                   [36mmethod[0m=DELETE [36mmime[0m=application/json [36mname[0m=HandlerLinkStaticDeleteByID [36mpath[0m="/api/views/:id/devices/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/views
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m=/api/views [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m=/api/views
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPost [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m=/api/views [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/views/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticGetByID [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/views/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/views/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/views/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/views/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/views/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/views/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPatchByID [36mmethod[0m=PATCH [36mmime[0m=application/json [36mpath[0m="/api/views/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/views/:id"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/views/:id" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/views/:id/devices"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticGetAll [36mmethod[0m=GET [36mmime[0m=application/json [36mpath[0m="/api/views/:id/devices" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/views/:id/devices/:link"
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/views/:id/devices/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPostByID [36mmethod[0m=POST [36mmime[0m=application/json [36mpath[0m="/api/views/:id/devices/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/views/:id/devices/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticPutByID [36mmethod[0m=PUT [36mmime[0m=application/json [36mpath[0m="/api/views/:id/devices/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Build static link                             [36margument(s)[0m="[]" [36mpath[0m="/api/views/:id/devices/:link"
+[36mINFO[0m[0000] Declare handler                               [36mhandler[0m=HandlerLinkStaticDeleteByID [36mmethod[0m=DELETE [36mmime[0m=application/json [36mpath[0m="/api/views/:id/devices/:link" [36mrouter[0m=router
+[36mINFO[0m[0000] Boot post-construct execute sucessfull        [36mcount[0m=37 [36mindex[0m=36 [36mname[0m=ViewBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=0 [36mname[0m=manager
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=0 [36mname[0m=manager
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=1 [36mname[0m=graph-crud-business
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=1 [36mname[0m=graph-crud-business
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=2 [36mname[0m=sql-crud-business
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=2 [36mname[0m=sql-crud-business
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=3 [36mname[0m=cayley-manager
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=3 [36mname[0m=cayley-manager
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=4 [36mname[0m=sqllite-manager
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=4 [36mname[0m=sqllite-manager
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=5 [36mname[0m=APIManager
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=5 [36mname[0m=APIManager
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=6 [36mname[0m=router
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/jarvis-ui/3rdpartylicenses.txt [36mresource[0m=jarvis-ui/3rdpartylicenses.txt
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/jarvis-ui/addNodeIcon.a1a2d01bcd034270a3bc.png [36mresource[0m=jarvis-ui/addNodeIcon.a1a2d01bcd034270a3bc.png
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/jarvis-ui/assets/checkerboard.jpg [36mresource[0m=jarvis-ui/assets/checkerboard.jpg
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=application/json [36mpath[0m="/public/jarvis-ui/assets/fonts/Open Sans_Regular.json" [36mresource[0m="jarvis-ui/assets/fonts/Open Sans_Regular.json"
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=application/json [36mpath[0m=/public/jarvis-ui/assets/model.json [36mresource[0m=jarvis-ui/assets/model.json
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/jarvis-ui/backIcon.dd0baa69a69937600dc3.png [36mresource[0m=jarvis-ui/backIcon.dd0baa69a69937600dc3.png
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/jarvis-ui/color.c7a33805ffda0d32bd2a.png [36mresource[0m=jarvis-ui/color.c7a33805ffda0d32bd2a.png
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/jarvis-ui/connectIcon.d5267b8db2498e44bd56.png [36mresource[0m=jarvis-ui/connectIcon.d5267b8db2498e44bd56.png
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/jarvis-ui/cross.260c9c6535065674bb5e.png [36mresource[0m=jarvis-ui/cross.260c9c6535065674bb5e.png
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/jarvis-ui/deleteIcon.02d321edc6e03aea1675.png [36mresource[0m=jarvis-ui/deleteIcon.02d321edc6e03aea1675.png
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/jarvis-ui/editIcon.d5422321c4f6feed4081.png [36mresource[0m=jarvis-ui/editIcon.d5422321c4f6feed4081.png
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/jarvis-ui/favicon.ico [36mresource[0m=jarvis-ui/favicon.ico
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/jarvis-ui/fontawesome-webfont.674f50d287a8c48dc19b.eot [36mresource[0m=jarvis-ui/fontawesome-webfont.674f50d287a8c48dc19b.eot
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/jarvis-ui/fontawesome-webfont.912ec66d7572ff821749.svg [36mresource[0m=jarvis-ui/fontawesome-webfont.912ec66d7572ff821749.svg
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/jarvis-ui/fontawesome-webfont.af7ae505a9eed503f8b8.woff2 [36mresource[0m=jarvis-ui/fontawesome-webfont.af7ae505a9eed503f8b8.woff2
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/jarvis-ui/fontawesome-webfont.b06871f281fee6b241d6.ttf [36mresource[0m=jarvis-ui/fontawesome-webfont.b06871f281fee6b241d6.ttf
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/jarvis-ui/fontawesome-webfont.fee66e712a8a08eef580.woff [36mresource[0m=jarvis-ui/fontawesome-webfont.fee66e712a8a08eef580.woff
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/jarvis-ui/index.html [36mresource[0m=jarvis-ui/index.html
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=application/javascript [36mpath[0m=/public/jarvis-ui/inline.65b96eb6f03b554e92b4.bundle.js [36mresource[0m=jarvis-ui/inline.65b96eb6f03b554e92b4.bundle.js
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/jarvis-ui/line.567f57385ea3dde2c9ae.gif [36mresource[0m=jarvis-ui/line.567f57385ea3dde2c9ae.gif
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=application/javascript [36mpath[0m=/public/jarvis-ui/main.77a03805438aa8bc3bef.bundle.js [36mresource[0m=jarvis-ui/main.77a03805438aa8bc3bef.bundle.js
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=application/javascript [36mpath[0m=/public/jarvis-ui/polyfills.028e18364c42cba274c2.bundle.js [36mresource[0m=jarvis-ui/polyfills.028e18364c42cba274c2.bundle.js
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=application/javascript [36mpath[0m=/public/jarvis-ui/scripts.f97b91091d269c72580f.bundle.js [36mresource[0m=jarvis-ui/scripts.f97b91091d269c72580f.bundle.js
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/css [36mpath[0m=/public/jarvis-ui/styles.9a32e32787cb1ade907c.bundle.css [36mresource[0m=jarvis-ui/styles.9a32e32787cb1ade907c.bundle.css
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=application/javascript [36mpath[0m=/public/jarvis-ui/vendor.1d3ed62cbd0ce697a967.bundle.js [36mresource[0m=jarvis-ui/vendor.1d3ed62cbd0ce697a967.bundle.js
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/swagger-ui/favicon-16x16.png [36mresource[0m=swagger-ui/favicon-16x16.png
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/swagger-ui/favicon-32x32.png [36mresource[0m=swagger-ui/favicon-32x32.png
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/swagger-ui/index.html [36mresource[0m=swagger-ui/index.html
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/swagger-ui/oauth2-redirect.html [36mresource[0m=swagger-ui/oauth2-redirect.html
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=application/javascript [36mpath[0m=/public/swagger-ui/swagger-ui-bundle.js [36mresource[0m=swagger-ui/swagger-ui-bundle.js
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/swagger-ui/swagger-ui-bundle.js.map [36mresource[0m=swagger-ui/swagger-ui-bundle.js.map
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=application/javascript [36mpath[0m=/public/swagger-ui/swagger-ui-standalone-preset.js [36mresource[0m=swagger-ui/swagger-ui-standalone-preset.js
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/swagger-ui/swagger-ui-standalone-preset.js.map [36mresource[0m=swagger-ui/swagger-ui-standalone-preset.js.map
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/css [36mpath[0m=/public/swagger-ui/swagger-ui.css [36mresource[0m=swagger-ui/swagger-ui.css
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/swagger-ui/swagger-ui.css.map [36mresource[0m=swagger-ui/swagger-ui.css.map
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=application/javascript [36mpath[0m=/public/swagger-ui/swagger-ui.js [36mresource[0m=swagger-ui/swagger-ui.js
+[36mINFO[0m[0000] Resources                                     [36mcontent[0m=text/html [36mpath[0m=/public/swagger-ui/swagger-ui.js.map [36mresource[0m=swagger-ui/swagger-ui.js.map
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=6 [36mname[0m=router
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=7 [36mname[0m=swagger
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=7 [36mname[0m=swagger
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=8 [36mname[0m=CronBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=8 [36mname[0m=CronBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=9 [36mname[0m=NotificationBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=9 [36mname[0m=NotificationBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=10 [36mname[0m=TriggerBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=10 [36mname[0m=TriggerBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=11 [36mname[0m=mqtt-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=11 [36mname[0m=mqtt-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=12 [36mname[0m=property-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=12 [36mname[0m=property-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=13 [36mname[0m=chacon-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=13 [36mname[0m=chacon-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=14 [36mname[0m=plugin-rflink-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=14 [36mname[0m=plugin-rflink-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=15 [36mname[0m=lua-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=15 [36mname[0m=lua-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=16 [36mname[0m=plugin-lua-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=16 [36mname[0m=plugin-lua-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=17 [36mname[0m=plugin-shell-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=17 [36mname[0m=plugin-shell-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=18 [36mname[0m=shell-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=18 [36mname[0m=shell-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=19 [36mname[0m=plugin-slack-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=19 [36mname[0m=plugin-slack-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=20 [36mname[0m=slack-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=20 [36mname[0m=slack-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=21 [36mname[0m=plugin-zway-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=21 [36mname[0m=plugin-zway-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=22 [36mname[0m=zway-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=22 [36mname[0m=zway-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=23 [36mname[0m=CommandBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=23 [36mname[0m=CommandBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=24 [36mname[0m=ConfigBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=24 [36mname[0m=ConfigBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=25 [36mname[0m=ConfigurationBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=25 [36mname[0m=ConfigurationBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=26 [36mname[0m=PropertyBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=26 [36mname[0m=PropertyBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=27 [36mname[0m=ConnectorBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=27 [36mname[0m=ConnectorBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=28 [36mname[0m=DataSourceBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=28 [36mname[0m=DataSourceBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=29 [36mname[0m=MeasureBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=29 [36mname[0m=MeasureBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=30 [36mname[0m=ScriptPluginBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=30 [36mname[0m=ScriptPluginBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=31 [36mname[0m=DeviceBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=31 [36mname[0m=DeviceBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=32 [36mname[0m=ModelBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=32 [36mname[0m=ModelBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=33 [36mname[0m=ProcessBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=33 [36mname[0m=ProcessBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=34 [36mname[0m=SecurityBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=34 [36mname[0m=SecurityBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=35 [36mname[0m=SnapshotBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=35 [36mname[0m=SnapshotBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=36 [36mname[0m=ViewBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=36 [36mname[0m=ViewBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=0 [36mname[0m=manager
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=0 [36mname[0m=manager
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=1 [36mname[0m=graph-crud-business
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=1 [36mname[0m=graph-crud-business
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=2 [36mname[0m=sql-crud-business
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=2 [36mname[0m=sql-crud-business
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=3 [36mname[0m=cayley-manager
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=3 [36mname[0m=cayley-manager
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=4 [36mname[0m=sqllite-manager
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=4 [36mname[0m=sqllite-manager
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=5 [36mname[0m=APIManager
+[36mINFO[0m[0000] Boot listener http                            [36mport[0m=8080
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=5 [36mname[0m=APIManager
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=6 [36mname[0m=router
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=6 [36mname[0m=router
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=7 [36mname[0m=swagger
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=7 [36mname[0m=swagger
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=8 [36mname[0m=CronBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=8 [36mname[0m=CronBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=9 [36mname[0m=NotificationBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=9 [36mname[0m=NotificationBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=10 [36mname[0m=TriggerBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=10 [36mname[0m=TriggerBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=11 [36mname[0m=mqtt-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=11 [36mname[0m=mqtt-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=12 [36mname[0m=property-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=12 [36mname[0m=property-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=13 [36mname[0m=chacon-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=13 [36mname[0m=chacon-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=14 [36mname[0m=plugin-rflink-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=14 [36mname[0m=plugin-rflink-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=15 [36mname[0m=lua-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=15 [36mname[0m=lua-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=16 [36mname[0m=plugin-lua-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=16 [36mname[0m=plugin-lua-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=17 [36mname[0m=plugin-shell-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=17 [36mname[0m=plugin-shell-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=18 [36mname[0m=shell-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=18 [36mname[0m=shell-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=19 [36mname[0m=plugin-slack-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=19 [36mname[0m=plugin-slack-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=20 [36mname[0m=slack-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=20 [36mname[0m=slack-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=21 [36mname[0m=plugin-zway-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=21 [36mname[0m=plugin-zway-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=22 [36mname[0m=zway-service
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=22 [36mname[0m=zway-service
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=23 [36mname[0m=CommandBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=23 [36mname[0m=CommandBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=24 [36mname[0m=ConfigBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=24 [36mname[0m=ConfigBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=25 [36mname[0m=ConfigurationBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=25 [36mname[0m=ConfigurationBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=26 [36mname[0m=PropertyBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=26 [36mname[0m=PropertyBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=27 [36mname[0m=ConnectorBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=27 [36mname[0m=ConnectorBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=28 [36mname[0m=DataSourceBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=28 [36mname[0m=DataSourceBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=29 [36mname[0m=MeasureBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=29 [36mname[0m=MeasureBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=30 [36mname[0m=ScriptPluginBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=30 [36mname[0m=ScriptPluginBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=31 [36mname[0m=DeviceBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=31 [36mname[0m=DeviceBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=32 [36mname[0m=ModelBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=32 [36mname[0m=ModelBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=33 [36mname[0m=ProcessBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=33 [36mname[0m=ProcessBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=34 [36mname[0m=SecurityBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=34 [36mname[0m=SecurityBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=35 [36mname[0m=SnapshotBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=35 [36mname[0m=SnapshotBean
+[36mINFO[0m[0000] Boot validate execute                         [36mcount[0m=37 [36mindex[0m=36 [36mname[0m=ViewBean
+[36mINFO[0m[0000] Boot validate execute sucessfull              [36mcount[0m=37 [36mindex[0m=36 [36mname[0m=ViewBean

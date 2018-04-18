@@ -22,9 +22,7 @@
 package main
 
 import (
-	"path"
-	"runtime"
-
+	"github.com/gobuffalo/packr"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
 	_ "github.com/yroffin/go-jarvis/apis/commands"
 	_ "github.com/yroffin/go-jarvis/apis/configurations"
@@ -45,12 +43,12 @@ import (
 	_ "github.com/yroffin/go-jarvis/services/zway"
 )
 
+func packInstance() winter.PackManager {
+	box := packr.NewBox("./dist")
+	return box
+}
+
 func main() {
-	// Files
-	_, filename, _, ok := runtime.Caller(0)
-	if !ok {
-		panic("No caller information")
-	}
 	// Boot
-	winter.Helper.Boot(path.Dir(filename) + "/dist")
+	winter.Helper.Boot(packInstance())
 }

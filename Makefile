@@ -10,6 +10,8 @@ clean:
 	rm -f ${MODULE_ARMHF}
 	rm -f ${MODULE_ARMEL}
 	sh dist.sh
+	go get -u github.com/gobuffalo/packr/...
+	packr
 
 ${MODULE_ARMEL}:
 	# module

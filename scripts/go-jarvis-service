@@ -23,7 +23,7 @@ GROUP=go-jarvis
 JARVIS=/home/go-jarvis/go-jarvis
 JARVIS_ARGS="
  -Djarvis.zway.user=admin -Djarvis.zway.password=`grep jarvis.zway.password /etc/jarvis/jarvis.conf | cut -f2 -d=`
- -Djarvis.slack.api=`grep jarvis.slack.api /etc/jarvis/jarvis.conf | cut -f2 -d=` -Djarvis.mongodb.host=`grep jarvis.mongodb.host /etc/jarvis/jarvis.conf | cut -f2 -d=`
+ -Djarvis.slack.api=`grep jarvis.slack.api /etc/jarvis/jarvis.conf | cut -f2 -d=`
 "
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME

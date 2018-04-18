@@ -31,7 +31,7 @@ Any plateform can run Jarvis
 
 Configuration is stored in /etc/jarvis/jarvis.conf (it will be used with go-jarvis-service)
 
-    pi@raspberrypi:~ $ sudo useradd -m -b /home/go-jarvis go-jarvis
+    pi@raspberrypi:~ $ sudo useradd -m -go-jarvis
     pi@raspberrypi:~ $ export GITHUB=$(curl -s https://github.com/yroffin/go-jarvis/releases/latest -s | cut -f2 -d\" | sed s:/tag/:/download/:)
     pi@raspberrypi:~ $ sudo wget ${GITHUB}/go-jarvis-0.0.1-SNAPSHOT.armel -O /home/go-jarvis/go-jarvis
     pi@raspberrypi:~ $ sudo chmod 755 /home/go-jarvis/go-jarvis

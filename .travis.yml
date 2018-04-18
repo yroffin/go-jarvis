@@ -39,7 +39,7 @@ deploy:
   file:
   - "${GOPATH}/go-jarvis-0.0.1-SNAPSHOT.armel"
   - "${GOPATH}/go-jarvis-0.0.1-SNAPSHOT.armhf"
-  - "${TRAVIS_BUILD_DIR}/script/go-jarvis-service"
+  - "${TRAVIS_BUILD_DIR}/scripts/go-jarvis-service"
   skip_cleanup: true
   on:
     tags: true

@@ -1,10 +1,12 @@
 sudo: required
 dist: trusty
-language: go
+language: go, node_js
 env:
   - GIMME_OS=linux GIMME_ARCH=amd64 PATH=$TRAVIS_BUILD_DIR/linux_amd64:$PATH
 go:
   - 1.10
+node_js:
+  - 8
 before_install:
   # Install the arm32 cross-compiler
   - sudo apt-add-repository 'deb http://archive.ubuntu.com/ubuntu artful main'
@@ -25,13 +27,15 @@ install:
   - source /home/travis/.gimme/envs/go1.10.env
   - which go
   - go version
+  # Build
+  - cd $TRAVIS_BUILD_DIR/frontend
+  - make all
   # Module dependency
   - go get -u github.com/golang/dep/cmd/dep
   - dep ensure
   # Build
-  - cd $TRAVIS_BUILD_DIR
+  - cd $TRAVIS_BUILD_DIR/backend
   - make all
-  - find ${TRAVIS_BUILD_DIR}
 deploy:
   provider: releases
   overwrite: true

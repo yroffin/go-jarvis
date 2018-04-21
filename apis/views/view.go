@@ -54,6 +54,8 @@ type IViewBean interface {
 	core_models.IPersistent
 	// inherit ValueBean behaviour
 	core_models.IValueBean
+	// get devices
+	GetDevices() []core_models.IPersistent
 }
 
 // New constructor
@@ -78,6 +80,11 @@ func (p *ViewBean) Extend(e map[string]interface{}) {
 // GetExtend vars
 func (p *ViewBean) GetExtend() map[string]interface{} {
 	return p.Extended
+}
+
+// GetDevices get devices
+func (p *ViewBean) GetDevices() []core_models.IPersistent {
+	return p.Devices
 }
 
 // GetID retrieve ID

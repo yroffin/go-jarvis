@@ -92,8 +92,9 @@ func (p *View) Validate(name string) error {
 
 // GetAllViews read all views and all data
 func (p *View) GetAllViews(body string) (interface{}, int, error) {
-	return p.LoadAllLinks("devices",
+	links, count, err := p.LoadAllLinks("devices",
 		func() models.IPersistent {
 			return (&devices.DeviceBean{}).New()
 		}, winter.Helper.GetBean("DeviceBean").(engine.IAPI))
+	return links, count, err
 }

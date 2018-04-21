@@ -151,8 +151,20 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 
 	// retrieve command and serialize it
 	model, _ := p.GetByID(id)
+	log.WithFields(log.Fields{
+		"id": id,
+	}).Info("Model")
+	data := map[string]interface{}{}
+	parsed := json.Unmarshal([]byte(model.(ISnapshotBean).GetJSON().(string)), &data)
+	if parsed != nil {
+		log.WithFields(log.Fields{
+			"id":    id,
+			"error": parsed,
+		}).Error("Model")
+		return nil, -1, parsed
+	}
 	// iterate for entities
-	for entityBeanType, entityBeanValue := range model.(ISnapshotBean).GetJSON().(map[string]interface{}) {
+	for entityBeanType, entityBeanValue := range data {
 		switch entityBeanType {
 		case "HREF":
 			break
@@ -187,7 +199,7 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 	}
 	hrefInErrors := make([]SnapshotHref, 0)
 	// iterate for links
-	for linkedBeanType, linkedBeanValue := range model.((ISnapshotBean)).GetJSON().(map[string]interface{}) {
+	for linkedBeanType, linkedBeanValue := range data {
 		switch linkedBeanType {
 		case "HREF", "HREF_IF", "HREF_THEN", "HREF_ELSE":
 			for _, entityBean := range linkedBeanValue.(map[string]interface{}) {

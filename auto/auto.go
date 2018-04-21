@@ -24,6 +24,7 @@ package auto
 
 import (
 	"flag"
+	"io"
 	"os"
 
 	log "github.com/sirupsen/logrus"
@@ -45,7 +46,9 @@ func init() {
 	// Output to file
 	file, err := os.OpenFile("jarvis.log", os.O_CREATE|os.O_WRONLY, 0666)
 	if err == nil {
-		log.SetOutput(file)
+		var writers io.Writer
+		writers = io.MultiWriter(os.Stderr, file)
+		log.SetOutput(writers)
 	} else {
 		log.Info("Failed to log to file, using default stderr")
 	}

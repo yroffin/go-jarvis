@@ -28,14 +28,14 @@ install:
   - which go
   - go version
   # Build
-  - cd $TRAVIS_BUILD_DIR/frontend
+  - cd $TRAVIS_BUILD_DIR/ui
   - make all
   # Module dependency
-  - cd $TRAVIS_BUILD_DIR/backend
+  - cd $TRAVIS_BUILD_DIR/core
   - go get -u github.com/golang/dep/cmd/dep
   - dep ensure
   # Build
-  - cd $TRAVIS_BUILD_DIR/backend
+  - cd $TRAVIS_BUILD_DIR/core
   - make all
 deploy:
   provider: releases

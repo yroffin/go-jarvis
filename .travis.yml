@@ -31,6 +31,7 @@ install:
   - cd $TRAVIS_BUILD_DIR/frontend
   - make all
   # Module dependency
+  - cd $TRAVIS_BUILD_DIR/backend
   - go get -u github.com/golang/dep/cmd/dep
   - dep ensure
   # Build

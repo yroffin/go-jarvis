@@ -19,6 +19,6 @@ gin-bin
 vendor
 **/vendor
 go-jarvis
-*.lock
+
 *.log
 *-packr.go

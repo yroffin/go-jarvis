@@ -58,8 +58,6 @@ type DeviceBean struct {
 	ColSpan string `json:"colSpan"`
 	// Template
 	Template string `json:"template"`
-	// Render
-	Render map[string]interface{} `json:"render"`
 }
 
 // IDeviceBean interface

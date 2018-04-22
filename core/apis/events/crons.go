@@ -23,9 +23,12 @@
 package events
 
 import (
+	"encoding/json"
+
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
+	"github.com/yroffin/go-jarvis/core/services/cron"
 )
 
 func init() {
@@ -42,6 +45,8 @@ type Cron struct {
 	Crud interface{} `@crud:"/api/crons"`
 	// Swagger with injection mecanism
 	Swagger engine.ISwaggerService `@autowired:"swagger"`
+	// Cron with injection mecanism
+	Cron cron.ICronService `@autowired:"cron-service"`
 }
 
 // ICron implements IBean
@@ -64,6 +69,19 @@ func (p *Cron) Init() error {
 	p.Factories = func() models.IPersistents {
 		return (&CronBeans{}).New()
 	}
+	p.HandlerTasksByID = func(id string, name string, body string) (interface{}, int, error) {
+		var parameters = make(map[string]interface{})
+		json.Unmarshal([]byte(body), &parameters)
+		if name == "toggle" {
+			// task
+			return p.Toggle(id, parameters)
+		}
+		if name == "test" {
+			// task
+			return p.Test(id, parameters)
+		}
+		return parameters, -1, nil
+	}
 	return p.API.Init()
 }
 
@@ -77,4 +95,26 @@ func (p *Cron) PostConstruct(name string) error {
 // Validate this API
 func (p *Cron) Validate(name string) error {
 	return nil
+}
+
+// Toggle this cron
+func (p *Cron) Toggle(id string, parameters map[string]interface{}) (interface{}, int, error) {
+	// Search in current cron
+	exist := p.Cron.Exist(id)
+	// Retrieve parameters
+	//crontab, _ := p.GetByID(id)
+	return exist, -1, nil
+}
+
+// Test this cron
+func (p *Cron) Test(id string, parameters map[string]interface{}) (interface{}, int, error) {
+	// Search in current cron
+	exist := p.Cron.Exist(id)
+	if exist {
+		// Retrieve parameters
+		crontab, _ := p.GetByID(id)
+		return crontab, -1, nil
+	} else {
+		return exist, -1, nil
+	}
 }

@@ -31,11 +31,8 @@ install:
   - cd $TRAVIS_BUILD_DIR/ui
   - make all
   # Module dependency
-  - cd $TRAVIS_BUILD_DIR
-  - find * -name 'persistent.go'
   - cd $TRAVIS_BUILD_DIR/core
   - go get -u github.com/golang/dep/cmd/dep
-  - rm -rf vendor
   - dep ensure
   # Build
   - cd $TRAVIS_BUILD_DIR/core

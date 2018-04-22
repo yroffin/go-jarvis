@@ -124,20 +124,14 @@
 [[projects]]
   name = "github.com/ugorji/go"
   packages = ["codec"]
-  revision = "9831f2c3ac1068a78f50999a30db84270f647af6"
-  version = "v1.1"
+  revision = "b4c50a2b199d93b13dc15e78929cfb23bfdf21ab"
+  version = "v1.1.1"
 
 [[projects]]
   branch = "master"
   name = "github.com/yroffin/go-boot-sqllite"
   packages = ["core/engine","core/models","core/winter"]
-  revision = "e07dfaf9e0e4e0915839ca1b96da3f3fc880eb3c"
-
-[[projects]]
-  name = "github.com/yroffin/go-jarvis"
-  packages = ["apis","apis/commands","apis/configurations","apis/connectors","apis/datasources","apis/devices","apis/events","apis/process","apis/scripts","apis/system","apis/views","auto","helpers","services","services/chacon","services/lua","services/mqtt","services/shell","services/slack","services/zway"]
-  revision = "4bf34720668748dde69cd05a67dbfbc6e7f3783a"
-  version = "20180421-152718"
+  revision = "73010492a1e1415ffe1473e009fb3274de270a4d"
 
 [[projects]]
   branch = "master"
@@ -149,7 +143,7 @@
   branch = "master"
   name = "github.com/yuin/gopher-lua"
   packages = [".","ast","parse","pm"]
-  revision = "84ea3a3c79b3c4b3b39606cc96f255cd63635ce0"
+  revision = "b0fa786cf4ea360285924c4a7fd42325be57aec8"
 
 [[projects]]
   branch = "master"
@@ -161,19 +155,19 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "f70185d77e8278766928032ee1355e3da47e7181"
+  revision = "e73bf333ef8920dbb52ad18d4bd38ad9d9bc76d7"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/net"
   packages = ["internal/socks","proxy","websocket"]
-  revision = "a35a21de978d84ffc92f010a153705b170b2f9d1"
+  revision = "5f9ae10d9af5b1c89ae6904293b14b064d4ada23"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix","windows"]
-  revision = "3b87a42e500a6dc65dae1a55d0b641295971163e"
+  revision = "79b0c6888797020a994db17c8510466c72fe75d9"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -202,6 +196,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "8da32e4f88baf96b418a0f9124c826ad4293986f6afb3177ca1abbdc4b690f9b"
+  inputs-digest = "41d2abd106aa533248d7ba3dc64c4eb8be7019dc1dab6a00b6aa2e258d508848"
   solver-name = "gps-cdcl"
   solver-version = 1

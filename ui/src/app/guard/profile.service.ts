@@ -77,7 +77,7 @@ export class ProfileGuard implements CanActivate {
      */
     this.jarvisSecurityService.Version().subscribe(
       (data: VersionBean) => {
-        console.log(data)
+        this.logger.info("Version", data)
       }
     )
     /**

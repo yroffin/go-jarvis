@@ -31,6 +31,7 @@ import { ViewBean } from '../../model/view-bean';
 import { Oauth2Bean, MeBean } from '../../model/security/oauth2-bean';
 import { Store } from '@ngrx/store/src/store';
 import { ViewStoreService, LoadViewsAction, UpdateDeviceAction } from '../../store/view.store';
+import { LoggerService } from '../../service/logger.service';
 
 @Component({
   selector: 'app-jarvis-desktop',
@@ -44,6 +45,7 @@ export class JarvisDesktopComponent implements OnInit {
 
   constructor(
     private snackBar: MatSnackBar,
+    private logger: LoggerService,
     private jarvisDataDeviceService: JarvisDataDeviceService,
     private jarvisDataViewService: JarvisDataViewService,
     private viewStoreService: ViewStoreService
@@ -52,12 +54,13 @@ export class JarvisDesktopComponent implements OnInit {
 
     this.viewStream.subscribe(
       (element: ViewBean[]) => {
+        logger.info("Update views", element)
         this.myViews = element;
         // Analyze all devices and ask for render it if a render device
         _.each(this.myViews, (view) => {
           _.each(view.devices, (device) => {
             if (device.template != "" && device.render == null) {
-              console.error("=device",device)
+              logger.info("Update device", device)
               jarvisDataDeviceService.Task(device.id, 'render', {})
               .subscribe(
                 (render: any) => {

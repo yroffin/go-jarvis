@@ -1,8 +1,11 @@
 WHERE=$(PWD)
 MODULE_ARMEL=${WHERE}/go-jarvis-0.0.1-SNAPSHOT.armel
 MODULE_ARMHF=${WHERE}/go-jarvis-0.0.1-SNAPSHOT.armhf
+MODULE_LOCAL=${WHERE}/go-jarvis-0.0.1-SNAPSHOT.bin
 
 all: clean ${MODULE_ARMEL} ${MODULE_ARMHF}
+
+local: clean ${MODULE_LOCAL}
 
 clean:
 	rm -rf ${WHERE}/armel
@@ -13,15 +16,21 @@ clean:
 	go get -u github.com/gobuffalo/packr/...
 	packr
 
+${MODULE_LOCAL}:
+	# module
+	go install -installsuffix bin
+	ls -lrt ${GOPATH}/bin
+	mv -f ${GOPATH}/bin/core ${GOPATH}/go-jarvis-0.0.1-SNAPSHOT.bin
+
 ${MODULE_ARMEL}:
 	# module
 	CC=arm-linux-gnueabi-gcc GOOS=linux GOARCH=arm GOARM=6 CGO_ENABLED=1 CGO_CFLAGS="-march=armv6j -mfloat-abi=soft" go install -installsuffix armel
-	mv -f ${GOPATH}/bin/linux_arm/go-jarvis ${GOPATH}/go-jarvis-0.0.1-SNAPSHOT.armel
+	mv -f ${GOPATH}/bin/linux_arm/core ${GOPATH}/go-jarvis-0.0.1-SNAPSHOT.armel
 
 ${MODULE_ARMHF}:
 	# module
 	CC=arm-linux-gnueabihf-gcc GOOS=linux GOARCH=arm GOARM=7 CGO_ENABLED=1 CGO_CFLAGS="" go install -installsuffix armhf
-	mv -f ${GOPATH}/bin/linux_arm/go-jarvis ${GOPATH}/go-jarvis-0.0.1-SNAPSHOT.armhf
+	mv -f ${GOPATH}/bin/linux_arm/core ${GOPATH}/go-jarvis-0.0.1-SNAPSHOT.armhf
 
 tag:
 	git config --local user.name "Yannick Roffin"

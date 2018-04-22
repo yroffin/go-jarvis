@@ -139,6 +139,7 @@ import { JarvisBrokerComponent } from './component/jarvis-broker/jarvis-broker.c
 import { JarvisResourceProcessComponent } from './component/jarvis-resource-process/jarvis-resource-process.component';
 import { JarvisResourceModelComponent } from './component/jarvis-resource-model/jarvis-resource-model.component';
 import { JarvisGraphComponent } from './widget/jarvis-graph/jarvis-graph.component';
+import { SystemStoreService } from './store/system.store';
 
 /**
  * default route definition
@@ -281,7 +282,8 @@ const appRoutes: Routes = [
     StoreModule.forRoot({
       broker: BrokerStoreService.reducer,
       message: MessageStoreService.reducer,
-      view: ViewStoreService.reducer
+      view: ViewStoreService.reducer,
+      system: SystemStoreService.reducer
     })
   ],
   providers: [
@@ -326,7 +328,8 @@ const appRoutes: Routes = [
      */
     BrokerStoreService,
     MessageStoreService,
-    ViewStoreService
+    ViewStoreService,
+    SystemStoreService
   ],
   bootstrap: [AppComponent]
 })

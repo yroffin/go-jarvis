@@ -25,10 +25,11 @@ package system
 import (
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
+	"github.com/yroffin/go-jarvis/core/auto"
 )
 
 var (
-	Version = "1.0"
+	version = "1.0"
 )
 
 func init() {
@@ -44,6 +45,7 @@ type Security struct {
 	// Api
 	SecConnect interface{} `@handler:"Connect" path:"/api/connect" method:"GET" mime-type:"/application/json"`
 	SecProfile interface{} `@handler:"Profile" path:"/api/profile/me" method:"GET" mime-type:"/application/json"`
+	SecVersion interface{} `@handler:"Version" path:"/api/version" method:"GET" mime-type:"/application/json"`
 	// Swagger with injection mecanism
 	Swagger engine.ISwaggerService `@autowired:"swagger"`
 }
@@ -88,6 +90,16 @@ func (p *Security) Connect() func() (string, error) {
 func (p *Security) Profile() func() (string, error) {
 	anonymous := func() (string, error) {
 		return "{\"attributes\":{\"email\":\"-\"}}", nil
+	}
+	return anonymous
+}
+
+// Version API
+func (p *Security) Version() func() (string, error) {
+	anonymous := func() (string, error) {
+		pack := auto.Pack
+		value, _ := pack.MustString("version/version.json")
+		return value, nil
 	}
 	return anonymous
 }

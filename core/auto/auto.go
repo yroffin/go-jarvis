@@ -32,6 +32,9 @@ import (
 	"github.com/yroffin/go-boot-sqllite/core/winter"
 )
 
+// Pack for acess to packr
+var Pack winter.PackManager
+
 func init() {
 	// Log as JSON instead of the default ASCII formatter.
 	log.SetFormatter(&log.TextFormatter{})

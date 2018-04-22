@@ -31,6 +31,7 @@ import { JarvisDataCoreResource } from './jarvis-data-core-resource';
  */
 import { ResourceBean } from './../model/resource-bean';
 import { Oauth2Bean, MeBean } from './../model/security/oauth2-bean';
+import { VersionBean } from '../model/system/version';
 
 @Injectable()
 export class JarvisSecurityService extends JarvisDataCoreResource<ResourceBean> implements JarvisDefaultResource<ResourceBean> {
@@ -52,6 +53,15 @@ export class JarvisSecurityService extends JarvisDataCoreResource<ResourceBean> 
   public Connect = (): Observable<boolean> => {
     return this.http.get(this.actionUrl + 'api/connect', { headers: this.headers })
       .map((response: Response) => <boolean> response.json())
+      .catch(this.handleError);
+  }
+
+  /**
+   * get connect resource
+   */
+  public Version = (): Observable<VersionBean> => {
+    return this.http.get(this.actionUrl + 'api/version', { headers: this.headers })
+      .map((response: Response) => <VersionBean> response.json())
       .catch(this.handleError);
   }
 

@@ -23,6 +23,7 @@ package main
 
 import (
 	"github.com/gobuffalo/packr"
+	log "github.com/sirupsen/logrus"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
 	_ "github.com/yroffin/go-jarvis/core/apis/commands"
 	_ "github.com/yroffin/go-jarvis/core/apis/configurations"
@@ -34,7 +35,7 @@ import (
 	_ "github.com/yroffin/go-jarvis/core/apis/scripts"
 	_ "github.com/yroffin/go-jarvis/core/apis/system"
 	_ "github.com/yroffin/go-jarvis/core/apis/views"
-	_ "github.com/yroffin/go-jarvis/core/auto"
+	auto "github.com/yroffin/go-jarvis/core/auto"
 	_ "github.com/yroffin/go-jarvis/core/services/chacon"
 	_ "github.com/yroffin/go-jarvis/core/services/lua"
 	_ "github.com/yroffin/go-jarvis/core/services/mqtt"
@@ -43,12 +44,18 @@ import (
 	_ "github.com/yroffin/go-jarvis/core/services/zway"
 )
 
-func packInstance() winter.PackManager {
-	box := packr.NewBox("./dist")
-	return box
+// PackInstance packer singleton
+func PackInstance() winter.PackManager {
+	auto.Pack = packr.NewBox("./dist")
+	for _, res := range auto.Pack.List() {
+		log.WithFields(log.Fields{
+			"file": res,
+		}).Info("Pack")
+	}
+	return auto.Pack
 }
 
 func main() {
 	// Boot
-	winter.Helper.Boot(packInstance())
+	winter.Helper.Boot(PackInstance())
 }

@@ -20,7 +20,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package events
+package devices
 
 import (
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
@@ -58,6 +58,12 @@ type ICronBean interface {
 	core_models.IPersistent
 	// inherit ValueBean behaviour
 	core_models.IValueBean
+	// GetTriggerType cron type
+	GetTriggerType() string
+	// Get cron string
+	GetCron() string
+	// Name
+	GetName() string
 }
 
 // New constructor
@@ -67,9 +73,14 @@ func (p *CronBean) New() ICronBean {
 	return &bean
 }
 
-// GetName get set name
+// GetEntityName get set name
 func (p *CronBean) GetEntityName() string {
 	return "CronBean"
+}
+
+// GetName get name
+func (p *CronBean) GetName() string {
+	return p.Name
 }
 
 // Extend vars
@@ -82,6 +93,16 @@ func (p *CronBean) Extend(e map[string]interface{}) {
 // GetExtend vars
 func (p *CronBean) GetExtend() map[string]interface{} {
 	return p.Extended
+}
+
+// GetTriggerType retrieve cron string
+func (p *CronBean) GetTriggerType() string {
+	return p.TriggerType
+}
+
+// GetCron retrieve cron string
+func (p *CronBean) GetCron() string {
+	return p.Cron
 }
 
 // GetID retrieve ID

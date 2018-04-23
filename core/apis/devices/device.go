@@ -66,6 +66,8 @@ type IDeviceBean interface {
 	core_models.IPersistent
 	// inherit ValueBean behaviour
 	core_models.IValueBean
+	// GetName
+	GetName() string
 	// GetParameters
 	GetParameters() map[string]interface{}
 }
@@ -92,6 +94,11 @@ func (p *DeviceBean) Extend(e map[string]interface{}) {
 // GetExtend vars
 func (p *DeviceBean) GetExtend() map[string]interface{} {
 	return p.Extended
+}
+
+// GetName retrieve name
+func (p *DeviceBean) GetName() string {
+	return p.Name
 }
 
 // GetID retrieve ID

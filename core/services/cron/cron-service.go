@@ -37,7 +37,7 @@ type service struct {
 	// members
 	*winter.Service
 	// Service map
-	services map[string]job
+	services map[string]*job
 	// Service cron
 	crontab *crontab.Cron
 }
@@ -46,6 +46,12 @@ type service struct {
 type job struct {
 	// JobID
 	id string
+	// Active
+	active bool
+	// Counter
+	counter int
+	// Param
+	param string
 	// Handler
 	handler func()
 }
@@ -54,14 +60,16 @@ type job struct {
 type ICronService interface {
 	winter.IService
 	Exist(string) bool
+	Toggle(key string) error
 	Add(key string, param string, handler func()) error
 }
 
 // New constructor
 func (p *service) New() ICronService {
 	bean := service{Service: &winter.Service{Bean: &winter.Bean{}}}
-	bean.services = make(map[string]job)
+	bean.services = make(map[string]*job)
 	bean.crontab = crontab.New()
+	bean.crontab.Start()
 	return &bean
 }
 
@@ -90,24 +98,53 @@ func (p *service) Exist(key string) bool {
 	}
 }
 
-// Validate this API
+// Run this job
 func (p *job) Run() {
-	p.handler()
+	p.counter = p.counter + 1
+	if p.active {
+		p.handler()
+	} else {
+		// Warn a little
+		if p.counter < 2 {
+			log.WithFields(log.Fields{
+				"job": p.id,
+			}).Warn("Job is not active")
+		}
+
+	}
+}
+
+// toggle this job
+func (p *job) toggle(c *service) {
+	p.active = !p.active
+	p.counter = 0
 }
 
 // Check for existing job
 func (p *service) Add(key string, param string, handler func()) error {
 	if !p.Exist(key) {
-		job := job{id: key, handler: handler}
-		p.services[key] = job
+		job := job{id: key, param: param, active: true, handler: handler}
+		p.services[key] = &job
+		// Add this job (with restart in order to reschedule)
+		p.crontab.Stop()
 		p.crontab.AddJob(param, &job)
+		p.crontab.Start()
 		log.WithFields(log.Fields{
-			"job": key,
+			"job":   key,
+			"param": param,
 		}).Info("Submitted")
 	} else {
 		log.WithFields(log.Fields{
 			"job": key,
 		}).Warn("Already submitted")
+	}
+	return nil
+}
+
+// Check for existing job
+func (p *service) Toggle(key string) error {
+	if p.Exist(key) {
+		p.services[key].toggle(p)
 	}
 	return nil
 }

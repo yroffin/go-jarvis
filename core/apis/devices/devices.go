@@ -30,7 +30,6 @@ import (
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
-	"github.com/yroffin/go-jarvis/core/apis/events"
 	"github.com/yroffin/go-jarvis/core/apis/scripts"
 )
 
@@ -49,7 +48,7 @@ type Device struct {
 	// Device with injection mecanism
 	LinkDevice IDevice `@autowired:"DeviceBean" @link:"/api/devices" @href:"devices"`
 	// Trigger with injection mecanism
-	LinkTrigger events.ITrigger `@autowired:"TriggerBean" @link:"/api/devices" @href:"triggers"`
+	LinkTrigger ITrigger `@autowired:"TriggerBean" @link:"/api/devices" @href:"triggers"`
 	// PluginScript with injection mecanism
 	LinkPluginScript scripts.IScriptPlugin `@autowired:"ScriptPluginBean" @link:"/api/devices" @href:"plugins/scripts"`
 	// Swagger with injection mecanism

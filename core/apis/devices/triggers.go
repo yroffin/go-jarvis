@@ -1,4 +1,4 @@
-// Package interfaces for common interfaces
+// Package events for common interfaces
 // MIT License
 //
 // Copyright (c) 2017 yroffin
@@ -20,9 +20,10 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package events
+package devices
 
 import (
+	log "github.com/sirupsen/logrus"
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
@@ -42,19 +43,26 @@ type Trigger struct {
 	Crud interface{} `@crud:"/api/triggers"`
 	// LinkCron with injection mecanism
 	LinkCron ICron `@autowired:"CronBean" @link:"/api/triggers" @href:"crons"`
-	Cron     ICron `@autowired:"CronBean"`
+	// Device with injection mecanism
+	Device IDevice `@autowired:"DeviceBean"`
 	// Swagger with injection mecanism
 	Swagger engine.ISwaggerService `@autowired:"swagger"`
+	// Internal channel for events
+	events chan EventBean
 }
 
 // ITrigger implements IBean
 type ITrigger interface {
 	engine.IAPI
+	// Post a new event
+	Post(event EventBean) error
 }
 
 // New constructor
 func (p *Trigger) New() ITrigger {
 	bean := Trigger{API: &engine.API{Bean: &winter.Bean{}}}
+	bean.events = make(chan EventBean)
+	go bean.Handler()
 	return &bean
 }
 
@@ -80,4 +88,49 @@ func (p *Trigger) PostConstruct(name string) error {
 // Validate this API
 func (p *Trigger) Validate(name string) error {
 	return nil
+}
+
+// Post a new event
+func (p *Trigger) Post(event EventBean) error {
+	p.events <- event
+	return nil
+}
+
+// Handler events
+func (p *Trigger) Handler() error {
+	for {
+		event := <-p.events
+		log.WithFields(log.Fields{
+			"id":   event.ID,
+			"text": event.Text,
+		}).Info("Event handler")
+
+		// Apply event
+		for _, device := range p.devices(event) {
+			log.WithFields(log.Fields{
+				"id":   device.GetID(),
+				"name": device.GetName(),
+			}).Info("Event handler")
+		}
+	}
+}
+
+// Handler events on device
+func (p *Trigger) devices(event EventBean) []IDeviceBean {
+	filtered := make(map[string]IDeviceBean)
+	devices, _ := p.Device.GetAll()
+	for _, device := range devices {
+		triggers, _ := p.Device.GetAllLinks(device.GetID(), winter.Helper.GetBean("TriggerBean").(engine.IAPI))
+		for _, trigger := range triggers {
+			if trigger.GetID() == event.ID {
+				filtered[device.GetID()] = device.(IDeviceBean)
+			}
+		}
+	}
+	// Build uniq
+	uniq := make([]IDeviceBean, 0)
+	for _, device := range filtered {
+		uniq = append(uniq, device)
+	}
+	return uniq
 }

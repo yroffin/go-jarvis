@@ -26,7 +26,7 @@ import (
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
-	"github.com/yroffin/go-jarvis/core/apis/events"
+	"github.com/yroffin/go-jarvis/core/apis/devices"
 )
 
 func init() {
@@ -42,8 +42,7 @@ type Processus struct {
 	// mounts
 	Crud interface{} `@crud:"/api/processes"`
 	// Trigger with injection mecanism
-	LinkTrigger events.ITrigger `@autowired:"TriggerBean" @link:"/api/processes" @href:"triggers"`
-	Trigger     events.ITrigger `@autowired:"TriggerBean"`
+	LinkTrigger devices.ITrigger `@autowired:"TriggerBean" @link:"/api/processes" @href:"triggers"`
 	// Swagger with injection mecanism
 	Swagger engine.ISwaggerService `@autowired:"swagger"`
 }

@@ -20,10 +20,12 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-package events
+package devices
 
 import (
 	"encoding/json"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
@@ -47,6 +49,8 @@ type Cron struct {
 	Swagger engine.ISwaggerService `@autowired:"swagger"`
 	// Cron with injection mecanism
 	Cron cron.ICronService `@autowired:"cron-service"`
+	// Cron with injection mecanism
+	Trigger ITrigger `@autowired:"TriggerBean"`
 }
 
 // ICron implements IBean
@@ -102,19 +106,67 @@ func (p *Cron) Toggle(id string, parameters map[string]interface{}) (interface{}
 	// Search in current cron
 	exist := p.Cron.Exist(id)
 	// Retrieve parameters
-	//crontab, _ := p.GetByID(id)
+	if exist {
+		err := p.Cron.Toggle(id)
+		log.WithFields(log.Fields{
+			"job": id,
+			"err": err,
+		}).Info("Job does exist, togglt it")
+	} else {
+		// get crontab
+		crontab, _ := p.GetByID(id)
+		log.WithFields(log.Fields{
+			"job":         id,
+			"triggerType": crontab.(ICronBean).GetTriggerType(),
+		}).Warn("Job does not exist")
+		switch crontab.(ICronBean).GetTriggerType() {
+		case "CRONTAB":
+			if len(crontab.(ICronBean).GetCron()) <= 0 {
+				return false, -1, nil
+			}
+			p.Cron.Add(id, crontab.(ICronBean).GetCron(), func() {
+				// Retrieve event
+				events := p.eventFactory(id)
+				for _, event := range events {
+					// Post a trigger
+					p.Trigger.Post(event)
+				}
+			})
+			break
+		default:
+			break
+		}
+	}
 	return exist, -1, nil
 }
 
 // Test this cron
 func (p *Cron) Test(id string, parameters map[string]interface{}) (interface{}, int, error) {
-	// Search in current cron
-	exist := p.Cron.Exist(id)
-	if exist {
-		// Retrieve parameters
-		crontab, _ := p.GetByID(id)
-		return crontab, -1, nil
-	} else {
-		return exist, -1, nil
+	// Retrieve event
+	events := p.eventFactory(id)
+	for _, event := range events {
+		// Post a trigger
+		p.Trigger.Post(event)
 	}
+	return events, len(events), nil
+}
+
+// Build event to send
+func (p *Cron) eventFactory(id string) []EventBean {
+	// Triggers
+	result := make([]EventBean, 0)
+	// Retrieve parameters
+	crontab, _ := p.GetByID(id)
+	// Retrieve all triggers
+	triggers, _ := p.Trigger.GetAll()
+	for _, trigger := range triggers {
+		linked, _ := p.Trigger.GetAllLinks(trigger.GetID(), winter.Helper.GetBean("CronBean").(engine.IAPI))
+		for _, cron := range linked {
+			if cron.GetID() == crontab.GetID() {
+				// Post a trigger
+				result = append(result, EventNew(trigger.GetID(), crontab.(ICronBean).GetName()))
+			}
+		}
+	}
+	return result
 }

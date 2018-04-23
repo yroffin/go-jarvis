@@ -23,7 +23,8 @@
 package devices
 
 import (
-	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+	log "github.com/sirupsen/logrus"
+	"github.com/yroffin/go-boot-sqllite/core/models"
 )
 
 // TriggerBean simple Trigger model
@@ -31,7 +32,7 @@ type TriggerBean struct {
 	// Id
 	ID string `json:"id"`
 	// Timestamp
-	Timestamp core_models.JSONTime `json:"timestamp"`
+	Timestamp models.JSONTime `json:"timestamp"`
 	// Name
 	Name string `json:"name"`
 	// Icon
@@ -42,14 +43,16 @@ type TriggerBean struct {
 	Body string `json:"body"`
 	// Extended
 	Extended map[string]interface{} `json:"extended"`
+	// Devices
+	Devices []models.IPersistent `json:"devices"`
 }
 
 // ITriggerBean interface
 type ITriggerBean interface {
 	// inherit persistent behaviour
-	core_models.IPersistent
+	models.IPersistent
 	// inherit ValueBean behaviour
-	core_models.IValueBean
+	models.IValueBean
 }
 
 // New constructor
@@ -88,12 +91,22 @@ func (p *TriggerBean) SetID(ID string) {
 
 // Set get set name
 func (p *TriggerBean) Set(key string, value interface{}) {
+	if key == "devices" {
+		assert, ok := value.([]models.IPersistent)
+		if ok {
+			p.Devices = assert
+		} else {
+			log.WithFields(log.Fields{
+				"key": key,
+			}).Error("Assert error")
+		}
+	}
 }
 
 // SetString get set name
 func (p *TriggerBean) SetString(key string, value string) {
 	// Call super method
-	core_models.IValueBean(p).SetString(key, value)
+	models.IValueBean(p).SetString(key, value)
 }
 
 // Get get set name
@@ -101,28 +114,28 @@ func (p *TriggerBean) GetAsString(key string) string {
 	switch key {
 	default:
 		// Call super method
-		return core_models.IValueBean(p).GetAsString(key)
+		return models.IValueBean(p).GetAsString(key)
 	}
 }
 
 // Get get set name
 func (p *TriggerBean) GetAsStringArray(key string) []string {
 	// Call super method
-	return core_models.IValueBean(p).GetAsStringArray(key)
+	return models.IValueBean(p).GetAsStringArray(key)
 }
 
 // SetTimestamp set timestamp
-func (p *TriggerBean) SetTimestamp(stamp core_models.JSONTime) {
+func (p *TriggerBean) SetTimestamp(stamp models.JSONTime) {
 	p.Timestamp = stamp
 }
 
 // GetTimestamp get timestamp
-func (p *TriggerBean) GetTimestamp() core_models.JSONTime {
+func (p *TriggerBean) GetTimestamp() models.JSONTime {
 	return p.Timestamp
 }
 
 // Copy retrieve ID
-func (p *TriggerBean) Copy() core_models.IPersistent {
+func (p *TriggerBean) Copy() models.IPersistent {
 	clone := *p
 	return &clone
 }
@@ -130,25 +143,25 @@ func (p *TriggerBean) Copy() core_models.IPersistent {
 // TriggerBeans simple bean model
 type TriggerBeans struct {
 	// Collection
-	Collection []core_models.IPersistent `json:"collections"`
+	Collection []models.IPersistent `json:"collections"`
 	// Collection
 	Collections []TriggerBean
 }
 
 // New constructor
-func (p *TriggerBeans) New() core_models.IPersistents {
-	bean := TriggerBeans{Collection: make([]core_models.IPersistent, 0), Collections: make([]TriggerBean, 0)}
+func (p *TriggerBeans) New() models.IPersistents {
+	bean := TriggerBeans{Collection: make([]models.IPersistent, 0), Collections: make([]TriggerBean, 0)}
 	return &bean
 }
 
 // Add new bean
-func (p *TriggerBeans) Add(bean core_models.IPersistent) {
+func (p *TriggerBeans) Add(bean models.IPersistent) {
 	p.Collection = append(p.Collection, bean)
 	p.Collections = append(p.Collections, TriggerBean{})
 }
 
 // Get collection of bean
-func (p *TriggerBeans) Get() []core_models.IPersistent {
+func (p *TriggerBeans) Get() []models.IPersistent {
 	return p.Collection
 }
 

@@ -63,6 +63,8 @@ func (p *Trigger) New() ITrigger {
 	bean := Trigger{API: &engine.API{Bean: &winter.Bean{}}}
 	bean.events = make(chan EventBean)
 	go bean.Handler()
+	bean.GetByIDListener = make([]func(models.IPersistent) models.IPersistent, 1)
+	bean.GetByIDListener[0] = bean.middleware
 	return &bean
 }
 
@@ -94,6 +96,24 @@ func (p *Trigger) Validate(name string) error {
 func (p *Trigger) Post(event EventBean) error {
 	p.events <- event
 	return nil
+}
+
+// Simple middle ware to override status
+func (p *Trigger) middleware(entity models.IPersistent) models.IPersistent {
+	result := make([]models.IPersistent, 0)
+	// Iterate on devices, then triggers and find attached device
+	devices, _ := p.Device.GetAll()
+	for _, device := range devices {
+		linked, _ := p.Device.(IDevice).GetAllLinks(device.GetID(), winter.Helper.GetBean("TriggerBean").(engine.IAPI))
+		for _, trigger := range linked {
+			if entity.GetID() == trigger.GetID() {
+				result = append(result, device)
+			}
+		}
+	}
+	// Update device
+	entity.(*TriggerBean).Devices = result
+	return entity
 }
 
 // Handler events

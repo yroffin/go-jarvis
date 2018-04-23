@@ -61,6 +61,8 @@ type ICron interface {
 // New constructor
 func (p *Cron) New() ICron {
 	bean := Cron{API: &engine.API{Bean: &winter.Bean{}}}
+	bean.GetByIDListener = make([]func(models.IPersistent) models.IPersistent, 1)
+	bean.GetByIDListener[0] = bean.middleware
 	return &bean
 }
 
@@ -98,7 +100,26 @@ func (p *Cron) PostConstruct(name string) error {
 
 // Validate this API
 func (p *Cron) Validate(name string) error {
+	// Scan for cron entry and start all onStartup field
+	crons, _ := p.GetAll()
+	for _, cron := range crons {
+		crontab := cron.(*CronBean)
+		if crontab.StartAtRuntime {
+			log.WithFields(log.Fields{
+				"crontab": crontab.ID,
+				"name":    crontab.Name,
+			}).Info("Job startup")
+			p.Toggle(crontab.ID, map[string]interface{}{})
+		}
+	}
 	return nil
+}
+
+// Simple middle ware to override status
+func (p *Cron) middleware(entity models.IPersistent) models.IPersistent {
+	// override status
+	entity.(*CronBean).Status = p.Cron.Exist(entity.GetID())
+	return entity
 }
 
 // Toggle this cron

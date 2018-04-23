@@ -48,6 +48,8 @@ type CronBean struct {
 	Cron string `json:"cron"`
 	// StartAtRuntime
 	StartAtRuntime bool `json:"startAtRuntime"`
+	// Status
+	Status bool `json:"status"`
 	// Extended
 	Extended map[string]interface{} `json:"extended"`
 }

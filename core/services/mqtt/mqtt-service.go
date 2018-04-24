@@ -23,6 +23,8 @@
 package mqtt
 
 import (
+	"encoding/json"
+
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	log "github.com/sirupsen/logrus"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
@@ -46,6 +48,7 @@ type IMqttService interface {
 	PublishExactlyOnce(topic string, message string) error
 	PublishLeastOne(topic string, message string) error
 	PublishMostOne(topic string, message string) error
+	Subscribe(topic string, data interface{}, handler func(interface{}, interface{})) error
 }
 
 // New constructor
@@ -89,6 +92,23 @@ func (p *service) PostConstruct(name string) error {
 
 // Validate this API
 func (p *service) Validate(name string) error {
+	return nil
+}
+
+// Subscribe this API
+func (p *service) Subscribe(topic string, data interface{}, handler func(interface{}, interface{})) error {
+	// Declare handler
+	anonymous := func(client mqtt.Client, msg mqtt.Message) {
+		var value interface{}
+		json.Unmarshal(msg.Payload(), &value)
+		handler(data, value)
+	}
+	// Subcribe
+	if token := p.client.Subscribe(topic, byte(2), anonymous); token.Wait() && token.Error() != nil {
+		log.WithFields(log.Fields{
+			"error": token.Error(),
+		}).Error("Mqtt - subscribe")
+	}
 	return nil
 }
 

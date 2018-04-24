@@ -113,16 +113,29 @@ func (p *PluginLuaService) Call(body string, args map[string]interface{}) (model
 	}
 
 	// Map lua table to result
-	var res map[string]interface{}
-	if err := lua_mapper.Map(l.Get(-1).(*lua.LTable), &res); err != nil {
-		result.Set("error", err)
-		return result, nil
-	}
+	stack := l.Get(-1)
+	vTable, isTable := stack.(*lua.LTable)
+	if isTable {
+		var res map[string]interface{}
+		if err := lua_mapper.Map(vTable, &res); err != nil {
+			result.Set("error", err)
+			return result, nil
+		}
 
-	// build result
-	for k, v := range res {
-		result.Set(k, v)
+		// build result
+		for k, v := range res {
+			result.Set(k, v)
+		}
 	}
-
+	vNumber, isNumber := stack.(lua.LNumber)
+	if isNumber {
+		// build result
+		result.Set("result", vNumber.String())
+	}
+	vString, isString := stack.(lua.LString)
+	if isString {
+		// build result
+		result.Set("result", vString.String())
+	}
 	return result, nil
 }

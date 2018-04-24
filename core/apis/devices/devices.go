@@ -58,6 +58,7 @@ type Device struct {
 // IDevice implements IBean
 type IDevice interface {
 	engine.IAPI
+	RenderOrExecute(id string, args map[string]interface{}, execute bool) (interface{}, int, error)
 }
 
 // New constructor

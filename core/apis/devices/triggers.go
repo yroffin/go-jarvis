@@ -23,10 +23,14 @@
 package devices
 
 import (
+	"encoding/json"
+
 	log "github.com/sirupsen/logrus"
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
+	"github.com/yroffin/go-jarvis/core/services/lua"
+	"github.com/yroffin/go-jarvis/core/services/mqtt"
 )
 
 func init() {
@@ -45,6 +49,10 @@ type Trigger struct {
 	LinkCron ICron `@autowired:"CronBean" @link:"/api/triggers" @href:"crons"`
 	// Device with injection mecanism
 	Device IDevice `@autowired:"DeviceBean"`
+	// IMqttService with injection mecanism
+	Mqtt mqtt.IMqttService `@autowired:"mqtt-service"`
+	// LuaService with injection mecanism
+	LuaService lua.ILuaService `@autowired:"lua-service"`
 	// Swagger with injection mecanism
 	Swagger engine.ISwaggerService `@autowired:"swagger"`
 	// Internal channel for events
@@ -77,6 +85,15 @@ func (p *Trigger) Init() error {
 	p.Factories = func() models.IPersistents {
 		return (&TriggerBeans{}).New()
 	}
+	p.HandlerTasksByID = func(id string, name string, body string) (interface{}, int, error) {
+		var parameters = make(map[string]interface{})
+		json.Unmarshal([]byte(body), &parameters)
+		if name == "execute" {
+			// task
+			return p.Execute(id, parameters)
+		}
+		return parameters, -1, nil
+	}
 	return p.API.Init()
 }
 
@@ -89,7 +106,32 @@ func (p *Trigger) PostConstruct(name string) error {
 
 // Validate this API
 func (p *Trigger) Validate(name string) error {
+	// Activate MQTT subscription
+	triggers, _ := p.GetAll()
+	for _, entity := range triggers {
+		trigger := entity.(*TriggerBean)
+		if len(trigger.Topic) > 0 {
+			p.Mqtt.Subscribe(trigger.Topic, trigger.ID, func(data interface{}, value interface{}) {
+				entity, _ := p.GetByID(data.(string))
+				trigger := entity.(*TriggerBean)
+				result, _ := p.LuaService.AsObject(trigger, value.(map[string]interface{}))
+				log.WithFields(log.Fields{
+					"json": models.ToJSON(result),
+				}).Info("Execute trigger - result")
+				event := EventNew(trigger.ID, result.GetAsString("result"))
+				p.Post(event)
+			})
+		}
+	}
 	return nil
+}
+
+// Execute this command
+func (p *Trigger) Execute(id string, parameters map[string]interface{}) (interface{}, int, error) {
+	entity, _ := p.GetByID(id)
+	event := EventNew(id, entity.(*TriggerBean).Name)
+	p.Post(event)
+	return event, -1, nil
 }
 
 // Post a new event
@@ -130,7 +172,8 @@ func (p *Trigger) Handler() error {
 			log.WithFields(log.Fields{
 				"id":   device.GetID(),
 				"name": device.GetName(),
-			}).Info("Event handler")
+			}).Info("Device activation")
+			p.Device.RenderOrExecute(device.GetID(), nil, true)
 		}
 	}
 }

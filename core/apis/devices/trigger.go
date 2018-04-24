@@ -109,9 +109,11 @@ func (p *TriggerBean) SetString(key string, value string) {
 	models.IValueBean(p).SetString(key, value)
 }
 
-// Get get set name
+// GetAsString get field
 func (p *TriggerBean) GetAsString(key string) string {
 	switch key {
+	case "body":
+		return p.Body
 	default:
 		// Call super method
 		return models.IValueBean(p).GetAsString(key)

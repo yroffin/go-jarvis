@@ -137,7 +137,7 @@
   branch = "master"
   name = "github.com/yroffin/go-boot-sqllite"
   packages = ["core/engine","core/models","core/winter"]
-  revision = "198b984bb2826e330d4536870986cf4cf5c4d2dc"
+  revision = "64a5cd7d313151fe20ca9e44bcf1377fa04c7ab2"
 
 [[projects]]
   branch = "master"
@@ -161,7 +161,7 @@
   branch = "master"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
-  revision = "2b6c08872f4b66da917bb4ce98df4f0307330f78"
+  revision = "b0697eccbea9adec5b7ba8008f4c33d98d733388"
 
 [[projects]]
   branch = "master"
@@ -202,6 +202,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "22cdb3378bebfe5b9286d2f7d285df74279410e65b155ebd630e7ff577d67544"
+  inputs-digest = "ed6ffa8c3a0160ec9d9c9f1b40d33c261e0e43f6ac9a1cc452bcf7fbea11562a"
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -53,7 +53,8 @@ type Command struct {
 	Crud interface{} `@crud:"/api/commands"`
 	// Notification with injection mecanism
 	LinkNotification events.INotification `@autowired:"NotificationBean" @link:"/api/commands" @href:"notifications"`
-	Notification     events.INotification `@autowired:"NotificationBean"`
+	// Api
+	Rflink interface{} `@handler:"ExecRFLink" path:"/api/rflink/chacon/:id/:sw" method:"PUT" mime-type:"/application/json"`
 	// SlackService with injection mecanism
 	SlackService slack.ISlackService `@autowired:"slack-service"`
 	// ShellService with injection mecanism
@@ -119,6 +120,16 @@ func (p *Command) PostConstruct(name string) error {
 // Validate this API
 func (p *Command) Validate(name string) error {
 	return nil
+}
+
+// ExecRFLink API
+func (p *Command) ExecRFLink() func(engine.IHttpContext) {
+	anonymous := func(c engine.IHttpContext) {
+		c.Header("Content-type", "application/json")
+		c.IndentedJSON(200, c.Param("id"))
+		c.Status(200)
+	}
+	return anonymous
 }
 
 // Execute this command

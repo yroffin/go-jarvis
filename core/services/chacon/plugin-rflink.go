@@ -170,7 +170,19 @@ func (p *PluginRFLinkService) Write(message string) error {
 			"message": message,
 			"size":    n,
 		}).Debug("Rflink - com write")
-		for b := range []byte(buf) {
+		return nil
+	}
+	return nil
+}
+
+// Event capture on serial port
+func (p *PluginRFLinkService) Event() error {
+	for {
+		value := <-p.channel
+		log.WithFields(log.Fields{
+			"value": value,
+		}).Debug("Rflink - com event")
+		for b := range []byte(value) {
 			switch b {
 			case '\n':
 				// Flush
@@ -184,18 +196,6 @@ func (p *PluginRFLinkService) Write(message string) error {
 				}
 			}
 		}
-		return nil
-	}
-	return nil
-}
-
-// Event capture on serial port
-func (p *PluginRFLinkService) Event() error {
-	for {
-		value := <-p.channel
-		log.WithFields(log.Fields{
-			"value": value,
-		}).Debug("Rflink - com event")
 	}
 }
 

@@ -54,13 +54,15 @@ type Command struct {
 	// Notification with injection mecanism
 	LinkNotification events.INotification `@autowired:"NotificationBean" @link:"/api/commands" @href:"notifications"`
 	// Api
-	Rflink interface{} `@handler:"ExecRFLink" path:"/api/rflink/chacon/:id/:sw" method:"PUT" mime-type:"/application/json"`
+	Rflink interface{} `@handler:"ExecRFLink" path:"/api/rflink/chacon/:channel/:command/:order" method:"PUT" mime-type:"/application/json"`
 	// SlackService with injection mecanism
 	SlackService slack.ISlackService `@autowired:"slack-service"`
 	// ShellService with injection mecanism
 	ShellService shell.IShellService `@autowired:"shell-service"`
 	// LuaService with injection mecanism
 	LuaService lua.ILuaService `@autowired:"lua-service"`
+	// SetPluginSlackService with injection mecanism
+	PluginRFLinkService chacon.IPluginRFLinkService `@autowired:"plugin-rflink-service"`
 	// ChaconService with injection mecanism
 	ChaconService chacon.IChaconService `@autowired:"chacon-service"`
 	// ZwayService with injection mecanism
@@ -126,8 +128,12 @@ func (p *Command) Validate(name string) error {
 func (p *Command) ExecRFLink() func(engine.IHttpContext) {
 	anonymous := func(c engine.IHttpContext) {
 		c.Header("Content-type", "application/json")
-		c.IndentedJSON(200, c.Param("id"))
-		c.Status(200)
+		value, err := p.PluginRFLinkService.Chacon(c.Param("channel"), c.Param("command"), c.Param("order"))
+		if err == nil {
+			c.IndentedJSON(200, value)
+		} else {
+			c.IndentedJSON(400, err)
+		}
 	}
 	return anonymous
 }

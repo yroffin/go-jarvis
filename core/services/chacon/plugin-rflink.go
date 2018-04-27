@@ -97,8 +97,8 @@ func (p *PluginRFLinkService) Validate(name string) error {
 	}).Info("Rflink - get port list")
 	errOpen := p.Open()
 	if errOpen == nil {
-		// go p.Read()
-		// go p.Write()
+		go p.Read()
+		go p.Event()
 		return nil
 	}
 	// Notify system ready
@@ -127,6 +127,7 @@ func (p *PluginRFLinkService) Open() error {
 			"options": mode,
 			"err":     err,
 		}).Error("Rflink - comport open")
+		return err
 	}
 
 	p.handle = port
@@ -151,8 +152,28 @@ func (p *PluginRFLinkService) Read() error {
 	}
 }
 
-// Read serial port
-func (p *PluginRFLinkService) Write() error {
+// Write serial port
+func (p *PluginRFLinkService) Write(message string) error {
+	if p.handle != nil {
+		buf := []byte(message)
+		n, err := p.handle.Write(buf)
+		if err != nil {
+			log.WithFields(log.Fields{
+				"err": err,
+			}).Warn("Rflink - com write")
+			return err
+		}
+		log.WithFields(log.Fields{
+			"message": message,
+			"size":    n,
+		}).Info("Rflink - com write")
+		return nil
+	}
+	return nil
+}
+
+// Event capture on serial port
+func (p *PluginRFLinkService) Event() error {
 	for {
 		value := <-p.channel
 		log.WithFields(log.Fields{
@@ -167,5 +188,6 @@ func (p *PluginRFLinkService) Chacon(channel string, command string, order strin
 	result.SetString("Channel", channel)
 	result.SetString("Command", command)
 	result.SetString("Order", order)
+	p.Write("10;NewKaku;" + channel + ";" + command + ";" + order + ";")
 	return result, nil
 }

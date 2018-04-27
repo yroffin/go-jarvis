@@ -50,6 +50,8 @@ type PluginRFLinkService struct {
 	handle serial.Port
 	// Chan
 	channel chan string
+	// Buffer
+	bufferRfLink string
 }
 
 // IPluginRFLinkService implements IBean
@@ -133,7 +135,8 @@ func (p *PluginRFLinkService) Open() error {
 	p.handle = port
 
 	// Create channel
-	p.channel = make(chan string)
+	p.channel = make(chan string, 128)
+	p.bufferRfLink = ""
 	return nil
 }
 
@@ -166,7 +169,21 @@ func (p *PluginRFLinkService) Write(message string) error {
 		log.WithFields(log.Fields{
 			"message": message,
 			"size":    n,
-		}).Info("Rflink - com write")
+		}).Debug("Rflink - com write")
+		for b := range []byte(buf) {
+			switch b {
+			case '\n':
+				// Flush
+				p.MqttService.PublishExactlyOnce("/system/chacon", p.bufferRfLink)
+				p.bufferRfLink = ""
+				break
+			default:
+				// Store printable chars
+				if b >= 32 && b < 127 {
+					p.bufferRfLink = p.bufferRfLink + string(b)
+				}
+			}
+		}
 		return nil
 	}
 	return nil
@@ -178,7 +195,7 @@ func (p *PluginRFLinkService) Event() error {
 		value := <-p.channel
 		log.WithFields(log.Fields{
 			"value": value,
-		}).Info("Rflink - com write")
+		}).Debug("Rflink - com event")
 	}
 }
 

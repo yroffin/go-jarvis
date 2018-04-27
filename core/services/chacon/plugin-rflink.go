@@ -182,7 +182,7 @@ func (p *PluginRFLinkService) Event() error {
 		log.WithFields(log.Fields{
 			"value": value,
 		}).Debug("Rflink - com event")
-		for b := range []byte(value) {
+		for _, b := range []byte(value) {
 			switch b {
 			case '\n':
 				// Flush

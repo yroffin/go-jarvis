@@ -205,6 +205,6 @@ func (p *PluginRFLinkService) Chacon(channel string, command string, order strin
 	result.SetString("Channel", channel)
 	result.SetString("Command", command)
 	result.SetString("Order", order)
-	p.Write("10;NewKaku;" + channel + ";" + command + ";" + order + ";")
+	p.Write("10;NewKaku;" + channel + ";" + command + ";" + order + ";\r\n")
 	return result, nil
 }

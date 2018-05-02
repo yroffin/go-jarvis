@@ -107,8 +107,7 @@ export class ViewStoreService {
                     let views = new Array<ViewBean>()
                     _.each(state.views, (view) => {
                         _.each(view.devices, (device) => {
-                            if(device.id = action.payload.id) {
-                                console.error("device", device)
+                            if(device.id === action.payload.id) {
                                 device.render = action.payload.render
                             }
                         })

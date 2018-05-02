@@ -54,13 +54,11 @@ export class JarvisDesktopComponent implements OnInit {
 
     this.viewStream.subscribe(
       (element: ViewBean[]) => {
-        logger.info("Update views", element)
         this.myViews = element;
         // Analyze all devices and ask for render it if a render device
         _.each(this.myViews, (view) => {
           _.each(view.devices, (device) => {
             if (device.template != "" && device.render == null) {
-              logger.info("Update device", device)
               jarvisDataDeviceService.Task(device.id, 'render', {})
               .subscribe(
                 (render: any) => {
@@ -97,12 +95,13 @@ export class JarvisDesktopComponent implements OnInit {
    * get profile
    */
   public loadViews(): void {
+    let data
     /**
      * load views
      */
-    this.jarvisDataViewService.Task('*', 'GET', {})
+    this.jarvisDataViewService.Task<ViewBean[]>('*', 'GET', {})
       .subscribe(
-      (data: ViewBean[]) => {
+      (data) => {
         // fix view data
         this.viewStoreService.dispatch(new LoadViewsAction(data))
       },
@@ -118,6 +117,7 @@ export class JarvisDesktopComponent implements OnInit {
    * @param device 
    */
   private touch(device: DeviceBean): void {
+    let data
     this.jarvisDataDeviceService.Task(device.id, "execute", {})
       .subscribe(
       (data: any) => {

@@ -5,6 +5,9 @@ MODULE_LOCAL=${WHERE}/go-jarvis-0.0.1-SNAPSHOT.bin
 
 all: clean ${MODULE_ARMEL} ${MODULE_ARMHF}
 
+live:
+	gin -p 3000 -a 8080 -i -- -http=8080 -Djarvis.slack.api=$SLACK_API -Djarvis.zway.password=$ZWAY_PASSWORD
+
 local: clean ${MODULE_LOCAL}
 
 clean:

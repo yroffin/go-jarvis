@@ -2,6 +2,9 @@ WHERE=$(PWD)
 
 all: clean ${WHERE}/dist/index.html
 
+live:
+	npm start
+
 clean:
 	rm -rf ${WHERE}/dist
 

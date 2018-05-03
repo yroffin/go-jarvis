@@ -213,7 +213,7 @@ func (p *Snapshot) Restore(id string, body string) (interface{}, int, error) {
 				} else {
 					href.FromStr = strconv.Itoa(int(href.From.(float64)))
 				}
-				assertTo, okTo := href.From.(string)
+				assertTo, okTo := href.To.(string)
 				if okTo {
 					href.ToStr = assertTo
 				} else {

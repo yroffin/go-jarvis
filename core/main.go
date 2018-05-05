@@ -57,5 +57,5 @@ func PackInstance() winter.PackManager {
 
 func main() {
 	// Boot
-	winter.Helper.Boot(PackInstance())
+	winter.Helper.Boot(PackInstance(), "jarvis-ui/index.html")
 }

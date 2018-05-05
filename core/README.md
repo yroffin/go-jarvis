@@ -21,7 +21,7 @@ Jarvis use Golang stack with
 3.2 platforms
 -------------
 
-Any plateform can run Jarvis
+Any plateform can run Jarvis (it's golang based)
 - windows
 - linux, and also raspberry pi :)
 - ios
@@ -69,6 +69,9 @@ Just add go-jarvis in dialout group to access to /dev/ttyACM0
 3.5 zway setup
 ---------------
 
-go on https://z-wave.me (https://z-wave.me/z-way/download-z-way)
+go on https://z-wave.me :
+- https://z-wave.me/z-way/download-z-way
+- on stretch ... setup with http://ftp.nl.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.1t-1%2Bdeb8u8_armhf.deb
+
 
 

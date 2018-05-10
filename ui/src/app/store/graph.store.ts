@@ -93,7 +93,9 @@ export class GraphStoreService {
                 {
                     let graph = action.payload;
                     graph.options = {
-                        configure: true,
+                        configure: {
+                            enabled: true
+                        },
                         "edges": {
                             "smooth": {
                                 "type": "discrete",

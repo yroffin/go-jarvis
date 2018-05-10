@@ -74,6 +74,10 @@ import { CalendarModule } from 'primeng/primeng';
 import { SpinnerModule } from 'primeng/primeng';
 import { SliderModule } from 'primeng/primeng';
 import { ToggleButtonModule } from 'primeng/primeng';
+import { SidebarModule } from 'primeng/sidebar';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { ContextMenuModule } from 'primeng/contextmenu';
 
 import { WindowRef } from './service/jarvis-utils.service';
 import { LoggerService } from './service/logger.service';
@@ -276,6 +280,10 @@ const appRoutes: Routes = [
     SpinnerModule,
     SliderModule,
     ToggleButtonModule,
+    SidebarModule,
+    OverlayPanelModule,
+    ScrollPanelModule,
+    ContextMenuModule,
     /**
      * routes
      */

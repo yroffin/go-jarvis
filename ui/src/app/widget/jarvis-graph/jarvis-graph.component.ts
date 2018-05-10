@@ -15,11 +15,13 @@
  */
 
 import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Network, DataSet, Node, Edge, IdType } from 'vis';
 import * as _ from 'lodash';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { NodeBean, EdgeBean } from '../../model/graph/graph-bean';
+import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
   selector: 'app-jarvis-graph',
@@ -31,8 +33,11 @@ export class JarvisGraphComponent implements OnInit, AfterViewInit {
   protected _nodes: NodeBean[];
   protected _edges: EdgeBean[];
   protected _options: any;
+  public display = false;
 
   @Output() onChange: EventEmitter<any> = new EventEmitter();
+
+  public items: MenuItem[];
 
   /**
    * internal
@@ -40,6 +45,14 @@ export class JarvisGraphComponent implements OnInit, AfterViewInit {
 
   constructor(
   ) {
+    this.items = [
+      {
+        label: 'Configuration',
+        command: ($event) => {
+          this.display = true;
+        }
+      }
+    ];
   }
 
   /**
@@ -92,26 +105,31 @@ export class JarvisGraphComponent implements OnInit, AfterViewInit {
       edges: this._edges
     };
 
+    this._options.configure = {
+      enabled: true,
+      container: document.getElementById('myconfigure')
+    }
+
     var network = new Network(container, data, this._options);
 
     network.on("showPopup", (params) => {
       // Emit event
-      this.onChange.emit({type: "showPopup", params: params});
+      this.onChange.emit({ type: "showPopup", params: params });
     });
 
     network.on("selectNode", (params) => {
       // Emit event
-      this.onChange.emit({type: "selectNode", params: params});
+      this.onChange.emit({ type: "selectNode", params: params });
     });
 
     network.on("selectEdge", (params) => {
       // Emit event
-      this.onChange.emit({type: "selectEdge", params: params});
+      this.onChange.emit({ type: "selectEdge", params: params });
     });
 
     network.on("hoverNode", (params) => {
       // Emit event
-      this.onChange.emit({type: "hoverNode", params: params});
+      this.onChange.emit({ type: "hoverNode", params: params });
     });
   }
 

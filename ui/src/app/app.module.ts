@@ -140,6 +140,8 @@ import { JarvisResourceProcessComponent } from './component/jarvis-resource-proc
 import { JarvisResourceModelComponent } from './component/jarvis-resource-model/jarvis-resource-model.component';
 import { JarvisGraphComponent } from './widget/jarvis-graph/jarvis-graph.component';
 import { SystemStoreService } from './store/system.store';
+import { JarvisGraphBrowserComponent } from './component/jarvis-graph-browser/jarvis-graph-browser.component';
+import { GraphStoreService } from './store/graph.store';
 
 /**
  * default route definition
@@ -175,6 +177,7 @@ const appRoutes: Routes = [
   { path: 'measures/:id', component: JarvisMeasureComponent, canActivate: [ProfileGuard, NavigationGuard] },
   { path: 'models', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'models' } },
   { path: 'models/:id', component: JarvisResourceModelComponent, canActivate: [ProfileGuard, NavigationGuard] },
+  { path: 'graph', component: JarvisGraphBrowserComponent, canActivate: [ProfileGuard, NavigationGuard] },
   { path: 'resources', component: JarvisServerResourcesComponent, canActivate: [ProfileGuard, NavigationGuard] },
   { path: 'broker', component: JarvisBrokerComponent, canActivate: [ProfileGuard, NavigationGuard] },
   { path: 'desktop', component: JarvisDesktopComponent, canActivate: [ProfileGuard] },
@@ -212,6 +215,7 @@ const appRoutes: Routes = [
     JarvisBrokerComponent,
     JarvisResourceProcessComponent,
     JarvisResourceModelComponent,
+    JarvisGraphBrowserComponent,
     JarvisGraphComponent
   ],
   entryComponents: [
@@ -283,7 +287,8 @@ const appRoutes: Routes = [
       broker: BrokerStoreService.reducer,
       message: MessageStoreService.reducer,
       view: ViewStoreService.reducer,
-      system: SystemStoreService.reducer
+      system: SystemStoreService.reducer,
+      graph: GraphStoreService.reducer
     })
   ],
   providers: [
@@ -329,7 +334,8 @@ const appRoutes: Routes = [
     BrokerStoreService,
     MessageStoreService,
     ViewStoreService,
-    SystemStoreService
+    SystemStoreService,
+    GraphStoreService
   ],
   bootstrap: [AppComponent]
 })

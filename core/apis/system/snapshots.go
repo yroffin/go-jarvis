@@ -31,6 +31,7 @@ import (
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
+	"github.com/yroffin/go-jarvis/core/apis"
 )
 
 func init() {
@@ -72,6 +73,13 @@ func (p *Snapshot) Init() error {
 	}
 	p.Factories = func() models.IPersistents {
 		return (&SnapshotBeans{}).New()
+	}
+	p.HandlerTasks = func(name string, body string) (interface{}, int, error) {
+		if name == "graph" {
+			// task
+			return p.GraphAll(body)
+		}
+		return "", -1, nil
 	}
 	p.HandlerTasksByID = func(id string, name string, body string) (interface{}, int, error) {
 		if name == "restore" {
@@ -328,4 +336,40 @@ func (p *Snapshot) Download(id string, body string) (interface{}, int, error) {
 	}
 
 	return output, -1, nil
+}
+
+// Graph API
+func (p *Snapshot) GraphAll(body string) (interface{}, int, error) {
+	graph := apis.Graph{
+		Nodes: make([]apis.Node, 0),
+		Edges: make([]apis.Edge, 0),
+	}
+
+	uniq := make(map[string]string)
+
+	// Retrieve all nodes
+	all, _ := p.GraphBusiness.All()
+	for _, quad := range all {
+		_, found := uniq[quad.SubjectID()]
+		if !found {
+			node := apis.Node{
+				ID:    quad.SubjectID(),
+				Label: quad.Subject(),
+			}
+			graph.Nodes = append(graph.Nodes, node)
+			uniq[quad.SubjectID()] = quad.SubjectID()
+		}
+	}
+
+	// Retrieve all edges
+	for _, quad := range all {
+		edge := apis.Edge{
+			From:  quad.SubjectID(),
+			To:    quad.ObjectID(),
+			Label: quad.Predicate(),
+			Data:  quad.Label(),
+		}
+		graph.Edges = append(graph.Edges, edge)
+	}
+	return graph, -1, nil
 }

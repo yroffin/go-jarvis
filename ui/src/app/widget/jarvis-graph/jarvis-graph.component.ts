@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Network, DataSet, Node, Edge, IdType } from 'vis';
 import * as _ from 'lodash';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { NodeBean, EdgeBean } from '../../model/graph/graph-bean';
 
 @Component({
   selector: 'app-jarvis-graph',
@@ -27,8 +28,11 @@ import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class JarvisGraphComponent implements OnInit, AfterViewInit {
 
-  protected _nodes: any;
-  protected _edges: any;
+  protected _nodes: NodeBean[];
+  protected _edges: EdgeBean[];
+  protected _options: any;
+
+  @Output() onChange: EventEmitter<any> = new EventEmitter();
 
   /**
    * internal
@@ -53,19 +57,27 @@ export class JarvisGraphComponent implements OnInit, AfterViewInit {
     }, 1000)
   }
 
-  @Input() get nodes(): any[] {
+  @Input() get options(): any {
+    return this._options;
+  }
+
+  set options(val: any) {
+    this._options = val;
+  }
+
+  @Input() get nodes(): NodeBean[] {
     return this._nodes;
   }
 
-  set nodes(val: any[]) {
+  set nodes(val: NodeBean[]) {
     this._nodes = val;
   }
 
-  @Input() get edges(): any[] {
+  @Input() get edges(): EdgeBean[] {
     return this._edges;
   }
 
-  set edges(val: any[]) {
+  set edges(val: EdgeBean[]) {
     this._edges = val;
   }
 
@@ -79,13 +91,28 @@ export class JarvisGraphComponent implements OnInit, AfterViewInit {
       nodes: this._nodes,
       edges: this._edges
     };
-    var options = {
-      nodes: {
-        shape: 'dot',
-        size: 10
-      }
-    };
-    var network = new Network(container, data, options);
+
+    var network = new Network(container, data, this._options);
+
+    network.on("showPopup", (params) => {
+      // Emit event
+      this.onChange.emit({type: "showPopup", params: params});
+    });
+
+    network.on("selectNode", (params) => {
+      // Emit event
+      this.onChange.emit({type: "selectNode", params: params});
+    });
+
+    network.on("selectEdge", (params) => {
+      // Emit event
+      this.onChange.emit({type: "selectEdge", params: params});
+    });
+
+    network.on("hoverNode", (params) => {
+      // Emit event
+      this.onChange.emit({type: "hoverNode", params: params});
+    });
   }
 
 }

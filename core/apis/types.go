@@ -39,4 +39,5 @@ type Edge struct {
 	From  string `json:"from"`
 	To    string `json:"to"`
 	Label string `json:"label"`
+	Data  string `json:"data"`
 }

@@ -151,6 +151,24 @@ export class GraphStoreService {
                                     color: '#57169a'
                                 }
                             },
+                            CommandBean: {
+                                shape: 'icon',
+                                icon: {
+                                    face: 'FontAwesome',
+                                    code: '\uf02d',
+                                    size: 32,
+                                    color: '#57169a'
+                                }
+                            },
+                            CronBean: {
+                                shape: 'icon',
+                                icon: {
+                                    face: 'FontAwesome',
+                                    code: '\uf133',
+                                    size: 32,
+                                    color: '#57169a'
+                                }
+                            },
                         }
                     };
 

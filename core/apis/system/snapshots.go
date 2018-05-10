@@ -361,6 +361,34 @@ func (p *Snapshot) GraphAll(body string) (interface{}, int, error) {
 		}
 	}
 
+	// Complete with targetID and sourceID
+	for _, quad := range all {
+		var data = make(map[string]interface{})
+		json.Unmarshal([]byte(quad.Label()), &data)
+
+		var targetID = data["targetId"].(string)
+		_, foundTarget := uniq[targetID]
+		if !foundTarget {
+			node := apis.Node{
+				ID:    targetID,
+				Label: data["target"].(string),
+			}
+			graph.Nodes = append(graph.Nodes, node)
+			uniq[targetID] = targetID
+		}
+
+		var sourceID = data["sourceId"].(string)
+		_, foundSource := uniq[sourceID]
+		if !foundSource {
+			node := apis.Node{
+				ID:    sourceID,
+				Label: data["source"].(string),
+			}
+			graph.Nodes = append(graph.Nodes, node)
+			uniq[sourceID] = sourceID
+		}
+	}
+
 	// Retrieve all edges
 	for _, quad := range all {
 		edge := apis.Edge{

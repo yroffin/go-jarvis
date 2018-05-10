@@ -28,9 +28,9 @@ import { JarvisDataSnapshotService } from '../../service/jarvis-data-snapshot.se
 })
 export class JarvisGraphBrowserComponent implements OnInit {
 
-  protected nodes: NodeBean[];
-  protected edges: EdgeBean[];
-  protected options: any;
+  public nodes: NodeBean[];
+  public edges: EdgeBean[];
+  public options: any;
 
   protected graphStream: Store<GraphBean>;
   protected graph: GraphBean;

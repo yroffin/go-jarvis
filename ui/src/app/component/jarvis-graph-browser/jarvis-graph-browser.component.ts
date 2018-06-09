@@ -28,8 +28,6 @@ import { JarvisDataSnapshotService } from '../../service/jarvis-data-snapshot.se
 })
 export class JarvisGraphBrowserComponent implements OnInit {
 
-  public nodes: NodeBean[];
-  public edges: EdgeBean[];
   public options: any;
 
   protected graphStream: Store<GraphBean>;
@@ -47,8 +45,7 @@ export class JarvisGraphBrowserComponent implements OnInit {
 
     this.graphStream.subscribe(
       (element: GraphBean) => {
-        this.nodes = element.nodes;
-        this.edges = element.edges;
+        this.graph = element;
         this.options = element.options;
       },
       error => {
@@ -62,11 +59,11 @@ export class JarvisGraphBrowserComponent implements OnInit {
     this.jarvisDataSnapshotService.Task<GraphBean>('*', 'graph', {})
       .subscribe(
       (data) => {
-        // fix view data
+        // fix graph data
         this.graphStoreService.dispatch(new LoadGraphAction(data))
       },
       (error: any) => {
-        console.error("Error while loading views");
+        console.error("Error while loading graph");
       },
       () => {
       });

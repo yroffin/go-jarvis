@@ -30,7 +30,8 @@
       "scripts": [
         "../node_modules/vis/dist/vis.min.js",
         "../node_modules/prismjs/prism.js",
-        "../node_modules/chart.js/dist/Chart.js"
+        "../node_modules/chart.js/dist/Chart.js",
+        "../node_modules/bpmn-js/dist/bpmn-viewer.development.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

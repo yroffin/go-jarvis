@@ -5,5 +5,5 @@ export class ProcessBean extends ResourceBean {
     triggers: TriggerBean[];
     deploymentTime: Date;
     bpmId: string;
-    bpm: string;
+    bpmn: string;
 }

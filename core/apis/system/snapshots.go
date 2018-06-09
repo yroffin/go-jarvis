@@ -340,11 +340,99 @@ func (p *Snapshot) Download(id string, body string) (interface{}, int, error) {
 
 // Graph API
 func (p *Snapshot) GraphAll(body string) (interface{}, int, error) {
+	var options = []byte(`
+		{
+			"configure": {
+				"enabled": true
+			},
+			"edges": {
+				"smooth": {
+					"type": "discrete",
+					"forceDirection": "none",
+					"roundness": 1
+				}
+			},
+			"interaction": {
+				"hover": true
+			},
+			"physics": {
+				"forceAtlas2Based": {
+					"gravitationalConstant": -26,
+					"centralGravity": 0.005,
+					"springLength": 230,
+					"springConstant": 0.18
+				},
+				"solver": "forceAtlas2Based",
+				"minVelocity": 0.75
+			},
+			"groups": {
+				"DeviceBean": {
+					"shape": "icon",
+					"icon": {
+						"face": "FontAwesome",
+						"code": "\uf013",
+						"size": 32,
+						"color": "#57169a"
+					}
+				},
+				"ScriptPluginBean": {
+					"shape": "icon",
+					"icon": {
+						"face": "FontAwesome",
+						"code": "\uf1e6",
+						"size": 32,
+						"color": "#57169a"
+					}
+				},
+				"ViewBean": {
+					"shape": "icon",
+					"icon": {
+						"face": "FontAwesome",
+						"code": "\uf0e8",
+						"size": 32,
+						"color": "#57169a"
+					}
+				},
+				"TriggerBean": {
+					"shape": "icon",
+					"icon": {
+						"face": "FontAwesome",
+						"code": "\uf0e7",
+						"size": 32,
+						"color": "#57169a"
+					}
+				},
+				"CommandBean": {
+					"shape": "icon",
+					"icon": {
+						"face": "FontAwesome",
+						"code": "\uf02d",
+						"size": 32,
+						"color": "#57169a"
+					}
+				},
+				"CronBean": {
+					"shape": "icon",
+					"icon": {
+						"face": "FontAwesome",
+						"code": "\uf133",
+						"size": 32,
+						"color": "#57169a"
+					}
+				}
+            }
+		}`)
 	graph := apis.Graph{
-		Nodes: make([]apis.Node, 0),
-		Edges: make([]apis.Edge, 0),
+		Nodes:   make([]apis.Node, 0),
+		Edges:   make([]apis.Edge, 0),
+		Options: map[string]interface{}{},
 	}
-
+	err := json.Unmarshal(options, &graph.Options)
+	if err != nil {
+		log.WithFields(log.Fields{
+			"Error": err,
+		}).Error("Options")
+	}
 	uniq := make(map[string]string)
 
 	// Retrieve all nodes
@@ -355,6 +443,8 @@ func (p *Snapshot) GraphAll(body string) (interface{}, int, error) {
 			node := apis.Node{
 				ID:    quad.SubjectID(),
 				Label: quad.Subject(),
+				Group: quad.Subject(),
+				Title: quad.SubjectID(),
 			}
 			graph.Nodes = append(graph.Nodes, node)
 			uniq[quad.SubjectID()] = quad.SubjectID()
@@ -372,6 +462,8 @@ func (p *Snapshot) GraphAll(body string) (interface{}, int, error) {
 			node := apis.Node{
 				ID:    targetID,
 				Label: data["target"].(string),
+				Group: data["target"].(string),
+				Title: targetID,
 			}
 			graph.Nodes = append(graph.Nodes, node)
 			uniq[targetID] = targetID
@@ -383,6 +475,8 @@ func (p *Snapshot) GraphAll(body string) (interface{}, int, error) {
 			node := apis.Node{
 				ID:    sourceID,
 				Label: data["source"].(string),
+				Group: data["source"].(string),
+				Title: sourceID,
 			}
 			graph.Nodes = append(graph.Nodes, node)
 			uniq[sourceID] = sourceID
@@ -391,12 +485,18 @@ func (p *Snapshot) GraphAll(body string) (interface{}, int, error) {
 
 	// Retrieve all edges
 	for _, quad := range all {
+		var data = map[string]interface{}{}
+		json.Unmarshal([]byte(quad.Label()), &data)
 		edge := apis.Edge{
-			From:  quad.SubjectID(),
-			To:    quad.ObjectID(),
-			Label: quad.Predicate(),
-			Data:  quad.Label(),
+			From:   quad.SubjectID(),
+			To:     quad.ObjectID(),
+			Label:  quad.Predicate(),
+			Data:   quad.Label(),
+			Title:  data["id"].(string),
+			Smooth: true,
 		}
+		edge.Arrows = map[string]interface{}{}
+		edge.Arrows["to"] = true
 		graph.Edges = append(graph.Edges, edge)
 	}
 	return graph, -1, nil

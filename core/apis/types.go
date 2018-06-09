@@ -24,20 +24,26 @@ package apis
 
 // Graph type
 type Graph struct {
-	Nodes []Node `json:"nodes"`
-	Edges []Edge `json:"edges"`
+	Nodes   []Node                 `json:"nodes"`
+	Edges   []Edge                 `json:"edges"`
+	Options map[string]interface{} `json:"options"`
 }
 
 // Node type
 type Node struct {
 	ID    string `json:"id"`
 	Label string `json:"label"`
+	Group string `json:"group"`
+	Title string `json:"title"`
 }
 
 // Edge type
 type Edge struct {
-	From  string `json:"from"`
-	To    string `json:"to"`
-	Label string `json:"label"`
-	Data  string `json:"data"`
+	From   string                 `json:"from"`
+	To     string                 `json:"to"`
+	Label  string                 `json:"label"`
+	Data   string                 `json:"data"`
+	Title  string                 `json:"title"`
+	Smooth bool                   `json:"smooth"`
+	Arrows map[string]interface{} `json:"arrows"`
 }

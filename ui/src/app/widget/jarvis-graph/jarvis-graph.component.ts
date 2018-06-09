@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, EventEmitter, Output, ElementRef } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Network, DataSet, Node, Edge, IdType } from 'vis';
 import * as _ from 'lodash';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
-import { NodeBean, EdgeBean } from '../../model/graph/graph-bean';
+import { NodeBean, EdgeBean, GraphBean } from '../../model/graph/graph-bean';
 import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
@@ -30,11 +30,13 @@ import { OverlayPanel } from 'primeng/overlaypanel';
 })
 export class JarvisGraphComponent implements OnInit, AfterViewInit {
 
-  protected _nodes: NodeBean[];
-  protected _edges: EdgeBean[];
+  protected _network: any;
+  protected _graph: GraphBean;
   protected _options: any;
   public display = false;
 
+  @ViewChild('wrapper') wrapper: ElementRef;
+  @ViewChild('configure') configure: ElementRef;
   @Output() onChange: EventEmitter<any> = new EventEmitter();
 
   public items: MenuItem[];
@@ -78,59 +80,52 @@ export class JarvisGraphComponent implements OnInit, AfterViewInit {
     this._options = val;
   }
 
-  @Input() get nodes(): NodeBean[] {
-    return this._nodes;
+  @Input() get graph(): GraphBean {
+    return this._graph;
   }
 
-  set nodes(val: NodeBean[]) {
-    this._nodes = val;
-  }
-
-  @Input() get edges(): EdgeBean[] {
-    return this._edges;
-  }
-
-  set edges(val: EdgeBean[]) {
-    this._edges = val;
+  set graph(val: GraphBean) {
+    this._graph = val;
+    this.update();
   }
 
   /**
    * update edge
    */
   public update() {
-    // create a network
-    var container = document.getElementById('mynetwork');
-    var data = {
-      nodes: this._nodes,
-      edges: this._edges
-    };
+    if (this._network) {
+      this._network.setData(this._graph);
+    } else {
+      // create a network
+      var container = this.wrapper.nativeElement
 
-    this._options.configure = {
-      enabled: true,
-      container: document.getElementById('myconfigure')
+      this._options.configure = {
+        enabled: true,
+        container: this.configure.nativeElement
+      }
+
+      this._network = new Network(container, this._graph, this._options);
+
+      this._network.on("showPopup", (params) => {
+        // Emit event
+        this.onChange.emit({ type: "showPopup", params: params });
+      });
+
+      this._network.on("selectNode", (params) => {
+        // Emit event
+        this.onChange.emit({ type: "selectNode", params: params });
+      });
+
+      this._network.on("selectEdge", (params) => {
+        // Emit event
+        this.onChange.emit({ type: "selectEdge", params: params });
+      });
+
+      this._network.on("hoverNode", (params) => {
+        // Emit event
+        this.onChange.emit({ type: "hoverNode", params: params });
+      });
     }
-
-    var network = new Network(container, data, this._options);
-
-    network.on("showPopup", (params) => {
-      // Emit event
-      this.onChange.emit({ type: "showPopup", params: params });
-    });
-
-    network.on("selectNode", (params) => {
-      // Emit event
-      this.onChange.emit({ type: "selectNode", params: params });
-    });
-
-    network.on("selectEdge", (params) => {
-      // Emit event
-      this.onChange.emit({ type: "selectEdge", params: params });
-    });
-
-    network.on("hoverNode", (params) => {
-      // Emit event
-      this.onChange.emit({ type: "hoverNode", params: params });
-    });
   }
 
 }

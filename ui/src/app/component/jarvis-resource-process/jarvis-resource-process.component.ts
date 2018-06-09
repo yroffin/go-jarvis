@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Component, Input, ViewChild, OnInit, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild, OnInit, AfterContentInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 declare var Prism: any;
@@ -39,24 +39,35 @@ import { ResourceBean } from '../../model/resource-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { ProcessBean } from '../../model/code/process-bean';
 import { TriggerBean } from '../../model/trigger-bean';
+import { JarvisBpmnComponent } from '../../widget/jarvis-bpmnjs/jarvis-bpmnjs.component';
+import { GraphBean, NodeBean, EdgeBean } from '../../model/graph/graph-bean';
+import { LoadGraphAction, GraphStoreService } from '../../store/graph.store';
+import { Store } from '@ngrx/store/src/store';
+import { JarvisGraphExplorerComponent } from '../../widget/jarvis-graph-explorer/jarvis-graph-explorer.component';
 
 @Component({
   selector: 'app-jarvis-resource-process',
   templateUrl: './jarvis-resource-process.component.html',
   styleUrls: ['./jarvis-resource-process.component.css']
 })
-export class JarvisResourceProcessComponent extends JarvisResource<ProcessBean> implements NotifyCallback<ResourceBean>, OnInit {
+export class JarvisResourceProcessComponent extends JarvisResource<ProcessBean> implements NotifyCallback<ResourceBean>, OnInit, AfterContentInit {
 
   @Input() myProcess: ProcessBean;
   @ViewChild('pickTriggers') pickTriggers;
+  @ViewChild('wrapBpmn') wrapBpmn: JarvisBpmnComponent;
+  @ViewChild('wrapGraph') wrapGraph: JarvisGraphExplorerComponent;
 
   /**
    * internal data
    */
+  private display: boolean = false;
   private myData: any = {};
   private myOutputData: any = {};
-  myTrigger: TriggerBean;
+  private myTrigger: TriggerBean;
   private jarvisTriggerLink: JarvisResourceLink<TriggerBean>;
+
+  protected graphStream: Store<GraphBean>;
+  public graph: GraphBean;
 
   /**
    * constructor
@@ -65,15 +76,32 @@ export class JarvisResourceProcessComponent extends JarvisResource<ProcessBean> 
     private _route: ActivatedRoute,
     private _router: Router,
     private logger: LoggerService,
-    private _processService: JarvisDataProcessService,
-    private _triggerService: JarvisDataTriggerService
+    private processService: JarvisDataProcessService,
+    private _triggerService: JarvisDataTriggerService,
+    private graphStoreService: GraphStoreService
   ) {
-    super('/processes', ['deploy', 'test'], _processService, _route, _router);
+    super('/processes', ['deploy', 'test'], processService, _route, _router);
     this.jarvisTriggerLink = new JarvisResourceLink<TriggerBean>(this.logger);
+    this.graphStream = this.graphStoreService.graph()
   }
 
   ngOnInit() {
+  }
+
+  ngAfterContentInit() {
     this.init(this);
+
+    this.graphStream.subscribe(
+      (graph: GraphBean) => {
+        if(this.wrapGraph) {
+          this.wrapGraph.graph = graph;
+        }
+      },
+      error => {
+        console.error(error);
+      },
+      () => {
+      });
   }
 
   /**
@@ -83,6 +111,14 @@ export class JarvisResourceProcessComponent extends JarvisResource<ProcessBean> 
     if (body) {
       return Prism.highlight(body, Prism.languages.xml);
     }
+  }
+
+  /**
+   * pick bpmn
+   */
+  bpmn() {
+    this.wrapBpmn.bpmn = this.myProcess.bpmn;
+    this.wrapBpmn.display = true;
   }
 
   /**
@@ -101,7 +137,7 @@ export class JarvisResourceProcessComponent extends JarvisResource<ProcessBean> 
    * task action
    */
   public deploy(): void {
-    this._processService.Update(this.myProcess.id, this.myProcess)
+    this.processService.Update(this.myProcess.id, this.myProcess)
       .subscribe(
       (data: ProcessBean) => data,
       error => console.log(error),
@@ -111,7 +147,7 @@ export class JarvisResourceProcessComponent extends JarvisResource<ProcessBean> 
          * execute this plugin
          */
         let myOutputData;
-        this._processService.Task(this.myProcess.id, 'deploy', {})
+        this.processService.Task(this.myProcess.id, 'deploy', {})
           .subscribe(
           (result: any) => myOutputData = result,
           error => console.log(error),
@@ -126,12 +162,11 @@ export class JarvisResourceProcessComponent extends JarvisResource<ProcessBean> 
    * task action
    */
   public test(): void {
-    this.logger.info("Execute", this.myProcess);
     /**
      * execute this plugin
      */
     let myOutputData;
-    this._processService.Task(this.myProcess.id, 'execute', {})
+    this.processService.Task(this.myProcess.id, 'execute', {})
       .subscribe(
       (result: any) => myOutputData = result,
       error => console.log(error),
@@ -141,16 +176,34 @@ export class JarvisResourceProcessComponent extends JarvisResource<ProcessBean> 
   }
 
   /**
+   * graph action
+   */
+  public refresh(): void {
+    this.processService.Task<GraphBean>('*', 'active', {})
+      .subscribe(
+      (data) => {
+        // fix graph data
+        this.graphStoreService.dispatch(new LoadGraphAction(data))
+        this.wrapGraph.display = true;
+      },
+      (error: any) => {
+        console.error("Error while loading graph");
+      },
+      () => {
+      });
+  }
+
+  /**
    * notify to add new resource
    */
   public notify(picker: PickerBean, resource: ResourceBean): void {
     if (picker.action === 'triggers') {
-      this.jarvisTriggerLink.addLink(this.getResource().id, resource.id, this.getResource().triggers, { "order": "1", href: "HREF" }, this._processService.allLinkedTrigger);
+      this.jarvisTriggerLink.addLink(this.getResource().id, resource.id, this.getResource().triggers, { "order": "1", href: "HREF" }, this.processService.allLinkedTrigger);
     }
     if (picker.action === 'complete') {
       this.myProcess = <ProcessBean>resource;
       this.myProcess.triggers = [];
-      (new JarvisResourceLink<TriggerBean>(this.logger)).loadLinksWithCallback(resource.id, this.myProcess.triggers, this._processService.allLinkedTrigger, (elements) => {
+      (new JarvisResourceLink<TriggerBean>(this.logger)).loadLinksWithCallback(resource.id, this.myProcess.triggers, this.processService.allLinkedTrigger, (elements) => {
         this.myProcess.triggers = elements;
       });
     }
@@ -160,14 +213,14 @@ export class JarvisResourceProcessComponent extends JarvisResource<ProcessBean> 
    * drop link
    */
   public dropTriggerLink(linked: TriggerBean): void {
-    this.jarvisTriggerLink.dropLink(linked, this.myProcess.id, this.myProcess.triggers, this._processService.allLinkedTrigger);
+    this.jarvisTriggerLink.dropLink(linked, this.myProcess.id, this.myProcess.triggers, this.processService.allLinkedTrigger);
   }
 
   /**
    * drop link
    */
   public updateTriggerLink(linked: TriggerBean): void {
-    this.jarvisTriggerLink.updateLink(linked, this.myProcess.id, this._processService.allLinkedTrigger);
+    this.jarvisTriggerLink.updateLink(linked, this.myProcess.id, this.processService.allLinkedTrigger);
   }
 
   /**

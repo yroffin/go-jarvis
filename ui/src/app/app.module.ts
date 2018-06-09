@@ -146,6 +146,8 @@ import { JarvisGraphComponent } from './widget/jarvis-graph/jarvis-graph.compone
 import { SystemStoreService } from './store/system.store';
 import { JarvisGraphBrowserComponent } from './component/jarvis-graph-browser/jarvis-graph-browser.component';
 import { GraphStoreService } from './store/graph.store';
+import { JarvisBpmnComponent } from './widget/jarvis-bpmnjs/jarvis-bpmnjs.component';
+import { JarvisGraphExplorerComponent } from './widget/jarvis-graph-explorer/jarvis-graph-explorer.component';
 
 /**
  * default route definition
@@ -220,7 +222,9 @@ const appRoutes: Routes = [
     JarvisResourceProcessComponent,
     JarvisResourceModelComponent,
     JarvisGraphBrowserComponent,
-    JarvisGraphComponent
+    JarvisGraphComponent,
+    JarvisBpmnComponent,
+    JarvisGraphExplorerComponent
   ],
   entryComponents: [
     JarvisPickerComponent

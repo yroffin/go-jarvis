@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  branch = "master"
+  name = "code.cloudfoundry.org/go-diodes"
+  packages = ["."]
+  revision = "361f4b34988b402fbf4d5b744cc9b35959c2ac4e"
+
+[[projects]]
   name = "github.com/boltdb/bolt"
   packages = ["."]
   revision = "2f1ce7a837dcb8da3ec595b1dac9d0632f0f99e8"
@@ -116,6 +122,12 @@
   version = "v1"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/rs/zerolog"
+  packages = [".","diode","internal/cbor","internal/json"]
+  revision = "533ee32d5daba4d267593e79581afac50b57773c"
+
+[[projects]]
   name = "github.com/sirupsen/logrus"
   packages = ["."]
   revision = "c155da19408a8799da419ed3eeb0cb5db0ad5dbc"
@@ -132,6 +144,12 @@
   packages = ["codec"]
   revision = "b4c50a2b199d93b13dc15e78929cfb23bfdf21ab"
   version = "v1.1.1"
+
+[[projects]]
+  name = "github.com/vmihailenco/msgpack"
+  packages = [".","codes"]
+  revision = "a053f3dac71df214bfe8b367f34220f0029c9c02"
+  version = "v3.3.1"
 
 [[projects]]
   branch = "master"
@@ -153,6 +171,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/zeebe-io/zbc-go"
+  packages = ["zbc","zbc/common","zbc/models/zbdispatch","zbc/models/zbmsgpack","zbc/models/zbprotocol","zbc/models/zbsbe","zbc/models/zbsubscriptions","zbc/services/zbexchange","zbc/services/zbsocket","zbc/services/zbsubscribe","zbc/services/zbtopology","zbc/services/zbtransport"]
+  revision = "f11b50f20de39b64363d8668c7a85de0824c88e7"
+
+[[projects]]
+  branch = "master"
   name = "go.bug.st/serial.v1"
   packages = [".","unixutils"]
   revision = "eae1344f9f90101f887b08d13391c34399f97873"
@@ -166,7 +190,7 @@
 [[projects]]
   branch = "master"
   name = "golang.org/x/net"
-  packages = ["internal/socks","proxy","websocket"]
+  packages = ["context","internal/socks","proxy","websocket"]
   revision = "5f9ae10d9af5b1c89ae6904293b14b064d4ada23"
 
 [[projects]]
@@ -180,6 +204,12 @@
   packages = ["cases","collate","collate/build","internal","internal/colltab","internal/gen","internal/tag","internal/triegen","internal/ucd","language","transform","unicode/cldr","unicode/norm"]
   revision = "f21a4dfb5e38f5895301dc265a8def02365cc3d0"
   version = "v0.3.0"
+
+[[projects]]
+  name = "google.golang.org/appengine"
+  packages = [".","datastore","internal","internal/app_identity","internal/base","internal/datastore","internal/log","internal/modules","internal/remote_api"]
+  revision = "150dc57a1b433e64154302bdc40b6bb8aefa313a"
+  version = "v1.0.0"
 
 [[projects]]
   name = "gopkg.in/go-playground/validator.v8"
@@ -202,6 +232,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "22cdb3378bebfe5b9286d2f7d285df74279410e65b155ebd630e7ff577d67544"
+  inputs-digest = "afd2615bdf33ec769f1306114c5f642661e2979da0647cadb6e4e03f42f894f6"
   solver-name = "gps-cdcl"
   solver-version = 1

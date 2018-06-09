@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Component, Input, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { TreeNode, TREE_ACTIONS, KEYS, IActionMapping } from 'angular-tree-component';
 import * as _ from 'lodash';
 
@@ -47,7 +47,7 @@ import { PickerBean } from '../../model/picker-bean';
 })
 export class JarvisPickerComponent implements OnInit {
 
-  @Input() resource: PickerBean;
+  private _resource: PickerBean;
 
   public picked: any;
   public show: boolean = false;
@@ -77,7 +77,19 @@ export class JarvisPickerComponent implements OnInit {
    * init this component
    */
   ngOnInit() {
-    if(this.resource.action === undefined) {
+
+  }
+
+  /**
+   * setter and getter
+   */
+  @Input() get resource(): any {
+    return this._resource;
+  }
+
+  set resource(val: any) {
+    this._resource = val;
+    if (this.resource.action === undefined) {
       this.resource.action = this.resource.service;
     }
     let service: JarvisDefaultResource<ResourceBean>;

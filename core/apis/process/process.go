@@ -36,6 +36,8 @@ type ProcessusBean struct {
 	Name string `json:"name"`
 	// Icon
 	Icon string `json:"icon"`
+	// Bpmn
+	Bpmn string `json:"bpmn"`
 	// Extended
 	Extended map[string]interface{} `json:"extended"`
 }
@@ -46,6 +48,10 @@ type IProcessusBean interface {
 	core_models.IPersistent
 	// inherit ValueBean behaviour
 	core_models.IValueBean
+	// Name
+	GetName() string
+	// Bpmn
+	GetBpmn() string
 }
 
 // New constructor
@@ -75,6 +81,16 @@ func (p *ProcessusBean) GetExtend() map[string]interface{} {
 // GetID retrieve ID
 func (p *ProcessusBean) GetID() string {
 	return p.ID
+}
+
+// GetName retrieve name
+func (p *ProcessusBean) GetName() string {
+	return p.Name
+}
+
+// GetBpmn retrieve name
+func (p *ProcessusBean) GetBpmn() string {
+	return p.Bpmn
 }
 
 // SetID retrieve ID

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Component, Input, ViewChild, OnInit, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild, AfterContentInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SelectItem } from 'primeng/primeng';
 
@@ -46,13 +46,14 @@ import { PluginBean } from '../../model/plugin-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { LinkBean } from '../../model/link-bean';
 import { CommandBean } from '../../model/command-bean';
+import { GraphBean } from '../../model/graph/graph-bean';
 
 @Component({
   selector: 'app-jarvis-resource-plugin',
   templateUrl: './jarvis-resource-plugin.component.html',
   styleUrls: ['./jarvis-resource-plugin.component.css']
 })
-export class JarvisResourcePluginComponent extends JarvisResource<PluginBean> implements NotifyCallback<ResourceBean>, OnInit {
+export class JarvisResourcePluginComponent extends JarvisResource<PluginBean> implements NotifyCallback<ResourceBean>, AfterContentInit {
 
   @Input() myPlugin: PluginBean;
   @Input() myJsonData: string = "{}";
@@ -73,8 +74,8 @@ export class JarvisResourcePluginComponent extends JarvisResource<PluginBean> im
 
   private jarvisCommandLink: JarvisResourceLink<CommandBean>;
 
-  protected nodes: any;
-  protected edges: any;
+  public options: any = {};
+  protected graph: GraphBean;
 
   /**
    * constructor
@@ -97,7 +98,7 @@ export class JarvisResourcePluginComponent extends JarvisResource<PluginBean> im
   /**
    * load device and related data
    */
-  ngOnInit() {
+  ngAfterContentInit() {
     this.init(this);
   }
 
@@ -186,12 +187,10 @@ export class JarvisResourcePluginComponent extends JarvisResource<PluginBean> im
           .subscribe(
           (result: any) => {
             this.myDetail = result
-            this.nodes = result.nodes
-            this.edges = result.edges
+            this.graph = result
           },
           error => console.log(error),
           () => {
-            console.log(this.myDetail);
           }
           );
       });

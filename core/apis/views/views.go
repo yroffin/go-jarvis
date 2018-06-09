@@ -41,9 +41,10 @@ type View struct {
 	Name string
 	// mounts
 	Crud interface{} `@crud:"/api/views"`
-	// Notification with injection mecanism
+	// Device with injection mecanism
 	LinkDevice devices.IDevice `@autowired:"DeviceBean" @link:"/api/views" @href:"devices"`
-	Device     devices.IDevice `@autowired:"DeviceBean"`
+	// Devices
+	Device devices.IDevice `@autowired:"DeviceBean"`
 	// Swagger with injection mecanism
 	Swagger engine.ISwaggerService `@autowired:"swagger"`
 }

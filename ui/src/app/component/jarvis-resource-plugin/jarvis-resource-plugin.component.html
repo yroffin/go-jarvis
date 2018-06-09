@@ -1,5 +1,6 @@
 <app-jarvis-toolbar-resource [notified]="this" [crud]="true" [tasks]="[{'task':'execute','icon':'fa-gear','label':'Simuler (execution)'},{'task':'render','icon':'fa-bolt','label':'Simuler (rendu)'},{'task':'clear','icon':'fa-ban','label':'Effacer le contexte'}]"
   [pickers]="[{'action':'devices','icon':'fa-plug','label':'Ajouter une commande','picker': pickCommands}]"></app-jarvis-toolbar-resource>
+<app-jarvis-picker #pickCommands [resource]="{'service':'commands','label':'Commands'}"></app-jarvis-picker>
 
 <div *ngIf="myPlugin">
   <mat-tab-group>
@@ -53,7 +54,7 @@
       </p-dataTable>
     </mat-tab>
     <mat-tab label="Détails">
-      <app-jarvis-graph [nodes]="nodes" [edges]="edges"></app-jarvis-graph>
+      <app-jarvis-graph [graph]="graph" [options]="options"></app-jarvis-graph>
     </mat-tab>
     <mat-tab label="Mise au point">
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
@@ -83,8 +84,6 @@
       </div>
     </mat-tab>
   </mat-tab-group>
-
-  <app-jarvis-picker #pickCommands [resource]="{'service':'commands','label':'Commands'}"></app-jarvis-picker>
 
   <p-dialog appendTo="body" header="Commande" [(visible)]="display" modal=true responsive=true width="700" resizable=false>
     <div *ngIf="myCommand">

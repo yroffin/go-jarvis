@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, AfterViewInit, ViewChild } from '@angular/core';
 
 import { MenuItem, Message } from 'primeng/primeng';
 
@@ -30,19 +30,20 @@ import { JarvisMessageService } from '../../service/jarvis-message.service';
 import { ResourceBean } from '../../model/resource-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { TaskBean, PickerTaskBean } from '../../model/action-bean';
+import { JarvisPickerComponent } from '../../dialog/jarvis-picker/jarvis-picker.component';
 
 @Component({
   selector: 'app-jarvis-toolbar-resource',
   templateUrl: './jarvis-toolbar-resource.component.html',
   styleUrls: ['./jarvis-toolbar-resource.component.css']
 })
-export class JarvisToolbarResourceComponent implements OnInit {
+export class JarvisToolbarResourceComponent implements AfterViewInit {
 
   /**
    * members
    */
   @Input() public tasks: TaskBean[] = [];
-  @Input() public pickers: PickerTaskBean[] = [];
+  private _pickers: PickerTaskBean[];
 
   @Input() private actions: any[];
   @Input() private notified: JarvisToolbarAction;
@@ -56,6 +57,14 @@ export class JarvisToolbarResourceComponent implements OnInit {
   constructor(
     private jarvisMessageService: JarvisMessageService
   ) {
+  }
+
+  @Input() get pickers(): any {
+    return this._pickers;
+  }
+
+  set pickers(val: any) {
+    this._pickers = val;
   }
 
   /**
@@ -73,21 +82,20 @@ export class JarvisToolbarResourceComponent implements OnInit {
     this.remove();
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     /**
      * configure action bar
      */
-    let that = this;
     this.items = [];
-    _.each(this.actions, function (item) {
-      that.items.push(
+    _.each(this.actions, (item) => {
+      this.items.push(
         {
           label: item.label,
           icon: item.icon,
           command: () => {
             let picker: PickerBean = new PickerBean();
             picker.action = item.action;
-            that.pick(item.action);
+            this.pick(item.action);
           }
         }
       )
@@ -99,8 +107,8 @@ export class JarvisToolbarResourceComponent implements OnInit {
    * little tricky code, may be to refactor
    */
   private taskCallback(task: TaskBean): void {
-    eval("this.notified."+task.task).apply(this.notified, task.args);
-    this.jarvisMessageService.push({severity:'info', summary:'Tâche', detail:task.label});
+    eval("this.notified." + task.task).apply(this.notified, task.args);
+    this.jarvisMessageService.push({ severity: 'info', summary: 'Tâche', detail: task.label });
   }
 
   /**
@@ -137,7 +145,7 @@ export class JarvisToolbarResourceComponent implements OnInit {
    */
   public save(): void {
     this.notified.save();
-    this.jarvisMessageService.push({severity:'info', summary:'Action', detail:"sauvegarde"});
+    this.jarvisMessageService.push({ severity: 'info', summary: 'Action', detail: "sauvegarde" });
   }
 
   /**
@@ -145,7 +153,7 @@ export class JarvisToolbarResourceComponent implements OnInit {
    */
   public remove(): void {
     this.notified.remove();
-    this.jarvisMessageService.push({severity:'info', summary:'Action', detail:"suppression"});
+    this.jarvisMessageService.push({ severity: 'info', summary: 'Action', detail: "suppression" });
   }
 
   /**
@@ -153,6 +161,6 @@ export class JarvisToolbarResourceComponent implements OnInit {
    */
   public duplicate(): void {
     this.notified.duplicate();
-    this.jarvisMessageService.push({severity:'info', summary:'Action', detail:"duplication"});
+    this.jarvisMessageService.push({ severity: 'info', summary: 'Action', detail: "duplication" });
   }
 }

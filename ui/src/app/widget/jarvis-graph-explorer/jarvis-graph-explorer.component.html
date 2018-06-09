@@ -1,0 +1,3 @@
+<p-dialog header="Graph explorer" [(visible)]="_display" [width]="800" >
+    <app-jarvis-graph [graph]="graph" [options]="options" (onChange)="handler($event)"></app-jarvis-graph>
+</p-dialog>

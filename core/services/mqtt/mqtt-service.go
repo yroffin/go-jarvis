@@ -49,6 +49,7 @@ type IMqttService interface {
 	PublishLeastOne(topic string, message string) error
 	PublishMostOne(topic string, message string) error
 	Subscribe(topic string, data interface{}, handler func(interface{}, interface{})) error
+	Unsubscribe(topic string) error
 }
 
 // New constructor
@@ -108,6 +109,25 @@ func (p *service) Subscribe(topic string, data interface{}, handler func(interfa
 		log.WithFields(log.Fields{
 			"error": token.Error(),
 		}).Error("Mqtt - subscribe")
+	} else {
+		log.WithFields(log.Fields{
+			"topic": topic,
+		}).Info("Mqtt - subscribe")
+	}
+	return nil
+}
+
+// Unsubscribe this API
+func (p *service) Unsubscribe(topic string) error {
+	// Unsubscribe
+	if token := p.client.Unsubscribe(topic); token.Wait() && token.Error() != nil {
+		log.WithFields(log.Fields{
+			"error": token.Error(),
+		}).Error("Mqtt - unsubscribe")
+	} else {
+		log.WithFields(log.Fields{
+			"topic": topic,
+		}).Info("Mqtt - unsubscribe")
 	}
 	return nil
 }

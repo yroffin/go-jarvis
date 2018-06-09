@@ -34,7 +34,7 @@ export class JarvisBpmnComponent implements AfterContentInit {
 
   @ViewChild('wrapper') wrapper: ElementRef;
   protected _bpmn: string;
-  protected _display: boolean = false;
+  public _display: boolean = false;
   private viewer: any;
 
   @Output() onChange: EventEmitter<any> = new EventEmitter();

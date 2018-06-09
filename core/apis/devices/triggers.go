@@ -57,6 +57,8 @@ type Trigger struct {
 	Swagger engine.ISwaggerService `@autowired:"swagger"`
 	// Internal channel for events
 	events chan EventBean
+	// Internal channel subscribed
+	subscribed map[string]string
 }
 
 // ITrigger implements IBean
@@ -72,7 +74,10 @@ func (p *Trigger) New() ITrigger {
 	bean.events = make(chan EventBean)
 	go bean.Handler()
 	bean.GetByIDListener = make([]func(models.IPersistent) models.IPersistent, 1)
-	bean.GetByIDListener[0] = bean.middleware
+	bean.GetByIDListener[0] = bean.getMiddleware
+	bean.PutByIDListener = make([]func(models.IPersistent) models.IPersistent, 1)
+	bean.PutByIDListener[0] = bean.putMiddleware
+	bean.subscribed = make(map[string]string)
 	return &bean
 }
 
@@ -106,23 +111,45 @@ func (p *Trigger) PostConstruct(name string) error {
 
 // Validate this API
 func (p *Trigger) Validate(name string) error {
+	return p.topics()
+}
+
+// Validate this API
+func (p *Trigger) topics() error {
+	// Unsubscribe
+	for _, subscribed := range p.subscribed {
+		p.Mqtt.Unsubscribe(subscribed)
+	}
 	// Activate MQTT subscription
 	triggers, _ := p.GetAll()
 	for _, entity := range triggers {
 		trigger := entity.(*TriggerBean)
 		if len(trigger.Topic) > 0 {
-			p.Mqtt.Subscribe(trigger.Topic, trigger.ID, func(data interface{}, value interface{}) {
-				entity, _ := p.GetByID(data.(string))
-				trigger := entity.(*TriggerBean)
-				result, _ := p.LuaService.AsObject(trigger, value.(map[string]interface{}))
+			topic, exist := p.subscribed[trigger.Topic]
+			if !exist {
+				p.Mqtt.Subscribe(trigger.Topic, trigger.ID, func(data interface{}, value interface{}) {
+					entity, _ := p.GetByID(data.(string))
+					trigger := entity.(*TriggerBean)
+					result, _ := p.LuaService.AsObject(trigger, value.(map[string]interface{}))
+					log.WithFields(log.Fields{
+						"json": models.ToJSON(result),
+					}).Info("Execute trigger - result")
+					event := EventNew(trigger.ID, result.GetAsString("result"))
+					p.Post(event)
+				})
+				// Add this new subscription
+				p.subscribed[trigger.Topic] = trigger.Topic
+			} else {
 				log.WithFields(log.Fields{
-					"json": models.ToJSON(result),
-				}).Info("Execute trigger - result")
-				event := EventNew(trigger.ID, result.GetAsString("result"))
-				p.Post(event)
-			})
+					"topic": topic,
+				}).Info("Topic already subscribed")
+			}
 		}
 	}
+	log.WithFields(log.Fields{
+		"topics":   len(p.subscribed),
+		"triggers": len(triggers),
+	}).Info("Topic validation")
 	return nil
 }
 
@@ -141,7 +168,7 @@ func (p *Trigger) Post(event EventBean) error {
 }
 
 // Simple middle ware to override status
-func (p *Trigger) middleware(entity models.IPersistent) models.IPersistent {
+func (p *Trigger) getMiddleware(entity models.IPersistent) models.IPersistent {
 	result := make([]models.IPersistent, 0)
 	// Iterate on devices, then triggers and find attached device
 	devices, _ := p.Device.GetAll()
@@ -155,6 +182,13 @@ func (p *Trigger) middleware(entity models.IPersistent) models.IPersistent {
 	}
 	// Update device
 	entity.(*TriggerBean).Devices = result
+	return entity
+}
+
+// Simple middle ware to override status
+func (p *Trigger) putMiddleware(entity models.IPersistent) models.IPersistent {
+	// Validate all subscription
+	p.topics()
 	return entity
 }
 

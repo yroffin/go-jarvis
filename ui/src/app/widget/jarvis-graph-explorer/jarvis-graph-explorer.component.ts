@@ -30,7 +30,7 @@ export class JarvisGraphExplorerComponent implements AfterContentInit {
 
   @ViewChild('wrapper') wrapper: ElementRef;
   protected _graph: GraphBean;
-  protected _display: boolean = false;
+  public _display: boolean = false;
 
   public nodes: NodeBean[] = [];
   public edges: EdgeBean[] = [];

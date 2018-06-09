@@ -31,7 +31,7 @@ export class JarvisGraphBrowserComponent implements OnInit {
   public options: any;
 
   protected graphStream: Store<GraphBean>;
-  protected graph: GraphBean;
+  public graph: GraphBean;
 
   constructor(
     private graphStoreService: GraphStoreService,

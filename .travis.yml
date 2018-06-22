@@ -50,4 +50,4 @@ deploy:
   on:
     tags: true
     all_branches: true
-after_deploy: curl -X POST http://${HOOK_SERVER}/travis/deployment
+after_deploy: curl -X POST http://${HOOK_SERVER}/travis/deployment/${TRAVIS_TAG}

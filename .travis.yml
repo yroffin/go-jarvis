@@ -50,6 +50,4 @@ deploy:
   on:
     tags: true
     all_branches: true
-after_deploy: echo "deploiement terminé"
-notifications:
-  webhooks: http://${HOOK_SERVER}/travis/deployment
+after_deploy: curl -X POST http://${HOOK_SERVER}/travis/deployment

@@ -37,6 +37,7 @@ import { JarvisResourceLink } from '../../class/jarvis-resource-link';
 import { JarvisPicker } from '../../class/jarvis-pickers';
 import { JarvisResource } from '../../class/jarvis-resource';
 import { NotifyCallback } from '../../class/jarvis-resource';
+import { MatTableDataSource } from '@angular/material';
 
 /**
  * data model
@@ -54,6 +55,7 @@ import { DeviceBean } from '../../model/device-bean';
 export class JarvisResourceViewComponent extends JarvisResource<ViewBean> implements NotifyCallback<ResourceBean>, OnInit {
 
   @Input() myView: ViewBean;
+  public devices = new MatTableDataSource([])
 
   @ViewChild('pickDevices') pickDevices: JarvisPickerComponent;
 
@@ -113,6 +115,7 @@ export class JarvisResourceViewComponent extends JarvisResource<ViewBean> implem
       this.myView.devices = [];
       (new JarvisResourceLink<DeviceBean>(this.logger)).loadLinksWithCallback(resource.id, this.myView.devices, this._viewService.allLinkedDevice, (elements) => {
         this.myView.devices = elements;
+        this.devices = new MatTableDataSource(elements)
       });
     }
   }

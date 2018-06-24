@@ -25,6 +25,7 @@ before_install:
 install:
   # Module build
   - source /home/travis/.gimme/envs/go1.10.env
+  - npm i npm@latest -g
   - which go
   - go version
   # Build

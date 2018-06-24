@@ -36,6 +36,7 @@ import { ProfileGuard } from './guard/profile.service';
  */
 import { ResourceBean } from './model/resource-bean';
 import { Oauth2Bean, MeBean } from './model/security/oauth2-bean';
+import { VersionBean } from './model/system/version';
 
 @Component({
   selector: 'app-root',
@@ -54,11 +55,13 @@ export class AppComponent implements OnInit {
   public dispMe: boolean = false;
   public dispHelp: boolean = false;
   public dispMenu: boolean = false;
+  public dispVersion: boolean = false;
 
   public msgs: Message[] = <Message[]>[];
   protected messageStream: Store<Message>;
 
   public me: MeBean;
+  public vers: any;
   public help: string;
 
   /**
@@ -96,6 +99,18 @@ export class AppComponent implements OnInit {
   showMe() {
     this.me = this.profile.getMe();
     this.dispMe = true;
+  }
+
+  /**
+   * show me
+   */
+  showVersion() {
+    this.jarvisSecurityService.Version().subscribe(
+      (data: VersionBean) => {
+        this.vers = data
+      }
+    )
+    this.dispVersion = true;
   }
 
   /**

@@ -6,6 +6,7 @@
             <button pButton (click)="showMenu()" type="button" icon="fa-bars"></button>
             <button pButton (click)="showMe()" type="button" icon="fa-address-card-o"></button>
             <button pButton (click)="showHelp()" type="button" icon="fa-podcast"></button>
+            <button pButton (click)="showVersion()" type="button" icon="fa-code-fork"></button>
         </div>
     </p-toolbar>
     <div>
@@ -18,5 +19,8 @@
     <p-dialog appendTo="body" header="Me" [(visible)]="dispMe" modal="true">
         Email
         <input type="text" pInputText [(ngModel)]="me && me.attributes.email" disabled/>
+    </p-dialog>
+    <p-dialog appendTo="body" header="Version" [(visible)]="dispVersion" modal="true">
+            <pre>{{vers | json}}</pre>
     </p-dialog>
 </mat-sidenav-container>

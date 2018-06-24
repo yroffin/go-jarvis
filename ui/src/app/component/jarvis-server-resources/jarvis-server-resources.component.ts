@@ -20,7 +20,7 @@ import { State, Store } from '@ngrx/store';
 import { SelectItem, UIChart } from 'primeng/primeng';
 import { JarvisMqttService } from '../../service/jarvis-mqtt.service';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { MessageBean } from '../../model/broker/message-bean';
 import { BrokerStoreService } from '../../store/broker.store';
 
@@ -33,7 +33,7 @@ export class JarvisServerResourcesComponent implements OnInit {
 
   public data: any;
   @ViewChild('chart') chart: UIChart;
-  public messageStream: Store<MessageBean>;
+  public messageStream: Observable<MessageBean>;
 
   constructor(
     private store: Store<State<MessageBean>>,

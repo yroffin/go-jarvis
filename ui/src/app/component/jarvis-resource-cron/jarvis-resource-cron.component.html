@@ -15,34 +15,34 @@
         </div>
         <div class="ui-grid-row">
           <div class="ui-grid-col-4">
-            <mat-input-container class="input-full-width">
+            <mat-form-field>
               <input matInput placeholder="Nom" [(ngModel)]="myCron.name">
-            </mat-input-container>
+            </mat-form-field>
           </div>
           <div class="ui-grid-col-4">
-            <mat-input-container class="input-full-width">
+            <mat-form-field>
               <input matInput placeholder="Icône" [(ngModel)]="myCron.icon">
-            </mat-input-container>
+            </mat-form-field>
           </div>
           <div class="ui-grid-col-4" *ngIf="myCron.triggerType === 'CRONTAB'">
-            <mat-input-container class="input-full-width">
+            <mat-form-field>
               <input matInput type="text" pInputText [(ngModel)]="myCron.cron" placeholder="Cron: * * * * * *" />
-            </mat-input-container>
+            </mat-form-field>
           </div>
           <div class="ui-grid-col-4" *ngIf="myCron.triggerType != 'CRONTAB'">
-            <mat-input-container class="input-full-width">
+            <mat-form-field>
               <input matInput type="text" pInputText [(ngModel)]="myCron.latitude" placeholder="Latitude: 0" />
-            </mat-input-container>
+            </mat-form-field>
           </div>
           <div class="ui-grid-col-4" *ngIf="myCron.triggerType != 'CRONTAB'">
-            <mat-input-container class="input-full-width">
+            <mat-form-field>
               <input matInput type="text" pInputText [(ngModel)]="myCron.longitude" placeholder="Longitude: 0" />
-            </mat-input-container>
+            </mat-form-field>
           </div>
           <div class="ui-grid-col-4" *ngIf="myCron.triggerType != 'CRONTAB'">
-            <mat-input-container class="input-full-width">
+            <mat-form-field>
               <input matInput type="text" pInputText [(ngModel)]="myCron.shift" placeholder="Décalage en minutes: 0" />
-            </mat-input-container>
+            </mat-form-field>
           </div>
         </div>
         <div class="ui-grid-row">

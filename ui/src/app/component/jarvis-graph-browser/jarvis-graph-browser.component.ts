@@ -17,6 +17,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { NodeBean, EdgeBean, GraphBean } from '../../model/graph/graph-bean';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store/src/store';
 import { GraphStoreService, LoadGraphAction } from '../../store/graph.store';
 import { JarvisDataSnapshotService } from '../../service/jarvis-data-snapshot.service';
@@ -30,7 +31,7 @@ export class JarvisGraphBrowserComponent implements OnInit {
 
   public options: any;
 
-  protected graphStream: Store<GraphBean>;
+  protected graphStream: Observable<GraphBean>;
   public graph: GraphBean;
 
   constructor(

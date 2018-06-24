@@ -18,13 +18,11 @@ import { Injectable } from '@angular/core';
 import { PlatformLocation } from '@angular/common';
 import { DOCUMENT } from "@angular/platform-browser";
 
-import { Subject } from 'rxjs/Rx';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import * as _ from 'lodash';
 
-import { Observable } from 'rxjs/Observable';
-import { Subscriber } from 'rxjs/Subscriber';
+import { Observable, Subscriber, Subject } from 'rxjs';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 
 import { WindowRef } from '../service/jarvis-utils.service';

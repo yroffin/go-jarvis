@@ -8,29 +8,29 @@
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
         <div class="ui-grid-row">
           <div class="ui-grid-col-6">
-            <mat-input-container class="input-full-width">
+            <mat-form-field>
               <input matInput placeholder="Nom" [(ngModel)]="myDevice.name">
-            </mat-input-container>
+            </mat-form-field>
           </div>
           <div class="ui-grid-col-6">
-            <mat-input-container class="input-full-width">
+            <mat-form-field>
               <input matInput placeholder="Icône" [(ngModel)]="myDevice.icon">
-            </mat-input-container>
+            </mat-form-field>
           </div>
         </div>
         <div class="ui-grid-row">
           <div class="ui-grid-col-6">
-            <mat-input-container class="input-full-width">
+            <mat-form-field>
               <input matInput placeholder="Paramètres" [(ngModel)]="myDevice.parameters">
-            </mat-input-container>
+            </mat-form-field>
           </div>
           <div class="ui-grid-col-1">
             <mat-checkbox [(ngModel)]="myDevice.visible"></mat-checkbox>
           </div>
           <div class="ui-grid-col-5">
-            <mat-input-container class="input-full-width">
+            <mat-form-field>
               <input matInput placeholder="Visibilité" [(ngModel)]="myDevice.visible" disabled>
-            </mat-input-container>
+            </mat-form-field>
           </div>
         </div>
       </div>
@@ -91,45 +91,45 @@
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
         <div class="ui-grid-row">
           <div class="ui-grid-col-3">
-            <mat-input-container class="input-full-width">
+            <mat-form-field>
               <input matInput placeholder="Couleur de la cellule" [(ngModel)]="myDevice.tagColor">
-            </mat-input-container>
+            </mat-form-field>
           </div>
           <div class="ui-grid-col-3">
-            <mat-input-container class="input-full-width">
+            <mat-form-field>
               <input matInput placeholder="Opacité de la cellule" [(ngModel)]="myDevice.tagOpacity">
-            </mat-input-container>
+            </mat-form-field>
           </div>
           <div class="ui-grid-col-3">
-            <mat-input-container class="input-full-width">
+            <mat-form-field>
               <input matInput placeholder="Couleur du texte de la cellule" [(ngModel)]="myDevice.tagTextColor">
-            </mat-input-container>
+            </mat-form-field>
           </div>
           <div class="ui-grid-col-3">
-            <mat-input-container class="input-full-width">
+            <mat-form-field>
               <input matInput placeholder="Icône" [(ngModel)]="myDevice.icon">
-            </mat-input-container>
+            </mat-form-field>
           </div>
         </div>
         <div class="ui-grid-row">
           <div class="ui-grid-col-6">
-            <mat-input-container class="input-full-width">
+            <mat-form-field>
               <input matInput placeholder="myDevice.rowSpan" [(ngModel)]="myDevice.rowSpan">
-            </mat-input-container>
+            </mat-form-field>
           </div>
           <div class="ui-grid-col-6">
-            <mat-input-container class="input-full-width">
+            <mat-form-field>
               <input matInput placeholder="Nombre de colonne de la cellule" [(ngModel)]="myDevice.colSpan">
-            </mat-input-container>
+            </mat-form-field>
           </div>
         </div>
       </div>
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
         <div class="ui-grid-row">
           <div class="ui-grid-col-12">
-            <mat-input-container class="input-full-width">
+            <mat-form-field>
               <textarea matInput placeholder="Paramétrage de la tuile" [(ngModel)]="myDevice.template"></textarea>
-            </mat-input-container>
+            </mat-form-field>
           </div>
         </div>
         <div class="ui-grid-row">

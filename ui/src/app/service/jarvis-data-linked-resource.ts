@@ -1,6 +1,8 @@
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+
 import { Http, Response, Headers } from '@angular/http';
 
 import { JarvisDefaultResource, JarvisDefaultLinkResource } from '../interface/jarvis-default-resource';
@@ -38,70 +40,69 @@ export class JarvisDataLinkedResource<T extends ResourceBean> implements JarvisD
      * get all link
      */
     public GetAll = (id: string): Observable<T[]> => {
-        return this.http.get(this.actionUrl + '/' + id + this.link, { headers: this.headers })
-            .map((response: Response) => <T[]>response.json())
-            .catch(this.handleError);
+        return this.http.get(this.actionUrl + '/' + id + this.link, { headers: this.headers }).pipe(
+            map((response: Response) => <T[]>response.json()),
+            catchError(this.handleError));
     }
 
     /**
      * get all link
      */
     public FindAll = (id: string, filters: string): Observable<T[]> => {
-        return this.http.get(this.actionUrl + '/' + id + this.link + '?' + filters, { headers: this.headers })
-            .map((response: Response) => <T[]>response.json())
-            .catch(this.handleError);
+        return this.http.get(this.actionUrl + '/' + id + this.link + '?' + filters, { headers: this.headers }).pipe(
+            map((response: Response) => <T[]>response.json()),
+            catchError(this.handleError));
     }
 
     /**
      * get single link
      */
     public GetSingle = (id: string, linkId: string): Observable<T> => {
-        return this.http.get(this.actionUrl + '/' + id  + this.link + '/' + linkId, { headers: this.headers })
-            .map((response: Response) => <T>response.json())
-            .catch(this.handleError);
+        return this.http.get(this.actionUrl + '/' + id  + this.link + '/' + linkId, { headers: this.headers }).pipe(
+            map((response: Response) => <T>response.json()),
+            catchError(this.handleError));
     }
 
     /**
      * add a new link
      */
     public Add = (id: string, linkId: string, linkToAdd: any): Observable<T> => {
-        return this.http.post(this.actionUrl + '/' + id  + this.link + '/' + linkId, JSON.stringify(linkToAdd), { headers: this.headers })
-            .map((response: Response) => <T>response.json())
-            .catch(this.handleError);
+        return this.http.post(this.actionUrl + '/' + id  + this.link + '/' + linkId, JSON.stringify(linkToAdd), { headers: this.headers }).pipe(
+            map((response: Response) => <T>response.json()),
+            catchError(this.handleError));
     }
 
     /**
      * update a link
      */
     public Update = (id: string, linkId: string, instance: string, linkToUpdate: any): Observable<T> => {
-        return this.http.put(this.actionUrl + '/' + id  + this.link + '/' + linkId + '?instance=' + instance, JSON.stringify(linkToUpdate), { headers: this.headers })
-            .map((response: Response) => <T>response.json())
-            .catch(this.handleError);
+        return this.http.put(this.actionUrl + '/' + id  + this.link + '/' + linkId + '?instance=' + instance, JSON.stringify(linkToUpdate), { headers: this.headers }).pipe(
+            map((response: Response) => <T>response.json()),
+            catchError(this.handleError));
     }
 
     /**
      * delete a link
      */
     public Delete = (id: string, linkId: string, instance: string): Observable<T> => {
-        return this.http.delete(this.actionUrl + '/' + id  + this.link + '/' + linkId + '?instance=' + instance, { headers: this.headers })
-            .map((response: Response) => <T>response.json())
-            .catch(this.handleError);
+        return this.http.delete(this.actionUrl + '/' + id  + this.link + '/' + linkId + '?instance=' + instance, { headers: this.headers }).pipe(
+            map((response: Response) => <T>response.json()),
+            catchError(this.handleError));
     }
 
     /**
      * delete a link
      */
     public DeleteWithFilter = (id: string, linkId: string, instance: string, filters: string): Observable<T> => {
-        return this.http.delete(this.actionUrl + '/' + id  + this.link + '/' + linkId + '?instance=' + instance + '&' + filters, { headers: this.headers })
-            .map((response: Response) => <T>response.json())
-            .catch(this.handleError);
+        return this.http.delete(this.actionUrl + '/' + id  + this.link + '/' + linkId + '?instance=' + instance + '&' + filters, { headers: this.headers }).pipe(
+            map((response: Response) => <T>response.json()),
+            catchError(this.handleError));
     }
 
     /**
      * handle error
      */
-    private handleError(error: Response) {
-        console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
+    private handleError(error: Response): Observable<any> {
+        throw(error || 'Server error');
     }
 }

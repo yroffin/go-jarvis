@@ -29,7 +29,7 @@ import { AppComponent } from './app.component';
 /**
  * material2
  */
-import { MatSidenavModule } from '@angular/material';
+import { MatSidenavModule, MatIcon } from '@angular/material';
 import { MatCheckboxModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material';
 import { MatGridListModule } from '@angular/material';
@@ -41,6 +41,7 @@ import { MatOptionModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material';
+import { MatIconModule, MatIconRegistry } from '@angular/material';
 
 /**
  * primeng
@@ -250,6 +251,7 @@ const appRoutes: Routes = [
     MatCardModule,
     MatSnackBarModule,
     MatFormFieldModule,
+    MatIconModule,
     /**
      * primeface
      */
@@ -308,6 +310,7 @@ const appRoutes: Routes = [
      * extends
      */
     WindowRef,
+    MatIconRegistry,
     /**
      * jarvis
      */
@@ -352,5 +355,8 @@ const appRoutes: Routes = [
   bootstrap: [AppComponent]
 })
 export class AppModule {
-
+  constructor(
+    public matIconRegistry: MatIconRegistry) {
+    matIconRegistry.registerFontClassAlias('fontawesome', 'fa');
+  }
 }

@@ -32,7 +32,7 @@ export class JarvisGraphComponent implements OnInit, AfterViewInit {
 
   protected _network: any;
   protected _graph: GraphBean;
-  protected _options: any;
+  protected _options: any = {};
   public display = false;
 
   @ViewChild('wrapper') wrapper: ElementRef;
@@ -77,7 +77,11 @@ export class JarvisGraphComponent implements OnInit, AfterViewInit {
   }
 
   set options(val: any) {
-    this._options = val;
+    if (val) {
+      this._options = val;
+    } else {
+      this._options = {};
+    }
   }
 
   @Input() get graph(): GraphBean {
@@ -94,6 +98,10 @@ export class JarvisGraphComponent implements OnInit, AfterViewInit {
    */
   public update() {
     if (this._network) {
+      this._network.setOptions(this._options);
+      if (!this._graph.options) {
+        this._graph.options = {};
+      }
       this._network.setData(this._graph);
     } else {
       // create a network

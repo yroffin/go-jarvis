@@ -16,8 +16,8 @@
 
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+
+import { Observable } from 'rxjs';
 import { JarvisConfigurationService } from './jarvis-configuration.service';
 import { JarvisDefaultResource, JarvisDefaultLinkResource } from '../interface/jarvis-default-resource';
 import { JarvisDataCoreResource } from './jarvis-data-core-resource';

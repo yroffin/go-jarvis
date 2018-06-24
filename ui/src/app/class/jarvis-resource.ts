@@ -17,6 +17,7 @@
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { JarvisDefaultResource } from '../interface/jarvis-default-resource';
+import { map } from 'rxjs/operators';
 
 /**
  * data model
@@ -80,7 +81,7 @@ export class JarvisResource<T extends ResourceBean> {
      */
     public init(that: NotifyCallback<T>): void {
         this.route.params
-            .map(params => params['id'])
+            .pipe(map(params => params['id']))
             .subscribe((id) => {
                 this.myJarvisResource.GetSingle(id)
                     .subscribe(

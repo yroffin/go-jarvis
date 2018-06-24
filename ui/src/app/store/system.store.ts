@@ -15,9 +15,11 @@
  */
 
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { ActionReducer, Action, State } from '@ngrx/store';
 import { Store } from '@ngrx/store';
-import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector, Selector } from '@ngrx/store';
 
 import * as _ from 'lodash';
 
@@ -51,7 +53,7 @@ export type AllSystemActions = VersionAction;
 @Injectable()
 export class SystemStoreService {
 
-  private getVersion: MemoizedSelector<object, VersionBean>;
+  private getVersion: Selector<object, VersionBean>;
 
   /**
    * 
@@ -66,7 +68,7 @@ export class SystemStoreService {
   /**
    * select this store service
    */
-  public message(): Store<VersionBean> {
+  public message(): Observable<VersionBean> {
     return this._store.select(this.getVersion);
   }
 

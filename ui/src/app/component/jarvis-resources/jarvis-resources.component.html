@@ -15,5 +15,5 @@
     </p-column>
 </p-dataTable>
 <p-dialog appendTo="body" modal=true header="Confirmation" [(visible)]="display">
-  Supression de {{toDelete && toDelete.name}} ? <button pButton type="button" icon="fa-trash" pTooltip="Supprimer" tooltipPosition="bottom" (click)="confirmedDropResource(toDelete)"></button>
+  Supression de {{toDelete && toDelete.name}} ? <mat-icon fontSet="fa" fontIcon="fa-trash" pTooltip="Supprimer" tooltipPosition="bottom" (click)="confirmedDropResource(toDelete)"></mat-icon>
 </p-dialog>

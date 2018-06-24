@@ -15,9 +15,10 @@
  */
 
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ActionReducer, Action, State } from '@ngrx/store';
 import { Store } from '@ngrx/store';
-import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector, Selector } from '@ngrx/store';
 
 import * as _ from 'lodash';
 
@@ -51,7 +52,7 @@ export type AllMessagesActions = NewMessageAction;
 @Injectable()
 export class BrokerStoreService {
 
-  private getMessage: MemoizedSelector<object, MessageBean>;
+  private getMessage: Selector<object, MessageBean>;
 
   /**
    * 
@@ -66,7 +67,7 @@ export class BrokerStoreService {
   /**
    * select this store service
    */
-  public message(): Store<MessageBean> {
+  public message(): Observable<MessageBean> {
     return this._store.select(this.getMessage);
   }
 

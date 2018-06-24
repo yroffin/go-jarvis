@@ -15,9 +15,11 @@
  */
 
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { ActionReducer, Action, State } from '@ngrx/store';
 import { Store } from '@ngrx/store';
-import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector, Selector } from '@ngrx/store';
 
 import * as _ from 'lodash';
 
@@ -51,7 +53,7 @@ export type AllMessageUiActions = NewUiMessageAction;
 @Injectable()
 export class MessageStoreService {
 
-  private getMessage: MemoizedSelector<object, Message>;
+  private getMessage: Selector<object, Message>;
 
   /**
    * 
@@ -66,7 +68,7 @@ export class MessageStoreService {
   /**
    * select this store service
    */
-  public message(): Store<Message> {
+  public message(): Observable<Message> {
     return this._store.select(this.getMessage);
   }
 

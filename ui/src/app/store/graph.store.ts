@@ -15,9 +15,11 @@
  */
 
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { ActionReducer, Action, State } from '@ngrx/store';
 import { Store } from '@ngrx/store';
-import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector, Selector } from '@ngrx/store';
 
 import * as _ from 'lodash';
 
@@ -51,7 +53,7 @@ export type AllGraphActions = LoadGraphAction;
 @Injectable()
 export class GraphStoreService {
 
-    private getGraph: MemoizedSelector<object, GraphBean>;
+    private getGraph: Selector<object, GraphBean>;
 
     /**
      * 
@@ -66,7 +68,7 @@ export class GraphStoreService {
     /**
      * select this store service
      */
-    public graph(): Store<GraphBean> {
+    public graph(): Observable<GraphBean> {
         return this._store.select(this.getGraph);
     }
 

@@ -16,6 +16,7 @@
 
 import { Component, Input, ViewChild, OnInit, AfterContentInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Observable } from 'rxjs';
 
 declare var Prism: any;
 
@@ -66,7 +67,7 @@ export class JarvisResourceProcessComponent extends JarvisResource<ProcessBean> 
   private myTrigger: TriggerBean;
   private jarvisTriggerLink: JarvisResourceLink<TriggerBean>;
 
-  protected graphStream: Store<GraphBean>;
+  protected graphStream: Observable<GraphBean>;
   public graph: GraphBean;
 
   /**

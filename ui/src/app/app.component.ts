@@ -15,7 +15,10 @@
  */
 
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+
 import { Http, Response, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 import { State, Store } from '@ngrx/store';
@@ -58,7 +61,7 @@ export class AppComponent implements OnInit {
   public dispVersion: boolean = false;
 
   public msgs: Message[] = <Message[]>[];
-  protected messageStream: Store<Message>;
+  protected messageStream: Observable<Message>;
 
   public me: MeBean;
   public vers: any;
@@ -162,16 +165,17 @@ export class AppComponent implements OnInit {
   public GetHelp = (id: string): Observable<string> => {
     let headers = new Headers();
     headers.append('JarvisAuthToken', this.configuration.getJarvisAuthToken());
-    return this.http.get(this.configuration.ServerWithApiUrl + 'helps/fr/' + id, { headers: headers })
-      .map((response: Response) => <string>response.text())
-      .catch(this.handleError);
+    return this.http.get(this.configuration.ServerWithApiUrl + 'helps/fr/' + id, { headers: headers }).pipe(
+      map((response: Response) => <string>response.text()),
+      catchError(this.handleError)
+    );
   }
 
   /**
    * error handler
    */
-  protected handleError(error: Response) {
-    return Observable.throw(error || 'Server error');
+  protected handleError(error: Response): Observable<any> {
+    throw(error || 'Server error');
   }
 
   /**

@@ -32,6 +32,7 @@ import { Oauth2Bean, MeBean } from '../../model/security/oauth2-bean';
 import { Store } from '@ngrx/store/src/store';
 import { ViewStoreService, LoadViewsAction, UpdateDeviceAction } from '../../store/view.store';
 import { LoggerService } from '../../service/logger.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-jarvis-desktop',
@@ -40,7 +41,7 @@ import { LoggerService } from '../../service/logger.service';
 })
 export class JarvisDesktopComponent implements OnInit {
 
-  public viewStream: Store<Array<ViewBean>>;
+  public viewStream: Observable<Array<ViewBean>>;
   myViews: ViewBean[];
 
   constructor(

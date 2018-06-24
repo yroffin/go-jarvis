@@ -15,8 +15,10 @@
  */
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+
 import { Http, Response, Headers } from '@angular/http';
 
 import { JarvisDefaultResource } from '../interface/jarvis-default-resource';
@@ -58,11 +60,11 @@ export class JarvisDataCoreResource<T extends ResourceBean> implements JarvisDef
      */
     public Task<R>(id: string, task: string, args: any): Observable<R> {
         this.headers.set('JarvisAuthToken', this.configuration.getJarvisAuthToken());
-        return this.http.post(this.actionUrl + '/' + id + '?task=' + task, JSON.stringify(args), { headers: this.headers })
-            .map((response: Response) => {
+        return this.http.post(this.actionUrl + '/' + id + '?task=' + task, JSON.stringify(args), { headers: this.headers }).pipe(
+            map((response: Response) => {
                 return <R>response.json()
-            })
-            .catch(this.handleError);
+            }),
+            catchError(this.handleError));
     }
 
     /**
@@ -70,9 +72,9 @@ export class JarvisDataCoreResource<T extends ResourceBean> implements JarvisDef
      */
     public TaskAsXml = (id: string, task: string, args: any): Observable<any> => {
         this.headers.set('JarvisAuthToken', this.configuration.getJarvisAuthToken());
-        return this.http.post(this.actionUrl + '/' + id + '?task=' + task, JSON.stringify(args), { headers: this.headers })
-            .map((response: Response) => <any>response.text())
-            .catch(this.handleError);
+        return this.http.post(this.actionUrl + '/' + id + '?task=' + task, JSON.stringify(args), { headers: this.headers }).pipe(
+            map((response: Response) => <any>response.text()),
+            catchError(this.handleError));
     }
 
     /**
@@ -80,9 +82,9 @@ export class JarvisDataCoreResource<T extends ResourceBean> implements JarvisDef
      */
     public GetAll = (): Observable<T[]> => {
         this.headers.set('JarvisAuthToken', this.configuration.getJarvisAuthToken());
-        return this.http.get(this.actionUrl, { headers: this.headers })
-            .map((response: Response) => <T[]>response.json())
-            .catch(this.handleError);
+        return this.http.get(this.actionUrl, { headers: this.headers }).pipe(
+            map((response: Response) => <T[]>response.json()),
+            catchError(this.handleError));
     }
 
     /**
@@ -90,9 +92,9 @@ export class JarvisDataCoreResource<T extends ResourceBean> implements JarvisDef
      */
     public GetSingle = (id: string): Observable<T> => {
         this.headers.set('JarvisAuthToken', this.configuration.getJarvisAuthToken());
-        return this.http.get(this.actionUrl + '/' + id, { headers: this.headers })
-            .map((response: Response) => <T>response.json())
-            .catch(this.handleError);
+        return this.http.get(this.actionUrl + '/' + id, { headers: this.headers }).pipe(
+            map((response: Response) => <T>response.json()),
+            catchError(this.handleError));
     }
 
     /**
@@ -100,9 +102,9 @@ export class JarvisDataCoreResource<T extends ResourceBean> implements JarvisDef
      */
     public Add = (itemToAdd: T): Observable<T> => {
         this.headers.set('JarvisAuthToken', this.configuration.getJarvisAuthToken());
-        return this.http.post(this.actionUrl, JSON.stringify(itemToAdd), { headers: this.headers })
-            .map((response: Response) => <T>response.json())
-            .catch(this.handleError);
+        return this.http.post(this.actionUrl, JSON.stringify(itemToAdd), { headers: this.headers }).pipe(
+            map((response: Response) => <T>response.json()),
+            catchError(this.handleError));
     }
 
     /**
@@ -110,9 +112,9 @@ export class JarvisDataCoreResource<T extends ResourceBean> implements JarvisDef
      */
     public Update = (id: string, itemToUpdate: T): Observable<T> => {
         this.headers.append('JarvisAuthToken', this.configuration.getJarvisAuthToken());
-        return this.http.put(this.actionUrl + '/' + id, JSON.stringify(itemToUpdate), { headers: this.headers })
-            .map((response: Response) => <T>response.json())
-            .catch(this.handleError);
+        return this.http.put(this.actionUrl + '/' + id, JSON.stringify(itemToUpdate), { headers: this.headers }).pipe(
+            map((response: Response) => <T>response.json()),
+            catchError(this.handleError));
     }
 
     /**
@@ -120,15 +122,15 @@ export class JarvisDataCoreResource<T extends ResourceBean> implements JarvisDef
      */
     public Delete = (id: string): Observable<T> => {
         this.headers.set('JarvisAuthToken', this.configuration.getJarvisAuthToken());
-        return this.http.delete(this.actionUrl + '/' + id, { headers: this.headers })
-            .map((response: Response) => <T>response.json())
-            .catch(this.handleError);
+        return this.http.delete(this.actionUrl + '/' + id, { headers: this.headers }).pipe(
+            map((response: Response) => <T>response.json()),
+            catchError(this.handleError));
     }
 
     /**
      * error handler
      */
-    protected handleError(error: Response) {
-        return Observable.throw(error || 'Server error');
+    protected handleError(error: Response): Observable<any> {
+        throw(error || 'Server error');
     }
 }

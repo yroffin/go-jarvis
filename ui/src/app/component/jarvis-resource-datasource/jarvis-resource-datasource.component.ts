@@ -15,8 +15,8 @@
  */
 
 import { Component, Input, ViewChild, OnInit, ElementRef } from '@angular/core';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+
+import { Observable } from 'rxjs';
 import { Http, Response, Headers } from '@angular/http';
 
 import * as _ from 'lodash';

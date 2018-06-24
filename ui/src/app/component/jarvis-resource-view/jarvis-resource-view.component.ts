@@ -20,8 +20,7 @@ import { SelectItem } from 'primeng/primeng';
 import { ConfirmationService } from 'primeng/primeng';
 
 import { DataSource } from '@angular/cdk/collections';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 declare var Prism: any;
 

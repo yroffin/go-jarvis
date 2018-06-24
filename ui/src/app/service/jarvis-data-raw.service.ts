@@ -15,8 +15,10 @@
  */
 
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
+
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+
 import { Http, Response, Headers } from '@angular/http';
 import { JarvisConfigurationService } from './jarvis-configuration.service';
 import { JarvisDefaultResource } from '../interface/jarvis-default-resource';
@@ -44,8 +46,8 @@ export class JarvisDataRawService extends JarvisDataCoreResource<ResourceBean> i
      * get all resources
      */
     public RawGet = (urn: string): Observable<string> => {
-        return this.http.get(this.actionUrl + urn)
-            .map((response: Response) => <string>response.text())
-            .catch(this.handleError);
+        return this.http.get(this.actionUrl + urn).pipe(
+            map((response: Response) => <string>response.text()),
+            catchError(this.handleError));
     }
 }

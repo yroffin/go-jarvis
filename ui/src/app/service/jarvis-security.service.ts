@@ -15,8 +15,9 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/Rx';
+
+import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
 import { Http, Response, Headers } from '@angular/http';
@@ -52,18 +53,18 @@ export class JarvisSecurityService extends JarvisDataCoreResource<ResourceBean> 
    * get connect resource
    */
   public Connect = (): Observable<boolean> => {
-    return this.http.get(this.actionUrl + 'api/connect', { headers: this.headers })
-      .map((response: Response) => <boolean> response.json())
-      .catch(this.handleError);
+    return this.http.get(this.actionUrl + 'api/connect', { headers: this.headers }).pipe(
+      map((response: Response) => <boolean> response.json()),
+      catchError(this.handleError));
   }
 
   /**
    * get connect resource
    */
   public Version = (): Observable<VersionBean> => {
-    return this.http.get(this.actionUrl + 'api/version', { headers: this.headers })
-      .map((response: Response) => <VersionBean> response.json())
-      .catch(this.handleError);
+    return this.http.get(this.actionUrl + 'api/version', { headers: this.headers }).pipe(
+      map((response: Response) => <VersionBean> response.json()),
+      catchError(this.handleError));
   }
 
   /**
@@ -71,17 +72,17 @@ export class JarvisSecurityService extends JarvisDataCoreResource<ResourceBean> 
    */
   public Me = (token: string): Observable<MeBean> => {
     this.headers.set('JarvisAuthToken', token);
-    return this.http.get(this.actionUrl + 'api/profile/me', { headers: this.headers })
-      .map((response: Response) => <MeBean> response.json())
-      .catch(this.handleError);
+    return this.http.get(this.actionUrl + 'api/profile/me', { headers: this.headers }).pipe(
+      map((response: Response) => <MeBean> response.json()),
+      catchError(this.handleError));
   }
 
   /**
    * get oauth2 resource
    */
   public Oauth2 = (client: string): Observable<Oauth2Bean> => {
-    return this.http.get(this.actionUrl + 'api/oauth2?client='+client+'&oauth2_redirect_uri=http://'+this._windowService.getHost())
-      .map((response: Response) => <Oauth2Bean> response.json())
-      .catch(this.handleError);
+    return this.http.get(this.actionUrl + 'api/oauth2?client='+client+'&oauth2_redirect_uri=http://'+this._windowService.getHost()).pipe(
+      map((response: Response) => <Oauth2Bean> response.json()),
+      catchError(this.handleError));
   }
 }

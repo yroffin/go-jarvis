@@ -15,9 +15,11 @@
  */
 
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { ActionReducer, Action, State } from '@ngrx/store';
 import { Store } from '@ngrx/store';
-import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector, Selector } from '@ngrx/store';
 
 import * as _ from 'lodash';
 
@@ -57,7 +59,7 @@ export type AllViewsActions = LoadViewsAction | UpdateDeviceAction;
 @Injectable()
 export class ViewStoreService {
 
-    private getViews: MemoizedSelector<object, Array<ViewBean>>;
+    private getViews: Selector<object, Array<ViewBean>>;
 
     /**
      * 
@@ -72,7 +74,7 @@ export class ViewStoreService {
     /**
      * select this store service
      */
-    public views(): Store<Array<ViewBean>> {
+    public views(): Observable<Array<ViewBean>> {
         return this._store.select(this.getViews);
     }
 

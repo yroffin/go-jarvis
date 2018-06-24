@@ -7,7 +7,7 @@
       <p-column field="name" header="Nom"></p-column>
       <p-column header="Action">
         <ng-template let-resource="rowData" pTemplate="body">
-          <button pButton type="button" icon="fa-hand-pointer-o" pTooltip="Selection" tooltipPosition="bottom" (click)="validate(resource)"></button>
+          <mat-icon fontSet="fa" fontIcon="fa-hand-pointer-o" pTooltip="Selection" tooltipPosition="bottom" (click)="validate(resource)"></mat-icon>
         </ng-template>
       </p-column>
     </p-dataTable>

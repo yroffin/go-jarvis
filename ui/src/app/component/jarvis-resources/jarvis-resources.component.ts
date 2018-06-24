@@ -50,6 +50,7 @@ import { JarvisDataModelService } from '../../service/jarvis-data-model.service'
  * data model
  */
 import { ResourceBean } from '../../model/resource-bean';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-jarvis-resources',
@@ -63,6 +64,7 @@ export class JarvisResourcesComponent implements OnInit {
    */
   public myResourceName: string = "default";
   public myResources: ResourceBean[] = <ResourceBean[]>[];
+  public myMatResources = new MatTableDataSource(<ResourceBean[]>[]);
   public toDelete: ResourceBean;
   public display: boolean = false;
 
@@ -169,7 +171,10 @@ export class JarvisResourcesComponent implements OnInit {
     this.myService = jarvisDataService;
     jarvisDataService.GetAll()
       .subscribe(
-      (data: ResourceBean[]) => this.myResources = data,
+      (data: ResourceBean[]) => {
+        this.myResources = data;
+        this.myMatResources = new MatTableDataSource(data);
+      },
       error => {
          console.log(error)
       },

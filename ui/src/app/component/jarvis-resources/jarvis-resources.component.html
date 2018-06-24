@@ -1,19 +1,23 @@
 <app-jarvis-toolbar-resource [notified]="this" [tasks]="[{'label':'Ajouter une nouvelle resource', 'icon': 'fa-plus', 'action':'add', 'task': 'addNewResource', 'args': [{}]}]"></app-jarvis-toolbar-resource>
-<p-dataTable [immutable]="false" [value]="myResources" [rows]="10" [paginator]="true" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]">
-    <header>{{myResourceName}}</header>
-    <p-column header="Icône">
-      <ng-template let-myResource="rowData" pTemplate>
-        <i class="fa {{myResource.icon}}" aria-hidden="true"></i>
-      </ng-template>
-    </p-column>
-    <p-column field="id" header="Id" [filter]="true"></p-column>
-    <p-column field="name" header="Name" [filter]="true"></p-column>
-    <p-column header="Action">
-      <ng-template let-resource="rowData" pTemplate="body">
-        <app-jarvis-toolbar-resource [notified]="this" [tasks]="[{'task':'dropResource','args':[resource],'icon':'fa-trash','label':'Supprimer'},{'task':'view','args':[resource],'icon':'fa-link','label':'Voir'}]" ></app-jarvis-toolbar-resource>
-      </ng-template>
-    </p-column>
-</p-dataTable>
+<table mat-table [dataSource]="myMatResources" class="table-resource">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> Id. </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> Action </th>
+    <td mat-cell *matCellDef="let resource">
+        <app-jarvis-toolbar-resource [notified]="this" [tasks]="[{'task':'dropResource','args':[resource],'icon':'fa-trash','label':'Supprimer'},{'task':'view','args':[resource],'icon':'fa-link','label':'Voir'}]"></app-jarvis-toolbar-resource>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="['id','name','action']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['id','name','action'];"></tr>
+</table>
 <p-dialog appendTo="body" modal=true header="Confirmation" [(visible)]="display">
-  Supression de {{toDelete && toDelete.name}} ? <mat-icon fontSet="fa" fontIcon="fa-trash" pTooltip="Supprimer" tooltipPosition="bottom" (click)="confirmedDropResource(toDelete)"></mat-icon>
+  Supression de {{toDelete && toDelete.name}} ?
+  <mat-icon fontSet="fa" fontIcon="fa-trash" pTooltip="Supprimer" tooltipPosition="bottom" (click)="confirmedDropResource(toDelete)"></mat-icon>
 </p-dialog>

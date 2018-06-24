@@ -346,24 +346,10 @@ func (p *Snapshot) GraphAll(body string) (interface{}, int, error) {
 				"enabled": true
 			},
 			"edges": {
-				"smooth": {
-					"type": "discrete",
-					"forceDirection": "none",
-					"roundness": 1
-				}
+				"smooth": false
 			},
 			"interaction": {
 				"hover": true
-			},
-			"physics": {
-				"forceAtlas2Based": {
-					"gravitationalConstant": -26,
-					"centralGravity": 0.005,
-					"springLength": 230,
-					"springConstant": 0.18
-				},
-				"solver": "forceAtlas2Based",
-				"minVelocity": 0.75
 			},
 			"groups": {
 				"DeviceBean": {
@@ -438,6 +424,10 @@ func (p *Snapshot) GraphAll(body string) (interface{}, int, error) {
 	// Retrieve all nodes
 	all, _ := p.GraphBusiness.All()
 	for _, quad := range all {
+		// Todo dynamic filter on object type
+		if quad.Subject() == "ViewBean" {
+			continue
+		}
 		_, found := uniq[quad.SubjectID()]
 		if !found {
 			node := apis.Node{
@@ -453,6 +443,10 @@ func (p *Snapshot) GraphAll(body string) (interface{}, int, error) {
 
 	// Complete with targetID and sourceID
 	for _, quad := range all {
+		// Todo dynamic filter on object type
+		if quad.Subject() == "ViewBean" {
+			continue
+		}
 		var data = make(map[string]interface{})
 		json.Unmarshal([]byte(quad.Label()), &data)
 

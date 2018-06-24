@@ -8,13 +8,3 @@ backend:
 frontend:
 	cd frontend && make all
 
-TAG=$(shell date +'%Y%m%d-%H%M%S')
-
-tag:
-	# prepare tag
-	git config --local user.name "Yannick Roffin"
-	git config --local user.email "yroffin@gmail.com"
-	git tag $(TAG)
-	git push --tags
-	echo $(TAG) > .TAG
-

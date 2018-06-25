@@ -39,15 +39,20 @@ import { JarvisDataProcessService } from '../../service/jarvis-data-process.serv
  */
 import { ResourceBean } from '../../model/resource-bean';
 import { PickerBean } from '../../model/picker-bean';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-jarvis-picker',
   templateUrl: './jarvis-picker.component.html',
   styleUrls: ['./jarvis-picker.component.css']
 })
-export class JarvisPickerComponent implements OnInit {
+export class JarvisPickerComponent implements OnInit, AfterViewInit {
 
   private _resource: PickerBean;
+
+  public myMatResources = new MatTableDataSource([]);
+  @ViewChild('paginator') paginator: MatPaginator;
 
   public picked: any;
   public show: boolean = false;
@@ -77,7 +82,7 @@ export class JarvisPickerComponent implements OnInit {
    * init this component
    */
   ngOnInit() {
-
+    this.update();
   }
 
   /**
@@ -89,51 +94,71 @@ export class JarvisPickerComponent implements OnInit {
 
   set resource(val: any) {
     this._resource = val;
-    if (this.resource.action === undefined) {
-      this.resource.action = this.resource.service;
+  }
+
+  private update() {
+    if (this._resource.action === undefined) {
+      this._resource.action = this._resource.service;
     }
     let service: JarvisDefaultResource<ResourceBean>;
-    if (this.resource.service === 'measures') {
+    if (this._resource.service === 'measures') {
       service = this._measureService;
     }
-    if (this.resource.service === 'connectors') {
+    if (this._resource.service === 'connectors') {
       service = this._connectorService;
     }
-    if (this.resource.service === 'processes') {
+    if (this._resource.service === 'processes') {
       service = this._processService;
     }
-    if (this.resource.service === 'crons') {
+    if (this._resource.service === 'crons') {
       service = this._cronService;
     }
-    if (this.resource.service === 'devices') {
+    if (this._resource.service === 'devices') {
       service = this._deviceService;
     }
-    if (this.resource.service === 'triggers') {
+    if (this._resource.service === 'triggers') {
       service = this._triggerService;
     }
-    if (this.resource.service === 'plugins') {
+    if (this._resource.service === 'plugins') {
       service = this._pluginService;
     }
-    if (this.resource.service === 'notifications') {
+    if (this._resource.service === 'notifications') {
       service = this._notificationService;
     }
-    if (this.resource.service === 'commands') {
+    if (this._resource.service === 'commands') {
       service = this._commandService;
     }
-    if (this.resource.service === 'datasources') {
+    if (this._resource.service === 'datasources') {
       service = this._datasourceService;
     }
     /**
      * create helper
      */
-    this.jarvisPickerHelper = new JarvisPicker<ResourceBean>(service, this.logger, this.resource);
+    this.jarvisPickerHelper = new JarvisPicker<ResourceBean>(service, this.logger, this._resource);
+    this.myMatResources.paginator = this.paginator;
+  }
+
+  /**
+   * Set the paginator after the view init since this component will
+   * be able to query its view for the initialized paginator.
+   */
+  ngAfterViewInit() {
+    this.myMatResources.paginator = this.paginator;
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.myMatResources.filter = filterValue;
   }
 
   /**
    * open this dialog box
    */
   public open(that: NotifyCallback<ResourceBean>, objectType: string) {
-    this.jarvisPickerHelper.loadResource(12, objectType);
+    this.jarvisPickerHelper.loadResource(12, objectType, (data) => {
+      this.myMatResources.data = data;
+    });
     this.show = true;
     this.target = that;
   }
@@ -143,7 +168,7 @@ export class JarvisPickerComponent implements OnInit {
    */
   public validate(picked: any) {
     if (picked) {
-      this.target.notify(this.resource, picked);
+      this.target.notify(this._resource, picked);
     }
     this.show = false;
   }

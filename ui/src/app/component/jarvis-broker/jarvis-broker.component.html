@@ -1,8 +1,18 @@
 <div *ngIf="myMessages">
-  <p-dataTable [immutable]="false" [value]="myMessages">
-    <header>Messages</header>
-    <p-column field="id" header="Id"></p-column>
-    <p-column field="topic" [filter]="true" header="Topic"></p-column>
-    <p-column field="body" header="Body"></p-column>
-  </p-dataTable>
+  <table mat-table [dataSource]="myMatResources" class="table-resource">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id. </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="topic">
+      <th mat-header-cell *matHeaderCellDef> Topic </th>
+      <td mat-cell *matCellDef="let element"> {{element.topic}} </td>
+    </ng-container>
+    <ng-container matColumnDef="body">
+      <th mat-header-cell *matHeaderCellDef> Body </th>
+      <td mat-cell *matCellDef="let element"> {{element.body}} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="['id','topic','body']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['id','topic','body'];"></tr>
+  </table>
 </div>

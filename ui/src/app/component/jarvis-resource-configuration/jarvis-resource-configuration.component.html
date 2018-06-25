@@ -41,14 +41,23 @@
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Configuration du système">
-      <p-dataTable [immutable]="false" [value]="myConfiguration.system.scheduled">
-        <header *ngIf="myConfiguration.system.events">Scheduled (actif)</header>
-        <header *ngIf="!myConfiguration.system.events">Scheduled (inactif)</header>
-        <p-column field="id" header="Id"></p-column>
-        <p-column field="name" header="Nom"></p-column>
-        <p-column field="lastExecution" header="Dernière execution"></p-column>
-      </p-dataTable>
+    <mat-tab label="Configuration du système">      
+      <table mat-table [dataSource]="myMatResources" class="table-resource">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id. </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="lastExecution">
+          <th mat-header-cell *matHeaderCellDef> Last execution </th>
+          <td mat-cell *matCellDef="let element"> {{element.lastExecution}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="['id','name','lastExecution']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['id','name','lastExecution'];"></tr>
+      </table>
     </mat-tab>
   </mat-tab-group>
 

@@ -40,52 +40,96 @@
     </mat-tab>
     <mat-tab label="Triggers">
       <app-jarvis-toolbar-resource [notified]="this" [pickers]="[{'action':'triggers','icon':'fa-send','label':'Ajouter un trigger','picker': pickTriggers}]"></app-jarvis-toolbar-resource>
-      <p-dataTable [immutable]="false" [value]="myDevice.triggers">
-        <header>Trigger</header>
-        <p-column field="extended.order" header="Ordre"></p-column>
-        <p-column field="id" header="Id"></p-column>
-        <p-column field="extended.instance" header="Inst."></p-column>
-        <p-column field="name" header="Nom"></p-column>
-        <p-column header="Action">
-          <ng-template let-trigger="rowData" pTemplate="body">
+      <table mat-table [dataSource]="myMatTriggersResources" class="table-resource">
+        <ng-container matColumnDef="order">
+          <th mat-header-cell *matHeaderCellDef> Order </th>
+          <td mat-cell *matCellDef="let element">
+            <input type="text" size="2" pInputText [(ngModel)]="element.extended.order" />
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id. </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="instance">
+          <th mat-header-cell *matHeaderCellDef> Instance </th>
+          <td mat-cell *matCellDef="let element"> {{element.extended.instance}} </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let trigger">
             <app-jarvis-toolbar-resource [notified]="this" [tasks]="[{'task':'updateTriggerLink','args':[trigger],'icon':'fa-save','label':'Mettre à jour le lien'},{'task':'dropTriggerLink','args':[trigger],'icon':'fa-trash','label':'Supprimer le lien'},{'task':'gotoTriggerLink','args':[trigger],'icon':'fa-link','label':'Détail'}]"></app-jarvis-toolbar-resource>
-          </ng-template>
-        </p-column>
-      </p-dataTable>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="['order','id','instance','name','action']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['order','id','instance','name','action'];"></tr>
+      </table>
     </mat-tab>
     <mat-tab label="Devices">
       <app-jarvis-toolbar-resource [notified]="this" [pickers]="[{'action':'devices','icon':'fa-server','label':'Ajouter un device','picker': pickDevices}]"></app-jarvis-toolbar-resource>
-      <p-dataTable [immutable]="false" [value]="myDevice.devices">
-        <header>Devices (container)</header>
-        <p-column field="extended.order" header="Ordre"></p-column>
-        <p-column field="id" header="Id"></p-column>
-        <p-column field="extended.instance" header="Inst."></p-column>
-        <p-column field="name" header="Nom"></p-column>
-        <p-column header="Action">
-          <ng-template let-device="rowData" pTemplate="body">
+      <table mat-table [dataSource]="myMatDevicesResources" class="table-resource">
+        <ng-container matColumnDef="order">
+          <th mat-header-cell *matHeaderCellDef> Order </th>
+          <td mat-cell *matCellDef="let element">
+            <input type="text" size="2" pInputText [(ngModel)]="element.extended.order" />
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id. </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="instance">
+          <th mat-header-cell *matHeaderCellDef> Instance </th>
+          <td mat-cell *matCellDef="let element"> {{element.extended.instance}} </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let device">
             <app-jarvis-toolbar-resource [notified]="this" [tasks]="[{'task':'updateDeviceLink','args':[device],'icon':'fa-save','label':'Mettre à jour le lien'},{'task':'dropDeviceLink','args':[device],'icon':'fa-trash','label':'Supprimer le lien'},{'task':'gotoDeviceLink','args':[device],'icon':'fa-link','label':'Détail'}]"></app-jarvis-toolbar-resource>
-          </ng-template>
-        </p-column>
-      </p-dataTable>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="['order','id','instance','name','action']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['order','id','instance','name','action'];"></tr>
+      </table>
     </mat-tab>
     <mat-tab label="Plugins">
       <app-jarvis-toolbar-resource [notified]="this" [pickers]="[{'action':'plugins','icon':'fa-podcast','label':'Ajouter un plugin','picker': pickPlugins}]"></app-jarvis-toolbar-resource>
-      <p-dataTable [immutable]="false" [value]="myDevice.plugins">
-        <header>Plugin</header>
-        <p-column header="Ordre">
-          <ng-template let-plugin="rowData" pTemplate="body">
-            <input type="text" size="2" pInputText [(ngModel)]="plugin.extended.order" />
-          </ng-template>
-        </p-column>
-        <p-column field="id" header="Id"></p-column>
-        <p-column field="extended.instance" header="Instance"></p-column>
-        <p-column field="name" header="Nom"></p-column>
-        <p-column header="Action">
-          <ng-template let-plugin="rowData" pTemplate="body">
+      <table mat-table [dataSource]="myMatPluginsResources" class="table-resource">
+        <ng-container matColumnDef="order">
+          <th mat-header-cell *matHeaderCellDef> Order </th>
+          <td mat-cell *matCellDef="let element">
+            <input type="text" size="2" pInputText [(ngModel)]="element.extended.order" />
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id. </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="instance">
+          <th mat-header-cell *matHeaderCellDef> Instance </th>
+          <td mat-cell *matCellDef="let element"> {{element.extended.instance}} </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let plugin">
             <app-jarvis-toolbar-resource [notified]="this" [tasks]="[{'task':'updatePluginLink','args':[plugin],'icon':'fa-save','label':'Mettre à jour le lien'},{'task':'dropPluginLink','args':[plugin],'icon':'fa-trash','label':'Supprimer le lien'},{'task':'gotoPluginLink','args':[plugin],'icon':'fa-link','label':'Détail'}]"></app-jarvis-toolbar-resource>
-          </ng-template>
-        </p-column>
-      </p-dataTable>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="['order','id','instance','name','action']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['order','id','instance','name','action'];"></tr>
+      </table>
     </mat-tab>
     <mat-tab label="Rendu">
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">

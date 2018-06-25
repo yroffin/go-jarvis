@@ -45,6 +45,7 @@ import { GraphBean, NodeBean, EdgeBean } from '../../model/graph/graph-bean';
 import { LoadGraphAction, GraphStoreService } from '../../store/graph.store';
 import { Store } from '@ngrx/store/src/store';
 import { JarvisGraphExplorerComponent } from '../../widget/jarvis-graph-explorer/jarvis-graph-explorer.component';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-jarvis-resource-process',
@@ -54,6 +55,8 @@ import { JarvisGraphExplorerComponent } from '../../widget/jarvis-graph-explorer
 export class JarvisResourceProcessComponent extends JarvisResource<ProcessBean> implements NotifyCallback<ResourceBean>, OnInit, AfterContentInit {
 
   @Input() myProcess: ProcessBean;
+  public myMatResources = new MatTableDataSource([]);
+
   @ViewChild('pickTriggers') pickTriggers;
   @ViewChild('wrapBpmn') wrapBpmn: JarvisBpmnComponent;
   @ViewChild('wrapGraph') wrapGraph: JarvisGraphExplorerComponent;
@@ -206,6 +209,7 @@ export class JarvisResourceProcessComponent extends JarvisResource<ProcessBean> 
       this.myProcess.triggers = [];
       (new JarvisResourceLink<TriggerBean>(this.logger)).loadLinksWithCallback(resource.id, this.myProcess.triggers, this.processService.allLinkedTrigger, (elements) => {
         this.myProcess.triggers = elements;
+        this.myMatResources = new MatTableDataSource(elements);
       });
     }
   }

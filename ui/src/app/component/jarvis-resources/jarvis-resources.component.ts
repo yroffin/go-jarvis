@@ -50,14 +50,16 @@ import { JarvisDataModelService } from '../../service/jarvis-data-model.service'
  * data model
  */
 import { ResourceBean } from '../../model/resource-bean';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { AfterViewInit } from '@angular/core';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-jarvis-resources',
   templateUrl: './jarvis-resources.component.html',
   styleUrls: ['./jarvis-resources.component.css']
 })
-export class JarvisResourcesComponent implements OnInit {
+export class JarvisResourcesComponent implements OnInit, AfterViewInit {
 
   /**
    * members
@@ -65,6 +67,8 @@ export class JarvisResourcesComponent implements OnInit {
   public myResourceName: string = "default";
   public myResources: ResourceBean[] = <ResourceBean[]>[];
   public myMatResources = new MatTableDataSource(<ResourceBean[]>[]);
+  @ViewChild('paginator') paginator: MatPaginator;
+
   public toDelete: ResourceBean;
   public display: boolean = false;
 
@@ -152,6 +156,20 @@ export class JarvisResourcesComponent implements OnInit {
       }
   }
 
+    /**
+   * Set the paginator after the view init since this component will
+   * be able to query its view for the initialized paginator.
+   */
+  ngAfterViewInit() {
+    this.myMatResources.paginator = this.paginator;
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.myMatResources.filter = filterValue;
+  }
+
   /**
    * load this component with a new resource
    */
@@ -173,7 +191,7 @@ export class JarvisResourcesComponent implements OnInit {
       .subscribe(
       (data: ResourceBean[]) => {
         this.myResources = data;
-        this.myMatResources = new MatTableDataSource(data);
+        this.myMatResources.data = data;
       },
       error => {
          console.log(error)

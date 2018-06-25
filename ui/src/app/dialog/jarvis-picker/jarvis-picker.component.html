@@ -1,27 +1,40 @@
 <p-dialog appendTo="body" header="{{resource.label}}" [(visible)]="show" modal=true responsive=true width="700" resizable=false>
   <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-<div class="ui-grid-row">
-  <div class="ui-grid-col-12">
-    <p-dataTable [immutable]="false" [value]="jarvisPickerHelper.metadata.elements">
-      <p-column field="id" header="Id"></p-column>
-      <p-column field="name" header="Nom"></p-column>
-      <p-column header="Action">
-        <ng-template let-resource="rowData" pTemplate="body">
-          <mat-icon fontSet="fa" fontIcon="fa-hand-pointer-o" pTooltip="Selection" tooltipPosition="bottom" (click)="validate(resource)"></mat-icon>
-        </ng-template>
-      </p-column>
-    </p-dataTable>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-12">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+        <table mat-table [dataSource]="myMatResources" class="table-resource">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id. </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let resource">
+              <mat-icon fontSet="fa" fontIcon="fa-hand-pointer-o" pTooltip="Selection" tooltipPosition="bottom" (click)="validate(resource)"></mat-icon>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['id','name','action']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['id','name','action'];"></tr>
+        </table>
+        <mat-paginator #paginator [pageSize]="5"></mat-paginator>
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-12">
+        {{picked | json}}
+      </div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-12">
+        <button type="text" (click)="validate(undefined)" pButton label="Fermer"></button>
+      </div>
+    </div>
   </div>
-</div>
-<div class="ui-grid-row">
-  <div class="ui-grid-col-12">
-    {{picked | json}}
-  </div>
-</div>
-<div class="ui-grid-row">
-  <div class="ui-grid-col-12">
-    <button type="text" (click)="validate(undefined)" pButton icon="fa-close" label="Fermer"></button>
-  </div>
-</div>
-</div>
 </p-dialog>

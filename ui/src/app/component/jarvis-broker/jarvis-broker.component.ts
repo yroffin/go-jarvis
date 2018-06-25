@@ -25,6 +25,7 @@ import { JarvisMqttService } from '../../service/jarvis-mqtt.service';
 import { Observable } from 'rxjs';
 import { MessageBean } from '../../model/broker/message-bean';
 import { BrokerStoreService } from '../../store/broker.store';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-jarvis-broker',
@@ -34,6 +35,7 @@ import { BrokerStoreService } from '../../store/broker.store';
 export class JarvisBrokerComponent implements OnInit {
 
   @Input() myMessages: MessageBean[] = <MessageBean[]>[];
+  public myMatResources = new MatTableDataSource([])
   public messageStream: Observable<MessageBean>;
 
   private ids: number = 0;
@@ -64,6 +66,7 @@ export class JarvisBrokerComponent implements OnInit {
           this.myMessages.shift()
         }
         this.myMessages.push(msg);
+        this.myMatResources = new MatTableDataSource(this.myMessages)
       });
   }
 

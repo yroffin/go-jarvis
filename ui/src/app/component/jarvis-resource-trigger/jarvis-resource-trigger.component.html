@@ -57,36 +57,64 @@
     <mat-tab label="Périodicité">
       <app-jarvis-toolbar-resource [notified]="this" [pickers]="[{'label':'Ajouter une crontab', 'icon': 'fa-bolt', 'action':'crons', 'picker': pickCrons}]"></app-jarvis-toolbar-resource>
 
-      <p-dataTable [immutable]="false" [value]="myTrigger.crons">
-        <header>Crontab</header>
-        <p-column header="Ordre">
-          <ng-template let-cron="rowData" pTemplate>
-            <input type="text" size="2" pInputText [(ngModel)]="cron.extended.order" />
-          </ng-template>
-        </p-column>
-        <p-column field="id" header="Id"></p-column>
-        <p-column field="extended.instance" header="Instance"></p-column>
-        <p-column field="name" header="Nom"></p-column>
-        <p-column header="Action">
-          <ng-template let-cron="rowData" pTemplate="body">
+      <table mat-table [dataSource]="myMatResources" class="table-resource">
+        <ng-container matColumnDef="order">
+          <th mat-header-cell *matHeaderCellDef> Order </th>
+          <td mat-cell *matCellDef="let element">
+            <input type="text" size="2" pInputText [(ngModel)]="element.extended.order" />
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id. </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="instance">
+          <th mat-header-cell *matHeaderCellDef> Instance </th>
+          <td mat-cell *matCellDef="let element"> {{element.extended.instance}} </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let cron">
             <app-jarvis-toolbar-resource [notified]="this" [tasks]="[{'task':'updateCronLink','args':[cron],'icon':'fa-save','label':'Mettre à jour le lien'},{'task':'dropCronLink','args':[cron],'icon':'fa-trash','label':'Supprimer le lien'},{'task':'gotoCronLink','args':[cron],'icon':'fa-link','label':'Détail'}]"></app-jarvis-toolbar-resource>
-          </ng-template>
-        </p-column>
-      </p-dataTable>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="['order','id','instance','name','action']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['order','id','instance','name','action'];"></tr>
+      </table>
+
     </mat-tab>
     <mat-tab label="Devices liés">
-      <p-dataTable [immutable]="false" [value]="myTrigger.devices">
-        <header>Devices</header>
-        <p-column field="id" header="Id"></p-column>
-        <p-column field="name" header="Nom"></p-column>
-      </p-dataTable>
+      <table mat-table [dataSource]="myMatDevicesResources" class="table-resource">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id. </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="['id','name']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['id','name'];"></tr>
+      </table>
     </mat-tab>
     <mat-tab label="Processus liés">
-      <p-dataTable [immutable]="false" [value]="myTrigger.processes">
-        <header>Processus</header>
-        <p-column field="id" header="Id"></p-column>
-        <p-column field="name" header="Nom"></p-column>
-      </p-dataTable>
+
+      <table mat-table [dataSource]="myMatProcessesResources" class="table-resource">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id. </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="['id','name']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['id','name'];"></tr>
+      </table>
     </mat-tab>
   </mat-tab-group>
 

@@ -43,37 +43,35 @@ export class JarvisPicker<T extends ResourceBean> {
    * constructor
    */
   constructor(
-    _notificationService: JarvisDefaultResource<T>,
+    _service: JarvisDefaultResource<T>,
     private logger: LoggerService,
     _config: PickerBean
   ) {
-    this.myJarvisResource = _notificationService;
+    this.myJarvisResource = _service;
     this.myJarvisConfig = _config;
   }
 
   /**
    * load a new resource in this dialog
    */
-  public loadResource(max: number, objectType: string) {
+  public loadResource(max: number, objectType: string, callback: any) {
     let all: T[];
     this.myJarvisResource.GetAll()
       .subscribe(
       (data: T[]) => all = data,
       error => this.logger.error("In loadResource", error),
       () => {
-        this.metadata = {
-          elements: []
-        };
-        let that = this;
+        this.metadata.data.splice(0,this.metadata.data.length);
         /**
          * order by name then chunk it by piece of max
          */
-        _.forEach(_.orderBy(all, ['name'], ['asc']), function (chunked) {
-            that.metadata.elements.push({
+        _.forEach(_.orderBy(all, ['name'], ['asc']), (chunked) => {
+            this.metadata.data.push({
                 id: chunked.id,
                 name: chunked.name
             });
         });
+        callback(this.metadata.data);
       });
   }
 }

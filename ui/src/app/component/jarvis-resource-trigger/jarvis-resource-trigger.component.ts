@@ -40,6 +40,7 @@ import { ResourceBean } from '../../model/resource-bean';
 import { TriggerBean } from '../../model/trigger-bean';
 import { CronBean } from '../../model/cron-bean';
 import { PickerBean } from '../../model/picker-bean';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-jarvis-resource-trigger',
@@ -49,6 +50,9 @@ import { PickerBean } from '../../model/picker-bean';
 export class JarvisResourceTriggerComponent extends JarvisResource<TriggerBean> implements NotifyCallback<ResourceBean>, OnInit {
 
   @Input() myTrigger: TriggerBean;
+  public myMatResources = new MatTableDataSource([]);
+  public myMatDevicesResources = new MatTableDataSource([]);
+  public myMatProcessesResources = new MatTableDataSource([]);
 
   @ViewChild('pickCrons') pickCrons;
 
@@ -143,6 +147,9 @@ export class JarvisResourceTriggerComponent extends JarvisResource<TriggerBean> 
       this.myTrigger.crons = [];
       (new JarvisResourceLink<CronBean>(this.logger)).loadLinksWithCallback(resource.id, this.myTrigger.crons, this._triggerService.allLinkedCron, (elements) => {
         this.myTrigger.crons = elements;
+        this.myMatResources = new MatTableDataSource(elements);
+        this.myMatDevicesResources = new MatTableDataSource(this.myTrigger.devices);
+        this.myMatProcessesResources = new MatTableDataSource(this.myTrigger.processes);
       });
     }
   }

@@ -45,6 +45,7 @@ import { ResourceBean } from '../../model/resource-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { DataSourceBean } from '../../model/connector/datasource-bean';
 import { MeasureBean } from '../../model/connector/measure-bean';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-jarvis-resource-datasource',
@@ -54,6 +55,7 @@ import { MeasureBean } from '../../model/connector/measure-bean';
 export class JarvisResourceDatasourceComponent extends JarvisResource<DataSourceBean> implements NotifyCallback<ResourceBean>, OnInit {
 
   @Input() myDataSource: DataSourceBean;
+  public myMatResources = new MatTableDataSource([]);
   @ViewChild('pickMeasures') pickMeasures: JarvisPickerComponent;
   @ViewChild('chart') chart: UIChart;
 
@@ -80,7 +82,7 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
     private _router: Router,
     private _jarvisConfigurationService: JarvisConfigurationService,
     private _datasourceService: JarvisDataDatasourceService,
-    private logger: LoggerService,    
+    private logger: LoggerService,
     private _measureService: JarvisDataMeasureService) {
     super('/datasources', [], _datasourceService, _route, _router);
     this.jarvisMeasureLink = new JarvisResourceLink<MeasureBean>(this.logger);
@@ -93,24 +95,24 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
     this.init(this);
 
     this.chartData = {
-            labels: [],
-            datasets: [
-{
-                    label: 'max',
-                    data: [],
-                    fill: false,
-                    backgroundColor: '#FFFFFF',
-                    borderColor: '#4bc0c0'
-                },
-                {
-                    label: 'average',
-                    data: [],
-                    fill: false,
-                    backgroundColor: '#FFFFFF',
-                    borderColor: '#565656'
-                }
-            ]
+      labels: [],
+      datasets: [
+        {
+          label: 'max',
+          data: [],
+          fill: false,
+          backgroundColor: '#FFFFFF',
+          borderColor: '#4bc0c0'
+        },
+        {
+          label: 'average',
+          data: [],
+          fill: false,
+          backgroundColor: '#FFFFFF',
+          borderColor: '#565656'
         }
+      ]
+    }
   }
 
   /**
@@ -126,19 +128,19 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
   private dateISODate(ldate: Date): String {
     function pad(number) {
       var r = String(number);
-      if ( r.length === 1 ) {
+      if (r.length === 1) {
         r = '0' + r;
       }
       return r;
     }
 
     return ldate.getUTCFullYear()
-      + '-' + pad( ldate.getUTCMonth() + 1 )
-      + '-' + pad( ldate.getUTCDate() )
-      + 'T' + pad( ldate.getUTCHours() )
-      + ':' + pad( ldate.getUTCMinutes() )
-      + ':' + pad( ldate.getUTCSeconds() )
-      + '.' + String( (ldate.getUTCMilliseconds()/1000).toFixed(3) ).slice( 2, 5 )
+      + '-' + pad(ldate.getUTCMonth() + 1)
+      + '-' + pad(ldate.getUTCDate())
+      + 'T' + pad(ldate.getUTCHours())
+      + ':' + pad(ldate.getUTCMinutes())
+      + ':' + pad(ldate.getUTCSeconds())
+      + '.' + String((ldate.getUTCMilliseconds() / 1000).toFixed(3)).slice(2, 5)
       + 'Z';
   }
 
@@ -148,11 +150,11 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
   private updateBody(delta: boolean, timestamp: string, base: string, ldate: Date, rdate: Date, trunc: number): void {
     // fix parameters
     this.myDataSource.body = JSON.stringify(
-        {
-          "minDate": ldate,
-          "maxDate": rdate,
-          "truncate":trunc
-        }
+      {
+        "minDate": ldate,
+        "maxDate": rdate,
+        "truncate": trunc
+      }
     );
     this.execute(delta);
   }
@@ -175,22 +177,22 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
         // then push in graph data
         _.each(this.myDataSource.resultset, (element) => {
           labels.push(element.label);
-          if(delta) {
-              max.push(element.max);
-              min.push(element.min);
-              avg.push(element.avg);
-            } else {
-              max.push(element.maxref);
-              min.push(element.minref);
-              avg.push(element.avgref);
-            }
-          });
-          this.chartData.labels = labels;
-          this.chartData.datasets[0].data = max;
-          this.chartData.datasets[1].data = avg;
-          console.log("data", this.chartData)
-          this.chart.refresh();
+          if (delta) {
+            max.push(element.max);
+            min.push(element.min);
+            avg.push(element.avg);
+          } else {
+            max.push(element.maxref);
+            min.push(element.minref);
+            avg.push(element.avgref);
+          }
         });
+        this.chartData.labels = labels;
+        this.chartData.datasets[0].data = max;
+        this.chartData.datasets[1].data = avg;
+        console.log("data", this.chartData)
+        this.chart.refresh();
+      });
   }
 
   /**
@@ -211,14 +213,15 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
    * notify to add new resource
    */
   public notify(picker: PickerBean, resource: ResourceBean): void {
-    if( picker.action === 'measures') {
-      this.jarvisMeasureLink.addLink(this.getResource().id, resource.id, this.getResource().measures, {"order": "1", href: "HREF"}, this._datasourceService.allLinkedMeasures);
+    if (picker.action === 'measures') {
+      this.jarvisMeasureLink.addLink(this.getResource().id, resource.id, this.getResource().measures, { "order": "1", href: "HREF" }, this._datasourceService.allLinkedMeasures);
     }
     if (picker.action === 'complete') {
       this.myDataSource = <DataSourceBean>resource;
       this.myDataSource.measures = [];
       (new JarvisResourceLink<MeasureBean>(this.logger)).loadLinksWithCallback(resource.id, this.myDataSource.measures, this._datasourceService.allLinkedMeasures, (measures) => {
         console.log("measures", measures);
+        this.myMatResources = new MatTableDataSource(measures)
       });
     }
   }

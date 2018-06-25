@@ -36,6 +36,7 @@ import { NotifyCallback } from '../../class/jarvis-resource';
 import { ResourceBean } from '../../model/resource-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { ConfigurationBean } from '../../model/configuration-bean';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-jarvis-resource-configuration',
@@ -45,6 +46,7 @@ import { ConfigurationBean } from '../../model/configuration-bean';
 export class JarvisResourceConfigurationComponent extends JarvisResource<ConfigurationBean> implements NotifyCallback<ResourceBean>, OnInit {
 
   @Input() myConfiguration: ConfigurationBean;
+  public myMatResources = new MatTableDataSource([]);
 
   /**
    * constructor
@@ -77,6 +79,7 @@ export class JarvisResourceConfigurationComponent extends JarvisResource<Configu
   public notify(picker: PickerBean, resource: ResourceBean): void {
     if (picker.action === 'complete') {
       this.myConfiguration = resource;
+      this.myMatResources = new MatTableDataSource(this.myConfiguration.system.scheduled)
     }
   }
 }

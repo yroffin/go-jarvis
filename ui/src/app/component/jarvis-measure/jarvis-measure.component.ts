@@ -41,6 +41,7 @@ import { ResourceBean } from '../../model/resource-bean';
 import { MeasureBean } from '../../model/connector/measure-bean';
 import { ConnectorBean } from '../../model/connector/connector-bean';
 import { PickerBean } from '../../model/picker-bean';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-jarvis-measure',
@@ -50,6 +51,7 @@ import { PickerBean } from '../../model/picker-bean';
 export class JarvisMeasureComponent extends JarvisResource<MeasureBean> implements NotifyCallback<ResourceBean>, OnInit {
 
   @Input() myMeasure: MeasureBean;
+  public myMatResources = new MatTableDataSource([])
   @ViewChild('pickConnectors') pickConnectors: JarvisPickerComponent;
 
   private checkData: any = {};
@@ -57,7 +59,7 @@ export class JarvisMeasureComponent extends JarvisResource<MeasureBean> implemen
   private checkName: string = "";
   private checkDatetime: string = "";
   private checkValue: string = "";
-  
+
   /**
    * internal
    */
@@ -68,7 +70,7 @@ export class JarvisMeasureComponent extends JarvisResource<MeasureBean> implemen
     private _router: Router,
     private _measureService: JarvisDataMeasureService,
     private _connectorService: JarvisDataConnectorService,
-    private logger: LoggerService,    
+    private logger: LoggerService,
     private jarvisMessageService: JarvisMessageService
   ) {
     super('/measures', [], _measureService, _route, _router);
@@ -89,10 +91,10 @@ export class JarvisMeasureComponent extends JarvisResource<MeasureBean> implemen
     /**
      * assert that measure data are correct
      */
-    if(this.myMeasure.connectors.length > 1) {
-      this.jarvisMessageService.push({severity:'warn', summary:'Trop de connecteur', detail:'Une mesure ne doit avoir qu\'un seul connecteur'});
+    if (this.myMeasure.connectors.length > 1) {
+      this.jarvisMessageService.push({ severity: 'warn', summary: 'Trop de connecteur', detail: 'Une mesure ne doit avoir qu\'un seul connecteur' });
     } else {
-      this.jarvisMessageService.push({severity:'info', summary:'Contrôle', detail:'Contrôle du connecteur ' + this.myMeasure.connectors[0].id});
+      this.jarvisMessageService.push({ severity: 'info', summary: 'Contrôle', detail: 'Contrôle du connecteur ' + this.myMeasure.connectors[0].id });
       let loaded;
       this._connectorService.GetSingle(this.myMeasure.connectors[0].id).subscribe(
         (data) => {
@@ -101,7 +103,7 @@ export class JarvisMeasureComponent extends JarvisResource<MeasureBean> implemen
         (error) => {
         },
         () => {
-          if(loaded.collects.collections.length == 1) {
+          if (loaded.collects.collections.length == 1) {
             // one collect ... but now check the field
             _.each(loaded.collects.collections, (collect: any) => {
               this.checkData = collect;
@@ -110,7 +112,7 @@ export class JarvisMeasureComponent extends JarvisResource<MeasureBean> implemen
               this.checkValue = collect.entity[this.myMeasure.value];
             });
           } else {
-            this.jarvisMessageService.push({severity:'warn', summary:'Contrôle', detail:'Pas de collecte active ' + loaded.collects.collections.length});
+            this.jarvisMessageService.push({ severity: 'warn', summary: 'Contrôle', detail: 'Pas de collecte active ' + loaded.collects.collections.length });
           }
         }
       )
@@ -135,14 +137,15 @@ export class JarvisMeasureComponent extends JarvisResource<MeasureBean> implemen
    * notify to add new resource
    */
   public notify(picker: PickerBean, resource: ResourceBean): void {
-    if( picker.action === 'connectors') {
-      this.jarvisConnectorLink.addLink(this.getResource().id, resource.id, this.getResource().connectors, {"order": "1", href: "HREF"}, this._measureService.allLinkedConnectors);
+    if (picker.action === 'connectors') {
+      this.jarvisConnectorLink.addLink(this.getResource().id, resource.id, this.getResource().connectors, { "order": "1", href: "HREF" }, this._measureService.allLinkedConnectors);
     }
-    if(picker.action === 'complete') {
-      this.myMeasure = <MeasureBean> resource;
+    if (picker.action === 'complete') {
+      this.myMeasure = <MeasureBean>resource;
       this.myMeasure.connectors = [];
       (new JarvisResourceLink<ConnectorBean>(this.logger)).loadLinksWithCallback(resource.id, this.myMeasure.connectors, this._measureService.allLinkedConnectors, (connectors) => {
         this.check();
+        this.myMatResources = new MatTableDataSource(connectors)
       });
     }
   }

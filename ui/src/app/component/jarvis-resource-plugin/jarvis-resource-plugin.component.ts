@@ -47,6 +47,7 @@ import { PickerBean } from '../../model/picker-bean';
 import { LinkBean } from '../../model/link-bean';
 import { CommandBean } from '../../model/command-bean';
 import { GraphBean } from '../../model/graph/graph-bean';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-jarvis-resource-plugin',
@@ -56,6 +57,8 @@ import { GraphBean } from '../../model/graph/graph-bean';
 export class JarvisResourcePluginComponent extends JarvisResource<PluginBean> implements NotifyCallback<ResourceBean>, AfterContentInit {
 
   @Input() myPlugin: PluginBean;
+  public myMatResources = new MatTableDataSource([]);
+
   @Input() myJsonData: string = "{}";
   @Input() myRawData: string = "{}";
 
@@ -183,6 +186,7 @@ export class JarvisResourcePluginComponent extends JarvisResource<PluginBean> im
       this.myPlugin.commands = [];
       (new JarvisResourceLink<CommandBean>(this.logger)).loadLinksWithCallback(resource.id, this.myPlugin.commands, this._pluginService.allLinkedCommand, (elements) => {
         this.myPlugin.commands = elements;
+        this.myMatResources = new MatTableDataSource(elements);
         this._pluginService.Task(this.myPlugin.id, 'graph', this.myData)
           .subscribe(
           (result: any) => {

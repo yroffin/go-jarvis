@@ -43,6 +43,7 @@ import { TriggerBean } from '../../model/trigger-bean';
 import { PluginBean, PluginScriptBean } from '../../model/plugin-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { LinkBean } from '../../model/link-bean';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-jarvis-resource-device',
@@ -52,6 +53,10 @@ import { LinkBean } from '../../model/link-bean';
 export class JarvisResourceDeviceComponent extends JarvisResource<DeviceBean> implements NotifyCallback<ResourceBean>, OnInit {
 
   @Input() myDevice: DeviceBean;
+  public myMatDevicesResources = new MatTableDataSource([]);
+  public myMatTriggersResources = new MatTableDataSource([]);
+  public myMatPluginsResources = new MatTableDataSource([]);
+
   public plugins: PluginScriptBean[];
 
   @ViewChild('pickDevices') pickDevices: JarvisPickerComponent;
@@ -70,7 +75,7 @@ export class JarvisResourceDeviceComponent extends JarvisResource<DeviceBean> im
    */
   constructor(
     private _route: ActivatedRoute,
-    private sanitizer:DomSanitizer,
+    private sanitizer: DomSanitizer,
     private _router: Router,
     private _jarvisConfigurationService: JarvisConfigurationService,
     private _deviceService: JarvisDataDeviceService,
@@ -171,23 +176,26 @@ export class JarvisResourceDeviceComponent extends JarvisResource<DeviceBean> im
       this.myDevice.devices = [];
       (new JarvisResourceLink<DeviceBean>(this.logger)).loadLinksWithCallback(resource.id, this.myDevice.devices, this._deviceService.allLinkedDevice, (elements) => {
         this.myDevice.devices = elements;
+        this.myMatDevicesResources.data = elements;
       });
       this.myDevice.triggers = [];
       (new JarvisResourceLink<TriggerBean>(this.logger)).loadLinksWithCallback(resource.id, this.myDevice.triggers, this._deviceService.allLinkedTrigger, (elements) => {
         this.myDevice.triggers = elements;
+        this.myMatTriggersResources.data = elements;
       });
       this.myDevice.plugins = [];
       (new JarvisResourceLink<PluginBean>(this.logger)).loadLinksWithCallback(resource.id, this.myDevice.plugins, this._deviceService.allLinkedPlugin, (elements) => {
         this.myDevice.plugins = elements;
+        this.myMatPluginsResources.data = elements;
         this._deviceService.TaskAsXml(this.myDevice.id, 'uml', this.myData)
-        .subscribe(
-        (result: any) => this.myDetail = result,
-        error => console.log(error),
-        () => {
-          console.log(this.myDetail);
-        }
-        );
-    });
+          .subscribe(
+          (result: any) => this.myDetail = result,
+          error => console.log(error),
+          () => {
+            console.log(this.myDetail);
+          }
+          );
+      });
     }
   }
 

@@ -43,6 +43,7 @@ import { PickerBean } from '../../model/picker-bean';
 import { LinkBean } from '../../model/link-bean';
 import { CommandBean } from '../../model/command-bean';
 import { NotificationBean } from '../../model/notification-bean';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-jarvis-resource-command',
@@ -52,6 +53,7 @@ import { NotificationBean } from '../../model/notification-bean';
 export class JarvisResourceCommandComponent extends JarvisResource<CommandBean> implements NotifyCallback<ResourceBean>, OnInit {
 
   @Input() myCommand: CommandBean;
+  public myMatResources = new MatTableDataSource([]);
   @Input() myJsonData: string = "{}";
   @Input() myRawData: string = "{}";
 
@@ -159,6 +161,7 @@ export class JarvisResourceCommandComponent extends JarvisResource<CommandBean> 
       this.myCommand.notifications = [];
       (new JarvisResourceLink<NotificationBean>(this.logger)).loadLinksWithCallback(resource.id, this.myCommand.notifications, this._commandService.allLinkedNotification, (elements) => {
         this.myCommand.notifications = elements;
+        this.myMatResources = new MatTableDataSource(elements)
       });
     }
   }
@@ -181,7 +184,7 @@ export class JarvisResourceCommandComponent extends JarvisResource<CommandBean> 
    * highlight source
    */
   public hightlight(body: string): void {
-    if(body) {
+    if (body) {
       return Prism.highlight(body, Prism.languages.javascript);
     }
   }

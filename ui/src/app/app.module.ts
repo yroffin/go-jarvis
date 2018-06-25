@@ -44,6 +44,7 @@ import { MatFormFieldModule } from '@angular/material';
 import { MatPaginatorModule } from '@angular/material';
 import { MatIconModule, MatIconRegistry } from '@angular/material';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatExpansionModule } from '@angular/material';
 
 /**
  * primeng
@@ -256,6 +257,7 @@ const appRoutes: Routes = [
     MatIconModule,
     MatPaginatorModule,
     MatBadgeModule,
+    MatExpansionModule,
     /**
      * primeface
      */

@@ -3,8 +3,13 @@
 <app-jarvis-picker #pickCommands [resource]="{'service':'commands','label':'Commands'}"></app-jarvis-picker>
 
 <div *ngIf="myPlugin">
-  <mat-tab-group>
-    <mat-tab label="Entête">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Entête
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
         <div class="ui-grid-row">
           <div class="ui-grid-col-6">
@@ -34,8 +39,13 @@
           </div>
         </div>
       </div>
-    </mat-tab>
-    <mat-tab label="Commande">
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Commande
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <table mat-table [dataSource]="myMatResources" class="table-resource">
         <ng-container matColumnDef="order">
           <th mat-header-cell *matHeaderCellDef> Order </th>
@@ -65,11 +75,21 @@
         <tr mat-row *matRowDef="let row; columns: ['order','id','instance','name','action'];"></tr>
       </table>
 
-    </mat-tab>
-    <mat-tab label="Détails">
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Détails
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <app-jarvis-graph [graph]="graph" [options]="options"></app-jarvis-graph>
-    </mat-tab>
-    <mat-tab label="Mise au point">
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Mise au point
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
         <div class="ui-grid-row">
           <div class="ui-grid-col-12">
@@ -95,8 +115,8 @@
           </div>
         </div>
       </div>
-    </mat-tab>
-  </mat-tab-group>
+    </mat-expansion-panel>
+  </mat-accordion>
 
   <p-dialog appendTo="body" header="Commande" [(visible)]="display" modal=true responsive=true width="700" resizable=false>
     <div *ngIf="myCommand">

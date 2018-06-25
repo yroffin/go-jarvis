@@ -2,8 +2,13 @@
 
 <div *ngIf="myView">
 
-  <mat-tab-group>
-    <mat-tab label="Entête">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Entête
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
         <div class="ui-grid-row">
           <div class="ui-grid-col-6">
@@ -35,8 +40,13 @@
           </div>
         </div>
       </div>
-    </mat-tab>
-    <mat-tab label="Devices">
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Devices
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <app-jarvis-toolbar-resource [notified]="this" [pickers]="[{'label':'Ajouter des devices à la vue', 'icon': 'fa-server', 'action':'devices', 'picker': pickDevices}]"></app-jarvis-toolbar-resource>
       <table mat-table [dataSource]="devices" class="table-resource">
         <ng-container matColumnDef="ordre">
@@ -66,8 +76,8 @@
         <tr mat-header-row *matHeaderRowDef="['ordre','id','instance','name','action']"></tr>
         <tr mat-row *matRowDef="let row; columns: ['ordre','id','instance','name','action'];"></tr>
       </table>
-    </mat-tab>
-  </mat-tab-group>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
 
 <app-jarvis-picker #pickDevices [resource]="{'service':'devices','action':'devices','label':'Devices'}"></app-jarvis-picker>

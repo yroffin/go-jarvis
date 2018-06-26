@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Component, Input, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, Input, Inject, AfterViewInit, ViewChild } from '@angular/core';
 
 import { MenuItem, Message } from 'primeng/primeng';
 
@@ -31,6 +31,8 @@ import { ResourceBean } from '../../model/resource-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { TaskBean, PickerTaskBean } from '../../model/action-bean';
 import { JarvisPickerComponent } from '../../dialog/jarvis-picker/jarvis-picker.component';
+import { MatDialog } from '@angular/material';
+import { DialogConfirmDrop } from '../../dialog/drop-resource/jarvis-drop-resource.component';
 
 @Component({
   selector: 'app-jarvis-toolbar-resource',
@@ -49,13 +51,13 @@ export class JarvisToolbarResourceComponent implements AfterViewInit {
   @Input() private notified: JarvisToolbarAction;
   @Input() public crud: boolean = false;
 
-  public display: boolean = false;
   public toDelete: ResourceBean;
 
   private items: MenuItem[] = [];
 
   constructor(
-    private jarvisMessageService: JarvisMessageService
+    private jarvisMessageService: JarvisMessageService,
+    public dialog: MatDialog,
   ) {
   }
 
@@ -71,15 +73,15 @@ export class JarvisToolbarResourceComponent implements AfterViewInit {
    * protect dropping
    */
   dropResource() {
-    this.display = true;
-  }
+    const dialogRef = this.dialog.open(DialogConfirmDrop, {
+      data: {id: this.notified.getId(), name: this.notified.getName()}
+    });
 
-  /**
-   * confirmation
-   */
-  confirmedDropResource() {
-    this.display = false;
-    this.remove();
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.remove();
+      }
+    });
   }
 
   ngAfterViewInit() {

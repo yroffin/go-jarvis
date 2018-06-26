@@ -147,6 +147,20 @@ export class JarvisResource<T extends ResourceBean> {
     }
 
     /**
+     * id
+     */
+    public getId(): string {
+        return this.myResource.id;
+    }
+
+    /**
+     * name
+     */
+    public getName(): string {
+        return this.myResource.name;
+    }
+
+    /**
      * task action
      */
     public task(action: string): void {

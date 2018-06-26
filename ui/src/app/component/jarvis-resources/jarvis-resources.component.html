@@ -21,7 +21,3 @@
   <tr mat-row *matRowDef="let row; columns: ['id','name','action'];"></tr>
 </table>
 <mat-paginator #paginator [pageSize]="10"></mat-paginator>
-<p-dialog appendTo="body" modal=true header="Confirmation" [(visible)]="display">
-  Supression de {{toDelete && toDelete.name}} ?
-  <mat-icon fontSet="fa" fontIcon="fa-trash" pTooltip="Supprimer" tooltipPosition="bottom" (click)="confirmedDropResource(toDelete)"></mat-icon>
-</p-dialog>

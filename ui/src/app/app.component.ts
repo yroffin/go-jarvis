@@ -22,16 +22,15 @@ import { map, catchError } from 'rxjs/operators';
 import { Http, Response, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 import { State, Store } from '@ngrx/store';
-import { Message } from 'primeng/primeng';
 
-import { MatSidenav } from '@angular/material';
+import { MatSidenav, MatSnackBar } from '@angular/material';
 
 import { MenuItem } from 'primeng/primeng';
 
 import { WindowRef } from './service/jarvis-utils.service';
 import { JarvisConfigurationService } from './service/jarvis-configuration.service';
 import { JarvisSecurityService } from './service/jarvis-security.service';
-import { MessageStoreService } from './store/message.store';
+import { MessageStoreService, Message } from './store/message.store';
 import { ProfileGuard } from './guard/profile.service';
 
 /**
@@ -57,10 +56,8 @@ export class AppComponent implements OnInit {
   private items: MenuItem[];
   public dispMe: boolean = false;
   public dispHelp: boolean = false;
-  public dispMenu: boolean = false;
   public dispVersion: boolean = false;
 
-  public msgs: Message[] = <Message[]>[];
   protected messageStream: Observable<Message>;
 
   public me: MeBean;
@@ -77,7 +74,8 @@ export class AppComponent implements OnInit {
     private windowRef: WindowRef,
     private configuration: JarvisConfigurationService,
     private jarvisSecurityService: JarvisSecurityService,
-    private messageStoreService: MessageStoreService
+    private messageStoreService: MessageStoreService,
+    private snackBar: MatSnackBar
   ) {
     this.myInnerHeight = windowRef.getWindow();
 
@@ -90,9 +88,10 @@ export class AppComponent implements OnInit {
      * register to store update
      */
     this.messageStream
-      .subscribe((item) => {
-        this.msgs.splice(0, this.msgs.length);
-        this.msgs.push(item);
+      .subscribe((message) => {
+        this.snackBar.open(message.detail, message.severity, {
+          duration: 2000,
+        });
       });
   }
 
@@ -114,15 +113,6 @@ export class AppComponent implements OnInit {
       }
     )
     this.dispVersion = true;
-  }
-
-  /**
-   * show help
-   */
-  showMenu() {
-    this.dispMenu = true;
-    this.dispHelp = false;
-    this.sidenav.toggle();
   }
 
   /**
@@ -154,9 +144,7 @@ export class AppComponent implements OnInit {
         this.help = text;
       }
     );
-    this.dispMenu = false;
     this.dispHelp = true;
-    this.sidenav.toggle();
   }
 
   /**

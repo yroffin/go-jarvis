@@ -18,7 +18,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 
 import { MatSnackBar } from '@angular/material';
-import { Message } from 'primeng/primeng';
 
 import { JarvisDataDeviceService } from '../../service/jarvis-data-device.service';
 import { JarvisDataViewService } from '../../service/jarvis-data-view.service';

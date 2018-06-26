@@ -29,7 +29,7 @@ import { AppComponent } from './app.component';
 /**
  * material2
  */
-import { MatSidenavModule, MatIcon } from '@angular/material';
+import { MatSidenavModule, MatIcon, MatToolbar } from '@angular/material';
 import { MatCheckboxModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material';
 import { MatGridListModule } from '@angular/material';
@@ -45,6 +45,9 @@ import { MatPaginatorModule } from '@angular/material';
 import { MatIconModule, MatIconRegistry } from '@angular/material';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatExpansionModule } from '@angular/material';
+import { MatMenuModule } from '@angular/material';
+import { MatToolbarModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
 
 /**
  * primeng
@@ -152,6 +155,7 @@ import { JarvisGraphBrowserComponent } from './component/jarvis-graph-browser/ja
 import { GraphStoreService } from './store/graph.store';
 import { JarvisBpmnComponent } from './widget/jarvis-bpmnjs/jarvis-bpmnjs.component';
 import { JarvisGraphExplorerComponent } from './widget/jarvis-graph-explorer/jarvis-graph-explorer.component';
+import { DialogConfirmDrop } from './dialog/drop-resource/jarvis-drop-resource.component';
 
 /**
  * default route definition
@@ -228,10 +232,12 @@ const appRoutes: Routes = [
     JarvisGraphBrowserComponent,
     JarvisGraphComponent,
     JarvisBpmnComponent,
-    JarvisGraphExplorerComponent
+    JarvisGraphExplorerComponent,
+    DialogConfirmDrop
   ],
   entryComponents: [
-    JarvisPickerComponent
+    JarvisPickerComponent,
+    DialogConfirmDrop
   ],
   imports: [
     CommonModule,
@@ -258,6 +264,9 @@ const appRoutes: Routes = [
     MatPaginatorModule,
     MatBadgeModule,
     MatExpansionModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatDialogModule,
     /**
      * primeface
      */

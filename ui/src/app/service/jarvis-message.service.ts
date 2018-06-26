@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { State, Store } from '@ngrx/store';
-import { Message } from 'primeng/primeng';
-import { MessageStoreService, NewUiMessageAction } from '../store/message.store';
+import { MessageStoreService, NewUiMessageAction, Message } from '../store/message.store';
 
 @Injectable()
 export class JarvisMessageService {

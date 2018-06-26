@@ -5,7 +5,6 @@ import * as _ from 'lodash';
 
 import { JarvisDataDeviceService } from '../../service/jarvis-data-device.service';
 import { JarvisMessageService } from '../../service/jarvis-message.service';
-import { Message } from 'primeng/primeng';
 
 /**
  * data model

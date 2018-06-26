@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+  <p>Drop {{data.name}} with id {{data.id}} ?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Ok</button>
+</div>

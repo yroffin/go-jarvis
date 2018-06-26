@@ -16,7 +16,6 @@
 
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Message } from 'primeng/primeng';
 import * as _ from 'lodash';
 
 import { LoggerService } from '../../service/logger.service';

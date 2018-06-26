@@ -17,7 +17,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
-import { Message } from 'primeng/primeng';
 
 import * as _ from 'lodash';
 
@@ -50,9 +49,10 @@ import { JarvisDataModelService } from '../../service/jarvis-data-model.service'
  * data model
  */
 import { ResourceBean } from '../../model/resource-bean';
-import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatDialog } from '@angular/material';
 import { AfterViewInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
+import { DialogConfirmDrop } from '../../dialog/drop-resource/jarvis-drop-resource.component';
 
 @Component({
   selector: 'app-jarvis-resources',
@@ -69,9 +69,6 @@ export class JarvisResourcesComponent implements OnInit, AfterViewInit {
   public myMatResources = new MatTableDataSource(<ResourceBean[]>[]);
   @ViewChild('paginator') paginator: MatPaginator;
 
-  public toDelete: ResourceBean;
-  public display: boolean = false;
-
   /**
    * internal service
    */
@@ -84,6 +81,7 @@ export class JarvisResourcesComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     private navigationGuard: NavigationGuard,
+    public dialog: MatDialog,
     private jarvisMessageService: JarvisMessageService,
     private _jarvisConfigurationService: JarvisConfigurationService,
     private _jarvisDataDeviceService: JarvisDataDeviceService,
@@ -227,15 +225,21 @@ export class JarvisResourcesComponent implements OnInit, AfterViewInit {
    * protect dropping
    */
   dropResource(resource: ResourceBean) {
-    this.display = true;
-    this.toDelete = resource;
+    const dialogRef = this.dialog.open(DialogConfirmDrop, {
+      data: {id: resource.id, name: resource.name}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.confirmedDropResource(resource)
+      }
+    });
   }
 
   /**
    * delete resource
    */
   public confirmedDropResource(resource: ResourceBean) {
-    this.display = false;
     /**
      * delete a single resource
      */

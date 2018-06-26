@@ -24,7 +24,14 @@ import { createFeatureSelector, createSelector, Selector } from '@ngrx/store';
 import * as _ from 'lodash';
 
 import { ActionWithPayload } from './action-with-payload';
-import { Message } from 'primeng/primeng';
+
+export interface Message {
+  severity?: string;
+  summary?: string;
+  detail?: string;
+  id?: any;
+  key?: string;
+}
 
 /**
  * states

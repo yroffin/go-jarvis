@@ -8,4 +8,6 @@ export interface JarvisToolbarAction {
     next(): void;
     task(task: string): void;
     pick(picker: PickerBean): void;
+    getId(): string
+    getName(): string
 }

@@ -25,8 +25,6 @@ import { State, Store } from '@ngrx/store';
 
 import { MatSidenav, MatSnackBar } from '@angular/material';
 
-import { MenuItem } from 'primeng/primeng';
-
 import { WindowRef } from './service/jarvis-utils.service';
 import { JarvisConfigurationService } from './service/jarvis-configuration.service';
 import { JarvisSecurityService } from './service/jarvis-security.service';
@@ -53,7 +51,7 @@ export class AppComponent implements OnInit {
   /**
    * global system menu
    */
-  public items: MenuItem[];
+  public items: any[];
   public dispMe: boolean = false;
   public dispHelp: boolean = false;
   public dispVersion: boolean = false;

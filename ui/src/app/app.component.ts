@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
   /**
    * global system menu
    */
-  private items: MenuItem[];
+  public items: MenuItem[];
   public dispMe: boolean = false;
   public dispHelp: boolean = false;
   public dispVersion: boolean = false;

@@ -15,4 +15,5 @@
     <tr mat-header-row *matHeaderRowDef="['id','topic','body']"></tr>
     <tr mat-row *matRowDef="let row; columns: ['id','topic','body'];"></tr>
   </table>
+  <mat-paginator #paginator [pageSize]="10"></mat-paginator>
 </div>

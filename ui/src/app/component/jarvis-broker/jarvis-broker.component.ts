@@ -20,20 +20,23 @@ import * as _ from 'lodash';
 import { State, Store } from '@ngrx/store';
 
 import { SelectItem, UIChart } from 'primeng/primeng';
-import { JarvisMqttService } from '../../service/jarvis-mqtt.service';
 
 import { Observable } from 'rxjs';
 import { MessageBean } from '../../model/broker/message-bean';
 import { BrokerStoreService } from '../../store/broker.store';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { JarvisMqttService } from '../../service/jarvis-mqtt.service';
+import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { LoggerService } from '../../service/logger.service';
 
 @Component({
   selector: 'app-jarvis-broker',
   templateUrl: './jarvis-broker.component.html',
   styleUrls: ['./jarvis-broker.component.css']
 })
-export class JarvisBrokerComponent implements OnInit {
+export class JarvisBrokerComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('paginator') paginator: MatPaginator;
   @Input() myMessages: MessageBean[] = <MessageBean[]>[];
   public myMatResources = new MatTableDataSource([])
   public messageStream: Observable<MessageBean>;
@@ -43,12 +46,16 @@ export class JarvisBrokerComponent implements OnInit {
   constructor(
     private store: Store<State<MessageBean>>,
     private mqttService: JarvisMqttService,
-    private brokerStoreService: BrokerStoreService
+    private brokerStoreService: BrokerStoreService,
+    private logger: LoggerService
   ) {
     /**
       * register to store
       */
     this.messageStream = this.brokerStoreService.message();
+  }
+
+  ngOnInit() {
     /**
      * register to store update
      */
@@ -58,19 +65,25 @@ export class JarvisBrokerComponent implements OnInit {
         msg.id = '' + (this.ids++);
         msg.topic = item.topic;
         try {
-          msg.body = JSON.stringify(item.body, null, '  ');
+          msg.body = JSON.stringify(item.body, null, '\t');
         } catch (Exc) {
+          this.logger.warn("Bad body (not json");
           msg.body = item.body;
         }
-        if (this.myMessages.length > 20) {
+        if (this.myMessages.length > 256) {
           this.myMessages.shift()
         }
         this.myMessages.push(msg);
-        this.myMatResources = new MatTableDataSource(this.myMessages)
+        this.myMatResources.data = this.myMessages
       });
   }
 
-  ngOnInit() {
+  /**
+ * Set the paginator after the view init since this component will
+ * be able to query its view for the initialized paginator.
+ */
+  ngAfterViewInit() {
+    this.myMatResources.paginator = this.paginator;
   }
 
 }

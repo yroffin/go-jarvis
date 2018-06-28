@@ -84,7 +84,7 @@ export class BrokerStoreService {
    * @param state 
    * @param action 
    */
-  public static reducer(state: MessageState = { message: new MessageBean() }, action: AllMessagesActions): MessageState {
+  public static reducer(state: MessageState = { message: <MessageBean>{topic: 'default', body: {}} }, action: AllMessagesActions): MessageState {
 
     switch (action.type) {
       /**
@@ -97,7 +97,8 @@ export class BrokerStoreService {
           try {
             newState.body = JSON.parse(action.payload.body);
           } catch (Exc) {
-            newState.body = action.payload.body;
+            console.error("Unable to parse", action.payload.body);
+            newState.body = {};
           }
           return {
             message: newState

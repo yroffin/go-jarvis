@@ -60,9 +60,9 @@ export class JarvisSecurityService extends JarvisDataCoreResource<ResourceBean> 
   /**
    * get connect resource
    */
-  public Version = (): Observable<VersionBean> => {
+  public Version = (): Observable<any> => {
     return this.http.get(this.actionUrl + 'api/version', { headers: this.headers }).pipe(
-      map((response: Response) => <VersionBean> response.json()),
+      map((response: Response) => <any> response.json()),
       catchError(this.handleError));
   }
 

@@ -35,7 +35,6 @@ import { JarvisConfigurationService } from '../service/jarvis-configuration.serv
  * data model
  */
 import { Oauth2Bean, MeBean } from '../model/security/oauth2-bean';
-import { VersionBean } from '../model/system/version';
 
 @Injectable()
 export class ProfileGuard implements CanActivate {
@@ -70,14 +69,6 @@ export class ProfileGuard implements CanActivate {
    * @param state 
    */
   public canActivate(destination: ActivatedRouteSnapshot, state: RouterStateSnapshot):  Observable<boolean> {
-    /*
-     * retrieve version
-     */
-    this.jarvisSecurityService.Version().subscribe(
-      (data: VersionBean) => {
-        this.logger.info("Version", data)
-      }
-    )
     /**
      * define an observable to authorize activity in ui
      * after using all connect and me api

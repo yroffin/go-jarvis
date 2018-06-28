@@ -32,7 +32,6 @@ import { JarvisDataCoreResource } from './jarvis-data-core-resource';
  */
 import { ResourceBean } from './../model/resource-bean';
 import { Oauth2Bean, MeBean } from './../model/security/oauth2-bean';
-import { VersionBean } from '../model/system/version';
 import { LoggerService } from './logger.service';
 
 @Injectable()

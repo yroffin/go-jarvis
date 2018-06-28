@@ -156,6 +156,7 @@ import { GraphStoreService } from './store/graph.store';
 import { JarvisBpmnComponent } from './widget/jarvis-bpmnjs/jarvis-bpmnjs.component';
 import { JarvisGraphExplorerComponent } from './widget/jarvis-graph-explorer/jarvis-graph-explorer.component';
 import { DialogConfirmDrop } from './dialog/drop-resource/jarvis-drop-resource.component';
+import { DialogAbout } from './dialog/about/jarvis-about.component';
 
 /**
  * default route definition
@@ -233,11 +234,13 @@ const appRoutes: Routes = [
     JarvisGraphComponent,
     JarvisBpmnComponent,
     JarvisGraphExplorerComponent,
-    DialogConfirmDrop
+    DialogConfirmDrop,
+    DialogAbout
   ],
   entryComponents: [
     JarvisPickerComponent,
-    DialogConfirmDrop
+    DialogConfirmDrop,
+    DialogAbout
   ],
   imports: [
     CommonModule,

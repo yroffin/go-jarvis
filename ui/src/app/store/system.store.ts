@@ -24,7 +24,9 @@ import { createFeatureSelector, createSelector, Selector } from '@ngrx/store';
 import * as _ from 'lodash';
 
 import { ActionWithPayload } from './action-with-payload';
-import { VersionBean } from '../model/system/version';
+
+export class VersionBean extends Object {
+}
 
 /**
  * states
@@ -94,7 +96,6 @@ export class SystemStoreService {
       case 'VersionAction':
         {
           let newState = new VersionBean();
-          newState.ui = action.payload.ui;
           return {
             version: newState
           };

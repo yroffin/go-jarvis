@@ -23,7 +23,7 @@ import { Http, Response, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 import { State, Store } from '@ngrx/store';
 
-import { MatSidenav, MatSnackBar } from '@angular/material';
+import { MatSidenav, MatSnackBar, MatDialog } from '@angular/material';
 
 import { WindowRef } from './service/jarvis-utils.service';
 import { JarvisConfigurationService } from './service/jarvis-configuration.service';
@@ -37,6 +37,7 @@ import { ProfileGuard } from './guard/profile.service';
 import { ResourceBean } from './model/resource-bean';
 import { Oauth2Bean, MeBean } from './model/security/oauth2-bean';
 import { VersionBean } from './model/system/version';
+import { DialogAbout } from './dialog/about/jarvis-about.component';
 
 @Component({
   selector: 'app-root',
@@ -54,12 +55,10 @@ export class AppComponent implements OnInit {
   public items: any[];
   public dispMe: boolean = false;
   public dispHelp: boolean = false;
-  public dispVersion: boolean = false;
 
   protected messageStream: Observable<Message>;
 
   public me: MeBean;
-  public vers: any;
   public help: string;
 
   /**
@@ -73,7 +72,8 @@ export class AppComponent implements OnInit {
     private configuration: JarvisConfigurationService,
     private jarvisSecurityService: JarvisSecurityService,
     private messageStoreService: MessageStoreService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {
     this.myInnerHeight = windowRef.getWindow();
 
@@ -106,11 +106,15 @@ export class AppComponent implements OnInit {
    */
   showVersion() {
     this.jarvisSecurityService.Version().subscribe(
-      (data: VersionBean) => {
-        this.vers = data
+      (data: any) => {
+        const dialogRef = this.dialog.open(DialogAbout, {
+          data: { payload: JSON.stringify(data, null, '\t') }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+        });
       }
     )
-    this.dispVersion = true;
   }
 
   /**
@@ -161,7 +165,7 @@ export class AppComponent implements OnInit {
    * error handler
    */
   protected handleError(error: Response): Observable<any> {
-    throw(error || 'Server error');
+    throw (error || 'Server error');
   }
 
   /**

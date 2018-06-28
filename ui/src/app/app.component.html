@@ -29,9 +29,6 @@
         Email
         <input type="text" pInputText [(ngModel)]="me && me.attributes.email" disabled/>
     </p-dialog>
-    <p-dialog appendTo="body" header="Version" [(visible)]="dispVersion" modal="true">
-        <pre>{{vers | json}}</pre>
-    </p-dialog>
 </mat-sidenav-container>
 
 <mat-menu #menu="matMenu">

@@ -36,7 +36,6 @@ import { ProfileGuard } from './guard/profile.service';
  */
 import { ResourceBean } from './model/resource-bean';
 import { Oauth2Bean, MeBean } from './model/security/oauth2-bean';
-import { VersionBean } from './model/system/version';
 import { DialogAbout } from './dialog/about/jarvis-about.component';
 
 @Component({

@@ -1,8 +1,13 @@
 <app-jarvis-toolbar-resource [notified]="this" [crud]="true"></app-jarvis-toolbar-resource>
 
 <div *ngIf="myConnector">
-  <mat-tab-group>
-    <mat-tab label="Entête">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Entête
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
         <div class="ui-grid-row">
           <div class="ui-grid-col-6">
@@ -17,8 +22,13 @@
           </div>
         </div>
       </div>
-    </mat-tab>
-    <mat-tab label="Réseau ({{myConnector.lastAdvertise | date:'yyyy-MM-dd HH:mm:ss Z'}})">
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Réseau ({{myConnector.lastAdvertise | date:'yyyy-MM-dd HH:mm:ss Z'}})
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
         <div class="ui-grid-row">
           <div class="ui-grid-col-6">
@@ -39,8 +49,13 @@
           </div>
         </div>
       </div>
-    </mat-tab>
-    <mat-tab *ngIf="myConnector.collects" label="Collecte(s)">
+    </mat-expansion-panel>
+    <mat-expansion-panel *ngIf="myConnector.collects">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Collecte(s)
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
         <p-dataTable [immutable]="false" [value]="myConnector.collects.collections">
           <header>Collectes</header>
@@ -55,7 +70,7 @@
           </p-column>
         </p-dataTable>
       </div>
-    </mat-tab>
-  </mat-tab-group>
+    </mat-expansion-panel>
+  </mat-accordion>
 
 </div>

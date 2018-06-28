@@ -50,8 +50,7 @@
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        <mat-panel-title>
-          Triggers
+        <mat-panel-title>Triggers (count : {{myMatTriggersResources.data.length}})
         </mat-panel-title>
       </mat-expansion-panel-header>
       <app-jarvis-toolbar-resource [notified]="this" [pickers]="[{'action':'triggers','icon':'fa-send','label':'Ajouter un trigger','picker': pickTriggers}]"></app-jarvis-toolbar-resource>
@@ -86,8 +85,7 @@
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        <mat-panel-title>
-          Devices
+        <mat-panel-title>Devices (count : {{myMatDevicesResources.data.length}})
         </mat-panel-title>
       </mat-expansion-panel-header>
       <app-jarvis-toolbar-resource [notified]="this" [pickers]="[{'action':'devices','icon':'fa-server','label':'Ajouter un device','picker': pickDevices}]"></app-jarvis-toolbar-resource>
@@ -122,8 +120,7 @@
     </mat-expansion-panel>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        <mat-panel-title>
-          Plugins
+        <mat-panel-title>Plugins (count : {{myMatPluginsResources.data.length}})
         </mat-panel-title>
       </mat-expansion-panel-header>
       <app-jarvis-toolbar-resource [notified]="this" [pickers]="[{'action':'plugins','icon':'fa-podcast','label':'Ajouter un plugin','picker': pickPlugins}]"></app-jarvis-toolbar-resource>

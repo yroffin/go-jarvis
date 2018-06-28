@@ -2,8 +2,13 @@
   [pickers]="[{'label':'Ajouter une crontab', 'icon': 'fa-bolt', 'action':'crons', 'picker': pickCrons}]"></app-jarvis-toolbar-resource>
 
 <div *ngIf="myTrigger">
-  <mat-tab-group>
-    <mat-tab label="Entête">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Entête
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
         <div class="ui-grid-row">
           <div class="ui-grid-col-6">
@@ -24,8 +29,13 @@
           </div>
         </div>
       </div>
-    </mat-tab>
-    <mat-tab label="Broker">
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Broker
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
         <div class="ui-grid-row">
           <div class="ui-grid-col-6">
@@ -53,10 +63,13 @@
           </div>
         </div>
       </div>
-    </mat-tab>
-    <mat-tab label="Périodicité">
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Périodicité (count : {{myMatResources.data.length}})
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <app-jarvis-toolbar-resource [notified]="this" [pickers]="[{'label':'Ajouter une crontab', 'icon': 'fa-bolt', 'action':'crons', 'picker': pickCrons}]"></app-jarvis-toolbar-resource>
-
       <table mat-table [dataSource]="myMatResources" class="table-resource">
         <ng-container matColumnDef="order">
           <th mat-header-cell *matHeaderCellDef> Order </th>
@@ -85,9 +98,12 @@
         <tr mat-header-row *matHeaderRowDef="['order','id','instance','name','action']"></tr>
         <tr mat-row *matRowDef="let row; columns: ['order','id','instance','name','action'];"></tr>
       </table>
-
-    </mat-tab>
-    <mat-tab label="Devices liés">
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Devices liées (count : {{myMatDevicesResources.data.length}})
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <table mat-table [dataSource]="myMatDevicesResources" class="table-resource">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef> Id. </th>
@@ -100,9 +116,12 @@
         <tr mat-header-row *matHeaderRowDef="['id','name']"></tr>
         <tr mat-row *matRowDef="let row; columns: ['id','name'];"></tr>
       </table>
-    </mat-tab>
-    <mat-tab label="Processus liés">
-
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Processus liés (count: {{myMatProcessesResources.data.length}})
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <table mat-table [dataSource]="myMatProcessesResources" class="table-resource">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef> Id. </th>
@@ -115,8 +134,8 @@
         <tr mat-header-row *matHeaderRowDef="['id','name']"></tr>
         <tr mat-row *matRowDef="let row; columns: ['id','name'];"></tr>
       </table>
-    </mat-tab>
-  </mat-tab-group>
+    </mat-expansion-panel>
+  </mat-accordion>
 
 </div>
 

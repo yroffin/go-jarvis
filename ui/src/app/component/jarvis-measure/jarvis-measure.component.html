@@ -2,8 +2,13 @@
   [pickers]="[{'label':'Lier un connecteur', 'icon': 'fa-podcast', 'action':'connectors', 'picker': pickConnectors}]"></app-jarvis-toolbar-resource>
 
 <div *ngIf="myMeasure">
-  <mat-tab-group>
-    <mat-tab label="Entête">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Entête
+        </mat-panel-title>
+      </mat-expansion-panel-header>
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
         <div class="ui-grid-row">
           <div class="ui-grid-col-4">
@@ -56,8 +61,8 @@
         <tr mat-header-row *matHeaderRowDef="['order','id','instance','name']"></tr>
         <tr mat-row *matRowDef="let row; columns: ['order','id','instance','name'];"></tr>
       </table>
-    </mat-tab>
-  </mat-tab-group>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
 
 <app-jarvis-picker #pickConnectors [resource]="{'service':'connectors','label':'Connectors'}"></app-jarvis-picker>

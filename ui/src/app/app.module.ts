@@ -29,7 +29,7 @@ import { AppComponent } from './app.component';
 /**
  * material2
  */
-import { MatSidenavModule, MatIcon, MatToolbar } from '@angular/material';
+import { MatSidenavModule, MatIcon, MatToolbar, MatDividerModule, MatChipsModule } from '@angular/material';
 import { MatCheckboxModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material';
 import { MatGridListModule } from '@angular/material';
@@ -270,6 +270,8 @@ const appRoutes: Routes = [
     MatMenuModule,
     MatToolbarModule,
     MatDialogModule,
+    MatDividerModule,
+    MatChipsModule,
     /**
      * primeface
      */

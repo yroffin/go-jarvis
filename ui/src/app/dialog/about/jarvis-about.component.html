@@ -1,6 +1,7 @@
-<pre mat-dialog-content>
-{{data.payload}}
-</pre>
+<mat-toolbar color="primary">About</mat-toolbar>
+<mat-form-field *ngFor="let field of fields" class="max-size">
+  <input matInput placeholder="{{field.name}}" value="{{field.value}}" disabled>
+</mat-form-field>
 <div mat-dialog-actions>
   <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Ok</button>
 </div>

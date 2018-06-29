@@ -25,11 +25,22 @@ export interface DialogData {
 @Component({
   selector: 'dialog-about',
   templateUrl: 'jarvis-about.component.html',
+  styleUrls: ['jarvis-about.component.css']
 })
 export class DialogAbout {
+  public fields = [];
+
   constructor(
     public dialogRef: MatDialogRef<DialogAbout>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+      let obj = JSON.parse(data.payload);
+      for (var key in obj) {
+        this.fields.push({
+          name: key,
+          value: obj[key],
+        })
+      }
+    }
 
   onNoClick(): void {
     this.dialogRef.close();

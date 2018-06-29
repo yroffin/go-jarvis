@@ -107,6 +107,7 @@ export class AppComponent implements OnInit {
     this.jarvisSecurityService.Version().subscribe(
       (data: any) => {
         const dialogRef = this.dialog.open(DialogAbout, {
+          width: '600px',
           data: { payload: JSON.stringify(data, null, '\t') }
         });
 

@@ -24,7 +24,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 declare var Prism: any;
 
 import { LoggerService } from '../../service/logger.service';
-import { JarvisPickerComponent } from '../../dialog/jarvis-picker/jarvis-picker.component';
 import { JarvisConfigurationService } from '../../service/jarvis-configuration.service';
 import { JarvisDataDeviceService } from '../../service/jarvis-data-device.service';
 import { JarvisDataCommandService } from '../../service/jarvis-data-command.service';
@@ -48,6 +47,8 @@ import { LinkBean } from '../../model/link-bean';
 import { CommandBean } from '../../model/command-bean';
 import { GraphBean } from '../../model/graph/graph-bean';
 import { MatTableDataSource } from '@angular/material';
+import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
+import { JarvisDataConnectorService } from '../../service/jarvis-data-connector.service';
 
 @Component({
   selector: 'app-jarvis-resource-plugin',
@@ -66,8 +67,6 @@ export class JarvisResourcePluginComponent extends JarvisResource<PluginBean> im
   private myOutputData: any = {};
   private myDetail: string = "";
   private types: SelectItem[];
-
-  @ViewChild('pickCommands') pickCommands;
 
   /**
    * internal vars
@@ -90,7 +89,10 @@ export class JarvisResourcePluginComponent extends JarvisResource<PluginBean> im
     private _jarvisConfigurationService: JarvisConfigurationService,
     private _pluginService: JarvisDataPluginService,
     private logger: LoggerService,
-    private _commandService: JarvisDataCommandService) {
+    private _commandService: JarvisDataCommandService,
+    private jarvisDataConnectorService: JarvisDataConnectorService,
+    private jarvisPickResourceService: JarvisPickResourceService,
+  ) {
     super('/plugins', ['execute', 'render', 'clear'], _pluginService, _route, _router);
     this.jarvisCommandLink = new JarvisResourceLink<CommandBean>(this.logger);
     this.types = [];
@@ -170,7 +172,7 @@ export class JarvisResourcePluginComponent extends JarvisResource<PluginBean> im
      * find notifications
      */
     if (picker.action === 'commands') {
-      this.pickCommands.open(this);
+      this.jarvisPickResourceService.open(this, 'Commands', picker);
     }
   }
 

@@ -15,7 +15,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { JarvisConfigurationService } from './jarvis-configuration.service';
@@ -32,7 +32,7 @@ import { ModelBean } from './../model/code/model-bean';
 export class JarvisDataModelService extends JarvisDataCoreResource<ModelBean> implements JarvisDefaultResource<ModelBean> {
 
     constructor(
-        private _http: Http,
+        private _http: HttpClient,
         private _configuration: JarvisConfigurationService
     ) {
         super(_configuration, _configuration.ServerWithApiUrl + 'models', _http);

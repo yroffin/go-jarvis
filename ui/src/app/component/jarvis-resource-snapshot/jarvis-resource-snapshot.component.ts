@@ -22,7 +22,6 @@ import { SelectItem, Message } from 'primeng/primeng';
 
 declare var Prism: any;
 
-import { JarvisPickerComponent } from '../../dialog/jarvis-picker/jarvis-picker.component';
 import { JarvisConfigurationService } from '../../service/jarvis-configuration.service';
 import { JarvisResourceLink } from '../../class/jarvis-resource-link';
 

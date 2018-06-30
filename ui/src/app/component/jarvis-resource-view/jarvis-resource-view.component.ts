@@ -25,7 +25,6 @@ import { Observable, BehaviorSubject } from 'rxjs';
 declare var Prism: any;
 
 import { LoggerService } from '../../service/logger.service';
-import { JarvisPickerComponent } from '../../dialog/jarvis-picker/jarvis-picker.component';
 import { JarvisConfigurationService } from '../../service/jarvis-configuration.service';
 import { JarvisDataDeviceService } from '../../service/jarvis-data-device.service';
 import { JarvisDataViewService } from '../../service/jarvis-data-view.service';
@@ -34,7 +33,6 @@ import { JarvisResourceLink } from '../../class/jarvis-resource-link';
 /**
  * class
  */
-import { JarvisPicker } from '../../class/jarvis-pickers';
 import { JarvisResource } from '../../class/jarvis-resource';
 import { NotifyCallback } from '../../class/jarvis-resource';
 import { MatTableDataSource } from '@angular/material';
@@ -46,6 +44,8 @@ import { ResourceBean } from '../../model/resource-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { ViewBean } from '../../model/view-bean';
 import { DeviceBean } from '../../model/device-bean';
+import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
+import { JarvisDataConnectorService } from '../../service/jarvis-data-connector.service.';
 
 @Component({
   selector: 'app-jarvis-resource-view',
@@ -57,8 +57,6 @@ export class JarvisResourceViewComponent extends JarvisResource<ViewBean> implem
   @Input() myView: ViewBean;
   public devices = new MatTableDataSource([])
 
-  @ViewChild('pickDevices') pickDevices: JarvisPickerComponent;
-
   /**
    * internal vars
    */
@@ -68,6 +66,7 @@ export class JarvisResourceViewComponent extends JarvisResource<ViewBean> implem
    * constructor
    */
   constructor(
+    private jarvisPickResourceService: JarvisPickResourceService,
     private _route: ActivatedRoute,
     private _router: Router,
     private _jarvisConfigurationService: JarvisConfigurationService,
@@ -99,7 +98,7 @@ export class JarvisResourceViewComponent extends JarvisResource<ViewBean> implem
      * find notifications
      */
     if (picker.action === 'devices') {
-      this.pickDevices.open(this, 'Device');
+      this.jarvisPickResourceService.open(this, 'Device', picker);
     }
   }
 

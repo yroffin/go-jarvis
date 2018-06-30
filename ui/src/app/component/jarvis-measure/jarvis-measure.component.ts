@@ -19,7 +19,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as _ from 'lodash';
 
 import { LoggerService } from '../../service/logger.service';
-import { JarvisPickerComponent } from '../../dialog/jarvis-picker/jarvis-picker.component';
 import { JarvisConfigurationService } from '../../service/jarvis-configuration.service';
 import { JarvisResourceLink } from '../../class/jarvis-resource-link';
 
@@ -41,6 +40,7 @@ import { MeasureBean } from '../../model/connector/measure-bean';
 import { ConnectorBean } from '../../model/connector/connector-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { MatTableDataSource } from '@angular/material';
+import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
 
 @Component({
   selector: 'app-jarvis-measure',
@@ -51,7 +51,6 @@ export class JarvisMeasureComponent extends JarvisResource<MeasureBean> implemen
 
   @Input() myMeasure: MeasureBean;
   public myMatResources = new MatTableDataSource([])
-  @ViewChild('pickConnectors') pickConnectors: JarvisPickerComponent;
 
   private checkData: any = {};
 
@@ -70,7 +69,8 @@ export class JarvisMeasureComponent extends JarvisResource<MeasureBean> implemen
     private _measureService: JarvisDataMeasureService,
     private _connectorService: JarvisDataConnectorService,
     private logger: LoggerService,
-    private jarvisMessageService: JarvisMessageService
+    private jarvisMessageService: JarvisMessageService,
+    private jarvisPickResourceService: JarvisPickResourceService,
   ) {
     super('/measures', [], _measureService, _route, _router);
     this.jarvisConnectorLink = new JarvisResourceLink<ConnectorBean>(this.logger);
@@ -157,7 +157,7 @@ export class JarvisMeasureComponent extends JarvisResource<MeasureBean> implemen
      * find measures
      */
     if (picker.action === 'connectors') {
-      this.pickConnectors.open(this, 'Connector');
+      this.jarvisPickResourceService.open(this, 'Connector', picker);
     }
   }
 }

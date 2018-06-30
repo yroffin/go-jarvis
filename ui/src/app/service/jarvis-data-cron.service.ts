@@ -15,7 +15,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { JarvisConfigurationService } from './jarvis-configuration.service';
@@ -32,7 +32,7 @@ import { CronBean } from './../model/cron-bean';
 export class JarvisDataCronService extends JarvisDataCoreResource<CronBean> implements JarvisDefaultResource<CronBean> {
 
     constructor(
-        private _http: Http,
+        private _http: HttpClient,
         private _configuration: JarvisConfigurationService
     ) {
         super(_configuration, _configuration.ServerWithApiUrl + 'crons', _http);

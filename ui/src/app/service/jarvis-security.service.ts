@@ -20,7 +20,7 @@ import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
-import { Http, Response, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { WindowRef } from './jarvis-utils.service';
 import { JarvisConfigurationService } from './jarvis-configuration.service';
@@ -41,7 +41,7 @@ export class JarvisSecurityService extends JarvisDataCoreResource<ResourceBean> 
    * constructor
    */
   constructor(
-    private _http: Http,
+    private _http: HttpClient,
     private _router: Router,
     private _windowService: WindowRef,
     private _jarvisConfigurationService: JarvisConfigurationService) {
@@ -53,7 +53,7 @@ export class JarvisSecurityService extends JarvisDataCoreResource<ResourceBean> 
    */
   public Connect = (): Observable<boolean> => {
     return this.http.get(this.actionUrl + 'api/connect', { headers: this.headers }).pipe(
-      map((response: Response) => <boolean> response.json()),
+      map((response: Response) => response),
       catchError(this.handleError));
   }
 
@@ -62,7 +62,7 @@ export class JarvisSecurityService extends JarvisDataCoreResource<ResourceBean> 
    */
   public Version = (): Observable<any> => {
     return this.http.get(this.actionUrl + 'api/version', { headers: this.headers }).pipe(
-      map((response: Response) => <any> response.json()),
+      map((response: Response) => <any> response),
       catchError(this.handleError));
   }
 
@@ -72,7 +72,7 @@ export class JarvisSecurityService extends JarvisDataCoreResource<ResourceBean> 
   public Me = (token: string): Observable<MeBean> => {
     this.headers.set('JarvisAuthToken', token);
     return this.http.get(this.actionUrl + 'api/profile/me', { headers: this.headers }).pipe(
-      map((response: Response) => <MeBean> response.json()),
+      map((response: Response) => response),
       catchError(this.handleError));
   }
 
@@ -81,7 +81,7 @@ export class JarvisSecurityService extends JarvisDataCoreResource<ResourceBean> 
    */
   public Oauth2 = (client: string): Observable<Oauth2Bean> => {
     return this.http.get(this.actionUrl + 'api/oauth2?client='+client+'&oauth2_redirect_uri=http://'+this._windowService.getHost()).pipe(
-      map((response: Response) => <Oauth2Bean> response.json()),
+      map((response: Response) => response),
       catchError(this.handleError));
   }
 }

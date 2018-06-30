@@ -19,7 +19,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
-import { Http, Response, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { JarvisDefaultResource } from '../interface/jarvis-default-resource';
 import { JarvisSecurityService } from '../service/jarvis-security.service';
@@ -37,19 +37,19 @@ import { ResourceBean } from '../model/resource-bean';
 export class JarvisDataCoreResource<T extends ResourceBean> implements JarvisDefaultResource<T> {
 
     protected actionUrl: string;
-    protected headers: Headers;
-    protected http: Http;
+    protected headers: HttpHeaders;
+    protected http: HttpClient;
     protected configuration: JarvisConfigurationService;
 
     /**
      * constructor
      */
-    constructor(_configuration: JarvisConfigurationService, actionUrl: string, _http: Http) {
+    constructor(_configuration: JarvisConfigurationService, actionUrl: string, _http: HttpClient) {
         this.http = _http;
         this.actionUrl = actionUrl;
         this.configuration = _configuration;
 
-        this.headers = new Headers();
+        this.headers = new HttpHeaders();
         this.headers.append('Content-Type', 'application/json');
         this.headers.append('Accept', 'application/json');
         this.headers.append('JarvisAuthToken', this.configuration.getJarvisAuthToken());
@@ -62,7 +62,7 @@ export class JarvisDataCoreResource<T extends ResourceBean> implements JarvisDef
         this.headers.set('JarvisAuthToken', this.configuration.getJarvisAuthToken());
         return this.http.post(this.actionUrl + '/' + id + '?task=' + task, JSON.stringify(args), { headers: this.headers }).pipe(
             map((response: Response) => {
-                return <R>response.json()
+                return response
             }),
             catchError(this.handleError));
     }
@@ -73,7 +73,7 @@ export class JarvisDataCoreResource<T extends ResourceBean> implements JarvisDef
     public TaskAsXml = (id: string, task: string, args: any): Observable<any> => {
         this.headers.set('JarvisAuthToken', this.configuration.getJarvisAuthToken());
         return this.http.post(this.actionUrl + '/' + id + '?task=' + task, JSON.stringify(args), { headers: this.headers }).pipe(
-            map((response: Response) => <any>response.text()),
+            map((response: Response) => response),
             catchError(this.handleError));
     }
 
@@ -83,7 +83,7 @@ export class JarvisDataCoreResource<T extends ResourceBean> implements JarvisDef
     public GetAll = (): Observable<T[]> => {
         this.headers.set('JarvisAuthToken', this.configuration.getJarvisAuthToken());
         return this.http.get(this.actionUrl, { headers: this.headers }).pipe(
-            map((response: Response) => <T[]>response.json()),
+            map((response: Response) => response),
             catchError(this.handleError));
     }
 
@@ -93,7 +93,7 @@ export class JarvisDataCoreResource<T extends ResourceBean> implements JarvisDef
     public GetSingle = (id: string): Observable<T> => {
         this.headers.set('JarvisAuthToken', this.configuration.getJarvisAuthToken());
         return this.http.get(this.actionUrl + '/' + id, { headers: this.headers }).pipe(
-            map((response: Response) => <T>response.json()),
+            map((response: Response) => response),
             catchError(this.handleError));
     }
 
@@ -103,7 +103,7 @@ export class JarvisDataCoreResource<T extends ResourceBean> implements JarvisDef
     public Add = (itemToAdd: T): Observable<T> => {
         this.headers.set('JarvisAuthToken', this.configuration.getJarvisAuthToken());
         return this.http.post(this.actionUrl, JSON.stringify(itemToAdd), { headers: this.headers }).pipe(
-            map((response: Response) => <T>response.json()),
+            map((response: Response) => response),
             catchError(this.handleError));
     }
 
@@ -113,7 +113,7 @@ export class JarvisDataCoreResource<T extends ResourceBean> implements JarvisDef
     public Update = (id: string, itemToUpdate: T): Observable<T> => {
         this.headers.append('JarvisAuthToken', this.configuration.getJarvisAuthToken());
         return this.http.put(this.actionUrl + '/' + id, JSON.stringify(itemToUpdate), { headers: this.headers }).pipe(
-            map((response: Response) => <T>response.json()),
+            map((response: Response) => response),
             catchError(this.handleError));
     }
 
@@ -123,7 +123,7 @@ export class JarvisDataCoreResource<T extends ResourceBean> implements JarvisDef
     public Delete = (id: string): Observable<T> => {
         this.headers.set('JarvisAuthToken', this.configuration.getJarvisAuthToken());
         return this.http.delete(this.actionUrl + '/' + id, { headers: this.headers }).pipe(
-            map((response: Response) => <T>response.json()),
+            map((response: Response) => response),
             catchError(this.handleError));
     }
 

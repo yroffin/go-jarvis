@@ -30,9 +30,9 @@ import { JarvisMessageService } from '../../service/jarvis-message.service';
 import { ResourceBean } from '../../model/resource-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { TaskBean, PickerTaskBean } from '../../model/action-bean';
-import { JarvisPickerComponent } from '../../dialog/jarvis-picker/jarvis-picker.component';
 import { MatDialog } from '@angular/material';
 import { DialogConfirmDrop } from '../../dialog/drop-resource/jarvis-drop-resource.component';
+import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
 
 @Component({
   selector: 'app-jarvis-toolbar-resource',
@@ -45,7 +45,7 @@ export class JarvisToolbarResourceComponent implements AfterViewInit {
    * members
    */
   @Input() public tasks: TaskBean[] = [];
-  private _pickers: PickerTaskBean[];
+  private _pickers: PickerBean[];
 
   @Input() private actions: any[];
   @Input() private notified: JarvisToolbarAction;
@@ -128,11 +128,14 @@ export class JarvisToolbarResourceComponent implements AfterViewInit {
    */
   public pick(action: string): void {
     /**
-     * find picker for this action
+     * find picker for this action, and pick with it
      */
-    _.find(this.pickers, function (item) {
+    let pickerBean = _.find(this.pickers, function (item) {
       return item.action === action;
-    }).picker.open(this.notified, action);
+    });
+    if (pickerBean) {
+      this.notified.pick(pickerBean);
+    }
   }
 
   /**

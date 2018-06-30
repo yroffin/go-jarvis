@@ -22,7 +22,6 @@ import { ConfirmationService } from 'primeng/primeng';
 declare var Prism: any;
 
 import { LoggerService } from '../../service/logger.service';
-import { JarvisPickerComponent } from '../../dialog/jarvis-picker/jarvis-picker.component';
 import { JarvisConfigurationService } from '../../service/jarvis-configuration.service';
 import { JarvisDataNotificationService } from '../../service/jarvis-data-notification.service';
 import { JarvisDataCommandService } from '../../service/jarvis-data-command.service';
@@ -31,7 +30,6 @@ import { JarvisResourceLink } from '../../class/jarvis-resource-link';
 /**
  * class
  */
-import { JarvisPicker } from '../../class/jarvis-pickers';
 import { JarvisResource } from '../../class/jarvis-resource';
 import { NotifyCallback } from '../../class/jarvis-resource';
 
@@ -44,6 +42,8 @@ import { LinkBean } from '../../model/link-bean';
 import { CommandBean } from '../../model/command-bean';
 import { NotificationBean } from '../../model/notification-bean';
 import { MatTableDataSource } from '@angular/material';
+import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
+import { JarvisDataConnectorService } from '../../service/jarvis-data-connector.service';
 
 @Component({
   selector: 'app-jarvis-resource-command',
@@ -56,8 +56,6 @@ export class JarvisResourceCommandComponent extends JarvisResource<CommandBean> 
   public myMatResources = new MatTableDataSource([]);
   @Input() myJsonData: string = "{}";
   @Input() myRawData: string = "{}";
-
-  @ViewChild('pickNotifications') pickNotifications: JarvisPickerComponent;
 
   private myData: any = {};
   private myOutputData: any = {};
@@ -77,7 +75,8 @@ export class JarvisResourceCommandComponent extends JarvisResource<CommandBean> 
     private _jarvisConfigurationService: JarvisConfigurationService,
     private _commandService: JarvisDataCommandService,
     private logger: LoggerService,
-    private _notificationService: JarvisDataNotificationService
+    private _notificationService: JarvisDataNotificationService,
+    private jarvisPickResourceService: JarvisPickResourceService,
   ) {
     super('/commands', ['execute', 'test', 'clear'], _commandService, _route, _router);
     this.jarvisNotificationLink = new JarvisResourceLink<NotificationBean>(this.logger);
@@ -145,7 +144,7 @@ export class JarvisResourceCommandComponent extends JarvisResource<CommandBean> 
      * find notifications
      */
     if (picker.action === 'notifications') {
-      this.pickNotifications.open(this, 'Notification');
+      this.jarvisPickResourceService.open(this, 'Notification', picker);
     }
   }
 

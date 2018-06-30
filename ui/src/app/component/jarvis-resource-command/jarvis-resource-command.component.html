@@ -1,5 +1,5 @@
 <app-jarvis-toolbar-resource [notified]="this" [crud]="true" [tasks]="[{'task':'execute','icon':'fa-play','label':'Simuler (execution)'},{'task':'render','icon':'fa-play-circle-o','label':'Simuler (rendu)'},{'task':'clear','icon':'fa-ban','label':'Effacer le contexte'}]"
-  [pickers]="[{'label':'Ajouter une notification', 'icon': 'fa-bolt', 'action':'notifications', 'picker': pickNotifications}]"></app-jarvis-toolbar-resource>
+  [pickers]="[{'label':'Ajouter une notification', 'icon': 'fa-bolt', 'action':'notifications'}]"></app-jarvis-toolbar-resource>
 
 <div *ngIf="myCommand">
   <mat-accordion>
@@ -117,5 +117,3 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
-
-  <app-jarvis-picker #pickNotifications [resource]="{'service':'notifications','label':'Notifications'}"></app-jarvis-picker>

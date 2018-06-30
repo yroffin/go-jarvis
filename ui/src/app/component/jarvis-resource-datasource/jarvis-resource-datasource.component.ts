@@ -17,14 +17,13 @@
 import { Component, Input, ViewChild, OnInit, ElementRef } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { Http, Response, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import * as _ from 'lodash';
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SelectItem, UIChart } from 'primeng/primeng';
 
-import { JarvisPickerComponent } from '../../dialog/jarvis-picker/jarvis-picker.component';
 import { JarvisConfigurationService } from '../../service/jarvis-configuration.service';
 import { JarvisResourceLink } from '../../class/jarvis-resource-link';
 
@@ -46,6 +45,7 @@ import { PickerBean } from '../../model/picker-bean';
 import { DataSourceBean } from '../../model/connector/datasource-bean';
 import { MeasureBean } from '../../model/connector/measure-bean';
 import { MatTableDataSource } from '@angular/material';
+import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
 
 @Component({
   selector: 'app-jarvis-resource-datasource',
@@ -56,7 +56,6 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
 
   @Input() myDataSource: DataSourceBean;
   public myMatResources = new MatTableDataSource([]);
-  @ViewChild('pickMeasures') pickMeasures: JarvisPickerComponent;
   @ViewChild('chart') chart: UIChart;
 
   date1: Date;
@@ -77,13 +76,15 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
    * constructor
    */
   constructor(
-    private _http: Http,
+    private _http: HttpClient,
     private _route: ActivatedRoute,
     private _router: Router,
     private _jarvisConfigurationService: JarvisConfigurationService,
     private _datasourceService: JarvisDataDatasourceService,
     private logger: LoggerService,
-    private _measureService: JarvisDataMeasureService) {
+    private _measureService: JarvisDataMeasureService,
+    private jarvisPickResourceService: JarvisPickResourceService)
+    {
     super('/datasources', [], _datasourceService, _route, _router);
     this.jarvisMeasureLink = new JarvisResourceLink<MeasureBean>(this.logger);
   }
@@ -234,7 +235,7 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
      * find measures
      */
     if (picker.action === 'measures') {
-      this.pickMeasures.open(this, 'Measure');
+      this.jarvisPickResourceService.open(this, 'Measure', picker);
     }
   }
 }

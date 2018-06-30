@@ -15,7 +15,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JarvisConfigurationService } from './jarvis-configuration.service';
 import { JarvisDefaultResource, JarvisDefaultLinkResource } from '../interface/jarvis-default-resource';
 import { JarvisDataCoreResource } from './jarvis-data-core-resource';
@@ -29,7 +29,7 @@ import { ConfigurationBean } from './../model/configuration-bean';
 export class JarvisDataConfigurationService extends JarvisDataCoreResource<ConfigurationBean> implements JarvisDefaultResource<ConfigurationBean> {
 
     constructor(
-        private _http: Http,
+        private _http: HttpClient,
         private _configuration: JarvisConfigurationService
     ) {
         super(_configuration, _configuration.ServerWithApiUrl + 'configurations', _http);

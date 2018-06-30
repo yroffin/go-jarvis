@@ -1,7 +1,6 @@
 <app-jarvis-toolbar-resource [notified]="this" [crud]="true" [tasks]="[{'task':'deploy','icon':'fa-play','label':'Deployer'},{'task':'test','icon':'fa-play-circle-o','label':'Executer'},{'task':'bpmn','icon':'fa-map-o','label':'bpmn'},{'task':'refresh','icon':'fa-clone','label':'graph'}]"
-  [pickers]="[{'label':'Ajouter un trigger', 'icon': 'fa-bolt', 'action':'triggers', 'picker': pickTriggers}]">
+  [pickers]="[{'label':'Ajouter un trigger', 'icon': 'fa-bolt', 'action':'triggers'}]">
 </app-jarvis-toolbar-resource>
-<app-jarvis-picker #pickTriggers [resource]="{'service':'triggers','label':'Triggers'}"></app-jarvis-picker>
 
 <div *ngIf="myProcess">
   <app-jarvis-bpmnjs #wrapBpmn [bpmn]="myProcess.bpmn"></app-jarvis-bpmnjs>

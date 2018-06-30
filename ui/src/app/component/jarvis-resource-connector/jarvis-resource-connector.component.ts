@@ -20,7 +20,6 @@ import { SelectItem } from 'primeng/primeng';
 
 import * as _ from 'lodash';
 
-import { JarvisPickerComponent } from '../../dialog/jarvis-picker/jarvis-picker.component';
 import { JarvisConfigurationService } from '../../service/jarvis-configuration.service';
 import { JarvisResourceLink } from '../../class/jarvis-resource-link';
 

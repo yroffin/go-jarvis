@@ -15,7 +15,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JarvisConfigurationService } from './jarvis-configuration.service';
 import { JarvisDefaultResource, JarvisDefaultLinkResource } from '../interface/jarvis-default-resource';
 import { JarvisDataCoreResource } from './jarvis-data-core-resource';
@@ -25,11 +25,13 @@ import { JarvisDataCoreResource } from './jarvis-data-core-resource';
  */
 import { ConnectorBean } from './../model/connector/connector-bean';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class JarvisDataConnectorService extends JarvisDataCoreResource<ConnectorBean> implements JarvisDefaultResource<ConnectorBean> {
 
     constructor(
-        private _http: Http,
+        private _http: HttpClient,
         private _configuration: JarvisConfigurationService
     ) {
         super(_configuration, _configuration.ServerWithApiUrl + 'connectors', _http);

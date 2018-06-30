@@ -15,7 +15,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { JarvisConfigurationService } from './jarvis-configuration.service';
@@ -33,7 +33,7 @@ import { LinkBean } from './../model/link-bean';
 export class JarvisDataNotificationService extends JarvisDataCoreResource<NotificationBean> implements JarvisDefaultResource<NotificationBean> {
 
     constructor(
-        private _http: Http,
+        private _http: HttpClient,
         private _configuration: JarvisConfigurationService
     ) {
         super(_configuration, _configuration.ServerWithApiUrl + 'notifications', _http);

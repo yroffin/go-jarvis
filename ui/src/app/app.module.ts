@@ -20,11 +20,12 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
+
+import { HttpClientModule } from '@angular/common/http';
 
 /**
  * material2
@@ -100,7 +101,6 @@ import { JarvisDataPluginService } from './service/jarvis-data-plugin.service';
 import { JarvisDataCommandService } from './service/jarvis-data-command.service';
 import { JarvisDataConfigurationService } from './service/jarvis-data-configuration.service';
 import { JarvisDataPropertyService } from './service/jarvis-data-property.service';
-import { JarvisDataConnectorService } from './service/jarvis-data-connector.service';
 import { JarvisDataNotificationService } from './service/jarvis-data-notification.service';
 import { JarvisDataCronService } from './service/jarvis-data-cron.service';
 import { JarvisDataProcessService } from './service/jarvis-data-process.service';
@@ -131,7 +131,6 @@ import { JarvisInlineSvgDirective } from './directive/jarvis-inline-svg.directiv
 
 import { JarvisTileComponent } from './component/jarvis-tile/jarvis-tile.component';
 import { JarvisToolbarResourceComponent } from './component/jarvis-toolbar-resource/jarvis-toolbar-resource.component';
-import { JarvisPickerComponent } from './dialog/jarvis-picker/jarvis-picker.component';
 import { JarvisLoginComponent } from './component/jarvis-login/jarvis-login.component';
 import { JarvisResourceSnapshotComponent } from './component/jarvis-resource-snapshot/jarvis-resource-snapshot.component';
 import { JarvisDesktopComponent } from './component/jarvis-desktop/jarvis-desktop.component';
@@ -157,6 +156,7 @@ import { JarvisBpmnComponent } from './widget/jarvis-bpmnjs/jarvis-bpmnjs.compon
 import { JarvisGraphExplorerComponent } from './widget/jarvis-graph-explorer/jarvis-graph-explorer.component';
 import { DialogConfirmDrop } from './dialog/drop-resource/jarvis-drop-resource.component';
 import { DialogAbout } from './dialog/about/jarvis-about.component';
+import { DialogPickResource } from './dialog/picker/jarvis-pick-resource.component';
 
 /**
  * default route definition
@@ -211,7 +211,6 @@ const appRoutes: Routes = [
     JarvisInlineSvgDirective,
     JarvisTileComponent,
     JarvisToolbarResourceComponent,
-    JarvisPickerComponent,
     JarvisResourcePluginComponent,
     JarvisResourceCommandComponent,
     JarvisResourceTriggerComponent,
@@ -235,19 +234,20 @@ const appRoutes: Routes = [
     JarvisBpmnComponent,
     JarvisGraphExplorerComponent,
     DialogConfirmDrop,
-    DialogAbout
+    DialogAbout,
+    DialogPickResource
   ],
   entryComponents: [
-    JarvisPickerComponent,
     DialogConfirmDrop,
-    DialogAbout
+    DialogAbout,
+    DialogPickResource
   ],
   imports: [
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     /**
      * material2
      */
@@ -342,7 +342,6 @@ const appRoutes: Routes = [
     JarvisDataCommandService,
     JarvisDataConfigurationService,
     JarvisDataPropertyService,
-    JarvisDataConnectorService,
     JarvisDataCronService,
     JarvisDataNotificationService,
     JarvisDataProcessService,

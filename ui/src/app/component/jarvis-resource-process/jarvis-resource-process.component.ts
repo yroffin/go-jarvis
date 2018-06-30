@@ -21,7 +21,6 @@ import { Observable } from 'rxjs';
 declare var Prism: any;
 
 import { LoggerService } from '../../service/logger.service';
-import { JarvisPickerComponent } from '../../dialog/jarvis-picker/jarvis-picker.component';
 import { JarvisDataTriggerService } from '../../service/jarvis-data-trigger.service';
 import { JarvisDataProcessService } from '../../service/jarvis-data-process.service';
 import { JarvisResourceLink } from '../../class/jarvis-resource-link';
@@ -29,7 +28,6 @@ import { JarvisResourceLink } from '../../class/jarvis-resource-link';
 /**
  * class
  */
-import { JarvisPicker } from '../../class/jarvis-pickers';
 import { JarvisResource } from '../../class/jarvis-resource';
 import { NotifyCallback } from '../../class/jarvis-resource';
 
@@ -46,6 +44,7 @@ import { LoadGraphAction, GraphStoreService } from '../../store/graph.store';
 import { Store } from '@ngrx/store/src/store';
 import { JarvisGraphExplorerComponent } from '../../widget/jarvis-graph-explorer/jarvis-graph-explorer.component';
 import { MatTableDataSource } from '@angular/material';
+import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
 
 @Component({
   selector: 'app-jarvis-resource-process',
@@ -57,7 +56,6 @@ export class JarvisResourceProcessComponent extends JarvisResource<ProcessBean> 
   @Input() myProcess: ProcessBean;
   public myMatResources = new MatTableDataSource([]);
 
-  @ViewChild('pickTriggers') pickTriggers;
   @ViewChild('wrapBpmn') wrapBpmn: JarvisBpmnComponent;
   @ViewChild('wrapGraph') wrapGraph: JarvisGraphExplorerComponent;
 
@@ -82,7 +80,8 @@ export class JarvisResourceProcessComponent extends JarvisResource<ProcessBean> 
     private logger: LoggerService,
     private processService: JarvisDataProcessService,
     private _triggerService: JarvisDataTriggerService,
-    private graphStoreService: GraphStoreService
+    private graphStoreService: GraphStoreService,
+    private jarvisPickResourceService: JarvisPickResourceService,
   ) {
     super('/processes', ['deploy', 'test'], processService, _route, _router);
     this.jarvisTriggerLink = new JarvisResourceLink<TriggerBean>(this.logger);
@@ -133,7 +132,7 @@ export class JarvisResourceProcessComponent extends JarvisResource<ProcessBean> 
      * find notifications
      */
     if (picker.action === 'triggers') {
-      this.pickTriggers.open(this);
+      this.jarvisPickResourceService.open(this, 'triggers', picker);
     }
   }
 

@@ -21,7 +21,6 @@ import { SecurityContext, Sanitizer } from '@angular/core'
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { LoggerService } from '../../service/logger.service';
-import { JarvisPickerComponent } from '../../dialog/jarvis-picker/jarvis-picker.component';
 import { JarvisConfigurationService } from '../../service/jarvis-configuration.service';
 import { JarvisDataDeviceService } from '../../service/jarvis-data-device.service';
 import { JarvisDataTriggerService } from '../../service/jarvis-data-trigger.service';
@@ -44,6 +43,8 @@ import { PluginBean, PluginScriptBean } from '../../model/plugin-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { LinkBean } from '../../model/link-bean';
 import { MatTableDataSource } from '@angular/material';
+import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
+import { JarvisDataConnectorService } from '../../service/jarvis-data-connector.service.';
 
 @Component({
   selector: 'app-jarvis-resource-device',
@@ -58,10 +59,6 @@ export class JarvisResourceDeviceComponent extends JarvisResource<DeviceBean> im
   public myMatPluginsResources = new MatTableDataSource([]);
 
   public plugins: PluginScriptBean[];
-
-  @ViewChild('pickDevices') pickDevices: JarvisPickerComponent;
-  @ViewChild('pickTriggers') pickTriggers: JarvisPickerComponent;
-  @ViewChild('pickPlugins') pickPlugins: JarvisPickerComponent;
 
   private jarvisDeviceLink: JarvisResourceLink<DeviceBean>;
   private jarvisTriggerLink: JarvisResourceLink<TriggerBean>;
@@ -81,7 +78,8 @@ export class JarvisResourceDeviceComponent extends JarvisResource<DeviceBean> im
     private _deviceService: JarvisDataDeviceService,
     private _triggerService: JarvisDataTriggerService,
     private _pluginService: JarvisDataPluginService,
-    private logger: LoggerService
+    private logger: LoggerService,
+    private jarvisPickResourceService: JarvisPickResourceService,
   ) {
     super('/devices', ['render'], _deviceService, _route, _router);
     this.jarvisDeviceLink = new JarvisResourceLink<DeviceBean>(this.logger);
@@ -142,19 +140,19 @@ export class JarvisResourceDeviceComponent extends JarvisResource<DeviceBean> im
      * find devices
      */
     if (picker.action === 'devices') {
-      this.pickDevices.open(this, 'Device');
+      this.jarvisPickResourceService.open(this, 'Device', picker);
     }
     /**
      * find triggers
      */
     if (picker.action === 'triggers') {
-      this.pickTriggers.open(this, 'Trigger');
+      this.jarvisPickResourceService.open(this, 'Trigger', picker);
     }
     /**
      * find plugins
      */
     if (picker.action === 'plugins') {
-      this.pickPlugins.open(this, 'Plugin');
+      this.jarvisPickResourceService.open(this, 'Plugin', picker);
     }
   }
 

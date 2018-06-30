@@ -15,7 +15,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { JarvisConfigurationService } from './jarvis-configuration.service';
 import { JarvisDefaultResource, JarvisDefaultLinkResource } from '../interface/jarvis-default-resource';
@@ -34,7 +34,7 @@ export class JarvisDataDatasourceService extends JarvisDataCoreResource<DataSour
     public allLinkedMeasures: JarvisDefaultLinkResource<MeasureBean>;
 
     constructor(
-        private _http: Http,
+        private _http: HttpClient,
         private _configuration: JarvisConfigurationService
     ) {
         super(_configuration, _configuration.ServerWithApiUrl + 'datasources', _http);

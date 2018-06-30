@@ -19,7 +19,9 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
-import { Http, Response, Headers } from '@angular/http';
+import { Response, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { Router } from '@angular/router';
 import { State, Store } from '@ngrx/store';
 
@@ -65,7 +67,7 @@ export class AppComponent implements OnInit {
    */
   constructor(
     private profile: ProfileGuard,
-    private http: Http,
+    private http: HttpClient,
     private router: Router,
     private windowRef: WindowRef,
     private configuration: JarvisConfigurationService,
@@ -153,10 +155,10 @@ export class AppComponent implements OnInit {
    * get single resource
    */
   public GetHelp = (id: string): Observable<string> => {
-    let headers = new Headers();
+    let headers = new HttpHeaders();
     headers.append('JarvisAuthToken', this.configuration.getJarvisAuthToken());
     return this.http.get(this.configuration.ServerWithApiUrl + 'helps/fr/' + id, { headers: headers }).pipe(
-      map((response: Response) => <string>response.text()),
+      map((response: Response) => response),
       catchError(this.handleError)
     );
   }

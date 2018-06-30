@@ -20,7 +20,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 declare var Prism: any;
 
 import { LoggerService } from '../../service/logger.service';
-import { JarvisPickerComponent } from '../../dialog/jarvis-picker/jarvis-picker.component';
 import { JarvisConfigurationService } from '../../service/jarvis-configuration.service';
 import { JarvisResourceLink } from '../../class/jarvis-resource-link';
 
@@ -41,6 +40,7 @@ import { TriggerBean } from '../../model/trigger-bean';
 import { CronBean } from '../../model/cron-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { MatTableDataSource } from '@angular/material';
+import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
 
 @Component({
   selector: 'app-jarvis-resource-trigger',
@@ -53,8 +53,6 @@ export class JarvisResourceTriggerComponent extends JarvisResource<TriggerBean> 
   public myMatResources = new MatTableDataSource([]);
   public myMatDevicesResources = new MatTableDataSource([]);
   public myMatProcessesResources = new MatTableDataSource([]);
-
-  @ViewChild('pickCrons') pickCrons;
 
   /**
    * internal vars
@@ -72,7 +70,9 @@ export class JarvisResourceTriggerComponent extends JarvisResource<TriggerBean> 
     private _jarvisConfigurationService: JarvisConfigurationService,
     private _triggerService: JarvisDataTriggerService,
     private logger: LoggerService,
-    private _cronService: JarvisDataCronService) {
+    private _cronService: JarvisDataCronService,
+    private jarvisPickResourceService: JarvisPickResourceService,
+   ) {
     super('/triggers', ['execute'], _triggerService, _route, _router);
     this.jarvisCronLink = new JarvisResourceLink<CronBean>(this.logger);
   }
@@ -131,7 +131,7 @@ export class JarvisResourceTriggerComponent extends JarvisResource<TriggerBean> 
      * find notifications
      */
     if (picker.action === 'crons') {
-      this.pickCrons.open(this);
+      this.jarvisPickResourceService.open(this, 'Crontabs', picker);
     }
   }
 

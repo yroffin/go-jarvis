@@ -1,5 +1,5 @@
 <app-jarvis-toolbar-resource [notified]="this" [crud]="true" [tasks]="[{'task':'execute','icon':'fa-play','label':'Simuler (execution)'}]"
-  [pickers]="[{'label':'Ajouter une crontab', 'icon': 'fa-bolt', 'action':'crons', 'picker': pickCrons}]"></app-jarvis-toolbar-resource>
+  [pickers]="[{'label':'Ajouter une crontab', 'icon': 'fa-bolt', 'action':'crons'}]"></app-jarvis-toolbar-resource>
 
 <div *ngIf="myTrigger">
   <mat-accordion>
@@ -138,5 +138,3 @@
   </mat-accordion>
 
 </div>
-
-<app-jarvis-picker #pickCrons [resource]="{'service':'crons','label':'Crontabs'}"></app-jarvis-picker>

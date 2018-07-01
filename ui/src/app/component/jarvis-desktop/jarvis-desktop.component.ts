@@ -32,6 +32,7 @@ import { Store } from '@ngrx/store/src/store';
 import { ViewStoreService, LoadViewsAction, UpdateDeviceAction } from '../../store/view.store';
 import { LoggerService } from '../../service/logger.service';
 import { Observable } from 'rxjs';
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-jarvis-desktop',
@@ -43,6 +44,10 @@ export class JarvisDesktopComponent implements OnInit {
   public viewStream: Observable<Array<ViewBean>>;
   myViews: ViewBean[];
 
+  innerHeight: any;
+  innerWidth: any;
+  public cols = 4;
+
   constructor(
     private snackBar: MatSnackBar,
     private logger: LoggerService,
@@ -52,6 +57,10 @@ export class JarvisDesktopComponent implements OnInit {
   ) {
     this.viewStream = this.viewStoreService.views()
 
+    this.innerHeight = window.innerHeight;
+    this.innerWidth = window.innerWidth;
+    this.calcCols();
+
     this.viewStream.subscribe(
       (element: ViewBean[]) => {
         this.myViews = element;
@@ -60,7 +69,7 @@ export class JarvisDesktopComponent implements OnInit {
           _.each(view.devices, (device) => {
             if (device.template != "" && device.render == null) {
               jarvisDataDeviceService.Task(device.id, 'render', {})
-              .subscribe(
+                .subscribe(
                 (render: any) => {
                   // fix view data
                   device.render = render
@@ -71,7 +80,7 @@ export class JarvisDesktopComponent implements OnInit {
                 },
                 () => {
                 });
-                      }
+            }
           })
         })
       },
@@ -89,6 +98,36 @@ export class JarvisDesktopComponent implements OnInit {
      * load views from store
      */
     this.loadViews();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event?) {
+    this.innerHeight = window.innerHeight;
+    this.innerWidth = window.innerWidth;
+    this.calcCols();
+  }
+
+  /**
+   * get cols
+  */
+  public calcCols(): void {
+    if (this.innerWidth > 1280) {
+      this.cols = 12;
+      return;
+    }
+    if (this.innerWidth > 1024) {
+      this.cols = 10;
+      return;
+    }
+    if (this.innerWidth > 768) {
+      this.cols = 8;
+      return;
+    }
+    if (this.innerWidth > 640) {
+      this.cols = 6;
+      return;
+    }
+    this.cols = 4;
   }
 
   /**

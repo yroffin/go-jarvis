@@ -133,7 +133,7 @@ import { JarvisTileComponent } from './component/jarvis-tile/jarvis-tile.compone
 import { JarvisToolbarResourceComponent } from './component/jarvis-toolbar-resource/jarvis-toolbar-resource.component';
 import { JarvisLoginComponent } from './component/jarvis-login/jarvis-login.component';
 import { JarvisResourceSnapshotComponent } from './component/jarvis-resource-snapshot/jarvis-resource-snapshot.component';
-import { JarvisDesktopComponent } from './component/jarvis-desktop/jarvis-desktop.component';
+import { JarvisDesktopComponent, OrderSortPipe } from './component/jarvis-desktop/jarvis-desktop.component';
 import { JarvisResourceDatasourceComponent } from './component/jarvis-resource-datasource/jarvis-resource-datasource.component';
 import { JarvisMeasureComponent } from './component/jarvis-measure/jarvis-measure.component';
 
@@ -235,7 +235,8 @@ const appRoutes: Routes = [
     JarvisGraphExplorerComponent,
     DialogConfirmDrop,
     DialogAbout,
-    DialogPickResource
+    DialogPickResource,
+    OrderSortPipe
   ],
   entryComponents: [
     DialogConfirmDrop,

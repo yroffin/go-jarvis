@@ -6,6 +6,7 @@ export class DeviceBean extends ResourceBean {
     public template: string;
     public tagColor: string;
     public render: any;
+    public extended: any;
     public triggers: TriggerBean[];
     public devices: DeviceBean[];
     public plugins: PluginScriptBean[];

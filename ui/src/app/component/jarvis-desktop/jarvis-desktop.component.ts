@@ -33,6 +33,23 @@ import { ViewStoreService, LoadViewsAction, UpdateDeviceAction } from '../../sto
 import { LoggerService } from '../../service/logger.service';
 import { Observable } from 'rxjs';
 import { HostListener } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'orderByOrder'
+})
+export class OrderSortPipe implements PipeTransform {
+  transform(devices: Array<DeviceBean>): Array<DeviceBean> {
+    const ordered = _.sortBy(devices, (device) => {
+      if (device.extended.order) {
+        return Number(device.extended.order);
+      } else {
+        return 1000;
+      }
+    });
+    return ordered;
+  }
+}
 
 @Component({
   selector: 'app-jarvis-desktop',

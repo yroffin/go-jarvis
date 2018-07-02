@@ -35,6 +35,8 @@ import { NotifyCallback } from '../../class/jarvis-resource';
 import { ResourceBean } from '../../model/resource-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { NotificationBean } from '../../model/notification-bean';
+import { Observable } from 'rxjs';
+import { ResourceStoreService } from '../../store/resources.store';
 
 @Component({
   selector: 'app-jarvis-resource-notification',
@@ -43,6 +45,7 @@ import { NotificationBean } from '../../model/notification-bean';
 })
 export class JarvisResourceNotificationComponent extends JarvisResource<NotificationBean> implements NotifyCallback<ResourceBean>, OnInit {
 
+  myStream: Observable<NotificationBean>;
   @Input() myNotification: NotificationBean;
 
   /**
@@ -57,18 +60,27 @@ export class JarvisResourceNotificationComponent extends JarvisResource<Notifica
     private _route: ActivatedRoute,
     private _router: Router,
     private _jarvisConfigurationService: JarvisConfigurationService,
+    private resourceStoreService: ResourceStoreService,
     private _notificationService: JarvisDataNotificationService) {
     super('/notifications', [], _notificationService, _route, _router);
     this.types = [];
     this.types.push({ label: 'Select type', value: null });
     this.types.push({ label: 'Slack notification', value: 'SLACK' });
+    this.myStream = this.resourceStoreService.notification();
   }
 
   /**
    * load device and related data
    */
   ngOnInit() {
-    this.init(this);
+    this.myStream.subscribe(
+      (resource: NotificationBean) => {
+        this.setResource(resource);
+        let picker: PickerBean = new PickerBean();
+        picker.action = 'complete';
+        this.notify(picker, resource);
+      }
+    )
   }
 
   /**

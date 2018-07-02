@@ -35,6 +35,8 @@ import { NotifyCallback } from '../../class/jarvis-resource';
 import { ResourceBean } from '../../model/resource-bean';
 import { CronBean } from '../../model/cron-bean';
 import { PickerBean } from '../../model/picker-bean';
+import { Observable } from 'rxjs';
+import { ResourceStoreService } from '../../store/resources.store';
 
 @Component({
   selector: 'app-jarvis-resource-cron',
@@ -43,6 +45,7 @@ import { PickerBean } from '../../model/picker-bean';
 })
 export class JarvisResourceCronComponent extends JarvisResource<CronBean> implements NotifyCallback<ResourceBean>, OnInit {
 
+  myStream: Observable<CronBean>;
   @Input() myCron: CronBean;
   private types: SelectItem[];
 
@@ -53,6 +56,7 @@ export class JarvisResourceCronComponent extends JarvisResource<CronBean> implem
     private _route: ActivatedRoute,
     private _router: Router,
     private _jarvisConfigurationService: JarvisConfigurationService,
+    private resourceStoreService: ResourceStoreService,
     private _cronService: JarvisDataCronService) {
     super('/crons', ['toggle', 'test'], _cronService, _route, _router);
     this.types = [];
@@ -60,13 +64,21 @@ export class JarvisResourceCronComponent extends JarvisResource<CronBean> implem
     this.types.push({ label: 'Couché du soleil', value: 'SUNSET' });
     this.types.push({ label: 'Levée du soleil', value: 'SUNRISE' });
     this.types.push({ label: 'Crontab', value: 'CRONTAB' });
+    this.myStream = this.resourceStoreService.cron();
   }
 
   /**
    * load device and related data
    */
   ngOnInit() {
-    this.init(this);
+    this.myStream.subscribe(
+      (resource: CronBean) => {
+        this.setResource(resource);
+        let picker: PickerBean = new PickerBean();
+        picker.action = 'complete';
+        this.notify(picker, resource);
+      }
+    )
   }
 
   /**

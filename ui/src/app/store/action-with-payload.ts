@@ -15,10 +15,18 @@
  */
 
 import { Action } from '@ngrx/store';
+import { Subject } from 'rxjs';
 
 export class ActionWithPayload<T> implements Action {
   readonly type: string;
   constructor(public payload: T) {
+  }
+}
 
+export class ActionWithPayloadAndSubject<T> implements Action {
+  readonly type: string;
+  public subject: Subject<any>;
+  constructor(public payload: T, subject: Subject<any>) {
+    this.subject = subject;
   }
 }

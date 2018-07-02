@@ -37,6 +37,8 @@ import { NotifyCallback } from '../../class/jarvis-resource';
 import { ResourceBean } from '../../model/resource-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { ConnectorBean } from '../../model/connector/connector-bean';
+import { Observable } from 'rxjs';
+import { ResourceStoreService } from '../../store/resources.store';
 
 @Component({
   selector: 'app-jarvis-resource-connector',
@@ -45,6 +47,7 @@ import { ConnectorBean } from '../../model/connector/connector-bean';
 })
 export class JarvisResourceConnectorComponent extends JarvisResource<ConnectorBean> implements NotifyCallback<ResourceBean>, OnInit {
 
+  myStream: Observable<ConnectorBean>;
   @Input() myConnector: ConnectorBean;
 
   /**
@@ -54,15 +57,24 @@ export class JarvisResourceConnectorComponent extends JarvisResource<ConnectorBe
     private _route: ActivatedRoute,
     private _router: Router,
     private _jarvisConfigurationService: JarvisConfigurationService,
+    private resourceStoreService: ResourceStoreService,
     private _connectorService: JarvisDataConnectorService) {
     super('/connectors', [], _connectorService, _route, _router);
+    this.myStream = this.resourceStoreService.connector();
   }
 
   /**
    * load device and related data
    */
   ngOnInit() {
-    this.init(this);
+    this.myStream.subscribe(
+      (resource: ConnectorBean) => {
+        this.setResource(resource);
+        let picker: PickerBean = new PickerBean();
+        picker.action = 'complete';
+        this.notify(picker, resource);
+      }
+    )
   }
 
   /**

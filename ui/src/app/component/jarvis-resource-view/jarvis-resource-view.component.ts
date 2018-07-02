@@ -46,6 +46,7 @@ import { ViewBean } from '../../model/view-bean';
 import { DeviceBean } from '../../model/device-bean';
 import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
 import { JarvisDataConnectorService } from '../../service/jarvis-data-connector.service.';
+import { ResourceStoreService } from '../../store/resources.store';
 
 @Component({
   selector: 'app-jarvis-resource-view',
@@ -54,6 +55,7 @@ import { JarvisDataConnectorService } from '../../service/jarvis-data-connector.
 })
 export class JarvisResourceViewComponent extends JarvisResource<ViewBean> implements NotifyCallback<ResourceBean>, OnInit {
 
+  myStream: Observable<ViewBean>;
   @Input() myView: ViewBean;
   public devices = new MatTableDataSource([])
 
@@ -72,16 +74,25 @@ export class JarvisResourceViewComponent extends JarvisResource<ViewBean> implem
     private _jarvisConfigurationService: JarvisConfigurationService,
     private _viewService: JarvisDataViewService,
     private logger: LoggerService,    
+    private resourceStoreService: ResourceStoreService,
     private _deviceService: JarvisDataDeviceService) {
     super('/views', [], _viewService, _route, _router);
     this.jarvisDeviceLink = new JarvisResourceLink<DeviceBean>(this.logger);
+    this.myStream = resourceStoreService.view();
   }
 
   /**
    * load device and related data
    */
   ngOnInit() {
-    this.init(this);
+    this.myStream.subscribe(
+      (resource: ViewBean) => {
+        this.setResource(resource);
+        let picker: PickerBean = new PickerBean();
+        picker.action = 'complete';
+        this.notify(picker, resource);
+      }
+    )
   }
 
   /**

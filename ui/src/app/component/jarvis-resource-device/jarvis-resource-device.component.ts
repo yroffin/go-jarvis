@@ -45,6 +45,8 @@ import { LinkBean } from '../../model/link-bean';
 import { MatTableDataSource } from '@angular/material';
 import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
 import { JarvisDataConnectorService } from '../../service/jarvis-data-connector.service.';
+import { ResourceStoreService } from '../../store/resources.store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-jarvis-resource-device',
@@ -53,7 +55,9 @@ import { JarvisDataConnectorService } from '../../service/jarvis-data-connector.
 })
 export class JarvisResourceDeviceComponent extends JarvisResource<DeviceBean> implements NotifyCallback<ResourceBean>, OnInit {
 
+  myStream: Observable<DeviceBean>;
   @Input() myDevice: DeviceBean;
+
   public myMatDevicesResources = new MatTableDataSource([]);
   public myMatTriggersResources = new MatTableDataSource([]);
   public myMatPluginsResources = new MatTableDataSource([]);
@@ -80,18 +84,27 @@ export class JarvisResourceDeviceComponent extends JarvisResource<DeviceBean> im
     private _pluginService: JarvisDataPluginService,
     private logger: LoggerService,
     private jarvisPickResourceService: JarvisPickResourceService,
+    private resourceStoreService: ResourceStoreService,
   ) {
     super('/devices', ['render'], _deviceService, _route, _router);
     this.jarvisDeviceLink = new JarvisResourceLink<DeviceBean>(this.logger);
     this.jarvisTriggerLink = new JarvisResourceLink<TriggerBean>(this.logger);
     this.jarvisPluginLink = new JarvisResourceLink<PluginBean>(this.logger);
+    this.myStream = resourceStoreService.device();
   }
 
   /**
    * load device and related data
    */
   ngOnInit() {
-    this.init(this);
+    this.myStream.subscribe(
+      (resource: DeviceBean) => {
+        this.setResource(resource);
+        let picker: PickerBean = new PickerBean();
+        picker.action = 'complete';
+        this.notify(picker, resource);
+      }
+    )
   }
 
   /**

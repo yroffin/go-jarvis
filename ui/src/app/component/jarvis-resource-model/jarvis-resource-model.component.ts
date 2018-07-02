@@ -33,6 +33,8 @@ import { NotifyCallback } from '../../class/jarvis-resource';
 import { PickerBean } from '../../model/picker-bean';
 import { ResourceBean } from '../../model/resource-bean';
 import { ModelBean } from '../../model/code/model-bean';
+import { Observable } from 'rxjs';
+import { ResourceStoreService } from '../../store/resources.store';
  
 @Component({
   selector: 'app-jarvis-resource-model',
@@ -41,6 +43,7 @@ import { ModelBean } from '../../model/code/model-bean';
 })
 export class JarvisResourceModelComponent extends JarvisResource<ModelBean> implements NotifyCallback<ResourceBean>, OnInit {
 
+  myStream: Observable<ModelBean>;
   @Input() myModel: ModelBean;
   
   constructor(
@@ -48,15 +51,24 @@ export class JarvisResourceModelComponent extends JarvisResource<ModelBean> impl
     private _router: Router,
     private _jarvisConfigurationService: JarvisConfigurationService,
     private _modelService: JarvisDataModelService,
+    private resourceStoreService: ResourceStoreService,
     private logger: LoggerService) {
     super('/models', [], _modelService, _route, _router);
+    this.myStream = this.resourceStoreService.model();
   }
 
   /**
    * load related data
    */
   ngOnInit() {
-    this.init(this);
+    this.myStream.subscribe(
+      (resource: ModelBean) => {
+        this.setResource(resource);
+        let picker: PickerBean = new PickerBean();
+        picker.action = 'complete';
+        this.notify(picker, resource);
+      }
+    )
   }
 
   /**

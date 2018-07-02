@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Component, Input, ViewChild, AfterContentInit, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SelectItem } from 'primeng/primeng';
 
@@ -49,14 +49,17 @@ import { GraphBean } from '../../model/graph/graph-bean';
 import { MatTableDataSource } from '@angular/material';
 import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
 import { JarvisDataConnectorService } from '../../service/jarvis-data-connector.service';
+import { Observable } from 'rxjs';
+import { ResourceStoreService } from '../../store/resources.store';
 
 @Component({
   selector: 'app-jarvis-resource-plugin',
   templateUrl: './jarvis-resource-plugin.component.html',
   styleUrls: ['./jarvis-resource-plugin.component.css']
 })
-export class JarvisResourcePluginComponent extends JarvisResource<PluginBean> implements NotifyCallback<ResourceBean>, AfterContentInit {
+export class JarvisResourcePluginComponent extends JarvisResource<PluginBean> implements NotifyCallback<ResourceBean>, OnInit {
 
+  myStream: Observable<PluginBean>;
   @Input() myPlugin: PluginBean;
   public myMatResources = new MatTableDataSource([]);
 
@@ -92,19 +95,28 @@ export class JarvisResourcePluginComponent extends JarvisResource<PluginBean> im
     private _commandService: JarvisDataCommandService,
     private jarvisDataConnectorService: JarvisDataConnectorService,
     private jarvisPickResourceService: JarvisPickResourceService,
+    private resourceStoreService: ResourceStoreService,
   ) {
     super('/plugins', ['execute', 'render', 'clear'], _pluginService, _route, _router);
     this.jarvisCommandLink = new JarvisResourceLink<CommandBean>(this.logger);
     this.types = [];
     this.types.push({ label: 'Select type', value: null });
     this.types.push({ label: 'Plugin Script', value: 'script' });
+    this.myStream = this.resourceStoreService.plugin();
   }
 
   /**
    * load device and related data
    */
-  ngAfterContentInit() {
-    this.init(this);
+  ngOnInit() {
+    this.myStream.subscribe(
+      (resource: PluginBean) => {
+        this.setResource(resource);
+        let picker: PickerBean = new PickerBean();
+        picker.action = 'complete';
+        this.notify(picker, resource);
+      }
+    )
   }
 
   /**

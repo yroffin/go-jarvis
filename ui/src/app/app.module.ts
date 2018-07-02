@@ -157,41 +157,57 @@ import { JarvisGraphExplorerComponent } from './widget/jarvis-graph-explorer/jar
 import { DialogConfirmDrop } from './dialog/drop-resource/jarvis-drop-resource.component';
 import { DialogAbout } from './dialog/about/jarvis-about.component';
 import { DialogPickResource } from './dialog/picker/jarvis-pick-resource.component';
+import { DeviceResolver } from './resolver/device-resolver';
+import { ResourceStoreService } from './store/resources.store';
+import { ViewResolver } from './resolver/view-resolver';
+import { PluginResolver } from './resolver/plugin-resolver';
+import { CommandResolver } from './resolver/command-resolver';
+import { ConnectorResolver } from './resolver/connector-resolver';
+import { TriggerResolver } from './resolver/trigger-resolver';
+import { CronResolver } from './resolver/cron-resolver';
+import { NotificationResolver } from './resolver/notification-resolver';
+import { ModelResolver } from './resolver/model-resolver';
+import { ProcessResolver } from './resolver/process-resolver';
+import { ConfigurationResolver } from './resolver/configuration-resolver';
+import { PropertyResolver } from './resolver/property-resolver';
+import { SnapshotResolver } from './resolver/snapshot-resolver';
+import { DatasourceResolver } from './resolver/datasource-resolver';
+import { MeasureResolver } from './resolver/measure-resolver';
 
 /**
  * default route definition
  */
 const appRoutes: Routes = [
   { path: 'devices', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'devices' } },
-  { path: 'devices/:id', component: JarvisResourceDeviceComponent, canActivate: [ProfileGuard] },
+  { path: 'devices/:id', component: JarvisResourceDeviceComponent, canActivate: [ProfileGuard], resolve: { device: DeviceResolver } },
   { path: 'plugins', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'plugins' } },
-  { path: 'plugins/:id', component: JarvisResourcePluginComponent, canActivate: [ProfileGuard] },
+  { path: 'plugins/:id', component: JarvisResourcePluginComponent, canActivate: [ProfileGuard], resolve: { plugin: PluginResolver } },
   { path: 'commands', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'commands' } },
-  { path: 'commands/:id', component: JarvisResourceCommandComponent, canActivate: [ProfileGuard] },
+  { path: 'commands/:id', component: JarvisResourceCommandComponent, canActivate: [ProfileGuard], resolve: { command: CommandResolver } },
   { path: 'triggers', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'triggers' } },
-  { path: 'triggers/:id', component: JarvisResourceTriggerComponent, canActivate: [ProfileGuard] },
+  { path: 'triggers/:id', component: JarvisResourceTriggerComponent, canActivate: [ProfileGuard], resolve: { trigger: TriggerResolver } },
   { path: 'crons', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'crons' } },
-  { path: 'crons/:id', component: JarvisResourceCronComponent, canActivate: [ProfileGuard] },
+  { path: 'crons/:id', component: JarvisResourceCronComponent, canActivate: [ProfileGuard], resolve: { cron: CronResolver } },
   { path: 'processes', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'processes' } },
-  { path: 'processes/:id', component: JarvisResourceProcessComponent, canActivate: [ProfileGuard] },
+  { path: 'processes/:id', component: JarvisResourceProcessComponent, canActivate: [ProfileGuard], resolve: { process: ProcessResolver } },
   { path: 'configurations', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'configurations' } },
-  { path: 'configurations/:id', component: JarvisResourceConfigurationComponent, canActivate: [ProfileGuard] },
+  { path: 'configurations/:id', component: JarvisResourceConfigurationComponent, canActivate: [ProfileGuard], resolve: { configuration: ConfigurationResolver } },
   { path: 'notifications', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'notifications' } },
-  { path: 'notifications/:id', component: JarvisResourceNotificationComponent, canActivate: [ProfileGuard] },
+  { path: 'notifications/:id', component: JarvisResourceNotificationComponent, canActivate: [ProfileGuard], resolve: { notification: NotificationResolver } },
   { path: 'properties', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'properties' } },
-  { path: 'properties/:id', component: JarvisResourcePropertyComponent, canActivate: [ProfileGuard] },
+  { path: 'properties/:id', component: JarvisResourcePropertyComponent, canActivate: [ProfileGuard], resolve: { property: PropertyResolver } },
   { path: 'connectors', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'connectors' } },
-  { path: 'connectors/:id', component: JarvisResourceConnectorComponent, canActivate: [ProfileGuard] },
+  { path: 'connectors/:id', component: JarvisResourceConnectorComponent, canActivate: [ProfileGuard], resolve: { command: ConnectorResolver } },
   { path: 'views', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'views' } },
-  { path: 'views/:id', component: JarvisResourceViewComponent, canActivate: [ProfileGuard] },
+  { path: 'views/:id', component: JarvisResourceViewComponent, canActivate: [ProfileGuard], resolve: { view: ViewResolver } },
   { path: 'snapshots', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'snapshots' } },
-  { path: 'snapshots/:id', component: JarvisResourceSnapshotComponent, canActivate: [ProfileGuard] },
+  { path: 'snapshots/:id', component: JarvisResourceSnapshotComponent, canActivate: [ProfileGuard], resolve: { snapshot: SnapshotResolver } },
   { path: 'datasources', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'datasources' } },
-  { path: 'datasources/:id', component: JarvisResourceDatasourceComponent, canActivate: [ProfileGuard] },
+  { path: 'datasources/:id', component: JarvisResourceDatasourceComponent, canActivate: [ProfileGuard], resolve: { datasource: DatasourceResolver } },
   { path: 'measures', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'measures' } },
-  { path: 'measures/:id', component: JarvisMeasureComponent, canActivate: [ProfileGuard, NavigationGuard] },
+  { path: 'measures/:id', component: JarvisMeasureComponent, canActivate: [ProfileGuard, NavigationGuard], resolve: { measure: MeasureResolver } },
   { path: 'models', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'models' } },
-  { path: 'models/:id', component: JarvisResourceModelComponent, canActivate: [ProfileGuard, NavigationGuard] },
+  { path: 'models/:id', component: JarvisResourceModelComponent, canActivate: [ProfileGuard, NavigationGuard], resolve: { model: ModelResolver } },
   { path: 'graph', component: JarvisGraphBrowserComponent, canActivate: [ProfileGuard, NavigationGuard] },
   { path: 'resources', component: JarvisServerResourcesComponent, canActivate: [ProfileGuard, NavigationGuard] },
   { path: 'broker', component: JarvisBrokerComponent, canActivate: [ProfileGuard, NavigationGuard] },
@@ -323,7 +339,8 @@ const appRoutes: Routes = [
       message: MessageStoreService.reducer,
       view: ViewStoreService.reducer,
       system: SystemStoreService.reducer,
-      graph: GraphStoreService.reducer
+      graph: GraphStoreService.reducer,
+      resources: ResourceStoreService.reducer
     })
   ],
   providers: [

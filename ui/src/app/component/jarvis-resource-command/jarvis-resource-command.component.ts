@@ -44,6 +44,8 @@ import { NotificationBean } from '../../model/notification-bean';
 import { MatTableDataSource } from '@angular/material';
 import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
 import { JarvisDataConnectorService } from '../../service/jarvis-data-connector.service';
+import { Observable } from 'rxjs';
+import { ResourceStoreService } from '../../store/resources.store';
 
 @Component({
   selector: 'app-jarvis-resource-command',
@@ -52,6 +54,7 @@ import { JarvisDataConnectorService } from '../../service/jarvis-data-connector.
 })
 export class JarvisResourceCommandComponent extends JarvisResource<CommandBean> implements NotifyCallback<ResourceBean>, OnInit {
 
+  myStream: Observable<CommandBean>;
   @Input() myCommand: CommandBean;
   public myMatResources = new MatTableDataSource([]);
   @Input() myJsonData: string = "{}";
@@ -77,6 +80,7 @@ export class JarvisResourceCommandComponent extends JarvisResource<CommandBean> 
     private logger: LoggerService,
     private _notificationService: JarvisDataNotificationService,
     private jarvisPickResourceService: JarvisPickResourceService,
+    private resourceStoreService: ResourceStoreService,
   ) {
     super('/commands', ['execute', 'test', 'clear'], _commandService, _route, _router);
     this.jarvisNotificationLink = new JarvisResourceLink<NotificationBean>(this.logger);
@@ -89,13 +93,21 @@ export class JarvisResourceCommandComponent extends JarvisResource<CommandBean> 
     this.types.push({ label: 'Zway command', value: 'ZWAY' });
     this.types.push({ label: 'Chacon command', value: 'CHACON' });
     this.types.push({ label: 'Slack notification', value: 'SLACK' });
+    this.myStream = this.resourceStoreService.command();
   }
 
   /**
    * load device and related data
    */
   ngOnInit() {
-    this.init(this);
+    this.myStream.subscribe(
+      (resource: CommandBean) => {
+        this.setResource(resource);
+        let picker: PickerBean = new PickerBean();
+        picker.action = 'complete';
+        this.notify(picker, resource);
+      }
+    )
   }
 
   /**

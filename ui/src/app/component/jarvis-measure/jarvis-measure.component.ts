@@ -41,6 +41,8 @@ import { ConnectorBean } from '../../model/connector/connector-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { MatTableDataSource } from '@angular/material';
 import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
+import { ResourceStoreService } from '../../store/resources.store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-jarvis-measure',
@@ -49,6 +51,7 @@ import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.se
 })
 export class JarvisMeasureComponent extends JarvisResource<MeasureBean> implements NotifyCallback<ResourceBean>, OnInit {
 
+  myStream: Observable<MeasureBean>;
   @Input() myMeasure: MeasureBean;
   public myMatResources = new MatTableDataSource([])
 
@@ -71,16 +74,25 @@ export class JarvisMeasureComponent extends JarvisResource<MeasureBean> implemen
     private logger: LoggerService,
     private jarvisMessageService: JarvisMessageService,
     private jarvisPickResourceService: JarvisPickResourceService,
+    private resourceStoreService: ResourceStoreService,
   ) {
     super('/measures', [], _measureService, _route, _router);
     this.jarvisConnectorLink = new JarvisResourceLink<ConnectorBean>(this.logger);
+    this.myStream = resourceStoreService.measure();
   }
 
   /**
    * load resource and related data
    */
   ngOnInit() {
-    this.init(this);
+    this.myStream.subscribe(
+      (resource: MeasureBean) => {
+        this.setResource(resource);
+        let picker: PickerBean = new PickerBean();
+        picker.action = 'complete';
+        this.notify(picker, resource);
+      }
+    )
   }
 
   /**

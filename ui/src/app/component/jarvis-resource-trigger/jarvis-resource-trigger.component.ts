@@ -41,6 +41,8 @@ import { CronBean } from '../../model/cron-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { MatTableDataSource } from '@angular/material';
 import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
+import { Observable } from 'rxjs';
+import { ResourceStoreService } from '../../store/resources.store';
 
 @Component({
   selector: 'app-jarvis-resource-trigger',
@@ -49,6 +51,7 @@ import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.se
 })
 export class JarvisResourceTriggerComponent extends JarvisResource<TriggerBean> implements NotifyCallback<ResourceBean>, OnInit {
 
+  myStream: Observable<TriggerBean>;
   @Input() myTrigger: TriggerBean;
   public myMatResources = new MatTableDataSource([]);
   public myMatDevicesResources = new MatTableDataSource([]);
@@ -71,17 +74,26 @@ export class JarvisResourceTriggerComponent extends JarvisResource<TriggerBean> 
     private _triggerService: JarvisDataTriggerService,
     private logger: LoggerService,
     private _cronService: JarvisDataCronService,
+    private resourceStoreService: ResourceStoreService,
     private jarvisPickResourceService: JarvisPickResourceService,
    ) {
     super('/triggers', ['execute'], _triggerService, _route, _router);
     this.jarvisCronLink = new JarvisResourceLink<CronBean>(this.logger);
+    this.myStream = this.resourceStoreService.trigger();
   }
 
   /**
    * load device and related data
    */
   ngOnInit() {
-    this.init(this);
+    this.myStream.subscribe(
+      (resource: TriggerBean) => {
+        this.setResource(resource);
+        let picker: PickerBean = new PickerBean();
+        picker.action = 'complete';
+        this.notify(picker, resource);
+      }
+    )
   }
 
   /**

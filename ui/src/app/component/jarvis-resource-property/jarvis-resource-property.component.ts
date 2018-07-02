@@ -35,6 +35,8 @@ import { NotifyCallback } from '../../class/jarvis-resource';
 import { ResourceBean } from '../../model/resource-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { PropertyBean } from '../../model/property-bean';
+import { Observable } from 'rxjs';
+import { ResourceStoreService } from '../../store/resources.store';
 
 @Component({
   selector: 'app-jarvis-resource-property',
@@ -43,6 +45,7 @@ import { PropertyBean } from '../../model/property-bean';
 })
 export class JarvisResourcePropertyComponent extends JarvisResource<PropertyBean> implements NotifyCallback<ResourceBean>, OnInit {
 
+  myStream: Observable<PropertyBean>;
   @Input() myProperty: PropertyBean;
 
   /**
@@ -52,15 +55,24 @@ export class JarvisResourcePropertyComponent extends JarvisResource<PropertyBean
     private _route: ActivatedRoute,
     private _router: Router,
     private _jarvisConfigurationService: JarvisConfigurationService,
+    private resourceStoreService: ResourceStoreService,
     private _propertyService: JarvisDataPropertyService) {
     super('/properties', [], _propertyService, _route, _router);
+    this.myStream = this.resourceStoreService.property();
   }
 
   /**
    * load device and related data
    */
   ngOnInit() {
-    this.init(this);
+    this.myStream.subscribe(
+      (resource: PropertyBean) => {
+        this.setResource(resource);
+        let picker: PickerBean = new PickerBean();
+        picker.action = 'complete';
+        this.notify(picker, resource);
+      }
+    )
   }
 
   /**

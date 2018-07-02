@@ -45,6 +45,7 @@ import { Store } from '@ngrx/store/src/store';
 import { JarvisGraphExplorerComponent } from '../../widget/jarvis-graph-explorer/jarvis-graph-explorer.component';
 import { MatTableDataSource } from '@angular/material';
 import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
+import { ResourceStoreService } from '../../store/resources.store';
 
 @Component({
   selector: 'app-jarvis-resource-process',
@@ -53,6 +54,7 @@ import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.se
 })
 export class JarvisResourceProcessComponent extends JarvisResource<ProcessBean> implements NotifyCallback<ResourceBean>, OnInit, AfterContentInit {
 
+  myStream: Observable<ProcessBean>;
   @Input() myProcess: ProcessBean;
   public myMatResources = new MatTableDataSource([]);
 
@@ -81,18 +83,27 @@ export class JarvisResourceProcessComponent extends JarvisResource<ProcessBean> 
     private processService: JarvisDataProcessService,
     private _triggerService: JarvisDataTriggerService,
     private graphStoreService: GraphStoreService,
+    private resourceStoreService: ResourceStoreService,
     private jarvisPickResourceService: JarvisPickResourceService,
   ) {
     super('/processes', ['deploy', 'test'], processService, _route, _router);
     this.jarvisTriggerLink = new JarvisResourceLink<TriggerBean>(this.logger);
     this.graphStream = this.graphStoreService.graph()
+    this.myStream = this.resourceStoreService.process();
   }
 
   ngOnInit() {
   }
 
   ngAfterContentInit() {
-    this.init(this);
+    this.myStream.subscribe(
+      (resource: ProcessBean) => {
+        this.setResource(resource);
+        let picker: PickerBean = new PickerBean();
+        picker.action = 'complete';
+        this.notify(picker, resource);
+      }
+    )
 
     this.graphStream.subscribe(
       (graph: GraphBean) => {

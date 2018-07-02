@@ -77,29 +77,6 @@ export class JarvisResource<T extends ResourceBean> {
     }
 
     /**
-     * default init method
-     */
-    public init(that: NotifyCallback<T>): void {
-        this.route.params
-            .pipe(map(params => params['id']))
-            .subscribe((id) => {
-                this.myJarvisResource.GetSingle(id)
-                    .subscribe(
-                    (data: T) => this.setResource(data),
-                    error => console.log(error),
-                    () => {
-                        /**
-                         * complete resource
-                         */
-                        let picker: PickerBean = new PickerBean();
-                        picker.action = 'complete';
-                        that.notify(picker, this.getResource());
-                    }
-                    );
-            });
-    }
-
-    /**
      * go back
      */
     public close(): void {

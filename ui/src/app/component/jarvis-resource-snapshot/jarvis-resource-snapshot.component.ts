@@ -41,6 +41,8 @@ import { NotifyCallback } from '../../class/jarvis-resource';
 import { ResourceBean } from '../../model/resource-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { SnapshotBean } from '../../model/misc/snapshot-bean';
+import { Observable } from 'rxjs';
+import { ResourceStoreService } from '../../store/resources.store';
 
 @Component({
   selector: 'app-jarvis-resource-snapshot',
@@ -49,6 +51,7 @@ import { SnapshotBean } from '../../model/misc/snapshot-bean';
 })
 export class JarvisResourceSnapshotComponent extends JarvisResource<SnapshotBean> implements NotifyCallback<SnapshotBean>, OnInit {
 
+  myStream: Observable<SnapshotBean>;
   @Input() mySnapshot: SnapshotBean;
   @ViewChild('fileInput') fileInput: ElementRef;
 
@@ -62,15 +65,24 @@ export class JarvisResourceSnapshotComponent extends JarvisResource<SnapshotBean
     private _router: Router,
     private _jarvisConfigurationService: JarvisConfigurationService,
     private jarvisMessageService: JarvisMessageService,
+    private resourceStoreService: ResourceStoreService,
     private _snapshotService: JarvisDataSnapshotService) {
     super('/snapshots', [], _snapshotService, _route, _router);
+    this.myStream = this.resourceStoreService.snapshot();
   }
 
   /**
    * load device and related data
    */
   ngOnInit() {
-    this.init(this);
+    this.myStream.subscribe(
+      (resource: SnapshotBean) => {
+        this.setResource(resource);
+        let picker: PickerBean = new PickerBean();
+        picker.action = 'complete';
+        this.notify(picker, resource);
+      }
+    )
   }
 
   /**

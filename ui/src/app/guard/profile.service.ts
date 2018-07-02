@@ -156,7 +156,6 @@ export class ProfileGuard implements CanActivate {
         () => {
           obs.next(profile);
           obs.complete();
-          this.router.navigate([currentRoute]);
           this.jarvisLoaderService.setLoaded();
         });
       return;

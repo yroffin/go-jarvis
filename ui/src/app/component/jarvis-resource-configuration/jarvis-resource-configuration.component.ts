@@ -36,6 +36,8 @@ import { ResourceBean } from '../../model/resource-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { ConfigurationBean } from '../../model/configuration-bean';
 import { MatTableDataSource } from '@angular/material';
+import { Observable } from 'rxjs';
+import { ResourceStoreService } from '../../store/resources.store';
 
 @Component({
   selector: 'app-jarvis-resource-configuration',
@@ -44,6 +46,7 @@ import { MatTableDataSource } from '@angular/material';
 })
 export class JarvisResourceConfigurationComponent extends JarvisResource<ConfigurationBean> implements NotifyCallback<ResourceBean>, OnInit {
 
+  myStream: Observable<ConfigurationBean>;
   @Input() myConfiguration: ConfigurationBean;
   public myMatResources = new MatTableDataSource([]);
 
@@ -54,16 +57,25 @@ export class JarvisResourceConfigurationComponent extends JarvisResource<Configu
     private _route: ActivatedRoute,
     private _router: Router,
     private _jarvisConfigurationService: JarvisConfigurationService,
+    private resourceStoreService: ResourceStoreService,
     private _configurationService: JarvisDataConfigurationService
   ) {
     super('/configurations', [], _configurationService, _route, _router);
+    this.myStream = this.resourceStoreService.configuration();
   }
 
   /**
    * load device and related data
    */
   ngOnInit() {
-    this.init(this);
+    this.myStream.subscribe(
+      (resource: ConfigurationBean) => {
+        this.setResource(resource);
+        let picker: PickerBean = new PickerBean();
+        picker.action = 'complete';
+        this.notify(picker, resource);
+      }
+    )
   }
 
   /**

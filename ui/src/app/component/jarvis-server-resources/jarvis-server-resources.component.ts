@@ -36,7 +36,6 @@ export class JarvisServerResourcesComponent implements OnInit {
   public messageStream: Observable<MessageBean>;
 
   constructor(
-    private store: Store<State<MessageBean>>,
     private mqttService: JarvisMqttService,
     private brokerStoreService: BrokerStoreService
   ) {
@@ -95,39 +94,39 @@ export class JarvisServerResourcesComponent implements OnInit {
     }
 
     /**
-      * register to store
-      */
-      this.messageStream = this.brokerStoreService.message();
+     * register to store
+     */
+    this.messageStream = this.brokerStoreService.message();
+  }
+
+  ngOnInit() {
     /**
      * register to store update
      */
     this.messageStream
       .subscribe((item) => {
-        if(item.body && item.body.classname === "SystemIndicator") {
+        if (item.topic && item.topic === "/system/metrics/cpu") {
           return;
         }
-      this.data.datasets[0].data.push(item.body.data.committedVirtualMemorySize);
+        this.data.datasets[0].data.push(item.body.total);
         this.data.datasets[0].data.shift();
-        this.data.datasets[1].data.push(item.body.data.freePhysicalMemorySize);
+        this.data.datasets[1].data.push(item.body.active);
         this.data.datasets[1].data.shift();
-        this.data.datasets[2].data.push(item.body.data.freeSwapSpaceSize);
+        this.data.datasets[2].data.push(item.body.free);
         this.data.datasets[2].data.shift();
-        this.data.datasets[3].data.push(item.body.data.processCpuLoad);
+        this.data.datasets[3].data.push(item.body.inactive);
         this.data.datasets[3].data.shift();
-        this.data.datasets[4].data.push(item.body.data.processCpuTime);
+        this.data.datasets[4].data.push(item.body.total);
         this.data.datasets[4].data.shift();
-        this.data.datasets[5].data.push(item.body.data.systemCpuLoad);
+        this.data.datasets[5].data.push(item.body.used);
         this.data.datasets[5].data.shift();
-        this.data.datasets[6].data.push(item.body.data.totalPhysicalMemorySize);
+        this.data.datasets[6].data.push(item.body.total);
         this.data.datasets[6].data.shift();
-        this.data.datasets[7].data.push(item.body.data.totalSwapSpaceSize);
+        this.data.datasets[7].data.push(item.body.total);
         this.data.datasets[7].data.shift();
 
         this.chart.refresh();
       });
-  }
-
-  ngOnInit() {
   }
 
 }

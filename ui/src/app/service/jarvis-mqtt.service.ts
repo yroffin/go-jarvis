@@ -28,12 +28,11 @@ export class JarvisMqttService {
     };
 
     this._client.onMessageArrived = (message: Paho.MQTT.Message) => {
-      this.logger.warn('Message', message);
       this.brokerStoreService.dispatch(new NewMessageAction(
         <MessageBean>{
           id: '',
           topic: message.destinationName,
-          body: message.payloadString
+          body: message.payloadString,
         }
       ));
     };

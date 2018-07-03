@@ -23,17 +23,10 @@
 package system
 
 import (
-	"fmt"
-	"time"
-
 	"github.com/yroffin/go-boot-sqllite/core/engine"
-	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
 	"github.com/yroffin/go-jarvis/core/auto"
 	"github.com/yroffin/go-jarvis/core/services/mqtt"
-
-	"github.com/shirou/gopsutil/cpu"
-	"github.com/shirou/gopsutil/mem"
 )
 
 var (
@@ -80,27 +73,11 @@ func (p *Security) Init() error {
 func (p *Security) PostConstruct(name string) error {
 	// Scan struct and init all handler
 	p.ScanHandler(p.Swagger, p)
-	// Start metrics
-	go p.SystemMetrics()
 	return nil
 }
 
 // Validate this API
 func (p *Security) Validate(name string) error {
-	return nil
-}
-
-// SystemMetrics API
-func (p *Security) SystemMetrics() func() error {
-	for {
-		m, _ := mem.VirtualMemory()
-		c, _ := cpu.Times(false)
-		fmt.Println("test goroutine")
-		// Notify system ready
-		p.MqttService.PublishMostOne("/system/metrics/memory", models.ToJSON(m))
-		p.MqttService.PublishMostOne("/system/metrics/cpu", models.ToJSON(c))
-		time.Sleep(5 * time.Second)
-	}
 	return nil
 }
 

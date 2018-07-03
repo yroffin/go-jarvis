@@ -1,4 +1,4 @@
-// Package models for all models
+// Package system for metrics
 // MIT License
 //
 // Copyright (c) 2017 yroffin

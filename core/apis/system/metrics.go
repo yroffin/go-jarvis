@@ -1,4 +1,4 @@
-// Package apis for common apis
+// Package system for metrics
 // MIT License
 //
 // Copyright (c) 2017 yroffin

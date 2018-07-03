@@ -16,6 +16,7 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { State, Store } from '@ngrx/store';
+import * as _ from 'lodash';
 
 import { SelectItem, UIChart } from 'primeng/primeng';
 import { JarvisMqttService } from '../../service/jarvis-mqtt.service';
@@ -41,56 +42,7 @@ export class JarvisServerResourcesComponent implements OnInit {
   ) {
     this.data = {
       labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
-      datasets: [
-        {
-          label: 'committedVirtualMemorySize',
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-          fill: false,
-          borderColor: '#4bc0c0'
-        },
-        {
-          label: 'freePhysicalMemorySize',
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-          fill: false,
-          borderColor: '#4bc0c0'
-        },
-        {
-          label: 'freeSwapSpaceSize',
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-          fill: false,
-          borderColor: '#4bc0c0'
-        },
-        {
-          label: 'processCpuLoad',
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-          fill: false,
-          borderColor: '#4bc0c0'
-        },
-        {
-          label: 'processCpuTime',
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-          fill: false,
-          borderColor: '#4bc0c0'
-        },
-        {
-          label: 'systemCpuLoad',
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-          fill: false,
-          borderColor: '#4bc0c0'
-        },
-        {
-          label: 'totalPhysicalMemorySize',
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-          fill: false,
-          borderColor: '#4bc0c0'
-        },
-        {
-          label: 'totalSwapSpaceSize',
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-          fill: false,
-          borderColor: '#4bc0c0'
-        }
-      ]
+      datasets: []
     }
 
     /**
@@ -105,28 +57,51 @@ export class JarvisServerResourcesComponent implements OnInit {
      */
     this.messageStream
       .subscribe((item) => {
-        if (item.topic && item.topic === "/system/metrics/cpu") {
+        if (item.topic && !item.topic.startsWith('/system/metrics/')) {
           return;
         }
-        this.data.datasets[0].data.push(item.body.total);
-        this.data.datasets[0].data.shift();
-        this.data.datasets[1].data.push(item.body.active);
-        this.data.datasets[1].data.shift();
-        this.data.datasets[2].data.push(item.body.free);
-        this.data.datasets[2].data.shift();
-        this.data.datasets[3].data.push(item.body.inactive);
-        this.data.datasets[3].data.shift();
-        this.data.datasets[4].data.push(item.body.total);
-        this.data.datasets[4].data.shift();
-        this.data.datasets[5].data.push(item.body.used);
-        this.data.datasets[5].data.shift();
-        this.data.datasets[6].data.push(item.body.total);
-        this.data.datasets[6].data.shift();
-        this.data.datasets[7].data.push(item.body.total);
-        this.data.datasets[7].data.shift();
+        let data: any;
+        if (item.topic.startsWith('/system/metrics/cpu')) {
+          data = item.body[0];
+        }
+        if (item.topic.startsWith('/system/metrics/mem')) {
+          data = item.body;
+        }
+        _.each(_.keysIn(data), (k) => {
+          this.checkDataset(k, data[k]);
+        });
 
         this.chart.refresh();
       });
+  }
+
+  private checkDataset(key: string, value: any) {
+    let found = false;
+    let dataset = _.find(this.data.datasets, (dataset) => {
+      return dataset.label === key;
+    })
+    if (dataset) {
+      dataset.data.push(value);
+      dataset.data.shift();
+    } else {
+      let color =  this.getRandomColor();
+      this.data.datasets.push({
+        label: key,
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        fill: false,
+        borderColor: color,
+        backgroundColor: color
+      });
+    }
+  }
+
+  private getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
   }
 
 }

@@ -23,9 +23,16 @@
 package datasources
 
 import (
+	"time"
+
+	log "github.com/sirupsen/logrus"
+
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
+	"github.com/yroffin/go-jarvis/core/helpers"
+	"github.com/yroffin/go-jarvis/core/services"
+	"github.com/yroffin/go-jarvis/core/services/mqtt"
 )
 
 func init() {
@@ -42,6 +49,12 @@ type DataSource struct {
 	Crud interface{} `@crud:"/api/datasources"`
 	// Swagger with injection mecanism
 	Swagger engine.ISwaggerService `@autowired:"swagger"`
+	// SetPropertyService with injection mecanism
+	PropertyService services.IPropertyService `@autowired:"property-service"`
+	// IMqttService with injection mecanism
+	MqttService mqtt.IMqttService `@autowired:"mqtt-service"`
+	// Prometheus
+	prometheus *helpers.HTTPClient
 }
 
 // IDataSource implements IBean
@@ -71,10 +84,36 @@ func (p *DataSource) Init() error {
 func (p *DataSource) PostConstruct(name string) error {
 	// Scan struct and init all handler
 	p.ScanHandler(p.Swagger, p)
+	// Init the client
+	p.prometheus = &helpers.HTTPClient{URL: p.PropertyService.Get("jarvis.prometheus.url", "http://192.168.1.26:9090")}
 	return nil
 }
 
 // Validate this API
 func (p *DataSource) Validate(name string) error {
+	// Start metrics
+	go p.Discover()
+
 	return nil
+}
+
+// Discover datasources
+func (p *DataSource) Discover() func() error {
+	for {
+		headers := make(map[string]string)
+		params := make(map[string]string)
+		params["query"] = "up"
+		result, err := p.prometheus.GET(p.PropertyService.Get("jarvis.prometheus.api.query", "/api/v1/query"), headers, params)
+
+		if err == nil {
+			// Notify system ready
+			p.MqttService.PublishMostOne("/system/datasources/discover", models.ToJSON(result))
+		} else {
+			log.WithFields(log.Fields{
+				"url":   p.prometheus.URL,
+				"error": err,
+			}).Warn("Prometheus")
+		}
+		time.Sleep(10 * time.Second)
+	}
 }

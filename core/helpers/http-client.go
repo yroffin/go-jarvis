@@ -75,6 +75,14 @@ func (p *HTTPClient) Call(method string, path string, body map[string]interface{
 		}).Error("Request")
 		return nil, err
 	}
+
+	// Fix query params
+	values := req.URL.Query()
+	for k, v := range params {
+		values.Add(k, v)
+	}
+	req.URL.RawQuery = values.Encode()
+
 	client := &http.Client{}
 
 	// fix headers

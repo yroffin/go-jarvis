@@ -108,7 +108,6 @@ import { JarvisDataSnapshotService } from './service/jarvis-data-snapshot.servic
 import { JarvisDataViewService } from './service/jarvis-data-view.service';
 import { JarvisDataRawService } from './service/jarvis-data-raw.service';
 import { JarvisDataDatasourceService } from './service/jarvis-data-datasource.service';
-import { JarvisDataMeasureService } from './service/jarvis-data-measure.service';
 import { JarvisDataModelService } from './service/jarvis-data-model.service';
 import { JarvisLoaderService } from './service/jarvis-loader.service';
 import { JarvisMessageService } from './service/jarvis-message.service';
@@ -135,7 +134,6 @@ import { JarvisLoginComponent } from './component/jarvis-login/jarvis-login.comp
 import { JarvisResourceSnapshotComponent } from './component/jarvis-resource-snapshot/jarvis-resource-snapshot.component';
 import { JarvisDesktopComponent, OrderSortPipe } from './component/jarvis-desktop/jarvis-desktop.component';
 import { JarvisResourceDatasourceComponent } from './component/jarvis-resource-datasource/jarvis-resource-datasource.component';
-import { JarvisMeasureComponent } from './component/jarvis-measure/jarvis-measure.component';
 
 /**
  * stores
@@ -172,7 +170,6 @@ import { ConfigurationResolver } from './resolver/configuration-resolver';
 import { PropertyResolver } from './resolver/property-resolver';
 import { SnapshotResolver } from './resolver/snapshot-resolver';
 import { DatasourceResolver } from './resolver/datasource-resolver';
-import { MeasureResolver } from './resolver/measure-resolver';
 
 /**
  * default route definition
@@ -204,8 +201,6 @@ const appRoutes: Routes = [
   { path: 'snapshots/:id', component: JarvisResourceSnapshotComponent, canActivate: [ProfileGuard], resolve: { snapshot: SnapshotResolver } },
   { path: 'datasources', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'datasources' } },
   { path: 'datasources/:id', component: JarvisResourceDatasourceComponent, canActivate: [ProfileGuard], resolve: { datasource: DatasourceResolver } },
-  { path: 'measures', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'measures' } },
-  { path: 'measures/:id', component: JarvisMeasureComponent, canActivate: [ProfileGuard, NavigationGuard], resolve: { measure: MeasureResolver } },
   { path: 'models', component: JarvisResourcesComponent, canActivate: [ProfileGuard, NavigationGuard], data: { resource: 'models' } },
   { path: 'models/:id', component: JarvisResourceModelComponent, canActivate: [ProfileGuard, NavigationGuard], resolve: { model: ModelResolver } },
   { path: 'graph', component: JarvisGraphBrowserComponent, canActivate: [ProfileGuard, NavigationGuard] },
@@ -240,7 +235,6 @@ const appRoutes: Routes = [
     JarvisResourceSnapshotComponent,
     JarvisDesktopComponent,
     JarvisResourceDatasourceComponent,
-    JarvisMeasureComponent,
     JarvisServerResourcesComponent,
     JarvisBrokerComponent,
     JarvisResourceProcessComponent,
@@ -368,7 +362,6 @@ const appRoutes: Routes = [
     JarvisDataSnapshotService,
     JarvisDataViewService,
     JarvisDataDatasourceService,
-    JarvisDataMeasureService,
     JarvisDataModelService,
     JarvisMqttService,
     /**

@@ -40,9 +40,6 @@ type DataSource struct {
 	Name string
 	// mounts
 	Crud interface{} `@crud:"/api/datasources"`
-	// LinkMeasure with injection mecanism
-	LinkMeasure IMeasure `@autowired:"MeasureBean" @link:"/api/DataSources" @href:"measures"`
-	Measure     IMeasure `@autowired:"MeasureBean"`
 	// Swagger with injection mecanism
 	Swagger engine.ISwaggerService `@autowired:"swagger"`
 }

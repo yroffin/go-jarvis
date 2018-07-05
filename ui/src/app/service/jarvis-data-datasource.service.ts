@@ -26,22 +26,15 @@ import { JarvisDataLinkedResource } from './jarvis-data-linked-resource';
  * data model
  */
 import { DataSourceBean } from './../model/connector/datasource-bean';
-import { MeasureBean } from './../model/connector/measure-bean';
 
 @Injectable()
 export class JarvisDataDatasourceService extends JarvisDataCoreResource<DataSourceBean> implements JarvisDefaultResource<DataSourceBean> {
-
-    public allLinkedMeasures: JarvisDefaultLinkResource<MeasureBean>;
 
     constructor(
         private _http: HttpClient,
         private _configuration: JarvisConfigurationService
     ) {
         super(_configuration, _configuration.ServerWithApiUrl + 'datasources', _http);
-        /**
-         * map linked elements
-         */
-        this.allLinkedMeasures = new JarvisDataLinkedResource<MeasureBean>(this.actionUrl, '/measures', _http);
     }
 
 }

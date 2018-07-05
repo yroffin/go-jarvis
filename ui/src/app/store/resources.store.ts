@@ -26,7 +26,6 @@ import * as _ from 'lodash';
 import { ActionWithPayload, ActionWithPayloadAndSubject } from './action-with-payload';
 import { DeviceBean } from '../model/device-bean';
 import { ResourceBean } from '../model/resource-bean';
-import { MeasureBean } from '../model/connector/measure-bean';
 import { CommandBean } from '../model/command-bean';
 import { ConfigurationBean } from '../model/configuration-bean';
 import { ConnectorBean } from '../model/connector/connector-bean';
@@ -51,7 +50,6 @@ export interface AppState {
 export interface ResourceState {
     devices: Array<DeviceBean>;
     device: DeviceBean;
-    measure: MeasureBean;
     command: CommandBean;
     configuration: ConfigurationBean;
     connector: ConnectorBean;
@@ -85,13 +83,6 @@ export class SelectResourceAction<T extends ResourceBean> extends ActionWithPayl
 export class GetDeviceAction extends SelectResourceAction<DeviceBean> {
     readonly type = 'GetDeviceAction';
     constructor(public payload: DeviceBean, subject: Subject<any>) {
-        super(payload, subject);
-    }
-}
-
-export class GetMeasureAction extends SelectResourceAction<MeasureBean> {
-    readonly type = 'GetMeasureAction';
-    constructor(public payload: MeasureBean, subject: Subject<any>) {
         super(payload, subject);
     }
 }
@@ -189,7 +180,6 @@ export class GetPropertyAction extends SelectResourceAction<PropertyBean> {
 
 export type AllResourcesActions = LoadDevicesAction
     | GetDeviceAction
-    | GetMeasureAction
     | GetCommandAction
     | GetConfigurationAction
     | GetConnectorAction
@@ -214,7 +204,6 @@ export class ResourceStoreService {
 
     private getDevices: Selector<object, Array<DeviceBean>>;
     private getDevice: Selector<object, DeviceBean>;
-    private getMeasure: Selector<object, MeasureBean>;
     private getView: Selector<object, ViewBean>;
     private getPlugin: Selector<object, PluginBean>;
     private getCommand: Selector<object, CommandBean>;
@@ -238,7 +227,6 @@ export class ResourceStoreService {
     ) {
         this.getDevices = createSelector(createFeatureSelector<ResourceState>('resources'), (state: ResourceState) => state.devices);
         this.getDevice = createSelector(createFeatureSelector<ResourceState>('resources'), (state: ResourceState) => state.device);
-        this.getMeasure = createSelector(createFeatureSelector<ResourceState>('resources'), (state: ResourceState) => state.measure);
         this.getView = createSelector(createFeatureSelector<ResourceState>('resources'), (state: ResourceState) => state.view);
         this.getPlugin = createSelector(createFeatureSelector<ResourceState>('resources'), (state: ResourceState) => state.plugin);
         this.getCommand = createSelector(createFeatureSelector<ResourceState>('resources'), (state: ResourceState) => state.command);
@@ -266,13 +254,6 @@ export class ResourceStoreService {
      */
     public device(): Observable<DeviceBean> {
         return this._store.select(this.getDevice);
-    }
-
-    /**
-     * select this store service
-     */
-    public measure(): Observable<MeasureBean> {
-        return this._store.select(this.getMeasure);
     }
 
     /**
@@ -382,7 +363,6 @@ export class ResourceStoreService {
     public static reducer(state: ResourceState = {
         devices: new Array<DeviceBean>(),
         device: new DeviceBean(),
-        measure: new MeasureBean(),
         command: new CommandBean(),
         configuration: new ConfigurationBean(),
         connector: new ConnectorBean(),
@@ -507,14 +487,7 @@ export class ResourceStoreService {
                     });
                 }
 
-            case 'GetMeasureAction':
-                {
-                    return ResourceStoreService.resolve(action, state, (state) => {
-                        state.measure = action.payload;
-                    });
-                }
-
-            default:
+                default:
                 return state;
         }
     }
@@ -524,7 +497,6 @@ export class ResourceStoreService {
         let resolved = {
             devices: state.devices,
             device: state.device,
-            measure: state.measure,
             command: state.command,
             configuration: state.configuration,
             connector: state.connector,

@@ -252,7 +252,6 @@ export class AppComponent implements OnInit {
               { label: 'Property', icon: 'fa-code', routerLink: ['/properties'] },
               { label: 'DataSource', icon: 'fa-podcast', routerLink: ['/datasources'] },
               { label: 'Server', icon: 'fa-line-chart', routerLink: ['/resources'] },
-              { label: 'Measure', icon: 'fa-line-chart', routerLink: ['/measures'] }
             ]
           }
         ]

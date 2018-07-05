@@ -1,5 +1,4 @@
-<app-jarvis-toolbar-resource [notified]="this" [crud]="true" [tasks]="[{'task':'handleChange','icon':'fa-bolt','label':'Collect'}]"
-  [pickers]="[{'label':'Lier une mesure', 'icon': 'fa-podcast', 'action':'measures'}]"></app-jarvis-toolbar-resource>
+<app-jarvis-toolbar-resource [notified]="this" [crud]="true" [tasks]="[{'task':'handleChange','icon':'fa-bolt','label':'Collect'}]"></app-jarvis-toolbar-resource>
 
 <div *ngIf="myDataSource">
   <mat-accordion>
@@ -49,14 +48,8 @@
           <th mat-header-cell *matHeaderCellDef> Name </th>
           <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
-        <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef> Action </th>
-          <td mat-cell *matCellDef="let measure">
-            <app-jarvis-toolbar-resource [notified]="this" [tasks]="[{'task':'dropMeasureLink','args':[measure],'icon':'fa-trash','label':'Supprimer le lien'},{'task':'gotoMeasureLink','args':[measure],'icon':'fa-link','label':'Détail'}]"></app-jarvis-toolbar-resource>
-          </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="['order','id','instance','name','action']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['order','id','instance','name','action'];"></tr>
+        <tr mat-header-row *matHeaderRowDef="['order','id','instance','name']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['order','id','instance','name'];"></tr>
       </table>
     </mat-expansion-panel>
     <mat-expansion-panel>

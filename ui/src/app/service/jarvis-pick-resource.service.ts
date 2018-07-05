@@ -24,7 +24,6 @@ import { JarvisDataProcessService } from './jarvis-data-process.service';
 import { JarvisDataCronService } from './jarvis-data-cron.service';
 import { JarvisDataDatasourceService } from './jarvis-data-datasource.service';
 import { JarvisDataConnectorService } from './jarvis-data-connector.service.';
-import { JarvisDataMeasureService } from './jarvis-data-measure.service';
 import { JarvisDataNotificationService } from './jarvis-data-notification.service';
 import { LoggerService } from './logger.service';
 import { JarvisDefaultResource } from '../interface/jarvis-default-resource';
@@ -50,7 +49,6 @@ export class JarvisPickResourceService {
     private processService: JarvisDataProcessService,
     private cronService: JarvisDataCronService,
     private datasourceService: JarvisDataDatasourceService,
-    private measureService: JarvisDataMeasureService,
     private notificationService: JarvisDataNotificationService,
     private logger: LoggerService,
     private dialog: MatDialog
@@ -88,9 +86,6 @@ export class JarvisPickResourceService {
 
   private getService(name: string): JarvisDefaultResource<ResourceBean> {
     let service: JarvisDefaultResource<ResourceBean>;
-    if (name === 'measures') {
-      //service = this.measureService;
-    }
     if (name === 'connectors') {
       service = this.connectorService;
     }

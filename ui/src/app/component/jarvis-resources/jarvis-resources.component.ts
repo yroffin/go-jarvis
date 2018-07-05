@@ -42,7 +42,6 @@ import { JarvisDataConnectorService } from '../../service/jarvis-data-connector.
 import { JarvisDataNotificationService } from '../../service/jarvis-data-notification.service';
 import { JarvisDataSnapshotService } from '../../service/jarvis-data-snapshot.service';
 import { JarvisDataDatasourceService } from '../../service/jarvis-data-datasource.service';
-import { JarvisDataMeasureService } from '../../service/jarvis-data-measure.service';
 import { JarvisDataModelService } from '../../service/jarvis-data-model.service';
 
 /**
@@ -96,7 +95,6 @@ export class JarvisResourcesComponent implements OnInit, AfterViewInit {
     private _jarvisDataCronService: JarvisDataCronService,
     private _jarvisDataSnapshotService: JarvisDataSnapshotService,
     private _jarvisDataViewService: JarvisDataViewService,
-    private _jarvisDataMeasureService: JarvisDataMeasureService,
     private _jarvisDataModelService: JarvisDataModelService,
     private _jarvisDataDatasourceService: JarvisDataDatasourceService
   ) {
@@ -107,9 +105,6 @@ export class JarvisResourcesComponent implements OnInit, AfterViewInit {
         url: '/' + this.navigationGuard.getUrl()
       }
 
-      if (navigationEnd.url === '/measures') {
-        this.load('measures', this._jarvisDataMeasureService);
-      }
       if (navigationEnd.url === '/models') {
         this.load('models', this._jarvisDataModelService);
       }

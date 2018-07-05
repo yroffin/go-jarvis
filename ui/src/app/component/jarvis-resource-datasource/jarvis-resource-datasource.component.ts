@@ -27,7 +27,6 @@ import { SelectItem, UIChart } from 'primeng/primeng';
 import { JarvisConfigurationService } from '../../service/jarvis-configuration.service';
 import { JarvisResourceLink } from '../../class/jarvis-resource-link';
 
-import { JarvisDataMeasureService } from '../../service/jarvis-data-measure.service';
 import { JarvisDataDatasourceService } from '../../service/jarvis-data-datasource.service';
 import { LoggerService } from '../../service/logger.service';
 
@@ -43,7 +42,6 @@ import { NotifyCallback } from '../../class/jarvis-resource';
 import { ResourceBean } from '../../model/resource-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { DataSourceBean } from '../../model/connector/datasource-bean';
-import { MeasureBean } from '../../model/connector/measure-bean';
 import { MatTableDataSource } from '@angular/material';
 import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
 import { ResourceStoreService } from '../../store/resources.store';
@@ -65,7 +63,6 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
   /**
    * internal
    */
-  private jarvisMeasureLink: JarvisResourceLink<MeasureBean>;
   private chartData: any;
   private beginDate: Date = new Date();
   private endDate: Date = new Date();
@@ -84,12 +81,10 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
     private _jarvisConfigurationService: JarvisConfigurationService,
     private _datasourceService: JarvisDataDatasourceService,
     private logger: LoggerService,
-    private _measureService: JarvisDataMeasureService,
     private resourceStoreService: ResourceStoreService,
     private jarvisPickResourceService: JarvisPickResourceService)
     {
     super('/datasources', [], _datasourceService, _route, _router);
-    this.jarvisMeasureLink = new JarvisResourceLink<MeasureBean>(this.logger);
     this.myStream = this.resourceStoreService.datasource();
   }
 
@@ -208,33 +203,11 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
   }
 
   /**
-   * drop link
-   */
-  public dropMeasureLink(linked: MeasureBean): void {
-    this.jarvisMeasureLink.dropLink(linked, this.myDataSource.id, this.myDataSource.measures, this._datasourceService.allLinkedMeasures);
-  }
-
-  /**
-   * goto link
-   */
-  public gotoMeasureLink(linked: MeasureBean): void {
-    this._router.navigate(['/measures/' + linked.id]);
-  }
-
-  /**
    * notify to add new resource
    */
   public notify(picker: PickerBean, resource: ResourceBean): void {
-    if (picker.action === 'measures') {
-      this.jarvisMeasureLink.addLink(this.getResource().id, resource.id, this.getResource().measures, { "order": "1", href: "HREF" }, this._datasourceService.allLinkedMeasures);
-    }
     if (picker.action === 'complete') {
       this.myDataSource = <DataSourceBean>resource;
-      this.myDataSource.measures = [];
-      (new JarvisResourceLink<MeasureBean>(this.logger)).loadLinksWithCallback(resource.id, this.myDataSource.measures, this._datasourceService.allLinkedMeasures, (measures) => {
-        console.log("measures", measures);
-        this.myMatResources = new MatTableDataSource(measures)
-      });
     }
   }
 
@@ -242,11 +215,5 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
    * pick datasources
    */
   public pick(picker: PickerBean): void {
-    /**
-     * find measures
-     */
-    if (picker.action === 'measures') {
-      this.jarvisPickResourceService.open(this, 'Measure', picker);
-    }
   }
 }

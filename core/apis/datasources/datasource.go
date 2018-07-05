@@ -34,12 +34,8 @@ type DataSourceBean struct {
 	Name string `json:"name"`
 	// Icon
 	Icon string `json:"icon"`
-	// Collect
-	Collect string `json:"collect"`
-	// Pipes
-	Pipes string `json:"pipes"`
-	// Body
-	Body string `json:"body"`
+	// ExternalRef
+	ExternalRef string `json:"externalRef"`
 	// Extended
 	Extended map[string]interface{} `json:"extended"`
 }

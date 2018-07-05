@@ -106,8 +106,36 @@ func (p *DataSource) Discover() func() error {
 		result, err := p.prometheus.GET(p.PropertyService.Get("jarvis.prometheus.api.query", "/api/v1/query"), headers, params)
 
 		if err == nil {
-			// Notify system ready
-			p.MqttService.PublishMostOne("/system/datasources/discover", models.ToJSON(result))
+			// Unmarshall result
+			var data = result["data"].(map[string]interface{})
+			if data["resultType"].(string) == "vector" {
+				var results = data["result"].([]interface{})
+				for _, result := range results {
+					var metric = result.(map[string]interface{})["metric"].(map[string]interface{})
+					var ref = metric["job"].(string) + "@" + metric["instance"].(string)
+					var all, _ = p.GetAll()
+					var found = false
+					for _, datasource := range all {
+						log.WithFields(log.Fields{
+							"metric":     metric,
+							"datasource": datasource,
+						}).Warn("Results")
+						if datasource.(*DataSourceBean).ExternalRef == ref {
+							found = true
+						}
+					}
+					if !found {
+						toCreate := DataSourceBean{
+							Name:        metric["job"].(string),
+							Icon:        "table",
+							ExternalRef: ref,
+						}
+						p.SQLCrudBusiness.Create(&toCreate)
+					}
+				}
+				// Notify system ready
+				p.MqttService.PublishMostOne("/system/datasources/discover", models.ToJSON(result))
+			}
 		} else {
 			log.WithFields(log.Fields{
 				"url":   p.prometheus.URL,

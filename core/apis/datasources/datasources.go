@@ -77,6 +77,13 @@ func (p *DataSource) Init() error {
 	p.Factories = func() models.IPersistents {
 		return (&DataSourceBeans{}).New()
 	}
+	p.HandlerTasks = func(name string, body string) (interface{}, int, error) {
+		if name == "values" {
+			// task
+			return p.GetAllValues(body)
+		}
+		return "", -1, nil
+	}
 	return p.API.Init()
 }
 
@@ -116,10 +123,7 @@ func (p *DataSource) Discover() func() error {
 					var all, _ = p.GetAll()
 					var found = false
 					for _, datasource := range all {
-						log.WithFields(log.Fields{
-							"metric":     metric,
-							"datasource": datasource,
-						}).Warn("Results")
+						// Search by external ref
 						if datasource.(*DataSourceBean).ExternalRef == ref {
 							found = true
 						}
@@ -144,4 +148,13 @@ func (p *DataSource) Discover() func() error {
 		}
 		time.Sleep(10 * time.Second)
 	}
+}
+
+// GetAllValues get all values
+func (p *DataSource) GetAllValues(body string) (interface{}, int, error) {
+	headers := make(map[string]string)
+	params := make(map[string]string)
+	result, err := p.prometheus.GET(p.PropertyService.Get("jarvis.prometheus.api.values", "/api/v1/label/__name__/values"), headers, params)
+	var data = result["data"].([]interface{})
+	return data, -1, err
 }

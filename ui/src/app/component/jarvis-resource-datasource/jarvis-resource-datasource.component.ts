@@ -55,6 +55,7 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
 
   myStream: Observable<DataSourceBean>;
   @Input() myDataSource: DataSourceBean;
+  public myValues: string[];
   public myMatResources = new MatTableDataSource([]);
   @ViewChild('chart') chart: UIChart;
 
@@ -79,12 +80,11 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
     private _route: ActivatedRoute,
     private _router: Router,
     private _jarvisConfigurationService: JarvisConfigurationService,
-    private _datasourceService: JarvisDataDatasourceService,
+    private jarvisDataDatasourceService: JarvisDataDatasourceService,
     private logger: LoggerService,
     private resourceStoreService: ResourceStoreService,
-    private jarvisPickResourceService: JarvisPickResourceService)
-    {
-    super('/datasources', [], _datasourceService, _route, _router);
+    private jarvisPickResourceService: JarvisPickResourceService) {
+    super('/datasources', [], jarvisDataDatasourceService, _route, _router);
     this.myStream = this.resourceStoreService.datasource();
   }
 
@@ -94,10 +94,9 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
   ngOnInit() {
     this.myStream.subscribe(
       (resource: DataSourceBean) => {
-        this.setResource(resource);
-        let picker: PickerBean = new PickerBean();
-        picker.action = 'complete';
-        this.notify(picker, resource);
+        this.setResource(this.myDataSource);
+        this.myDataSource = <DataSourceBean>resource;
+        this.values();
       }
     )
 
@@ -172,7 +171,7 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
   public execute(delta: boolean): void {
     let myData = JSON.parse(this.myDataSource.body);
     let myOutputData = {}
-    this._datasourceService.Task(this.myDataSource.id, 'execute', myData)
+    this.jarvisDataDatasourceService.Task(this.myDataSource.id, 'execute', myData)
       .subscribe(
       (result: any) => this.myDataSource.resultset = result,
       error => console.log(error),
@@ -203,12 +202,21 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
   }
 
   /**
+   * task action
+   */
+  public values(): void {
+    this.jarvisDataDatasourceService.Task('*', 'values', {})
+      .subscribe(
+      (result: any) => this.myValues = result,
+      error => console.log(error),
+      () => {
+      });
+  }
+
+  /**
    * notify to add new resource
    */
   public notify(picker: PickerBean, resource: ResourceBean): void {
-    if (picker.action === 'complete') {
-      this.myDataSource = <DataSourceBean>resource;
-    }
   }
 
   /**

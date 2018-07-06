@@ -53,35 +53,20 @@ import { ResourceStoreService } from '../../store/resources.store';
 })
 export class JarvisResourceDatasourceComponent extends JarvisResource<DataSourceBean> implements NotifyCallback<ResourceBean>, OnInit {
 
-  myStream: Observable<DataSourceBean>;
-  @Input() myDataSource: DataSourceBean;
-  public myValues: string[];
-  public myMatResources = new MatTableDataSource([]);
-  @ViewChild('chart') chart: UIChart;
-
-  date1: Date;
-
   /**
    * internal
    */
-  private chartData: any;
-  private beginDate: Date = new Date();
-  private endDate: Date = new Date();
-  private truncateDate: number = 16;
-  private timeTemplate: string = "timestamp";
-  private valueTemplate: string = "base";
-  private delta: boolean = true;
+  myStream: Observable<DataSourceBean>;
+  @Input() myDataSource: DataSourceBean;
+  public myValues: string[];
 
   /**
    * constructor
    */
   constructor(
-    private _http: HttpClient,
     private _route: ActivatedRoute,
     private _router: Router,
-    private _jarvisConfigurationService: JarvisConfigurationService,
     private jarvisDataDatasourceService: JarvisDataDatasourceService,
-    private logger: LoggerService,
     private resourceStoreService: ResourceStoreService,
     private jarvisPickResourceService: JarvisPickResourceService) {
     super('/datasources', [], jarvisDataDatasourceService, _route, _router);

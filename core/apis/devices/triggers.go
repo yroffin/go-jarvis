@@ -29,6 +29,7 @@ import (
 	"github.com/yroffin/go-boot-sqllite/core/engine"
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
+	"github.com/yroffin/go-jarvis/core/apis/system"
 	"github.com/yroffin/go-jarvis/core/services/lua"
 	"github.com/yroffin/go-jarvis/core/services/mqtt"
 )
@@ -55,6 +56,8 @@ type Trigger struct {
 	LuaService lua.ILuaService `@autowired:"lua-service"`
 	// Swagger with injection mecanism
 	Swagger engine.ISwaggerService `@autowired:"swagger"`
+	// Metrics with injection mecanism
+	Metrics system.IMetrics `@autowired:"MetrictsBean"`
 	// Internal channel for events
 	events chan EventBean
 	// Internal channel subscribed
@@ -97,6 +100,10 @@ func (p *Trigger) Init() error {
 			// task
 			return p.Execute(id, parameters)
 		}
+		if name == "collect" {
+			// task
+			return p.Collect(id)
+		}
 		return parameters, -1, nil
 	}
 	return p.API.Init()
@@ -111,6 +118,11 @@ func (p *Trigger) PostConstruct(name string) error {
 
 // Validate this API
 func (p *Trigger) Validate(name string) error {
+	// Scan all devices and declare them to metrics
+	triggers, _ := p.GetAll()
+	for _, bean := range triggers {
+		p.Collect(bean.GetID())
+	}
 	return p.topics()
 }
 
@@ -156,6 +168,11 @@ func (p *Trigger) topics() error {
 // Execute this command
 func (p *Trigger) Execute(id string, parameters map[string]interface{}) (interface{}, int, error) {
 	entity, _ := p.GetByID(id)
+	// Collect
+	trigger := entity.(*TriggerBean)
+	if trigger.Collect.Collect {
+		p.Metrics.IncCounter(trigger.Collect.Name)
+	}
 	event := EventNew(id, entity.(*TriggerBean).Name)
 	p.Post(event)
 	return event, -1, nil
@@ -230,4 +247,18 @@ func (p *Trigger) devices(event EventBean) []IDeviceBean {
 		uniq = append(uniq, device)
 	}
 	return uniq
+}
+
+// Collect update prometheus status
+func (p *Trigger) Collect(id string) (interface{}, int, error) {
+	// Retrieve parameters
+	bean, _ := p.GetByID(id)
+	trigger := bean.(*TriggerBean)
+	if trigger.Collect.Collect {
+		log.WithFields(log.Fields{
+			"Id": id,
+		}).Info("Collect/Trigger")
+		p.Metrics.AddCounter(trigger.Collect.Name, trigger.Collect.Help)
+	}
+	return bean, -1, nil
 }

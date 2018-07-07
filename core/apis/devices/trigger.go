@@ -25,6 +25,7 @@ package devices
 import (
 	log "github.com/sirupsen/logrus"
 	"github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-jarvis/core/apis"
 )
 
 // TriggerBean simple Trigger model
@@ -45,6 +46,8 @@ type TriggerBean struct {
 	Extended map[string]interface{} `json:"extended"`
 	// Devices
 	Devices []models.IPersistent `json:"devices"`
+	// Collect
+	Collect apis.Collect `json:"collect"`
 }
 
 // ITriggerBean interface

@@ -135,6 +135,21 @@ export class JarvisResourceTriggerComponent extends JarvisResource<TriggerBean> 
       );
   }
 
+    /**
+   * task action
+   */
+  public collect(): void {
+    let output: any;
+    this._triggerService.Task(this.myTrigger.id, 'collect', {})
+      .subscribe(
+      (result: any) => {
+      },
+      error => console.log(error),
+      () => {
+      }
+      );
+  }
+
   /**
    * pick action
    */

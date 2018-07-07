@@ -1,4 +1,4 @@
-<app-jarvis-toolbar-resource [notified]="this" [crud]="true" [tasks]="[{'task':'render','icon':'fa-check','label':'Test le rendu du device'},{'task':'execute','icon':'fa-exchange','label':'Test l\'execution du device'}]"
+<app-jarvis-toolbar-resource [notified]="this" [crud]="true" [tasks]="[{'task':'render','icon':'fa-check','label':'Test le rendu du device'},{'task':'execute','icon':'fa-exchange','label':'Test l\'execution du device'},{'task':'collect','icon':'fa-compress','label':'Metrics'}]"
   [pickers]="[{'action':'devices','icon':'fa-server','label':'Ajouter un container'},{'action':'triggers','icon':'fa-send','label':'Ajouter un trigger'},{'action':'plugins','icon':'fa-podcast','label':'Ajouter un plugin'}]"></app-jarvis-toolbar-resource>
 
 <div *ngIf="myDevice">
@@ -37,6 +37,43 @@
               <input matInput placeholder="Visibilité" [(ngModel)]="myDevice.visible" disabled>
             </mat-form-field>
           </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Collect
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+          <mat-form-field>
+            <input matInput placeholder="Name (render)" [(ngModel)]="myDevice.renderCollect.name">
+          </mat-form-field>
+        </div>
+        <div class="ui-grid-col-4">
+          <mat-form-field>
+            <input matInput placeholder="Help (render)" [(ngModel)]="myDevice.renderCollect.help">
+          </mat-form-field>
+        </div>
+        <div class="ui-grid-col-4">
+          <mat-checkbox binary="true" [(ngModel)]="myDevice.renderCollect.collect">Collect ({{myDevice.renderCollect.collect}})</mat-checkbox>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-4">
+          <mat-form-field>
+            <input matInput placeholder="Name (execute)" [(ngModel)]="myDevice.executeCollect.name">
+          </mat-form-field>
+        </div>
+        <div class="ui-grid-col-4">
+          <mat-form-field>
+            <input matInput placeholder="Help (execute)" [(ngModel)]="myDevice.executeCollect.help">
+          </mat-form-field>
+        </div>
+        <div class="ui-grid-col-4">
+          <mat-checkbox binary="true" [(ngModel)]="myDevice.executeCollect.collect">Collect ({{myDevice.executeCollect.collect}})</mat-checkbox>
         </div>
       </div>
     </mat-expansion-panel>

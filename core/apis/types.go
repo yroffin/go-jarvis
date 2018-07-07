@@ -22,6 +22,13 @@
 // SOFTWARE.
 package apis
 
+// Collect type
+type Collect struct {
+	Collect bool   `json:"collect"`
+	Name    string `json:"name"`
+	Help    string `json:"help"`
+}
+
 // Graph type
 type Graph struct {
 	Nodes   []Node                 `json:"nodes"`

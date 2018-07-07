@@ -31,6 +31,7 @@ import (
 	"github.com/yroffin/go-boot-sqllite/core/models"
 	"github.com/yroffin/go-boot-sqllite/core/winter"
 	"github.com/yroffin/go-jarvis/core/apis/scripts"
+	"github.com/yroffin/go-jarvis/core/apis/system"
 )
 
 func init() {
@@ -53,6 +54,11 @@ type Device struct {
 	LinkPluginScript scripts.IScriptPlugin `@autowired:"ScriptPluginBean" @link:"/api/devices" @href:"plugins/scripts"`
 	// Swagger with injection mecanism
 	Swagger engine.ISwaggerService `@autowired:"swagger"`
+	// Metrics with injection mecanism
+	Metrics system.IMetrics `@autowired:"MetrictsBean"`
+	// Internal
+	metricRender  string
+	metricExecute string
 }
 
 // IDevice implements IBean
@@ -91,6 +97,10 @@ func (p *Device) Init() error {
 			// Execute all associated script
 			return p.RenderOrExecute(id, parameters, false)
 		}
+		if name == "collect" {
+			// Collect
+			return p.Collect(id)
+		}
 		return "{}", -1, nil
 	}
 	return p.API.Init()
@@ -105,6 +115,11 @@ func (p *Device) PostConstruct(name string) error {
 
 // Validate this API
 func (p *Device) Validate(name string) error {
+	// Scan all devices and declare them to metrics
+	devices, _ := p.GetAll()
+	for _, bean := range devices {
+		p.Collect(bean.GetID())
+	}
 	return nil
 }
 
@@ -162,9 +177,37 @@ func (p *Device) RenderOrExecute(id string, args map[string]interface{}, execute
 			}
 		}
 	}
+	// Collect
+	dev := device.(*DeviceBean)
+	if dev.RenderCollect.Collect && !execute {
+		p.Metrics.IncCounter(dev.RenderCollect.Name)
+	}
+	if dev.ExecuteCollect.Collect && execute {
+		p.Metrics.IncCounter(dev.ExecuteCollect.Name)
+	}
 	// results
 	log.WithFields(log.Fields{
 		"results": models.ToJSON(results),
 	}).Debug("Render or execute device - script")
 	return results, -1, nil
+}
+
+// Collect update prometheus status
+func (p *Device) Collect(id string) (interface{}, int, error) {
+	// Retrieve parameters
+	bean, _ := p.GetByID(id)
+	device := bean.(*DeviceBean)
+	if device.RenderCollect.Collect {
+		log.WithFields(log.Fields{
+			"Id": id,
+		}).Info("Collect render")
+		p.Metrics.AddCounter(device.RenderCollect.Name, device.RenderCollect.Help)
+	}
+	if device.ExecuteCollect.Collect {
+		log.WithFields(log.Fields{
+			"Id": id,
+		}).Info("Collect execute")
+		p.Metrics.AddCounter(device.ExecuteCollect.Name, device.ExecuteCollect.Help)
+	}
+	return bean, -1, nil
 }

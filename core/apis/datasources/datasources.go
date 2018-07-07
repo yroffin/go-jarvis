@@ -23,6 +23,7 @@
 package datasources
 
 import (
+	"encoding/json"
 	"time"
 
 	log "github.com/sirupsen/logrus"
@@ -78,9 +79,15 @@ func (p *DataSource) Init() error {
 		return (&DataSourceBeans{}).New()
 	}
 	p.HandlerTasks = func(name string, body string) (interface{}, int, error) {
+		var parameters = make(map[string]interface{})
+		json.Unmarshal([]byte(body), &parameters)
 		if name == "values" {
 			// task
 			return p.GetAllValues(body)
+		}
+		if name == "dropValues" {
+			// task
+			return p.DropValues(parameters)
 		}
 		return "", -1, nil
 	}
@@ -157,4 +164,18 @@ func (p *DataSource) GetAllValues(body string) (interface{}, int, error) {
 	result, err := p.prometheus.GET(p.PropertyService.Get("jarvis.prometheus.api.values", "/api/v1/label/__name__/values"), headers, params)
 	var data = result["data"].([]interface{})
 	return data, -1, err
+}
+
+// DropValues drop one value
+func (p *DataSource) DropValues(body map[string]interface{}) (interface{}, int, error) {
+	headers := make(map[string]string)
+	params := make(map[string]string)
+	for key, value := range body {
+		params[key] = value.(string)
+	}
+	log.WithFields(log.Fields{
+		"body": body,
+	}).Warn("Drop series in prometheus")
+	result, err := p.prometheus.POST(p.PropertyService.Get("jarvis.prometheus.api.delete", "/api/v1/admin/tsdb/delete_series"), make(map[string]interface{}), headers, params)
+	return result, -1, err
 }

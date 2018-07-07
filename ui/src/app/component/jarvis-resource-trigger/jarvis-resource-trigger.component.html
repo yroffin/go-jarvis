@@ -1,4 +1,4 @@
-<app-jarvis-toolbar-resource [notified]="this" [crud]="true" [tasks]="[{'task':'execute','icon':'fa-play','label':'Simuler (execution)'}]"
+<app-jarvis-toolbar-resource [notified]="this" [crud]="true" [tasks]="[{'task':'execute','icon':'fa-play','label':'Simuler (execution)'},{'task':'collect','icon':'fa-compress','label':'Metrics'}]"
   [pickers]="[{'label':'Ajouter une crontab', 'icon': 'fa-bolt', 'action':'crons'}]"></app-jarvis-toolbar-resource>
 
 <div *ngIf="myTrigger">
@@ -31,6 +31,28 @@
       </div>
     </mat-expansion-panel>
     <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Collect
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-4">
+            <mat-form-field>
+              <input matInput placeholder="Name" [(ngModel)]="myTrigger.collect.name">
+            </mat-form-field>
+          </div>
+          <div class="ui-grid-col-4">
+            <mat-form-field>
+              <input matInput placeholder="Help" [(ngModel)]="myTrigger.collect.help">
+            </mat-form-field>
+          </div>
+          <div class="ui-grid-col-4">
+            <mat-checkbox binary="true" [(ngModel)]="myTrigger.collect.collect">Collect ({{myTrigger.collect.collect}})</mat-checkbox>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           Broker

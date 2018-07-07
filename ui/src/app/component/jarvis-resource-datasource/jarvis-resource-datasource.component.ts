@@ -42,23 +42,25 @@ import { NotifyCallback } from '../../class/jarvis-resource';
 import { ResourceBean } from '../../model/resource-bean';
 import { PickerBean } from '../../model/picker-bean';
 import { DataSourceBean } from '../../model/connector/datasource-bean';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { JarvisPickResourceService } from '../../service/jarvis-pick-resource.service';
 import { ResourceStoreService } from '../../store/resources.store';
+import { AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-jarvis-resource-datasource',
   templateUrl: './jarvis-resource-datasource.component.html',
   styleUrls: ['./jarvis-resource-datasource.component.css']
 })
-export class JarvisResourceDatasourceComponent extends JarvisResource<DataSourceBean> implements NotifyCallback<ResourceBean>, OnInit {
+export class JarvisResourceDatasourceComponent extends JarvisResource<DataSourceBean> implements NotifyCallback<ResourceBean>, OnInit, AfterViewInit {
 
   /**
    * internal
    */
   myStream: Observable<DataSourceBean>;
   @Input() myDataSource: DataSourceBean;
-  public myValues: string[];
+  public myMatResources = new MatTableDataSource(<ResourceBean[]>[]);
+  @ViewChild('paginator') paginator: MatPaginator;
 
   /**
    * constructor
@@ -87,12 +89,32 @@ export class JarvisResourceDatasourceComponent extends JarvisResource<DataSource
   }
 
   /**
+ * Set the paginator after the view init since this component will
+ * be able to query its view for the initialized paginator.
+ */
+  ngAfterViewInit() {
+    this.myMatResources.paginator = this.paginator;
+  }
+
+  /**
    * task action
    */
   public values(): void {
     this.jarvisDataDatasourceService.Task('*', 'values', {})
       .subscribe(
-      (result: any) => this.myValues = result,
+      (result: any) => this.myMatResources.data = result,
+      error => console.log(error),
+      () => {
+      });
+  }
+
+  /**
+   * task action
+   */
+  public drop(value: string): void {
+    this.jarvisDataDatasourceService.Task('*', 'dropValues', {"match[]": value})
+      .subscribe(
+      (result: any) => this.myMatResources.data = result,
       error => console.log(error),
       () => {
       });

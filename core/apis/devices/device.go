@@ -26,6 +26,7 @@ import (
 	"encoding/json"
 
 	core_models "github.com/yroffin/go-boot-sqllite/core/models"
+	"github.com/yroffin/go-jarvis/core/apis"
 )
 
 // DeviceBean simple Device model
@@ -58,6 +59,9 @@ type DeviceBean struct {
 	ColSpan string `json:"colSpan"`
 	// Template
 	Template string `json:"template"`
+	// Collect
+	RenderCollect  apis.Collect `json:"renderCollect"`
+	ExecuteCollect apis.Collect `json:"executeCollect"`
 }
 
 // IDeviceBean interface

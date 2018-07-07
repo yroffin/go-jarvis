@@ -119,7 +119,7 @@ func (p *HTTPClient) Call(method string, path string, body map[string]interface{
 	log.WithFields(log.Fields{
 		"url":    req.URL,
 		"status": resp.Status,
-	}).Info("Result")
+	}).Debug("Result")
 	log.WithFields(log.Fields{
 		"body": models.ToJSON(args),
 	}).Debug("Result")

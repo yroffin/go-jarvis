@@ -47,6 +47,7 @@ type PropertyService struct {
 type IPropertyService interface {
 	winter.IBean
 	Get(key string, def string) string
+	MustGet(key string) string
 }
 
 // New constructor
@@ -90,4 +91,9 @@ func (p *PropertyService) Get(key string, def string) string {
 		}
 	}
 	return value
+}
+
+// MustGet value
+func (p *PropertyService) MustGet(key string) string {
+	return p.Get(key, "")
 }

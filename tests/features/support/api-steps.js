@@ -30,8 +30,11 @@ Given('I erase all {string} with {string} is empty', function (api, property, do
   });
 })
 
-When('I apply {string} on {string} with name {string} and store result to {string}', function (task, api, name, store, done) {
-  done();
+When('I apply {string} on {string} identified by {string}.{string} and store result to {string}', function (task, api, store, property, result, done) {
+  this.taskExec(api, eval('this.storage.' + store + '.' + property), task, '{}', (res) => {
+    eval('this.storage.' + result + ' = res;');
+    done();
+  });
 })
 
 When('I search a {string} with {string} equals to {string} and store it to {string}', function (api, property, value, store, done) {

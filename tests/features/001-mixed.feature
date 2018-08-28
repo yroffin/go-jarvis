@@ -27,7 +27,8 @@ Feature: Mixed cruds
     Then count 'plugin' with 'name' equals to 'mixed plugin' is 1
     Then count 'command' with 'name' equals to 'mixed command' is 1
     # Execute the command
-    When I apply 'execute' on 'command' with name 'mixed device' and store result to 'exc'
+    When I apply 'execute' on 'command' identified by 'cmd001'.'id' and store result to 'exc'
+    Then the store 'exc'.'object.result' must be '100'
     # Now we have to link them
     Given I link 'device' with name 'mixed device' to 'plugin' with name 'mixed plugin'
     Given I link 'plugin' with name 'mixed plugin' to 'command' with name 'mixed command'

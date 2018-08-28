@@ -88,6 +88,29 @@ class JarvisClient {
     });
   }
 
+  // Simple TASK
+  task(uri, id, task, parameters, callback) {
+    let options = {
+      url: 'http://localhost:8080/api/' + uri + '/' + id,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      qs: {
+        'task': task
+      },
+      form: JSON.stringify(parameters)
+    }
+
+    request(options, (error, response, body) => {
+      if (!error && response.statusCode == 202) {
+        callback(JSON.parse(body));
+      } else {
+        console.error("ERROR", error, response.statusCode, options.url);
+      }
+    });
+  }
+
   // Simple LINK
   link(uri, id, to, tid, callback) {
     let options = {
@@ -105,6 +128,14 @@ class JarvisClient {
       } else {
         console.error("ERROR", error, response.statusCode, options.url);
       }
+    });
+  }
+
+  // Apply task
+  taskExec(api, id, task, prm, commit) {
+    this.task(eval('this.' + api + '()').name(), id, task, prm, (result) => {
+      this.attach(JSON.stringify(result, null, 4));
+      commit(result);
     });
   }
 

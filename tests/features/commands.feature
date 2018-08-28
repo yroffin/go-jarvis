@@ -24,3 +24,8 @@ Feature: Command cruds
       | '{"name":"demo007 command"}' | 'demo007 command' |
       | '{"name":"demo008 command"}' | 'demo008 command' |
       | '{"name":"demo009 command"}' | 'demo009 command' |
+
+  Scenario: simple command search
+    Given I create a command with body '{"name":"searchable command"}'
+    When I search a command with name 'searchable command'
+    Then the command name must be 'searchable command'

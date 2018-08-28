@@ -1,5 +1,6 @@
 const { Given, When, Then } = require('cucumber')
 const { expect } = require('chai')
+var _ = require('lodash');
 
 Given('I create a command with body {string}', function(body, done) {
   let command = JSON.parse(body);
@@ -16,7 +17,17 @@ When('I read last created command', function(done) {
   });
 })
 
+When('I search a command with name {string}', function(name, done) {
+  this.command().findAll((commands) => {
+    _.each(commands, (command) => {
+      if(command.name === name) {
+        this.storage.get = command;
+        done();
+      }
+    });
+  });
+})
+
 Then('the command name must be {string}', function(name) {
-  console.log("Checking command ", this.storage.get.name);
   expect(this.storage.get.name).to.eql(name)
 })

@@ -10,7 +10,8 @@
   "dependencies": {
     "chai": "4.1.2",
     "cucumber": "4.2.1",
-    "request": "2.88.0"
+    "request": "2.88.0",
+    "lodash": "4.17.10"
   },
   "devDependencies": {}
 }

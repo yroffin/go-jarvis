@@ -27,6 +27,25 @@ class JarvisClient {
     });
   }
 
+  // Simple GET
+  findAll(uri, callback) {
+    let options = {
+      url: 'http://localhost:8080/api/' + uri,
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    request(options, (error, response, body) => {
+      if (!error && response.statusCode == 200) {
+        callback(JSON.parse(body));
+      } else {
+        console.error("ERROR", error, response.statusCode, body);
+      }
+    });
+  }
+
   // Simple POST
   post(uri, body, callback) {
     let options = {
@@ -51,6 +70,9 @@ class JarvisClient {
     return {
       "get": (id, callback) => {
         return this.get('commands', id, callback);
+      },
+      "findAll": (callback) => {
+        return this.findAll('commands', callback);
       },
       "post": (json, callback) => {
         return this.post('commands', json, callback);

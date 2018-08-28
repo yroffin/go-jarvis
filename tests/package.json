@@ -1,0 +1,16 @@
+{
+  "name": "jarvis",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "cucumber-js",
+    "tests": "cucumber-js"
+  },
+  "private": true,
+  "dependencies": {
+    "chai": "4.1.2",
+    "cucumber": "4.2.1",
+    "request": "2.88.0"
+  },
+  "devDependencies": {}
+}

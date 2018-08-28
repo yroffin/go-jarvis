@@ -4,14 +4,14 @@ Feature: Device cruds
   I want to use jarvis API
 
   Scenario: simple device
-    Given I create a 'device' with body '{"name":"demo device"}'
-    When I read last created 'device'
-    Then the 'device' name must be 'demo device'
+    Given I erase all 'device' with 'name' starting with 'demo'
+    Given I create a 'device' with body '{"name":"demo device"}' and store it to 'created'
+    Then the store 'created'.'name' must be 'demo device'
 
   Scenario Outline: much more complex stuff
-    Given I create a 'device' with body <body>
-    When I read last created 'device'
-    Then the 'device' name must be <name>
+    Given I erase all 'device' with 'name' starting with <name>
+    Given I create a 'device' with body <body> and store it to 'created'
+    Then the store 'created'.'name' must be <name>
 
     Examples:
       | body | name |
@@ -26,6 +26,7 @@ Feature: Device cruds
       | '{"name":"demo009 device"}' | 'demo009 device' |
 
   Scenario: simple device search
-    Given I create a 'device' with body '{"name":"searchable device"}'
-    When I search a 'device' with name 'searchable device'
-    Then the 'device' name must be 'searchable device'
+    Given I erase all 'device' with 'name' starting with 'searchable'
+    Given I create a 'device' with body '{"name":"searchable device"}' and store it to 'created'
+    When I search a 'device' with 'name' equals to 'searchable device' and store it to 'found'
+    Then the store 'found'.'name' must be 'searchable device'

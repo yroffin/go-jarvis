@@ -22,16 +22,16 @@
             "line": 7,
             "name": "I erase all 'device' with 'name' starting with 'mixed'",
             "match": {
-              "location": "features/support/api-steps.js:17"
+              "location": "features/support/api-steps.js:21"
             },
             "result": {
               "status": "passed",
-              "duration": 82000000
+              "duration": 41000000
             },
             "embeddings": [
               {
                 "data": "[FOUND]",
-                "mime_type": "{\n    \"id\": \"61b36825-bee2-4647-9117-4fff4cd6c4ed\",\n    \"timestamp\": \"2018-08-28T13:32:30.694485384+02:00\",\n    \"name\": \"mixed device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}"
+                "mime_type": "{\n    \"id\": \"18c94bd9-43d4-47fd-813c-bfa3e9d8ee1c\",\n    \"timestamp\": \"2018-08-29T00:49:44.80367907+02:00\",\n    \"name\": \"mixed device\",\n    \"icon\": \"save\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}"
               }
             ]
           },
@@ -41,16 +41,16 @@
             "line": 8,
             "name": "I erase all 'plugin' with 'name' starting with 'mixed'",
             "match": {
-              "location": "features/support/api-steps.js:17"
+              "location": "features/support/api-steps.js:21"
             },
             "result": {
               "status": "passed",
-              "duration": 23000000
+              "duration": 7000000
             },
             "embeddings": [
               {
                 "data": "[FOUND]",
-                "mime_type": "{\n    \"id\": \"f1b6d312-5968-4002-aee2-42c0aabf996e\",\n    \"timestamp\": \"2018-08-28T13:32:30.699224307+02:00\",\n    \"name\": \"mixed plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}"
+                "mime_type": "{\n    \"id\": \"b72d2cb5-1f12-44ad-ba02-48e30ba23b76\",\n    \"timestamp\": \"2018-08-29T00:49:44.807492877+02:00\",\n    \"name\": \"mixed plugin\",\n    \"icon\": \"drop\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}"
               }
             ]
           },
@@ -60,7 +60,7 @@
             "line": 9,
             "name": "I erase all 'command' with 'name' starting with 'mixed'",
             "match": {
-              "location": "features/support/api-steps.js:17"
+              "location": "features/support/api-steps.js:21"
             },
             "result": {
               "status": "passed",
@@ -69,7 +69,7 @@
             "embeddings": [
               {
                 "data": "[FOUND]",
-                "mime_type": "{\n    \"id\": \"48d86c61-bc7b-4cad-b7e7-38720e595b0c\",\n    \"timestamp\": \"2018-08-28T13:32:30.702476063+02:00\",\n    \"name\": \"mixed command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}"
+                "mime_type": "{\n    \"id\": \"3b07e660-90cf-45a4-9f84-f50c8f713d72\",\n    \"timestamp\": \"2018-08-29T00:49:44.81246712+02:00\",\n    \"name\": \"mixed command\",\n    \"type\": \"LUA\",\n    \"icon\": \"save\",\n    \"mode\": \"\",\n    \"body\": \"return 100;\",\n    \"extended\": {}\n}"
               }
             ]
           },
@@ -77,45 +77,7 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 10,
-            "name": "I create a 'device' with body '{\"name\":\"mixed device\"}'",
-            "match": {
-              "location": "features/support/api-steps.js:8"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 5000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"2cddea5f-1e9c-4247-985e-8c2e9df60e65\",\n    \"timestamp\": \"2018-08-28T13:33:25.525469559+02:00\",\n    \"name\": \"mixed device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
-                "mime_type": "text/plain"
-              }
-            ]
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 11,
-            "name": "I create a 'plugin' with body '{\"name\":\"mixed plugin\"}'",
-            "match": {
-              "location": "features/support/api-steps.js:8"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 5000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"4df2cf00-e12a-4201-b30b-b3922985e716\",\n    \"timestamp\": \"2018-08-28T13:33:25.531623481+02:00\",\n    \"name\": \"mixed plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 12,
-            "name": "I create a 'command' with body '{\"name\":\"mixed command\"}'",
+            "name": "I create a 'device' with body '{\"name\":\"mixed device\", \"icon\": \"save\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
@@ -125,94 +87,18 @@
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"107337a6-993d-404a-ba7c-41ca803df10a\",\n    \"timestamp\": \"2018-08-28T13:33:25.53578395+02:00\",\n    \"name\": \"mixed command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"4dad119d-5650-40d9-b4d3-d1af8cfc044a\",\n    \"timestamp\": \"2018-08-29T00:50:20.994539372+02:00\",\n    \"name\": \"mixed device\",\n    \"icon\": \"save\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
                 "mime_type": "text/plain"
               }
             ]
           },
           {
             "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I search a 'device' with name 'mixed device'",
+            "keyword": "Given ",
+            "line": 11,
+            "name": "I create a 'plugin' with body '{\"name\":\"mixed plugin\", \"icon\": \"drop\"}' and store it to 'created'",
             "match": {
-              "location": "features/support/api-steps.js:60"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 43000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"2cddea5f-1e9c-4247-985e-8c2e9df60e65\",\n    \"timestamp\": \"2018-08-28T13:33:25.525469559+02:00\",\n    \"name\": \"mixed device\",\n    \"icon\": \"\",\n    \"extended\": {\n        \"metric_execute\": \"metric_execute_d95cfaec_1587_4df5_8ee5_274c23d468f1\",\n        \"metric_render\": \"device_render_d95cfaec_1587_4df5_8ee5_274c23d468f1\"\n    },\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
-                "mime_type": "text/plain"
-              }
-            ]
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 14,
-            "name": "the 'device' name must be 'mixed device'",
-            "match": {
-              "location": "features/support/api-steps.js:73"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"2cddea5f-1e9c-4247-985e-8c2e9df60e65\",\n    \"timestamp\": \"2018-08-28T13:33:25.525469559+02:00\",\n    \"name\": \"mixed device\",\n    \"icon\": \"\",\n    \"extended\": {\n        \"metric_execute\": \"metric_execute_d95cfaec_1587_4df5_8ee5_274c23d468f1\",\n        \"metric_render\": \"device_render_d95cfaec_1587_4df5_8ee5_274c23d468f1\"\n    },\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
-                "mime_type": "text/plain"
-              }
-            ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 15,
-            "name": "I search a 'plugin' with name 'mixed plugin'",
-            "match": {
-              "location": "features/support/api-steps.js:60"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 17000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"4df2cf00-e12a-4201-b30b-b3922985e716\",\n    \"timestamp\": \"2018-08-28T13:33:25.531623481+02:00\",\n    \"name\": \"mixed plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 16,
-            "name": "the 'plugin' name must be 'mixed plugin'",
-            "match": {
-              "location": "features/support/api-steps.js:73"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"4df2cf00-e12a-4201-b30b-b3922985e716\",\n    \"timestamp\": \"2018-08-28T13:33:25.531623481+02:00\",\n    \"name\": \"mixed plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 17,
-            "name": "I search a 'command' with name 'mixed command'",
-            "match": {
-              "location": "features/support/api-steps.js:60"
+              "location": "features/support/api-steps.js:8"
             },
             "result": {
               "status": "passed",
@@ -220,7 +106,45 @@
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"107337a6-993d-404a-ba7c-41ca803df10a\",\n    \"timestamp\": \"2018-08-28T13:33:25.53578395+02:00\",\n    \"name\": \"mixed command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"601c958d-a301-4fb8-9d63-e621a1f5aa4b\",\n    \"timestamp\": \"2018-08-29T00:50:20.998707574+02:00\",\n    \"name\": \"mixed plugin\",\n    \"icon\": \"drop\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "I create a 'command' with body '{\"name\":\"mixed command\", \"icon\": \"save\", \"body\": \"return 100;\", \"type\": \"LUA\"}' and store it to 'created'",
+            "match": {
+              "location": "features/support/api-steps.js:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            },
+            "embeddings": [
+              {
+                "data": "{\n    \"id\": \"ab1282d5-678b-4fdd-a5ce-22905fc3980f\",\n    \"timestamp\": \"2018-08-29T00:50:21.003374252+02:00\",\n    \"name\": \"mixed command\",\n    \"type\": \"LUA\",\n    \"icon\": \"save\",\n    \"mode\": \"\",\n    \"body\": \"return 100;\",\n    \"extended\": {}\n}",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 14,
+            "name": "I search a 'device' with 'name' equals to 'mixed device' and store it to 'dev001'",
+            "match": {
+              "location": "features/support/api-steps.js:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 6000000
+            },
+            "embeddings": [
+              {
+                "data": "count: 1",
                 "mime_type": "text/plain"
               }
             ]
@@ -228,17 +152,43 @@
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 18,
-            "name": "the 'command' name must be 'mixed command'",
+            "line": 15,
+            "name": "the store 'dev001'.'name' must be 'mixed device'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the store 'dev001'.'icon' must be 'save'",
+            "match": {
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 18,
+            "name": "I search a 'plugin' with 'name' equals to 'mixed plugin' and store it to 'plug001'",
+            "match": {
+              "location": "features/support/api-steps.js:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"107337a6-993d-404a-ba7c-41ca803df10a\",\n    \"timestamp\": \"2018-08-28T13:33:25.53578395+02:00\",\n    \"name\": \"mixed command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
+                "data": "count: 1",
                 "mime_type": "text/plain"
               }
             ]
@@ -247,9 +197,97 @@
             "arguments": [],
             "keyword": "Then ",
             "line": 19,
-            "name": "the 'command' search 'name' = 'mixed command' count is 1",
+            "name": "the store 'plug001'.'name' must be 'mixed plugin'",
             "match": {
-              "location": "features/support/api-steps.js:78"
+              "location": "features/support/api-steps.js:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 20,
+            "name": "the store 'plug001'.'icon' must be 'drop'",
+            "match": {
+              "location": "features/support/api-steps.js:44"
+            },
+            "result": {
+              "status": "passed"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 22,
+            "name": "I search a 'command' with 'name' equals to 'mixed command' and store it to 'cmd001'",
+            "match": {
+              "location": "features/support/api-steps.js:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            },
+            "embeddings": [
+              {
+                "data": "count: 1",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 23,
+            "name": "the store 'cmd001'.'name' must be 'mixed command'",
+            "match": {
+              "location": "features/support/api-steps.js:44"
+            },
+            "result": {
+              "status": "passed"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 24,
+            "name": "the store 'cmd001'.'type' must be 'LUA'",
+            "match": {
+              "location": "features/support/api-steps.js:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 26,
+            "name": "count 'device' with 'name' equals to 'mixed device' is 1",
+            "match": {
+              "location": "features/support/api-steps.js:48"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            },
+            "embeddings": [
+              {
+                "data": "count: 1",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 27,
+            "name": "count 'plugin' with 'name' equals to 'mixed plugin' is 1",
+            "match": {
+              "location": "features/support/api-steps.js:48"
             },
             "result": {
               "status": "passed",
@@ -258,6 +296,75 @@
             "embeddings": [
               {
                 "data": "count: 1",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 28,
+            "name": "count 'command' with 'name' equals to 'mixed command' is 1",
+            "match": {
+              "location": "features/support/api-steps.js:48"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            },
+            "embeddings": [
+              {
+                "data": "count: 1",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 30,
+            "name": "I apply 'execute' on 'command' with name 'mixed device' and store result to 'exc'",
+            "match": {
+              "location": "features/support/api-steps.js:33"
+            },
+            "result": {
+              "status": "passed"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 32,
+            "name": "I link 'device' with name 'mixed device' to 'plugin' with name 'mixed plugin'",
+            "match": {
+              "location": "features/support/api-steps.js:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 16000000
+            },
+            "embeddings": [
+              {
+                "data": "{\n    \"id\": \"601c958d-a301-4fb8-9d63-e621a1f5aa4b\",\n    \"timestamp\": \"2018-08-29T00:50:20.998707574+02:00\",\n    \"name\": \"mixed plugin\",\n    \"icon\": \"drop\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {\n        \"instance\": \"9c7f2ca8-b9ff-457b-aa0c-7d5a430dab5f\"\n    }\n}",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 33,
+            "name": "I link 'plugin' with name 'mixed plugin' to 'command' with name 'mixed command'",
+            "match": {
+              "location": "features/support/api-steps.js:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9000000
+            },
+            "embeddings": [
+              {
+                "data": "{\n    \"id\": \"ab1282d5-678b-4fdd-a5ce-22905fc3980f\",\n    \"timestamp\": \"2018-08-29T00:50:21.003374252+02:00\",\n    \"name\": \"mixed command\",\n    \"type\": \"LUA\",\n    \"icon\": \"save\",\n    \"mode\": \"\",\n    \"body\": \"return 100;\",\n    \"extended\": {\n        \"instance\": \"d36dd5e4-0cc0-4bf7-8861-2988c78b50e7\"\n    }\n}",
                 "mime_type": "text/plain"
               }
             ]
@@ -287,64 +394,213 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 7,
-            "name": "I erase all 'command' with 'name' is empty",
+            "name": "I erase all 'command' with 'name' starting with 'demo'",
             "match": {
-              "location": "features/support/api-steps.js:35"
+              "location": "features/support/api-steps.js:21"
             },
             "result": {
               "status": "passed",
-              "duration": 2000000
-            }
+              "duration": 32000000
+            },
+            "embeddings": [
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"cdbb1d2e-1ba2-4aea-aae4-ac0a864a5fb8\",\n    \"timestamp\": \"2018-08-29T00:49:44.865859901+02:00\",\n    \"name\": \"demo command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"07abb221-04ad-44a4-9254-4d44094b0440\",\n    \"timestamp\": \"2018-08-29T00:49:44.87577053+02:00\",\n    \"name\": \"demo001 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"becc5aeb-9163-480f-834e-073fe62272a2\",\n    \"timestamp\": \"2018-08-29T00:49:44.885661093+02:00\",\n    \"name\": \"demo002 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"c254154a-2e14-4a47-b25a-aaf680e0be51\",\n    \"timestamp\": \"2018-08-29T00:49:44.895608193+02:00\",\n    \"name\": \"demo003 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"4fd22506-d711-45f7-9b5e-15762e77ef90\",\n    \"timestamp\": \"2018-08-29T00:49:44.904759678+02:00\",\n    \"name\": \"demo004 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"1d8e2643-e068-4ed7-900b-cdbd107dbc72\",\n    \"timestamp\": \"2018-08-29T00:49:44.912941241+02:00\",\n    \"name\": \"demo005 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"627b0f3c-775a-4338-bae7-c43763d4a6aa\",\n    \"timestamp\": \"2018-08-29T00:49:44.920827865+02:00\",\n    \"name\": \"demo006 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"5a70342a-7a6f-44d9-a249-1103fb4bb87c\",\n    \"timestamp\": \"2018-08-29T00:49:44.929386339+02:00\",\n    \"name\": \"demo007 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"d024c523-b182-4c5a-a372-ab9f5940f668\",\n    \"timestamp\": \"2018-08-29T00:49:44.9395551+02:00\",\n    \"name\": \"demo008 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"4f772f4c-7f0c-41b3-b6ce-fc1fe449d382\",\n    \"timestamp\": \"2018-08-29T00:49:44.949472042+02:00\",\n    \"name\": \"demo009 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}"
+              }
+            ]
           },
           {
             "arguments": [],
             "keyword": "Given ",
             "line": 8,
-            "name": "I erase all 'command' with 'name' starting with 'demo'",
-            "match": {
-              "location": "features/support/api-steps.js:17"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 7000000
-            },
-            "embeddings": [
-              {
-                "data": "[FOUND]",
-                "mime_type": "{\n    \"id\": \"777d3360-5a83-4630-8a1e-01f4e32fa03b\",\n    \"timestamp\": \"2018-08-28T13:32:30.83716494+02:00\",\n    \"name\": \"demo command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}"
-              },
-              {
-                "data": "[FOUND]",
-                "mime_type": "{\n    \"id\": \"ffd137c9-5c5b-47db-8f72-dc658679e271\",\n    \"timestamp\": \"2018-08-28T13:32:30.967821114+02:00\",\n    \"name\": \"demo009 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}"
-              }
-            ]
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 9,
-            "name": "I create a 'command' with body '{\"name\":\"demo command\"}'",
+            "name": "I create a 'command' with body '{\"name\":\"demo command\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 3000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"7d99d5d2-799b-4e1b-ba00-1ca2512baa35\",\n    \"timestamp\": \"2018-08-28T13:33:25.6226162+02:00\",\n    \"name\": \"demo command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"fb608966-28cd-4d2d-abe3-45b5589aea7e\",\n    \"timestamp\": \"2018-08-29T00:50:21.097973631+02:00\",\n    \"name\": \"demo command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
           },
           {
             "arguments": [],
-            "keyword": "When ",
-            "line": 10,
-            "name": "I read last created 'command'",
+            "keyword": "Then ",
+            "line": 9,
+            "name": "the store 'created'.'name' must be 'demo command'",
             "match": {
-              "location": "features/support/api-steps.js:53"
+              "location": "features/support/api-steps.js:44"
+            },
+            "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      },
+      {
+        "id": "command-cruds;much-more-complex-stuff",
+        "keyword": "Scenario",
+        "line": 18,
+        "name": "much more complex stuff",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "I erase all 'command' with 'name' starting with 'demo001 command'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'command' with body '{\"name\":\"demo001 command\"}' and store it to 'created'",
+            "match": {
+              "location": "features/support/api-steps.js:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            },
+            "embeddings": [
+              {
+                "data": "{\n    \"id\": \"0c218ac3-886b-43a6-9ad2-bd314104504b\",\n    \"timestamp\": \"2018-08-29T00:50:21.108910185+02:00\",\n    \"name\": \"demo001 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "the store 'created'.'name' must be 'demo001 command'",
+            "match": {
+              "location": "features/support/api-steps.js:44"
+            },
+            "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      },
+      {
+        "id": "command-cruds;much-more-complex-stuff",
+        "keyword": "Scenario",
+        "line": 19,
+        "name": "much more complex stuff",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "I erase all 'command' with 'name' starting with 'demo002 command'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'command' with body '{\"name\":\"demo002 command\"}' and store it to 'created'",
+            "match": {
+              "location": "features/support/api-steps.js:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            },
+            "embeddings": [
+              {
+                "data": "{\n    \"id\": \"1279aec1-077c-4e15-a3a7-b971ff212a10\",\n    \"timestamp\": \"2018-08-29T00:50:21.118319595+02:00\",\n    \"name\": \"demo002 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "the store 'created'.'name' must be 'demo002 command'",
+            "match": {
+              "location": "features/support/api-steps.js:44"
+            },
+            "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      },
+      {
+        "id": "command-cruds;much-more-complex-stuff",
+        "keyword": "Scenario",
+        "line": 20,
+        "name": "much more complex stuff",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "I erase all 'command' with 'name' starting with 'demo003 command'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
             },
             "result": {
               "status": "passed",
@@ -353,22 +609,34 @@
           },
           {
             "arguments": [],
-            "keyword": "Then ",
-            "line": 11,
-            "name": "the 'command' name must be 'demo command'",
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'command' with body '{\"name\":\"demo003 command\"}' and store it to 'created'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 1000000
+              "duration": 3000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"7d99d5d2-799b-4e1b-ba00-1ca2512baa35\",\n    \"timestamp\": \"2018-08-28T13:33:25.6226162+02:00\",\n    \"name\": \"demo command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"c037ffbc-3398-4ed5-8c97-23de0cf2e6a3\",\n    \"timestamp\": \"2018-08-29T00:50:21.128867039+02:00\",\n    \"name\": \"demo003 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "the store 'created'.'name' must be 'demo003 command'",
+            "match": {
+              "location": "features/support/api-steps.js:44"
+            },
+            "result": {
+              "status": "passed"
+            }
           }
         ]
       },
@@ -383,10 +651,10 @@
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 14,
-            "name": "I erase all 'command' with 'name' starting with 'demo001 command'",
+            "line": 12,
+            "name": "I erase all 'command' with 'name' starting with 'demo004 command'",
             "match": {
-              "location": "features/support/api-steps.js:17"
+              "location": "features/support/api-steps.js:21"
             },
             "result": {
               "status": "passed",
@@ -396,52 +664,33 @@
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 15,
-            "name": "I create a 'command' with body '{\"name\":\"demo001 command\"}'",
+            "line": 13,
+            "name": "I create a 'command' with body '{\"name\":\"demo004 command\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 2000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"13a60b47-23c6-451d-aee5-6201a4263d80\",\n    \"timestamp\": \"2018-08-28T13:33:25.63378537+02:00\",\n    \"name\": \"demo001 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"c18bae82-7fee-4298-a626-314132fbc21d\",\n    \"timestamp\": \"2018-08-29T00:50:21.136573366+02:00\",\n    \"name\": \"demo004 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 16,
-            "name": "I read last created 'command'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 17,
-            "name": "the 'command' name must be 'demo001 command'",
+            "line": 14,
+            "name": "the store 'created'.'name' must be 'demo004 command'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"13a60b47-23c6-451d-aee5-6201a4263d80\",\n    \"timestamp\": \"2018-08-28T13:33:25.63378537+02:00\",\n    \"name\": \"demo001 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       },
@@ -456,42 +705,10 @@
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 14,
-            "name": "I erase all 'command' with 'name' starting with 'demo002 command'",
+            "line": 12,
+            "name": "I erase all 'command' with 'name' starting with 'demo005 command'",
             "match": {
-              "location": "features/support/api-steps.js:17"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 15,
-            "name": "I create a 'command' with body '{\"name\":\"demo002 command\"}'",
-            "match": {
-              "location": "features/support/api-steps.js:8"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 4000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"7c7a63dc-9f4a-48b5-bc90-cbf507d88037\",\n    \"timestamp\": \"2018-08-28T13:33:25.645522335+02:00\",\n    \"name\": \"demo002 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 16,
-            "name": "I read last created 'command'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
+              "location": "features/support/api-steps.js:21"
             },
             "result": {
               "status": "passed",
@@ -500,22 +717,34 @@
           },
           {
             "arguments": [],
-            "keyword": "Then ",
-            "line": 17,
-            "name": "the 'command' name must be 'demo002 command'",
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'command' with body '{\"name\":\"demo005 command\"}' and store it to 'created'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 1000000
+              "duration": 2000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"7c7a63dc-9f4a-48b5-bc90-cbf507d88037\",\n    \"timestamp\": \"2018-08-28T13:33:25.645522335+02:00\",\n    \"name\": \"demo002 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"01a96d9f-459f-41ce-be54-92b0c7b5c2b0\",\n    \"timestamp\": \"2018-08-29T00:50:21.144372271+02:00\",\n    \"name\": \"demo005 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "the store 'created'.'name' must be 'demo005 command'",
+            "match": {
+              "location": "features/support/api-steps.js:44"
+            },
+            "result": {
+              "status": "passed"
+            }
           }
         ]
       },
@@ -530,10 +759,10 @@
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 14,
-            "name": "I erase all 'command' with 'name' starting with 'demo003 command'",
+            "line": 12,
+            "name": "I erase all 'command' with 'name' starting with 'demo006 command'",
             "match": {
-              "location": "features/support/api-steps.js:17"
+              "location": "features/support/api-steps.js:21"
             },
             "result": {
               "status": "passed",
@@ -543,8 +772,8 @@
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 15,
-            "name": "I create a 'command' with body '{\"name\":\"demo003 command\"}'",
+            "line": 13,
+            "name": "I create a 'command' with body '{\"name\":\"demo006 command\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
@@ -554,41 +783,22 @@
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"33e633ed-e1f9-4059-ae24-c65436541eed\",\n    \"timestamp\": \"2018-08-28T13:33:25.656984311+02:00\",\n    \"name\": \"demo003 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"4c040922-0589-420f-9218-2f6e1da35de8\",\n    \"timestamp\": \"2018-08-29T00:50:21.152948424+02:00\",\n    \"name\": \"demo006 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 16,
-            "name": "I read last created 'command'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 17,
-            "name": "the 'command' name must be 'demo003 command'",
+            "line": 14,
+            "name": "the store 'created'.'name' must be 'demo006 command'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"33e633ed-e1f9-4059-ae24-c65436541eed\",\n    \"timestamp\": \"2018-08-28T13:33:25.656984311+02:00\",\n    \"name\": \"demo003 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       },
@@ -603,65 +813,46 @@
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 14,
-            "name": "I erase all 'command' with 'name' starting with 'demo004 command'",
+            "line": 12,
+            "name": "I erase all 'command' with 'name' starting with 'demo007 command'",
             "match": {
-              "location": "features/support/api-steps.js:17"
+              "location": "features/support/api-steps.js:21"
             },
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 3000000
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 15,
-            "name": "I create a 'command' with body '{\"name\":\"demo004 command\"}'",
+            "line": 13,
+            "name": "I create a 'command' with body '{\"name\":\"demo007 command\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 2000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"182e897c-cd35-4687-8b3b-856737488c6a\",\n    \"timestamp\": \"2018-08-28T13:33:25.668284716+02:00\",\n    \"name\": \"demo004 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"4bcfe2cc-418f-48f8-b133-6c048d46dbba\",\n    \"timestamp\": \"2018-08-29T00:50:21.162711802+02:00\",\n    \"name\": \"demo007 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 16,
-            "name": "I read last created 'command'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 17,
-            "name": "the 'command' name must be 'demo004 command'",
+            "line": 14,
+            "name": "the store 'created'.'name' must be 'demo007 command'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"182e897c-cd35-4687-8b3b-856737488c6a\",\n    \"timestamp\": \"2018-08-28T13:33:25.668284716+02:00\",\n    \"name\": \"demo004 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       },
@@ -676,21 +867,21 @@
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 14,
-            "name": "I erase all 'command' with 'name' starting with 'demo005 command'",
+            "line": 12,
+            "name": "I erase all 'command' with 'name' starting with 'demo008 command'",
             "match": {
-              "location": "features/support/api-steps.js:17"
+              "location": "features/support/api-steps.js:21"
             },
             "result": {
               "status": "passed",
-              "duration": 4000000
+              "duration": 2000000
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 15,
-            "name": "I create a 'command' with body '{\"name\":\"demo005 command\"}'",
+            "line": 13,
+            "name": "I create a 'command' with body '{\"name\":\"demo008 command\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
@@ -700,42 +891,23 @@
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"3fe7e16a-93f3-4583-a373-0e20cba3cec5\",\n    \"timestamp\": \"2018-08-28T13:33:25.68007372+02:00\",\n    \"name\": \"demo005 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"80730bf0-54fd-4e30-aacc-a3499c344905\",\n    \"timestamp\": \"2018-08-29T00:50:21.171895144+02:00\",\n    \"name\": \"demo008 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
           },
           {
             "arguments": [],
-            "keyword": "When ",
-            "line": 16,
-            "name": "I read last created 'command'",
+            "keyword": "Then ",
+            "line": 14,
+            "name": "the store 'created'.'name' must be 'demo008 command'",
             "match": {
-              "location": "features/support/api-steps.js:53"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed",
               "duration": 1000000
             }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 17,
-            "name": "the 'command' name must be 'demo005 command'",
-            "match": {
-              "location": "features/support/api-steps.js:73"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"3fe7e16a-93f3-4583-a373-0e20cba3cec5\",\n    \"timestamp\": \"2018-08-28T13:33:25.68007372+02:00\",\n    \"name\": \"demo005 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
           }
         ]
       },
@@ -750,292 +922,53 @@
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 14,
-            "name": "I erase all 'command' with 'name' starting with 'demo006 command'",
-            "match": {
-              "location": "features/support/api-steps.js:17"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 15,
-            "name": "I create a 'command' with body '{\"name\":\"demo006 command\"}'",
-            "match": {
-              "location": "features/support/api-steps.js:8"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"147b0d4b-397a-4652-b77b-0774054e0d03\",\n    \"timestamp\": \"2018-08-28T13:33:25.692038075+02:00\",\n    \"name\": \"demo006 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 16,
-            "name": "I read last created 'command'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 17,
-            "name": "the 'command' name must be 'demo006 command'",
-            "match": {
-              "location": "features/support/api-steps.js:73"
-            },
-            "result": {
-              "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"147b0d4b-397a-4652-b77b-0774054e0d03\",\n    \"timestamp\": \"2018-08-28T13:33:25.692038075+02:00\",\n    \"name\": \"demo006 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "command-cruds;much-more-complex-stuff",
-        "keyword": "Scenario",
-        "line": 27,
-        "name": "much more complex stuff",
-        "tags": [],
-        "type": "scenario",
-        "steps": [
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 14,
-            "name": "I erase all 'command' with 'name' starting with 'demo007 command'",
-            "match": {
-              "location": "features/support/api-steps.js:17"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 15,
-            "name": "I create a 'command' with body '{\"name\":\"demo007 command\"}'",
-            "match": {
-              "location": "features/support/api-steps.js:8"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"6c514a2b-e5b3-43c1-9712-25828b216893\",\n    \"timestamp\": \"2018-08-28T13:33:25.702092331+02:00\",\n    \"name\": \"demo007 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 16,
-            "name": "I read last created 'command'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 17,
-            "name": "the 'command' name must be 'demo007 command'",
-            "match": {
-              "location": "features/support/api-steps.js:73"
-            },
-            "result": {
-              "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"6c514a2b-e5b3-43c1-9712-25828b216893\",\n    \"timestamp\": \"2018-08-28T13:33:25.702092331+02:00\",\n    \"name\": \"demo007 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "command-cruds;much-more-complex-stuff",
-        "keyword": "Scenario",
-        "line": 28,
-        "name": "much more complex stuff",
-        "tags": [],
-        "type": "scenario",
-        "steps": [
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 14,
-            "name": "I erase all 'command' with 'name' starting with 'demo008 command'",
-            "match": {
-              "location": "features/support/api-steps.js:17"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 15,
-            "name": "I create a 'command' with body '{\"name\":\"demo008 command\"}'",
-            "match": {
-              "location": "features/support/api-steps.js:8"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"4ae40ad5-10af-4611-acca-72aa70e37f9b\",\n    \"timestamp\": \"2018-08-28T13:33:25.712915269+02:00\",\n    \"name\": \"demo008 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 16,
-            "name": "I read last created 'command'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 17,
-            "name": "the 'command' name must be 'demo008 command'",
-            "match": {
-              "location": "features/support/api-steps.js:73"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"4ae40ad5-10af-4611-acca-72aa70e37f9b\",\n    \"timestamp\": \"2018-08-28T13:33:25.712915269+02:00\",\n    \"name\": \"demo008 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "command-cruds;much-more-complex-stuff",
-        "keyword": "Scenario",
-        "line": 29,
-        "name": "much more complex stuff",
-        "tags": [],
-        "type": "scenario",
-        "steps": [
-          {
-            "arguments": [],
-            "keyword": "Given ",
-            "line": 14,
+            "line": 12,
             "name": "I erase all 'command' with 'name' starting with 'demo009 command'",
             "match": {
-              "location": "features/support/api-steps.js:17"
+              "location": "features/support/api-steps.js:21"
             },
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 5000000
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 15,
-            "name": "I create a 'command' with body '{\"name\":\"demo009 command\"}'",
+            "line": 13,
+            "name": "I create a 'command' with body '{\"name\":\"demo009 command\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 3000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"0a401a9b-b432-4814-bfbb-7c9bc8ea20d2\",\n    \"timestamp\": \"2018-08-28T13:33:25.722531971+02:00\",\n    \"name\": \"demo009 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"a0918dd3-915a-4bc6-acfb-c5428d06683c\",\n    \"timestamp\": \"2018-08-29T00:50:21.183627519+02:00\",\n    \"name\": \"demo009 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 16,
-            "name": "I read last created 'command'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 17,
-            "name": "the 'command' name must be 'demo009 command'",
+            "line": 14,
+            "name": "the store 'created'.'name' must be 'demo009 command'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"0a401a9b-b432-4814-bfbb-7c9bc8ea20d2\",\n    \"timestamp\": \"2018-08-28T13:33:25.722531971+02:00\",\n    \"name\": \"demo009 command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       },
       {
         "id": "command-cruds;simple-command-search",
         "keyword": "Scenario",
-        "line": 31,
+        "line": 28,
         "name": "simple command search",
         "tags": [],
         "type": "scenario",
@@ -1043,27 +976,27 @@
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 32,
+            "line": 29,
             "name": "I erase all 'command' with 'name' starting with 'searchable'",
             "match": {
-              "location": "features/support/api-steps.js:17"
+              "location": "features/support/api-steps.js:21"
             },
             "result": {
               "status": "passed",
-              "duration": 6000000
+              "duration": 5000000
             },
             "embeddings": [
               {
                 "data": "[FOUND]",
-                "mime_type": "{\n    \"id\": \"759f9efe-69e5-4117-9cb8-82c58c3ea139\",\n    \"timestamp\": \"2018-08-28T13:32:30.981580244+02:00\",\n    \"name\": \"searchable command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}"
+                "mime_type": "{\n    \"id\": \"e9131ea7-a959-4252-b030-688eb00d89d6\",\n    \"timestamp\": \"2018-08-29T00:49:44.962030999+02:00\",\n    \"name\": \"searchable command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}"
               }
             ]
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 33,
-            "name": "I create a 'command' with body '{\"name\":\"searchable command\"}'",
+            "line": 30,
+            "name": "I create a 'command' with body '{\"name\":\"searchable command\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
@@ -1073,7 +1006,7 @@
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"9a8714af-ea64-4b38-9959-98e22690c6ae\",\n    \"timestamp\": \"2018-08-28T13:33:25.738302207+02:00\",\n    \"name\": \"searchable command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"60c753ee-07e1-4670-a003-2f7bc8db9753\",\n    \"timestamp\": \"2018-08-29T00:50:21.19767279+02:00\",\n    \"name\": \"searchable command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
@@ -1081,10 +1014,10 @@
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 34,
-            "name": "I search a 'command' with name 'searchable command'",
+            "line": 31,
+            "name": "I search a 'command' with 'name' equals to 'searchable command' and store it to 'cmd001'",
             "match": {
-              "location": "features/support/api-steps.js:60"
+              "location": "features/support/api-steps.js:37"
             },
             "result": {
               "status": "passed",
@@ -1092,7 +1025,7 @@
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"9a8714af-ea64-4b38-9959-98e22690c6ae\",\n    \"timestamp\": \"2018-08-28T13:33:25.738302207+02:00\",\n    \"name\": \"searchable command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
+                "data": "count: 1",
                 "mime_type": "text/plain"
               }
             ]
@@ -1100,20 +1033,14 @@
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 35,
-            "name": "the 'command' name must be 'searchable command'",
+            "line": 32,
+            "name": "the store 'cmd001'.'name' must be 'searchable command'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"9a8714af-ea64-4b38-9959-98e22690c6ae\",\n    \"timestamp\": \"2018-08-28T13:33:25.738302207+02:00\",\n    \"name\": \"searchable command\",\n    \"type\": \"\",\n    \"icon\": \"\",\n    \"mode\": \"\",\n    \"body\": \"\",\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       }
@@ -1140,7 +1067,62 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 7,
-            "name": "I create a 'device' with body '{\"name\":\"demo device\"}'",
+            "name": "I erase all 'device' with 'name' starting with 'demo'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 30000000
+            },
+            "embeddings": [
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"8224df81-2faf-4976-82ee-0a5af6f288a2\",\n    \"timestamp\": \"2018-08-29T00:49:45.007255994+02:00\",\n    \"name\": \"demo device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"4ff4b27c-9ffc-458f-872a-f6f466729da7\",\n    \"timestamp\": \"2018-08-29T00:49:45.016504129+02:00\",\n    \"name\": \"demo001 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"5051dd07-5113-461b-be80-2c7461cbf14a\",\n    \"timestamp\": \"2018-08-29T00:49:45.025638735+02:00\",\n    \"name\": \"demo002 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"681d5b2d-4913-47c9-a2a3-02ca25b20ae6\",\n    \"timestamp\": \"2018-08-29T00:49:45.034788048+02:00\",\n    \"name\": \"demo003 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"a4739e32-2933-4951-bd59-5a30a05295c9\",\n    \"timestamp\": \"2018-08-29T00:49:45.045074662+02:00\",\n    \"name\": \"demo004 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"024f9f1a-46d0-45aa-aa9f-632a90d06450\",\n    \"timestamp\": \"2018-08-29T00:49:45.054754097+02:00\",\n    \"name\": \"demo005 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"2e0fc5c6-9702-4d99-9dc5-48ac44b0f714\",\n    \"timestamp\": \"2018-08-29T00:49:45.064583242+02:00\",\n    \"name\": \"demo006 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"f53f816a-7f8d-41fc-8aba-e00deb3278e7\",\n    \"timestamp\": \"2018-08-29T00:49:45.076333163+02:00\",\n    \"name\": \"demo007 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"84c155bb-07f4-4caa-a661-5514db21a241\",\n    \"timestamp\": \"2018-08-29T00:49:45.085444146+02:00\",\n    \"name\": \"demo008 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"32489247-7cb1-4ef2-84df-6ca2206e42f6\",\n    \"timestamp\": \"2018-08-29T00:49:45.095601876+02:00\",\n    \"name\": \"demo009 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I create a 'device' with body '{\"name\":\"demo device\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
@@ -1150,41 +1132,22 @@
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"2b234a02-47db-4557-94e6-848652a10bb0\",\n    \"timestamp\": \"2018-08-28T13:33:25.747235108+02:00\",\n    \"name\": \"demo device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
+                "data": "{\n    \"id\": \"b38f7279-2b72-40c2-8610-269ffb4372f9\",\n    \"timestamp\": \"2018-08-29T00:50:21.236855768+02:00\",\n    \"name\": \"demo device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 8,
-            "name": "I read last created 'device'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 9,
-            "name": "the 'device' name must be 'demo device'",
+            "name": "the store 'created'.'name' must be 'demo device'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"2b234a02-47db-4557-94e6-848652a10bb0\",\n    \"timestamp\": \"2018-08-28T13:33:25.747235108+02:00\",\n    \"name\": \"demo device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       },
@@ -1200,51 +1163,45 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'device' with body '{\"name\":\"demo001 device\"}'",
+            "name": "I erase all 'device' with 'name' starting with 'demo001 device'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'device' with body '{\"name\":\"demo001 device\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 4000000
+              "duration": 3000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"41f75b86-a2e8-4c8a-8281-a08386847139\",\n    \"timestamp\": \"2018-08-28T13:33:25.757180861+02:00\",\n    \"name\": \"demo001 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
+                "data": "{\n    \"id\": \"5ba03817-6d3c-4a40-a42d-9097fe109941\",\n    \"timestamp\": \"2018-08-29T00:50:21.247264674+02:00\",\n    \"name\": \"demo001 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'device'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 14,
-            "name": "the 'device' name must be 'demo001 device'",
+            "name": "the store 'created'.'name' must be 'demo001 device'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"41f75b86-a2e8-4c8a-8281-a08386847139\",\n    \"timestamp\": \"2018-08-28T13:33:25.757180861+02:00\",\n    \"name\": \"demo001 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       },
@@ -1260,51 +1217,45 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'device' with body '{\"name\":\"demo002 device\"}'",
+            "name": "I erase all 'device' with 'name' starting with 'demo002 device'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'device' with body '{\"name\":\"demo002 device\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 3000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"497a063e-f15e-4749-8bb7-076b87ea8105\",\n    \"timestamp\": \"2018-08-28T13:33:25.766369575+02:00\",\n    \"name\": \"demo002 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
+                "data": "{\n    \"id\": \"2cc6c8b5-a5d1-4b5a-8029-4e6d34a5475a\",\n    \"timestamp\": \"2018-08-29T00:50:21.257641249+02:00\",\n    \"name\": \"demo002 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'device'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 14,
-            "name": "the 'device' name must be 'demo002 device'",
+            "name": "the store 'created'.'name' must be 'demo002 device'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"497a063e-f15e-4749-8bb7-076b87ea8105\",\n    \"timestamp\": \"2018-08-28T13:33:25.766369575+02:00\",\n    \"name\": \"demo002 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       },
@@ -1320,7 +1271,20 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'device' with body '{\"name\":\"demo003 device\"}'",
+            "name": "I erase all 'device' with 'name' starting with 'demo003 device'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'device' with body '{\"name\":\"demo003 device\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
@@ -1330,41 +1294,23 @@
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"d12529ef-dc3c-4e9e-96fe-19b0d88c62da\",\n    \"timestamp\": \"2018-08-28T13:33:25.774178975+02:00\",\n    \"name\": \"demo003 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
+                "data": "{\n    \"id\": \"e12bc5fa-5453-4c2d-a7b2-8bb4013ccdb7\",\n    \"timestamp\": \"2018-08-29T00:50:21.267743014+02:00\",\n    \"name\": \"demo003 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'device'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 14,
-            "name": "the 'device' name must be 'demo003 device'",
+            "name": "the store 'created'.'name' must be 'demo003 device'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
-              "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"d12529ef-dc3c-4e9e-96fe-19b0d88c62da\",\n    \"timestamp\": \"2018-08-28T13:33:25.774178975+02:00\",\n    \"name\": \"demo003 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+              "status": "passed",
+              "duration": 1000000
+            }
           }
         ]
       },
@@ -1380,7 +1326,20 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'device' with body '{\"name\":\"demo004 device\"}'",
+            "name": "I erase all 'device' with 'name' starting with 'demo004 device'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'device' with body '{\"name\":\"demo004 device\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
@@ -1390,41 +1349,22 @@
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"ffec58e4-0676-4f37-9468-553d44ad4adb\",\n    \"timestamp\": \"2018-08-28T13:33:25.784808999+02:00\",\n    \"name\": \"demo004 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
+                "data": "{\n    \"id\": \"65c63749-6718-4e86-89ce-8982188442bf\",\n    \"timestamp\": \"2018-08-29T00:50:21.278620498+02:00\",\n    \"name\": \"demo004 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'device'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 14,
-            "name": "the 'device' name must be 'demo004 device'",
+            "name": "the store 'created'.'name' must be 'demo004 device'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"ffec58e4-0676-4f37-9468-553d44ad4adb\",\n    \"timestamp\": \"2018-08-28T13:33:25.784808999+02:00\",\n    \"name\": \"demo004 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       },
@@ -1440,7 +1380,20 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'device' with body '{\"name\":\"demo005 device\"}'",
+            "name": "I erase all 'device' with 'name' starting with 'demo005 device'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'device' with body '{\"name\":\"demo005 device\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
@@ -1450,41 +1403,22 @@
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"f914d3c3-f746-437b-ae52-59842ffd75b4\",\n    \"timestamp\": \"2018-08-28T13:33:25.791289942+02:00\",\n    \"name\": \"demo005 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
+                "data": "{\n    \"id\": \"10345133-6896-4744-a51f-fe7f2e698960\",\n    \"timestamp\": \"2018-08-29T00:50:21.287849286+02:00\",\n    \"name\": \"demo005 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'device'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 14,
-            "name": "the 'device' name must be 'demo005 device'",
+            "name": "the store 'created'.'name' must be 'demo005 device'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"f914d3c3-f746-437b-ae52-59842ffd75b4\",\n    \"timestamp\": \"2018-08-28T13:33:25.791289942+02:00\",\n    \"name\": \"demo005 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       },
@@ -1500,51 +1434,45 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'device' with body '{\"name\":\"demo006 device\"}'",
+            "name": "I erase all 'device' with 'name' starting with 'demo006 device'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'device' with body '{\"name\":\"demo006 device\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 3000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"07710516-e8bf-4ab0-990f-7147c45722cf\",\n    \"timestamp\": \"2018-08-28T13:33:25.798521433+02:00\",\n    \"name\": \"demo006 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
+                "data": "{\n    \"id\": \"341eca5e-b591-4763-b487-ba44f9b3e883\",\n    \"timestamp\": \"2018-08-29T00:50:21.299847267+02:00\",\n    \"name\": \"demo006 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'device'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 14,
-            "name": "the 'device' name must be 'demo006 device'",
+            "name": "the store 'created'.'name' must be 'demo006 device'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"07710516-e8bf-4ab0-990f-7147c45722cf\",\n    \"timestamp\": \"2018-08-28T13:33:25.798521433+02:00\",\n    \"name\": \"demo006 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       },
@@ -1560,7 +1488,20 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'device' with body '{\"name\":\"demo007 device\"}'",
+            "name": "I erase all 'device' with 'name' starting with 'demo007 device'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'device' with body '{\"name\":\"demo007 device\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
@@ -1570,41 +1511,22 @@
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"b020b10c-dc3f-4bf1-abc6-691779475d1c\",\n    \"timestamp\": \"2018-08-28T13:33:25.804848628+02:00\",\n    \"name\": \"demo007 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
+                "data": "{\n    \"id\": \"8508661f-f540-4743-8f45-54559cfaa01c\",\n    \"timestamp\": \"2018-08-29T00:50:21.309082605+02:00\",\n    \"name\": \"demo007 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'device'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 14,
-            "name": "the 'device' name must be 'demo007 device'",
+            "name": "the store 'created'.'name' must be 'demo007 device'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"b020b10c-dc3f-4bf1-abc6-691779475d1c\",\n    \"timestamp\": \"2018-08-28T13:33:25.804848628+02:00\",\n    \"name\": \"demo007 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       },
@@ -1620,51 +1542,45 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'device' with body '{\"name\":\"demo008 device\"}'",
+            "name": "I erase all 'device' with 'name' starting with 'demo008 device'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'device' with body '{\"name\":\"demo008 device\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 2000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"3b29027a-3e90-4b20-b18c-4376439f6065\",\n    \"timestamp\": \"2018-08-28T13:33:25.813117824+02:00\",\n    \"name\": \"demo008 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
+                "data": "{\n    \"id\": \"630d380e-c7b3-4785-b0b6-59499bac4dce\",\n    \"timestamp\": \"2018-08-29T00:50:21.318392327+02:00\",\n    \"name\": \"demo008 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'device'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 14,
-            "name": "the 'device' name must be 'demo008 device'",
+            "name": "the store 'created'.'name' must be 'demo008 device'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"3b29027a-3e90-4b20-b18c-4376439f6065\",\n    \"timestamp\": \"2018-08-28T13:33:25.813117824+02:00\",\n    \"name\": \"demo008 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       },
@@ -1680,7 +1596,20 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'device' with body '{\"name\":\"demo009 device\"}'",
+            "name": "I erase all 'device' with 'name' starting with 'demo009 device'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'device' with body '{\"name\":\"demo009 device\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
@@ -1690,41 +1619,22 @@
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"36c0b50a-e22b-4ad1-ac35-e5904064c342\",\n    \"timestamp\": \"2018-08-28T13:33:25.819779743+02:00\",\n    \"name\": \"demo009 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
+                "data": "{\n    \"id\": \"d7ac43be-4964-4a87-811a-10b32e9b4766\",\n    \"timestamp\": \"2018-08-29T00:50:21.327720535+02:00\",\n    \"name\": \"demo009 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'device'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 14,
-            "name": "the 'device' name must be 'demo009 device'",
+            "name": "the store 'created'.'name' must be 'demo009 device'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"36c0b50a-e22b-4ad1-ac35-e5904064c342\",\n    \"timestamp\": \"2018-08-28T13:33:25.819779743+02:00\",\n    \"name\": \"demo009 device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       },
@@ -1740,7 +1650,26 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 29,
-            "name": "I create a 'device' with body '{\"name\":\"searchable device\"}'",
+            "name": "I erase all 'device' with 'name' starting with 'searchable'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 7000000
+            },
+            "embeddings": [
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"66c5945a-3454-468d-b1f8-b844b929b001\",\n    \"timestamp\": \"2018-08-29T00:49:45.108004961+02:00\",\n    \"name\": \"searchable device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 30,
+            "name": "I create a 'device' with body '{\"name\":\"searchable device\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
@@ -1750,7 +1679,7 @@
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"4469d2b5-a17e-45f0-ae10-0038092e49c6\",\n    \"timestamp\": \"2018-08-28T13:33:25.826589615+02:00\",\n    \"name\": \"searchable device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
+                "data": "{\n    \"id\": \"23866a7f-4a2f-46c6-9b54-4638b71a478a\",\n    \"timestamp\": \"2018-08-29T00:50:21.340977598+02:00\",\n    \"name\": \"searchable device\",\n    \"icon\": \"\",\n    \"extended\": {},\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
                 "mime_type": "text/plain"
               }
             ]
@@ -1758,18 +1687,18 @@
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 30,
-            "name": "I search a 'device' with name 'searchable device'",
+            "line": 31,
+            "name": "I search a 'device' with 'name' equals to 'searchable device' and store it to 'found'",
             "match": {
-              "location": "features/support/api-steps.js:60"
+              "location": "features/support/api-steps.js:37"
             },
             "result": {
               "status": "passed",
-              "duration": 42000000
+              "duration": 5000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"40da2530-fd31-46e1-b75e-3d01c0cf5531\",\n    \"timestamp\": \"2018-08-28T10:11:31.656663623+02:00\",\n    \"name\": \"searchable device\",\n    \"icon\": \"\",\n    \"extended\": {\n        \"metric_execute\": \"metric_execute_d95cfaec_1587_4df5_8ee5_274c23d468f1\",\n        \"metric_render\": \"device_render_d95cfaec_1587_4df5_8ee5_274c23d468f1\"\n    },\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
+                "data": "count: 1",
                 "mime_type": "text/plain"
               }
             ]
@@ -1777,21 +1706,14 @@
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 31,
-            "name": "the 'device' name must be 'searchable device'",
+            "line": 32,
+            "name": "the store 'found'.'name' must be 'searchable device'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
-              "status": "passed",
-              "duration": 1000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"40da2530-fd31-46e1-b75e-3d01c0cf5531\",\n    \"timestamp\": \"2018-08-28T10:11:31.656663623+02:00\",\n    \"name\": \"searchable device\",\n    \"icon\": \"\",\n    \"extended\": {\n        \"metric_execute\": \"metric_execute_d95cfaec_1587_4df5_8ee5_274c23d468f1\",\n        \"metric_render\": \"device_render_d95cfaec_1587_4df5_8ee5_274c23d468f1\"\n    },\n    \"parameters\": \"\",\n    \"owner\": \"\",\n    \"visible\": false,\n    \"tagColor\": \"\",\n    \"tagOpacity\": \"\",\n    \"tagTextColor\": \"\",\n    \"rowSpan\": \"\",\n    \"colSpan\": \"\",\n    \"template\": \"\",\n    \"renderCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    },\n    \"executeCollect\": {\n        \"collect\": false,\n        \"name\": \"\",\n        \"help\": \"\"\n    }\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+              "status": "passed"
+            }
           }
         ]
       }
@@ -1818,51 +1740,88 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 7,
-            "name": "I create a 'plugin' with body '{\"name\":\"demo plugin\"}'",
+            "name": "I erase all 'plugin' with 'name' starting with 'demo'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 26000000
+            },
+            "embeddings": [
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"0a4038d5-95fb-46b3-8367-d33927e3d2c0\",\n    \"timestamp\": \"2018-08-29T00:49:45.147179782+02:00\",\n    \"name\": \"demo plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"1e7edc55-0dfd-4ece-b315-3d0215f21571\",\n    \"timestamp\": \"2018-08-29T00:49:45.15543895+02:00\",\n    \"name\": \"demo001 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"1a1e4d1f-f98b-4c5c-b9c6-94e9e5003298\",\n    \"timestamp\": \"2018-08-29T00:49:45.162675553+02:00\",\n    \"name\": \"demo002 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"121d2b83-3950-4faa-a957-a2b8bc346441\",\n    \"timestamp\": \"2018-08-29T00:49:45.172329066+02:00\",\n    \"name\": \"demo003 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"a52aa0b5-cdc5-4904-99c6-c370ceb2ee08\",\n    \"timestamp\": \"2018-08-29T00:49:45.179674416+02:00\",\n    \"name\": \"demo004 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"9dad48e1-a09b-49a5-87f0-77ac40db0d89\",\n    \"timestamp\": \"2018-08-29T00:49:45.187212324+02:00\",\n    \"name\": \"demo005 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"e0c0d14e-d1ab-4cfd-bc3e-733bd20841ce\",\n    \"timestamp\": \"2018-08-29T00:49:45.194933054+02:00\",\n    \"name\": \"demo006 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"7bcc793e-403d-4cb0-a876-4eca79d1a0d1\",\n    \"timestamp\": \"2018-08-29T00:49:45.202174487+02:00\",\n    \"name\": \"demo007 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"21eedae0-628b-40e5-a554-cfa0de96dc80\",\n    \"timestamp\": \"2018-08-29T00:49:45.209814236+02:00\",\n    \"name\": \"demo008 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}"
+              },
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"5053efd0-a3cf-41e1-8f5d-25d606de0597\",\n    \"timestamp\": \"2018-08-29T00:49:45.217038392+02:00\",\n    \"name\": \"demo009 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "I create a 'plugin' with body '{\"name\":\"demo plugin\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 4000000
+              "duration": 3000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"923a3858-bb51-4360-a1da-992102dc6ecc\",\n    \"timestamp\": \"2018-08-28T13:33:25.874221154+02:00\",\n    \"name\": \"demo plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"4d5234c1-96aa-48ae-bb0b-0490be0e0e6c\",\n    \"timestamp\": \"2018-08-29T00:50:21.378157769+02:00\",\n    \"name\": \"demo plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 8,
-            "name": "I read last created 'plugin'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 9,
-            "name": "the 'plugin' name must be 'demo plugin'",
+            "name": "the store 'created'.'name' must be 'demo plugin'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
-              "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"923a3858-bb51-4360-a1da-992102dc6ecc\",\n    \"timestamp\": \"2018-08-28T13:33:25.874221154+02:00\",\n    \"name\": \"demo plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+              "status": "passed",
+              "duration": 1000000
+            }
           }
         ]
       },
@@ -1878,7 +1837,20 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'plugin' with body '{\"name\":\"demo001 plugin\"}'",
+            "name": "I erase all 'plugin' with 'name' starting with 'demo001 plugin'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'plugin' with body '{\"name\":\"demo001 plugin\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
@@ -1888,42 +1860,23 @@
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"f0d5ea65-1966-49c4-bab0-238591b6a259\",\n    \"timestamp\": \"2018-08-28T13:33:25.88391617+02:00\",\n    \"name\": \"demo001 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"5099426d-f224-4f06-b6c5-1b717868a140\",\n    \"timestamp\": \"2018-08-29T00:50:21.385216416+02:00\",\n    \"name\": \"demo001 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'plugin'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 14,
-            "name": "the 'plugin' name must be 'demo001 plugin'",
+            "name": "the store 'created'.'name' must be 'demo001 plugin'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed",
               "duration": 1000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"f0d5ea65-1966-49c4-bab0-238591b6a259\",\n    \"timestamp\": \"2018-08-28T13:33:25.88391617+02:00\",\n    \"name\": \"demo001 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       },
@@ -1939,51 +1892,45 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'plugin' with body '{\"name\":\"demo002 plugin\"}'",
+            "name": "I erase all 'plugin' with 'name' starting with 'demo002 plugin'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'plugin' with body '{\"name\":\"demo002 plugin\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 3000000
+              "duration": 2000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"cc2a1afe-9747-4a4d-b4d0-fd858c2144e4\",\n    \"timestamp\": \"2018-08-28T13:33:25.890593096+02:00\",\n    \"name\": \"demo002 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"84946dd9-f797-4f12-8a6b-0bc7bb01967f\",\n    \"timestamp\": \"2018-08-29T00:50:21.39470081+02:00\",\n    \"name\": \"demo002 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'plugin'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 14,
-            "name": "the 'plugin' name must be 'demo002 plugin'",
+            "name": "the store 'created'.'name' must be 'demo002 plugin'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"cc2a1afe-9747-4a4d-b4d0-fd858c2144e4\",\n    \"timestamp\": \"2018-08-28T13:33:25.890593096+02:00\",\n    \"name\": \"demo002 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       },
@@ -1999,7 +1946,20 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'plugin' with body '{\"name\":\"demo003 plugin\"}'",
+            "name": "I erase all 'plugin' with 'name' starting with 'demo003 plugin'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'plugin' with body '{\"name\":\"demo003 plugin\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
@@ -2009,41 +1969,22 @@
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"a6f9f77d-bfe4-4dcc-915c-8cca82af6308\",\n    \"timestamp\": \"2018-08-28T13:33:25.898518482+02:00\",\n    \"name\": \"demo003 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"e1b65671-92c4-48ac-97e1-be3e46db4ce3\",\n    \"timestamp\": \"2018-08-29T00:50:21.401694414+02:00\",\n    \"name\": \"demo003 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'plugin'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 14,
-            "name": "the 'plugin' name must be 'demo003 plugin'",
+            "name": "the store 'created'.'name' must be 'demo003 plugin'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"a6f9f77d-bfe4-4dcc-915c-8cca82af6308\",\n    \"timestamp\": \"2018-08-28T13:33:25.898518482+02:00\",\n    \"name\": \"demo003 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       },
@@ -2059,51 +2000,46 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'plugin' with body '{\"name\":\"demo004 plugin\"}'",
+            "name": "I erase all 'plugin' with 'name' starting with 'demo004 plugin'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'plugin' with body '{\"name\":\"demo004 plugin\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 4000000
+              "duration": 3000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"77062c3c-7455-401d-94e7-b1914b35d8d5\",\n    \"timestamp\": \"2018-08-28T13:33:25.905990464+02:00\",\n    \"name\": \"demo004 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"114cc87a-ee52-4c5f-9c3d-46d0a94e1b6f\",\n    \"timestamp\": \"2018-08-29T00:50:21.408992475+02:00\",\n    \"name\": \"demo004 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'plugin'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 3000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 14,
-            "name": "the 'plugin' name must be 'demo004 plugin'",
+            "name": "the store 'created'.'name' must be 'demo004 plugin'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
-              "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"77062c3c-7455-401d-94e7-b1914b35d8d5\",\n    \"timestamp\": \"2018-08-28T13:33:25.905990464+02:00\",\n    \"name\": \"demo004 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+              "status": "passed",
+              "duration": 1000000
+            }
           }
         ]
       },
@@ -2119,28 +2055,9 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'plugin' with body '{\"name\":\"demo005 plugin\"}'",
+            "name": "I erase all 'plugin' with 'name' starting with 'demo005 plugin'",
             "match": {
-              "location": "features/support/api-steps.js:8"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 5000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"d57e391a-ce9c-4171-a49b-dfc5d059ddf3\",\n    \"timestamp\": \"2018-08-28T13:33:25.916719245+02:00\",\n    \"name\": \"demo005 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'plugin'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
+              "location": "features/support/api-steps.js:21"
             },
             "result": {
               "status": "passed",
@@ -2149,21 +2066,34 @@
           },
           {
             "arguments": [],
-            "keyword": "Then ",
-            "line": 14,
-            "name": "the 'plugin' name must be 'demo005 plugin'",
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'plugin' with body '{\"name\":\"demo005 plugin\"}' and store it to 'created'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:8"
             },
             "result": {
-              "status": "passed"
+              "status": "passed",
+              "duration": 3000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"d57e391a-ce9c-4171-a49b-dfc5d059ddf3\",\n    \"timestamp\": \"2018-08-28T13:33:25.916719245+02:00\",\n    \"name\": \"demo005 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"d8c6b05c-10f7-4203-834a-9218923eb08e\",\n    \"timestamp\": \"2018-08-29T00:50:21.416867025+02:00\",\n    \"name\": \"demo005 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "the store 'created'.'name' must be 'demo005 plugin'",
+            "match": {
+              "location": "features/support/api-steps.js:44"
+            },
+            "result": {
+              "status": "passed"
+            }
           }
         ]
       },
@@ -2179,28 +2109,9 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'plugin' with body '{\"name\":\"demo006 plugin\"}'",
+            "name": "I erase all 'plugin' with 'name' starting with 'demo006 plugin'",
             "match": {
-              "location": "features/support/api-steps.js:8"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"6261767f-dc18-48be-89f5-a00161cc3fca\",\n    \"timestamp\": \"2018-08-28T13:33:25.923290678+02:00\",\n    \"name\": \"demo006 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'plugin'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
+              "location": "features/support/api-steps.js:21"
             },
             "result": {
               "status": "passed",
@@ -2209,21 +2120,34 @@
           },
           {
             "arguments": [],
-            "keyword": "Then ",
-            "line": 14,
-            "name": "the 'plugin' name must be 'demo006 plugin'",
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'plugin' with body '{\"name\":\"demo006 plugin\"}' and store it to 'created'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:8"
             },
             "result": {
-              "status": "passed"
+              "status": "passed",
+              "duration": 3000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"6261767f-dc18-48be-89f5-a00161cc3fca\",\n    \"timestamp\": \"2018-08-28T13:33:25.923290678+02:00\",\n    \"name\": \"demo006 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"d6248abc-a943-4ac2-bc05-ad7c18826811\",\n    \"timestamp\": \"2018-08-29T00:50:21.423983698+02:00\",\n    \"name\": \"demo006 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "the store 'created'.'name' must be 'demo006 plugin'",
+            "match": {
+              "location": "features/support/api-steps.js:44"
+            },
+            "result": {
+              "status": "passed"
+            }
           }
         ]
       },
@@ -2239,7 +2163,20 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'plugin' with body '{\"name\":\"demo007 plugin\"}'",
+            "name": "I erase all 'plugin' with 'name' starting with 'demo007 plugin'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'plugin' with body '{\"name\":\"demo007 plugin\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
@@ -2249,42 +2186,22 @@
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"a0e85504-6b24-4dd8-ace7-19df18e84c32\",\n    \"timestamp\": \"2018-08-28T13:33:25.931081732+02:00\",\n    \"name\": \"demo007 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"3043a01d-0949-4176-aecf-b6fccc420597\",\n    \"timestamp\": \"2018-08-29T00:50:21.431750154+02:00\",\n    \"name\": \"demo007 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'plugin'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 14,
-            "name": "the 'plugin' name must be 'demo007 plugin'",
+            "name": "the store 'created'.'name' must be 'demo007 plugin'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
-              "status": "passed",
-              "duration": 1000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"a0e85504-6b24-4dd8-ace7-19df18e84c32\",\n    \"timestamp\": \"2018-08-28T13:33:25.931081732+02:00\",\n    \"name\": \"demo007 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+              "status": "passed"
+            }
           }
         ]
       },
@@ -2300,28 +2217,9 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'plugin' with body '{\"name\":\"demo008 plugin\"}'",
+            "name": "I erase all 'plugin' with 'name' starting with 'demo008 plugin'",
             "match": {
-              "location": "features/support/api-steps.js:8"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"b38bf7da-5e43-46ea-a70d-d49232ceb4d4\",\n    \"timestamp\": \"2018-08-28T13:33:25.937634794+02:00\",\n    \"name\": \"demo008 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'plugin'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
+              "location": "features/support/api-steps.js:21"
             },
             "result": {
               "status": "passed",
@@ -2330,22 +2228,34 @@
           },
           {
             "arguments": [],
-            "keyword": "Then ",
-            "line": 14,
-            "name": "the 'plugin' name must be 'demo008 plugin'",
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'plugin' with body '{\"name\":\"demo008 plugin\"}' and store it to 'created'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 1000000
+              "duration": 3000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"b38bf7da-5e43-46ea-a70d-d49232ceb4d4\",\n    \"timestamp\": \"2018-08-28T13:33:25.937634794+02:00\",\n    \"name\": \"demo008 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"1130ad78-ce72-4815-b427-aeb621231040\",\n    \"timestamp\": \"2018-08-29T00:50:21.439030591+02:00\",\n    \"name\": \"demo008 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "the store 'created'.'name' must be 'demo008 plugin'",
+            "match": {
+              "location": "features/support/api-steps.js:44"
+            },
+            "result": {
+              "status": "passed"
+            }
           }
         ]
       },
@@ -2361,7 +2271,20 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 12,
-            "name": "I create a 'plugin' with body '{\"name\":\"demo009 plugin\"}'",
+            "name": "I erase all 'plugin' with 'name' starting with 'demo009 plugin'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 13,
+            "name": "I create a 'plugin' with body '{\"name\":\"demo009 plugin\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
@@ -2371,42 +2294,22 @@
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"aaca95b5-26e3-4d4d-b54e-ccf04eddbb52\",\n    \"timestamp\": \"2018-08-28T13:33:25.946123579+02:00\",\n    \"name\": \"demo009 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"bca5cafe-93f3-43bf-82a3-0c7810865f32\",\n    \"timestamp\": \"2018-08-29T00:50:21.447027274+02:00\",\n    \"name\": \"demo009 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 13,
-            "name": "I read last created 'plugin'",
-            "match": {
-              "location": "features/support/api-steps.js:53"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 2000000
-            }
           },
           {
             "arguments": [],
             "keyword": "Then ",
             "line": 14,
-            "name": "the 'plugin' name must be 'demo009 plugin'",
+            "name": "the store 'created'.'name' must be 'demo009 plugin'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
-              "status": "passed",
-              "duration": 1000000
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"aaca95b5-26e3-4d4d-b54e-ccf04eddbb52\",\n    \"timestamp\": \"2018-08-28T13:33:25.946123579+02:00\",\n    \"name\": \"demo009 plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+              "status": "passed"
+            }
           }
         ]
       },
@@ -2422,17 +2325,36 @@
             "arguments": [],
             "keyword": "Given ",
             "line": 29,
-            "name": "I create a 'plugin' with body '{\"name\":\"searchable plugin\"}'",
+            "name": "I erase all 'plugin' with 'name' starting with 'searchable'",
+            "match": {
+              "location": "features/support/api-steps.js:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            },
+            "embeddings": [
+              {
+                "data": "[FOUND]",
+                "mime_type": "{\n    \"id\": \"9aad270d-4554-4258-b2a7-6076ec1dc6f6\",\n    \"timestamp\": \"2018-08-29T00:49:45.227805076+02:00\",\n    \"name\": \"searchable plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 30,
+            "name": "I create a 'plugin' with body '{\"name\":\"searchable plugin\"}' and store it to 'created'",
             "match": {
               "location": "features/support/api-steps.js:8"
             },
             "result": {
               "status": "passed",
-              "duration": 2000000
+              "duration": 3000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"7b85ff85-1774-46e4-b6b2-f878e0aa3e36\",\n    \"timestamp\": \"2018-08-28T13:33:25.952597487+02:00\",\n    \"name\": \"searchable plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
+                "data": "{\n    \"id\": \"49556358-bd5a-4d47-82f5-2c6c213fcf47\",\n    \"timestamp\": \"2018-08-29T00:50:21.457838475+02:00\",\n    \"name\": \"searchable plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
                 "mime_type": "text/plain"
               }
             ]
@@ -2440,18 +2362,18 @@
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 30,
-            "name": "I search a 'plugin' with name 'searchable plugin'",
+            "line": 31,
+            "name": "I search a 'plugin' with 'name' equals to 'searchable plugin' and store it to 'plug001'",
             "match": {
-              "location": "features/support/api-steps.js:60"
+              "location": "features/support/api-steps.js:37"
             },
             "result": {
               "status": "passed",
-              "duration": 16000000
+              "duration": 3000000
             },
             "embeddings": [
               {
-                "data": "{\n    \"id\": \"985badad-10df-4eca-8d0b-055a46c9c2f1\",\n    \"timestamp\": \"2018-08-28T10:15:20.630337805+02:00\",\n    \"name\": \"searchable plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
+                "data": "count: 1",
                 "mime_type": "text/plain"
               }
             ]
@@ -2459,20 +2381,14 @@
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 31,
-            "name": "the 'plugin' name must be 'searchable plugin'",
+            "line": 32,
+            "name": "the store 'plug001'.'name' must be 'searchable plugin'",
             "match": {
-              "location": "features/support/api-steps.js:73"
+              "location": "features/support/api-steps.js:44"
             },
             "result": {
               "status": "passed"
-            },
-            "embeddings": [
-              {
-                "data": "{\n    \"id\": \"985badad-10df-4eca-8d0b-055a46c9c2f1\",\n    \"timestamp\": \"2018-08-28T10:15:20.630337805+02:00\",\n    \"name\": \"searchable plugin\",\n    \"icon\": \"\",\n    \"type\": \"\",\n    \"owner\": \"\",\n    \"active\": false,\n    \"visible\": false,\n    \"extended\": {}\n}",
-                "mime_type": "text/plain"
-              }
-            ]
+            }
           }
         ]
       }

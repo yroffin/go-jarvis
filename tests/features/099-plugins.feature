@@ -4,14 +4,14 @@ Feature: Plugin cruds
   I want to use jarvis API
 
   Scenario: simple plugin
-    Given I create a 'plugin' with body '{"name":"demo plugin"}'
-    When I read last created 'plugin'
-    Then the 'plugin' name must be 'demo plugin'
+    Given I erase all 'plugin' with 'name' starting with 'demo'
+    Given I create a 'plugin' with body '{"name":"demo plugin"}' and store it to 'created'
+    Then the store 'created'.'name' must be 'demo plugin'
 
   Scenario Outline: much more complex stuff
-    Given I create a 'plugin' with body <body>
-    When I read last created 'plugin'
-    Then the 'plugin' name must be <name>
+    Given I erase all 'plugin' with 'name' starting with <name>
+    Given I create a 'plugin' with body <body> and store it to 'created'
+    Then the store 'created'.'name' must be <name>
 
     Examples:
       | body | name |
@@ -26,6 +26,7 @@ Feature: Plugin cruds
       | '{"name":"demo009 plugin"}' | 'demo009 plugin' |
 
   Scenario: simple plugin search
-    Given I create a 'plugin' with body '{"name":"searchable plugin"}'
-    When I search a 'plugin' with name 'searchable plugin'
-    Then the 'plugin' name must be 'searchable plugin'
+    Given I erase all 'plugin' with 'name' starting with 'searchable'
+    Given I create a 'plugin' with body '{"name":"searchable plugin"}' and store it to 'created'
+    When I search a 'plugin' with 'name' equals to 'searchable plugin' and store it to 'plug001'
+    Then the store 'plug001'.'name' must be 'searchable plugin'

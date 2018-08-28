@@ -2,23 +2,23 @@ const { Given, When, Then } = require('cucumber')
 const { expect } = require('chai')
 var _ = require('lodash');
 
-Given('I create a command with body {string}', function(body, done) {
+Given('I create a {string} with body {string}', function(api, body, done) {
   let command = JSON.parse(body);
-  this.command().post(command, (command) => {
+  eval('this.'+api+'()').post(command, (command) => {
     this.storage.post = command;
     done();
   });
 })
 
-When('I read last created command', function(done) {
-  this.command().get(this.storage.post.id, (command) => {
+When('I read last created {string}', function(api, done) {
+  eval('this.'+api+'()').get(this.storage.post.id, (command) => {
     this.storage.get = command;
     done();
   });
 })
 
-When('I search a command with name {string}', function(name, done) {
-  this.command().findAll((commands) => {
+When('I search a {string} with name {string}', function(api, name, done) {
+  eval('this.'+api+'()').findAll((commands) => {
     _.each(commands, (command) => {
       if(command.name === name) {
         this.storage.get = command;
@@ -28,6 +28,6 @@ When('I search a command with name {string}', function(name, done) {
   });
 })
 
-Then('the command name must be {string}', function(name) {
+Then('the {string} name must be {string}', function(api, name) {
   expect(this.storage.get.name).to.eql(name)
 })

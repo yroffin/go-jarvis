@@ -1,5 +1,6 @@
 const { setWorldConstructor } = require('cucumber')
 var request = require('request');
+var _ = require('lodash');
 
 class JarvisClient {
   constructor() {
@@ -61,23 +62,38 @@ class JarvisClient {
       if (!error && response.statusCode == 201) {
         callback(JSON.parse(body));
       } else {
-        console.error("ERROR", error, response.statusCode, body);
+        console.error("ERROR", error, response.statusCode, options.url);
       }
     });
   }
 
-  command(json, callback) {
+  api(name, json, callback) {
     return {
-      "get": (id, callback) => {
-        return this.get('commands', id, callback);
+      get: (id, callback) => {
+        return this.get(name, id, callback);
       },
-      "findAll": (callback) => {
-        return this.findAll('commands', callback);
+      findAll: (callback) => {
+        return this.findAll(name, callback);
       },
-      "post": (json, callback) => {
-        return this.post('commands', json, callback);
+      post: (json, callback) => {
+        return this.post(name, json, callback);
       }
-    }
+    };
+  }
+
+  // command
+  command(json, callback) {
+    return this.api('commands', json, callback);
+  }
+
+  // device
+  device(json, callback) {
+    return this.api('devices', json, callback);
+  }
+
+  // plugin
+  plugin(json, callback) {
+    return this.api('plugins/scripts', json, callback);
   }
 }
 

@@ -4,11 +4,14 @@ Feature: Command cruds
   I want to use jarvis API
 
   Scenario: simple command
+    Given I erase all 'command' with 'name' is empty
+    Given I erase all 'command' with 'name' starting with 'demo'
     Given I create a 'command' with body '{"name":"demo command"}'
     When I read last created 'command'
     Then the 'command' name must be 'demo command'
 
   Scenario Outline: much more complex stuff
+    Given I erase all 'command' with 'name' starting with <name>
     Given I create a 'command' with body <body>
     When I read last created 'command'
     Then the 'command' name must be <name>
@@ -26,6 +29,7 @@ Feature: Command cruds
       | '{"name":"demo009 command"}' | 'demo009 command' |
 
   Scenario: simple command search
+    Given I erase all 'command' with 'name' starting with 'searchable'
     Given I create a 'command' with body '{"name":"searchable command"}'
     When I search a 'command' with name 'searchable command'
     Then the 'command' name must be 'searchable command'

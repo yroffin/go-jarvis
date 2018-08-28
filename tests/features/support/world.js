@@ -29,7 +29,26 @@ class JarvisClient {
     });
   }
 
-  // Simple GET
+  // Simple DELETE
+  delete(uri, id, callback) {
+    let options = {
+      url: 'http://localhost:8080/api/' + uri + '/' + id,
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    request(options, (error, response, body) => {
+      if (!error && response.statusCode == 200) {
+        callback(JSON.parse(body));
+      } else {
+        console.error("ERROR", error, response.statusCode, body);
+      }
+    });
+  }
+
+  // Simple GET ALL
   findAll(uri, callback) {
     let options = {
       url: 'http://localhost:8080/api/' + uri,
@@ -70,6 +89,9 @@ class JarvisClient {
 
   api(name, json, callback) {
     return {
+      delete: (id, callback) => {
+        return this.delete(name, id, callback);
+      },
       get: (id, callback) => {
         return this.get(name, id, callback);
       },

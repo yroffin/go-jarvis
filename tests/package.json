@@ -3,15 +3,16 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "cucumber-js",
-    "tests": "cucumber-js"
+    "start": "cucumber-js -f json:test/report/cucumber_report.json",
+    "tests": "cucumber-js -f json:test/report/cucumber_report.json"
   },
   "private": true,
   "dependencies": {
     "chai": "4.1.2",
     "cucumber": "4.2.1",
     "request": "2.88.0",
-    "lodash": "4.17.10"
+    "lodash": "4.17.10",
+    "cucumber-html-reporter": "4.0.4"
   },
   "devDependencies": {}
 }

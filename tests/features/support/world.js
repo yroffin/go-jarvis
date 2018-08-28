@@ -3,7 +3,8 @@ var request = require('request');
 var _ = require('lodash');
 
 class JarvisClient {
-  constructor() {
+  constructor(prm) {
+    this.attach = prm.attach;
     this.storage = {
       "default": "default"
     };
@@ -97,4 +98,27 @@ class JarvisClient {
   }
 }
 
-setWorldConstructor(JarvisClient)
+setWorldConstructor(JarvisClient);
+
+var reporter = require('cucumber-html-reporter');
+
+process.on('exit', function () {
+  var options = {
+    theme: 'hierarchy',
+    jsonFile: 'test/report/cucumber_report.json',
+    output: 'test/report/cucumber_report.html',
+    reportSuiteAsScenarios: true,
+    launchReport: true,
+    columnLayout: 1,
+    metadata: {
+      "App Version": "0.3.5",
+      "Test Environment": "STAGING",
+      "Browser": "Chrome  54.0.2840.98",
+      "Platform": "Windows 10",
+      "Parallel": "Scenarios",
+      "Executed": "Remote"
+    }
+  };
+
+  reporter.generate(options);
+});
